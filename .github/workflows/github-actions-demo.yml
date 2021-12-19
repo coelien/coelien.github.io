@@ -18,6 +18,7 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.5.0
 
+
     - name: Setup Hexo env
       env:
         ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
@@ -26,7 +27,6 @@ jobs:
         mkdir -p ~/.ssh/
         echo "$ACTION_DEPLOY_KEY"
         echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa # 配置秘钥
-#        cat ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         # set git infomation
