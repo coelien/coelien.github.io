@@ -18,7 +18,6 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.5.0
 
-
     - name: Setup Hexo env
       env:
         ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
