@@ -27,13 +27,13 @@ jobs:
         mkdir -p ~/.ssh/
         echo "$ACTION_DEPLOY_KEY"
         echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa # 配置秘钥
-        cat ~/.ssh/id_rsa
+#        cat ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
-        ssh -vT git@github.com
         # set git infomation
         git config --global user.name 'coelien' # 换成你自己的邮箱和名字
         git config --global user.email 'sixwalter@163.com'
+        ssh -vT git@github.com
         # install dependencies
         npm i -g hexo-cli # 安装hexo
         npm i
