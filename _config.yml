@@ -131,7 +131,7 @@ style:
   # First screen
   first_screen:
     enable: true
-    background_img: /images/bg.svg # You can use local image or image external link
+    background_img: /images/pkq.png # You can use local image or image external link
     description: Keep writing and Keep loving.
 
   # Scroll style settings
