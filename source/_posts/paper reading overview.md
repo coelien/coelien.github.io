@@ -1,3 +1,8 @@
+---
+title: 行为识别survey 
+tags: 行为识别
+categories: 论文阅读
+---
 # 行为识别survey
 
 ## github论文代码
