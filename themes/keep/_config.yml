@@ -81,10 +81,10 @@ menu:
 # ---------------------------------------------------------------------------------------
 home_article:
   category:
-    enable: false # show category in home page article block
+    enable: true # show category in home page article block
     limit: 3 # max number of categories shown in home page article block
   tag:
-    enable: false # show tags in home page article block
+    enable: true # show tags in home page article block
     limit: 5 # max number of tags shown in home page article block
 
 # ---------------------------------------------------------------------------------------
@@ -96,8 +96,8 @@ post:
   # See: https://github.com/willin/hexo-wordcount
   word_count:
     enable: false
-    wordcount: false # word count, one article
-    min2read: false # time to read, one article
+    wordcount: true # word count, one article
+    min2read: true # time to read, one article
 
   # Author label
   author_label:
@@ -110,20 +110,20 @@ post:
 # Code copy
 # ---------------------------------------------------------------------------------------
 code_copy:
-  enable: false
+  enable: true
   style: default # values: default | mac
 
 # ---------------------------------------------------------------------------------------
 # Table of Contents in the Sidebar
 # ---------------------------------------------------------------------------------------
 toc:
-  enable: false
+  enable: true
 
   # Automatically add list number to toc.
-  number: false
+  number: true
 
   # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
-  expand_all: false
+  expand_all: true
 
   # If true, open TOC every time when you enter the article page
   init_open: false
@@ -132,7 +132,7 @@ toc:
 # Post copyright info
 # ---------------------------------------------------------------------------------------
 copyright_info:
-  enable: false
+  enable: true
 
 # ---------------------------------------------------------------------------------------
 # Website count
@@ -141,10 +141,10 @@ website_count:
   # busuanzi
   # See: http://ibruce.info/2015/04/04/busuanzi/
   busuanzi_count:
-    enable: false
-    site_uv: false
-    site_pv: false
-    page_pv: false
+    enable: true
+    site_uv: true
+    site_pv: true
+    page_pv: true
 
 # ---------------------------------------------------------------------------------------
 # Local Search
@@ -152,15 +152,15 @@ website_count:
 # See: https://github.com/theme-next/hexo-generator-searchdb
 # ---------------------------------------------------------------------------------------
 local_search:
-  enable: false
-  preload: false # Preload the search data when the page loads
+  enable: true
+  preload: true # Preload the search data when the page loads
 
 # ---------------------------------------------------------------------------------------
 # Comment plugin
 # ---------------------------------------------------------------------------------------
 comment:
-  enable: false
-  use: valine # values: valine | gitalk | twikoo
+  enable: true
+  use: gitalk # values: valine | gitalk | twikoo
 
   # Valine
   # See: https://github.com/xCss/Valine
@@ -172,10 +172,10 @@ comment:
   # Gitalk
   # See: https://github.com/gitalk/gitalk
   gitalk:
-    github_id: # GitHub repo owner
-    repository: # Repository name to store issues
-    client_id: # GitHub Application Client ID
-    client_secret: # GitHub Application Client Secret
+    github_id: coelien
+    repository: hexo-site-comments
+    client_id: 71700a6b469f847c8352
+    client_secret: 07981b96409ca9cc05e667f9a8a125a72c954b14
 
   # Twikoo
   # See: https://github.com/imaegoo/twikoo
@@ -189,25 +189,25 @@ comment:
 # See: https://github.com/hexojs/hexo-generator-feed
 # ---------------------------------------------------------------------------------------
 rss:
-  enable: false
+  enable: true
 
 # ---------------------------------------------------------------------------------------
 # Lazyload image
 # ---------------------------------------------------------------------------------------
 lazyload:
-  enable: false
+  enable: true
 
 # ---------------------------------------------------------------------------------------
 # CDN
 # ---------------------------------------------------------------------------------------
 cdn:
-  enable: false
+  enable: true
 
 # ---------------------------------------------------------------------------------------
 # PJAX
 # ---------------------------------------------------------------------------------------
 pjax:
-  enable: false
+  enable: true
 
 # ---------------------------------------------------------------------------------------
 # Footer settings
