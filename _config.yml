@@ -99,6 +99,47 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: keep
 
+base_info:
+  title: 我的征途是星辰大海
+  author: sixwalter
+  url: https://coelien.github.io/
+
+style:
+  # Theme primary color
+  primary_color: "#0066CC"
+
+  # Avatar (You can use local image or image external link)
+  avatar: /images/pkq.png
+
+  # Favicon (You can use local image or image external link)
+  favicon: /images/pkq.png
+
+  # Article image align position, value: left | center
+  article_img_align: left
+
+  # Left side width
+  left_side_width: 260px
+
+  # Content area max width
+  content_max_width: 920px
+
+  # Mouse hover
+  hover:
+    shadow: true # shadow effect when the mouse hover
+    scale: true # scale effect when the mouse hover
+
+  # First screen
+  first_screen:
+    enable: true
+    background_img: /images/bg.svg # You can use local image or image external link
+    description: Keep writing and Keep loving.
+
+  # Scroll style settings
+  scroll:
+    progress_bar:
+      enable: false
+    percent:
+      enable: false
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
