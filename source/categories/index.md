@@ -1,6 +1,5 @@
 ---
 title: categories
-date: 2021-12-17 10:43:34
-type: "categories"
-comments: false
+date: 2021-12-20 13:19:13
+comment: false
 ---
