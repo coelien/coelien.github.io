@@ -1,7 +1,7 @@
 ---
-title: 论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“
-tags: 论文阅读，行为识别，CNN
-categories: [人工智能，行为识别，CNN方法]
+title: 论文阅读笔记：”Social GAN: Socially Acceptable Trajectories with Generative Adversarial Networks“
+tags: 论文阅读，轨迹预测，RNN，GAN
+categories: [人工智能，轨迹预测，GAN]
 ---
 
 > 这一篇论文因其经典性，着重探索的各种模型的连接性，讨论如何更好地去获得时间信息，可以说是之后的C3D，Res3D，R(2+1)D的思想的先驱，有较大的参考价值，故阅读并写下笔记。
