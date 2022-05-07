@@ -9,6 +9,8 @@
     
     <title>
         
+            论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“ |
+        
         我的征途是星辰大海
     </title>
     
@@ -182,7 +184,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation"></span>
+            <span class="title-hover-animation">论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“</span>
         </div>
 
         
@@ -201,16 +203,46 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-01-03 19:03:58</span>
-        <span class="mobile">2022-01-03 19:03</span>
+        <span class="pc">2022-05-07 20:46:33</span>
+        <span class="mobile">2022-05-07 20:46</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/CNN%E6%96%B9%E6%B3%95/">CNN方法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB-CNN/">论文阅读,行为识别,CNN</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k Words</span>
         </span>
     
     
@@ -231,8 +263,7 @@
         
 
         <div class="article-content markdown-body">
-            <p>title: 论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“<br>tags: 论文阅读，行为识别，CNN<br>categories: [人工智能,行为识别,CNN方法]</p>
-<h1 id="Social-GAN阅读笔记（cvpr-2018）"><a href="#Social-GAN阅读笔记（cvpr-2018）" class="headerlink" title="Social GAN阅读笔记（cvpr 2018）"></a>Social GAN阅读笔记（cvpr 2018）</h1><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h3><p>论文的目标在于同时推理和预测在一个场景里的所有实体的未来行动轨迹。假设我们可以获得场景里人们的所有轨迹信息为$X=X_1,X_2,…,X_n$，要同时预测所有人的未来轨迹信息为$\hat{Y}=\hat{Y_1},\hat{Y_2},…,\hat{Y_n}$。行人i的输入轨迹为$X_i=(x^t_i,y^t_i)$，t=1,…,$t_{obs}$，真实未来轨迹为$Y_i=(x_i^t，y_i^t),t=t_{obs}+1,…,t_{pred}$</p>
+            <h1 id="Social-GAN阅读笔记（cvpr-2018）"><a href="#Social-GAN阅读笔记（cvpr-2018）" class="headerlink" title="Social GAN阅读笔记（cvpr 2018）"></a>Social GAN阅读笔记（cvpr 2018）</h1><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h3><p>论文的目标在于同时推理和预测在一个场景里的所有实体的未来行动轨迹。假设我们可以获得场景里人们的所有轨迹信息为$X=X_1,X_2,…,X_n$，要同时预测所有人的未来轨迹信息为$\hat{Y}=\hat{Y_1},\hat{Y_2},…,\hat{Y_n}$。行人i的输入轨迹为$X_i=(x^t_i,y^t_i)$，t=1,…,$t_{obs}$，真实未来轨迹为$Y_i=(x_i^t，y_i^t),t=t_{obs}+1,…,t_{pred}$</p>
 <h3 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h3><p>论文模型包含三个关键组件：生成器G，池化模块PM，和判别器D。G是基于编解码框架的网络，论文使用了PM模块来连接编码器和解码器的隐状态。模块G提取输入Xi并输出预测轨迹$\hat{Y}_i$。模块D输入整个包含$X_i$和$\hat{Y}_i$的序列，并把他们分类为真或假。SGAN的整体结构如下图所示：</p>
 <p><img  
                      lazyload
@@ -315,11 +346,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：</li>
+        <li>Post title：论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“</li>
         <li>Post author：sixwalter</li>
-        <li>Create time：2022-01-03 19:03:58</li>
+        <li>Create time：2022-05-07 20:46:33</li>
         <li>
-            Post link：https://coelien.github.io/2022/01/03/paper-reading/paper_reading_004/
+            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_004/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -331,6 +362,14 @@
         
 
         
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB-CNN/">#论文阅读,行为识别,CNN</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
         
             <div class="article-nav">
@@ -338,13 +377,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/05/07/hexo%E9%85%8D%E7%BD%AE/"
+                           href="/2022/05/07/paper-reading/paper_reading_overview/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">hexo配置</span>
+                                <span class="post-nav-title-item">行为识别survey</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -354,10 +393,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/12/23/CV%E5%9B%BE%E5%83%8F%E5%AF%B9%E9%BD%90&amp;%E5%9B%BE%E5%83%8F%E6%8B%BC%E6%8E%A5/"
+                           href="/2022/05/07/hexo%E9%85%8D%E7%BD%AE/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">目标识别</span>
+                                <span class="post-nav-title-item">hexo配置</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
