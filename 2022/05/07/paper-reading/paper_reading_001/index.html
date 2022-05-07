@@ -9,7 +9,7 @@
     
     <title>
         
-            行为识别survey |
+            论文阅读笔记：”Action Recognition by Dense Trajectories“ |
         
         我的征途是星辰大海
     </title>
@@ -184,7 +184,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">行为识别survey</span>
+            <span class="title-hover-animation">论文阅读笔记：”Action Recognition by Dense Trajectories“</span>
         </div>
 
         
@@ -203,8 +203,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-07 20:47:45</span>
-        <span class="mobile">2022-05-07 20:47</span>
+        <span class="pc">2022-05-07 21:01:41</span>
+        <span class="mobile">2022-05-07 21:01</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -213,10 +213,6 @@
                 
                     <li>
                         <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E7%BB%BC%E8%BF%B0/">综述</a>&nbsp;
                     </li>
                 
             </ul>
@@ -228,7 +224,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>&nbsp;
+                        <a href="/tags/%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95/">传统方法</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%85%89%E6%B5%81%E6%B3%95/">光流法</a>&nbsp;
                     </li>
                 
             </ul>
@@ -238,7 +238,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>776 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>817 Words</span>
         </span>
     
     
@@ -259,62 +259,108 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="行为识别survey"><a href="#行为识别survey" class="headerlink" title="行为识别survey"></a>行为识别survey</h1><h2 id="github论文代码"><a href="#github论文代码" class="headerlink" title="github论文代码"></a>github论文代码</h2><ul>
-<li><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/mzolfaghari/ECO-efficient-video-understanding" >ECO: Efficient Convolutional Network for Online Video Understanding<i class="fas fa-external-link-alt"></i></a></p>
+            <h1 id="Action-Recognition-by-Dense-Trajectories"><a href="#Action-Recognition-by-Dense-Trajectories" class="headerlink" title="Action Recognition by Dense Trajectories"></a>Action Recognition by Dense Trajectories</h1><h2 id="生僻术语"><a href="#生僻术语" class="headerlink" title="生僻术语"></a>生僻术语</h2><ul>
+<li>KLT tracker</li>
+</ul>
+<p>用来抽取特征的一种方法，最早被提出是为了解决传统上的影像配准问题</p>
+<ul>
+<li><p>image registration：影像配准</p>
 </li>
-<li><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/mit-han-lab/temporal-shift-module" >TSM: Temporal Shift Module for Efficient Video Understanding<i class="fas fa-external-link-alt"></i></a></p>
-</li>
-<li><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/yjxiong/action-detection" >Temporal Action Detection with Structured Segment Networks<i class="fas fa-external-link-alt"></i></a></p>
-</li>
-<li><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/gurkirt/realtime-action-detection" >Online Real-time Multiple Spatiotemporal Action Localisation and Prediction<i class="fas fa-external-link-alt"></i></a></p>
-</li>
-<li><p><a href="">Non-local Neural Networks for Video Classification</a></p>
+<li><p>SIFT：尺度不变特征转换</p>
 </li>
 </ul>
-<h2 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h2><ul>
-<li>no single approach to all problems</li>
-<li>行为识别传统方法依赖于目标检测，姿态检测，密集轨迹或是结构化信息</li>
-<li>卷积神经网络可以提取每个帧的特征来获取视频级别的预测，它的缺点是不能有效地捕获运动信息</li>
-<li>结合光流方法可以捕获短期运动信息</li>
-<li>除了RGB和光流，其他形式的信息如音频，姿势，轨迹也应该加以利用</li>
-<li>王等人关注于带有外观特征的密集轨迹描述符</li>
-<li>choutas等人编码了人体关节点的运动，得到的结果热图在时间上聚集</li>
-<li>我们可以使用双流法，通过融合运动和外观信息构建时空表示，对于短时视频它比较有效，但不适于获取长期的时间动态信息</li>
-<li>双流法包含了两个单独的子网络，一个用于原始图像，另一个用于堆叠的光流，通过融合两个流的softmax分数可以获取时空信息</li>
-<li>RNN，特别是LSTM，因其在长期时间建模的能力，在顺序任务上取得了令人瞩目的成就，所以一个可选的方案是采用LSTM来建模帧级别特征的动态信息</li>
-<li>Donahue等人设计了一个循环卷积架构，which cascaded a CNN with a recurrent model into a unified model。它可以在时间和空间维度学习视频级别的表示</li>
-<li>Ng等人将时间特征池化架构与LSTM相结合</li>
-<li>王等人利用了深层3D卷积网络来处理salient-aware clips</li>
-<li>yuan等人合成了运动轨迹，光流，和视频分割并形成了空间-光流数据，之后使用双流法分别处理合成数据和RGB数据</li>
-<li>除了2D卷积网络，3D卷积网络被提出用来处理视频。但是这些方法通常有冗余参数，并且需要提前在大规模视频数据集上预训练</li>
-<li>并且，近期架构使用了注意力机制来获取视频中的显著部分，它可以克服LSTM中无法区分视频的不同部分的缺点</li>
+<p>用来侦测和描述影像中的局部性特征，它可以帮助辨识物体。基于物体上的一些局部外观的兴趣点而与影像的大小和旋转无关，对于光线，噪声的容忍度也很高</p>
+<ul>
+<li>optical flow field</li>
 </ul>
-<h2 id="no-standard-benchmark"><a href="#no-standard-benchmark" class="headerlink" title="no standard benchmark"></a>no standard benchmark</h2><ul>
-<li>high spatial correlation among the videos makes the actual diversity in the training much lesser.</li>
-<li>given the similar theme (sports) across both the datasets, generalization of benchmarked architectures to other tasks remained a problem</li>
-<li>using pre-trained 2D CNNs as a starting point for drastically better convergence</li>
+<p>光流（optical flow）用来描述相对于观察者的运动所造成的观测目标，表面或边缘的运动。它通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法</p>
+<ul>
+<li>feature</li>
 </ul>
-<h2 id="actions-recognition-approaches-overview"><a href="#actions-recognition-approaches-overview" class="headerlink" title="actions recognition approaches overview"></a>actions recognition approaches overview</h2><ol>
-<li>Local high-dimensional visual features that describe a region of the video are extracted either densely [<a class="link"   target="_blank" rel="noopener" href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#3" >3<i class="fas fa-external-link-alt"></i></a>] or at a sparse set of interest points[<a class="link"   target="_blank" rel="noopener" href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#4" >4<i class="fas fa-external-link-alt"></i></a> , <a class="link"   target="_blank" rel="noopener" href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#5" >5<i class="fas fa-external-link-alt"></i></a>].(提取高维视觉特征)</li>
-<li>The extracted features get combined into a fixed-sized video level description. One popular variant to the step is to bag of visual words (derived using hierarchical or k-means clustering) for encoding features at video-level.</li>
-<li>A classifier, like SVM or RF, is trained on bag of visual words for final prediction</li>
-</ol>
-<h3 id="Approach-1-Single-Stream-Network"><a href="#Approach-1-Single-Stream-Network" class="headerlink" title="Approach 1: Single Stream Network"></a>Approach 1: Single Stream Network</h3><ol>
-<li>The learnt spatiotemporal features didn’t capture motion features</li>
-<li>The dataset being less diverse, learning such detailed features was tough</li>
-</ol>
-<h3 id="Approach-2-Two-Stream-Networks"><a href="#Approach-2-Two-Stream-Networks" class="headerlink" title="Approach 2: Two Stream Networks"></a>Approach 2: Two Stream Networks</h3>
+<p>特征是一块关于图像内容的信息，主要包括图像的特定区域是否包含特定的属性。特征也许是图像中明确的结构，如点，边或是物体，它也可能是对图像进行特征检测后的结果</p>
+<ul>
+<li> interest point</li>
+</ul>
+<p>图像中类点的特征，他有局部二维结构，可以被鲁棒地检测</p>
+<ul>
+<li> Gabor filter</li>
+</ul>
+<p>它是用来进行纹理分析的线性过滤器</p>
+<ul>
+<li>median filter：中值滤波器</li>
+</ul>
+<p>常用于去除图像或其他信号中的噪声</p>
+<ul>
+<li>bilinear interpolation：双线性插值</li>
+</ul>
+<p>双线性插值是一种基本的重采样技术</p>
+<ul>
+<li>HOG：方向梯度直方图</li>
+</ul>
+<p>用于目标检测的特征描述器。该技术是用来计算局部图像梯度的方向信息的统计值。<strong>局部目标的表象和形状（appearance and shape）能够被梯度或边缘的方向密度分布很好地描述</strong></p>
+<h2 id="Bag-of-Features-approach"><a href="#Bag-of-Features-approach" class="headerlink" title="Bag of Features approach"></a>Bag of Features approach</h2><blockquote>
+<p>该论文使用了该方法在行为分类的场景下评估了创新的视频描述方法</p>
+</blockquote>
+<ul>
+<li><p>Bag of Features框架是词包模型在图像识别领域的延申，2004年引入CV领域，逐渐形成了标准物体分类框架：</p>
+<ul>
+<li>底层特征提取</li>
+<li>特征编码</li>
+<li>特征汇聚</li>
+<li>使用SVM分类器进行分类</li>
+</ul>
+</li>
+<li><p>搭建Bag-of_Features的步骤：</p>
+<ul>
+<li>特征提取（SIFT算子）</li>
+<li>K-means聚类</li>
+<li>量化特征，形成词袋</li>
+<li>统计每一类别的视觉单词出现频率，形成视觉单词直方图</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/static%5C20210912paperreading00101.png"
+                      alt="20210912paperreading00101"
+                ></p>
+<ul>
+<li>训练SVM分类器</li>
+</ul>
+</li>
+<li><p>具体代码实践参考<a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/skyfsm/p/8097397.html" >这里<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+</ul>
+<h2 id="提取密集轨迹"><a href="#提取密集轨迹" class="headerlink" title="提取密集轨迹"></a>提取密集轨迹</h2><ul>
+<li><p>计算 $P_{t+1}$ ：$P_{t+1} = (x_{t+1},y_{t+1}) = (x_t,y_t) + (M*\omega)|_{(\overline{x}_t,\overline{y}_t)}$</p>
+<ul>
+<li><em>M</em> is the median fifiltering kernel, ${(\overline{x}_t,\overline{y}_t)}$ is the rounded position of $(x_t,y_t)$</li>
+</ul>
+</li>
+<li><p>后续帧的点被连接起来形成轨迹$(P_t,P_{t+1},P_{t+2},…)$，为了提取密集光流，文章使用了Farneback算法</p>
+</li>
+<li><p>给定长度为L的轨迹，我们定义序列$S=(\Delta P_t,…,\Delta P_{t+L-1})$ 来描述它的形状，其中位移向量为$\Delta P_t = (P_{t+1}-P_t)$</p>
+</li>
+<li><p>规范化之后，我们可以得到轨迹描述器：<br>$$<br>S^`= \frac{(\Delta P_t,…,\Delta P_{t+L-1})}{\sum_{j=t}^{t+L-1}||\Delta P_j||}<br>$$</p>
+</li>
+</ul>
+<h2 id="轨迹对齐的描述器"><a href="#轨迹对齐的描述器" class="headerlink" title="轨迹对齐的描述器"></a>轨迹对齐的描述器</h2><ul>
+<li>计算局部描述器已成为视频表示的流行方法，本文在沿着轨迹的时空体（3D）中进行计算<ul>
+<li>现存有很多行为识别的描述器</li>
+</ul>
+</li>
+</ul>
+
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：行为识别survey</li>
+        <li>Post title：论文阅读笔记：”Action Recognition by Dense Trajectories“</li>
         <li>Post author：sixwalter</li>
-        <li>Create time：2022-05-07 20:47:45</li>
+        <li>Create time：2022-05-07 21:01:41</li>
         <li>
-            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_overview/
+            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_001/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -329,7 +375,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">#行为识别</a>&nbsp;
+                        <a href="/tags/%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95/">#传统方法</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%85%89%E6%B5%81%E6%B3%95/">#光流法</a>&nbsp;
                     </li>
                 
             </ul>
@@ -341,7 +391,7 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/05/07/paper-reading/paper_reading_012%20/"
+                           href="/2022/05/07/paper-reading/paper_reading_002/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
@@ -357,10 +407,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/05/07/paper-reading/paper_reading_004/"
+                           href="/2022/05/07/paper-reading/paper_reading_012%20/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“</span>
+                                <span class="post-nav-title-item"></span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -556,7 +606,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%ABsurvey"><span class="nav-number">1.</span> <span class="nav-text">行为识别survey</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#github%E8%AE%BA%E6%96%87%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">github论文代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">1.2.</span> <span class="nav-text">summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#no-standard-benchmark"><span class="nav-number">1.3.</span> <span class="nav-text">no standard benchmark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#actions-recognition-approaches-overview"><span class="nav-number">1.4.</span> <span class="nav-text">actions recognition approaches overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach-1-Single-Stream-Network"><span class="nav-number">1.4.1.</span> <span class="nav-text">Approach 1: Single Stream Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach-2-Two-Stream-Networks"><span class="nav-number">1.4.2.</span> <span class="nav-text">Approach 2: Two Stream Networks</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Action-Recognition-by-Dense-Trajectories"><span class="nav-number">1.</span> <span class="nav-text">Action Recognition by Dense Trajectories</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%83%BB%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.1.</span> <span class="nav-text">生僻术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bag-of-Features-approach"><span class="nav-number">1.2.</span> <span class="nav-text">Bag of Features approach</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%8F%96%E5%AF%86%E9%9B%86%E8%BD%A8%E8%BF%B9"><span class="nav-number">1.3.</span> <span class="nav-text">提取密集轨迹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A8%E8%BF%B9%E5%AF%B9%E9%BD%90%E7%9A%84%E6%8F%8F%E8%BF%B0%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">轨迹对齐的描述器</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

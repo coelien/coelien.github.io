@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-07T12:47:45.683Z</updated>
+  <updated>2022-01-10T07:56:20.952Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,212 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_005/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_005/</id>
+    <published>2022-05-07T13:01:41.958Z</published>
+    <updated>2022-01-10T07:56:20.952Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="论文阅读笔记—Social-LSTM-Human-Trajectory-Prediction-in-Crowded-Spaces（CVPR-2016）"><a href="#论文阅读笔记—Social-LSTM-Human-Trajectory-Prediction-in-Crowded-Spaces（CVPR-2016）" class="headerlink" title="论文阅读笔记—Social LSTM:Human Trajectory Prediction in Crowded Spaces（CVPR 2016）"></a>论文阅读笔记—Social LSTM:Human Trajectory Prediction in Crowded Spaces（CVPR 2016）</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简单来讲，该论文通过邻域池化的思想来综合多个行人轨迹的的信息，提供给LSTM模型来生成下一个隐变量，这个隐变量包含了自身的历史轨迹信息，也包含了其邻域LSTM的历史信息。这个问题的目的是预测密集行人的轨迹，来防止与人发生碰撞，是序列生成问题的一种变体。作者使用了带有社交池化的LSTM模型，希望对复杂的行人社交常识（避让，转向等）进行建模，并通过该模型解释聚集行人场景下的运动行为。</p><h2 id="隐变量社交池化"><a href="#隐变量社交池化" class="headerlink" title="隐变量社交池化"></a>隐变量社交池化</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201101457140.png"                      alt="image-20220110145702970" style="zoom:50%;"                 ><p>作者的思想很简单，通过共享周围邻域内的LSTM隐变量，使得模型具有捕获周围人运动信息的能力。在每一个时间步，LSTM单元从其领域LSTM单元接受池化隐状态信息，如下图所示，池化时，隐变量的空间信息可以在一定程度上保持。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201101503438.png"                      alt="image-20220110150338386" style="zoom: 50%;"                 ><p>下面的等式(1)即社交池化的形式化表达，它是一个（$n<em>n</em>D$）形状的3D张量，n代表邻域的范围，D为隐状态的维度。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201101504279.png"                      alt="image-20220110150417254" style="zoom:50%;"                 ><h2 id="位置估计"><a href="#位置估计" class="headerlink" title="位置估计"></a>位置估计</h2><p>论文里使用了t时刻的隐状态来预测t+1时刻人i轨迹位置的分布。作者假设其分布服从二元高斯分布，因其有5个待估计参数，可以利用线性层（权重矩阵shape为5*D）来估计，如等式4所示。我们可以通过该分布生成t+1时刻人i的轨迹位置。LSTM的参数可以使用似然函数损失作为目标函数来进行优化（即最小化负对数似然损失）。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201101505559.png"                      alt="image-20220110150501520" style="zoom:50%;"                 >]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;论文阅读笔记—Social-LSTM-Human-Trajectory-Prediction-in-Crowded-Spaces（CVPR-2016）&quot;&gt;&lt;a href=&quot;#论文阅读笔记—Social-LSTM-Human-Trajectory-Predictio</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_006/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_006/</id>
+    <published>2022-05-07T13:01:41.958Z</published>
+    <updated>2022-01-17T13:07:42.932Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Notes-of-Reading-“From-Goals-Waypoints-amp-Paths-To-Long-Term-Human-Trajectory-Forecasting”-ICCV-2021"><a href="#Notes-of-Reading-“From-Goals-Waypoints-amp-Paths-To-Long-Term-Human-Trajectory-Forecasting”-ICCV-2021" class="headerlink" title="Notes  of Reading “From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting”(ICCV 2021)"></a>Notes  of Reading “From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting”(ICCV 2021)</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>行人轨迹预测是一个内在的多模态问题，因为行人轨迹存在很多不确定性，论文将这种不确定性分解为认知不确定性（对于模型未知）和偶然不确定性（不可避免的随机性）。这篇文章利用了分解的思想，分别对认知不确定性（行人的目标）和偶然不确定性（路径）进行建模，从而能够预测更长时间且多样的轨迹。这篇文章极大的参考了U-net这个网络，并基于这个网络进行了一系列改进。</p><h2 id="模型网络"><a href="#模型网络" class="headerlink" title="模型网络"></a>模型网络</h2><h3 id="Y-NET"><a href="#Y-NET" class="headerlink" title="Y-NET"></a>Y-NET</h3><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201171737948.png"                      alt="image-20220117173701779" style="zoom:50%;"                 ><p>Y-NET模型包含了3个子网络（Ue,Ug,Ut），并将整个随机性分解为两种模式。首先，对认知不确定性建模的模块A会预测多个目标（即行人轨迹的最终目的地坐标，共预测Ke个）；之后对随即不确定性建模的模块会根据从模块A得到的估计目标位置来预测多条路径（Ka个）。</p><ul><li>场景轨迹热图表示</li></ul><p>为了正确引入场景信息，在满足像素对齐的情况下，作者使用了场景轨迹热图表示的方法，即在和图片相同的空间内去表示轨迹信息。如图所示，RGB图像首先经过语义分割网络处理得到了语义分割图S（包含C个类别），在下方平行的路径中，作者将历史轨迹序列转化为了轨迹热图H，其空间大小和场景图像相同，通道数即为历史轨迹采样点数。作者将分割图和轨迹热图在通道维度进行连接，得到了轨迹场景热图张量$Hs(H<em>W</em>(C+np))$，并将其作为输入传递到编码网络Ue中。</p><ul><li>场景轨迹热图编码器（Ue）</li></ul><p>在编码器Ue中，它包含了M个block，在每个block后使用最大池化来进行降采样，最终空间紧凑的输出张量shape为($H_M<em>W_M</em>C_M$)。网络将该张量与中间M-1个block的输出张量合并起来作为输入传给目标位置解码器和轨迹解码器</p><ul><li>场景轨迹热图解码器（Ug）</li></ul><h3 id="非参数化采样过程"><a href="#非参数化采样过程" class="headerlink" title="非参数化采样过程"></a>非参数化采样过程</h3><h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Notes-of-Reading-“From-Goals-Waypoints-amp-Paths-To-Long-Term-Human-Trajectory-Forecasting”-ICCV-2021&quot;&gt;&lt;a href=&quot;#Notes-of-Reading-“F</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_007/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_007/</id>
+    <published>2022-05-07T13:01:41.958Z</published>
+    <updated>2022-03-22T08:46:37.393Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017"><a href="#Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017" class="headerlink" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(CVPR 2017)"></a>Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(CVPR 2017)</h1><p>该论文提出了Kinetics这一更大的人类行为视频数据集，使用它进行预训练的模型更适合于迁移学习。该论文提出了一个新的模型I3D，并将该模型与之前提出的不同行为分类架构进行比较。</p><h2 id="模型网络"><a href="#模型网络" class="headerlink" title="模型网络"></a>模型网络</h2><h3 id="I3D"><a href="#I3D" class="headerlink" title="I3D"></a>I3D</h3><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203221535849.png"                      alt="image-20220322153519705" style="zoom:67%;"                 ><p>b图3D-convnet架构的缺陷是，无法有效利用ImageNet预训练模型，需要从头开始训练，并且由于参数量的庞大而较难以训练，因此网络较浅。c图双流法弥补了a图LSTM低层次运动信息的缺陷，而且更加容易训练。d图在双流法的基础上将空间和光流信息在最后进行融合，并将融合的信息送入3D-convnet进行分类。e图的I3D在d图的架构上进行了改进，用3D-convnet对之前的convnet进行了平滑扩展，并且可以充分利用ImageNet预训练参数。这里的想法是可以通过对原图片进行复制，并将其转换为每帧都相同的视频序列（boring-video）。但其实我们也不需要真的训练，这里需要满足一个条件我们就可以直接利用2D-convnet的参数：在视频上的响应或激活特征应与单张图片时作为输入时相同。所以我们只需对2D-filters沿时间维度进行复制，并将权重缩小n倍即可。还有一个问题也需要处理，就是如何进行时间维度感受野的设置，即我们如何设置时间维度的stride步长。它的设置应与采样帧率与图像维度有关，过大会会导致混淆不同物体的边缘，不利于学习良好的特征；过小也会不利于捕获场景中的动态信息。通过实验，作者认为在前两个maxpooling层不执行时间维度的池化会比较有效。下图是I3D主干网络的结构图：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203221630934.png"                      alt="image-20220322163021793" style="zoom:67%;"                 ><p>作者认为如果只使用RGB输入，模型只单纯地进行前馈计算，而因为光流算法涉及一些迭代优化，这可能是加入光流对模型性能有较大提升的原因。值得一提的是，作者并没有进行端到端的训练，而是分别训练两个不同输入的模型；并且训练时作者多个GPU进行同步训练。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017&quot;&gt;&lt;a href=&quot;#Quo-Vadis-Action-Recognition-A-New-Model-and-</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_009%20/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_009%20/</id>
+    <published>2022-05-07T13:01:41.958Z</published>
+    <updated>2022-03-31T09:38:57.359Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Deep-Temporal-Linear-Encoding-Networks"><a href="#Deep-Temporal-Linear-Encoding-Networks" class="headerlink" title="Deep Temporal Linear Encoding Networks"></a><strong>Deep Temporal Linear Encoding Networks</strong></h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>这篇文章主要是针对如何对整个视频进行表示，即如何对视频中的片段进行聚合，提出了时间线性编码（TLE），它可以嵌入在CNN中作为一个层，从而允许端到端的训练。</p><h2 id="二-TLE-Layer"><a href="#二-TLE-Layer" class="headerlink" title="二. TLE　Layer"></a>二. TLE　Layer</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331170312907.png"                      alt="image-20220331170312907" style="zoom:50%;"                 ><p>TLE层主要分为两个部分，第一个是对视频的多个片段的特征图进行聚合的操作，第二个是将聚合表示转化为线性编码特征的编码操作，算法如下图所示：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331171227702.png"                      alt="image-20220331171227702" style="zoom: 50%;"                 ><p>聚合方法可采用（逐元素）最大聚合，平均聚合和乘积聚合，编码方法可采用双线性模型和全连接池化。实验表明，双线性模型较第二种方法计算更加快速，参数量更少的同时效果更好，使用Tensor Sketch算法也可以通过将高维空间投影到低维空间而无需直接计算外积。作者在已有的典型模型的基础上只保留卷积，通过加入TLE层来进行实验。实验证明使用该层对模型效果均有较大提升。值得一提的是，作者还将环境场景信息纳入考虑，作为额外信息进行聚合，实验表明准确率有较大提升，该实验证明了TLE合并不同数据流的能力。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331173204667.png"                      alt="image-20220331173204667" style="zoom:50%;"                 >]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Deep-Temporal-Linear-Encoding-Networks&quot;&gt;&lt;a href=&quot;#Deep-Temporal-Linear-Encoding-Networks&quot; class=&quot;headerlink&quot; title=&quot;Deep Temporal Li</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_008/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_008/</id>
+    <published>2022-05-07T13:01:41.958Z</published>
+    <updated>2022-03-31T07:45:42.632Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition"><a href="#Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition" class="headerlink" title="Notes on Long-Term Temporal Convolutions for Action Recognition"></a>Notes on Long-Term Temporal Convolutions for Action Recognition</h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>典型的人体动作经常持续数秒，只学习少数帧无法对动作在其持续时间范围内进行有效建模，将具有特定特征的视频分解为clips，并在视频层面将各个clips的信息加以聚合的方法可能不是最优的，因此该论文尝试通过长期时间卷积（LTC）来学习视频的有效表示。为了不让复杂度过高，使模型易于处理，作者在增加时间范围的同时降低了空间分辨率。</p><h2 id="二-模型结构"><a href="#二-模型结构" class="headerlink" title="二. 模型结构"></a>二. 模型结构</h2><p>作者以C3D模型为基础，扩展该模型实验了不同输入时间分辨率（${20,40,60,80,100}$）和空间分辨率（${58<em>58; 71</em>71}$）的效果。作者认为如果在网络的高层保留更大的时间分辨率可以学习更为复杂的模式。该论文做了丰富的实验。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203311545215.png"                      alt="image-20220331154503089" style="zoom: 50%;"                 >]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition&quot;&gt;&lt;a href=&quot;#Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recog</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_010%20/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_010%20/</id>
+    <published>2022-05-07T13:01:41.958Z</published>
+    <updated>2022-03-31T09:00:18.873Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition"><a href="#Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition" class="headerlink" title="Notes on Long-Term Temporal Convolutions for Action Recognition"></a>Notes on Long-Term Temporal Convolutions for Action Recognition</h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>典型的人体动作经常持续数秒，只学习少数帧无法对动作在其持续时间范围内进行有效建模，将具有特定特征的视频分解为clips，并在视频层面将各个clips的信息加以聚合的方法可能不是最优的，因此该论文尝试通过长期时间卷积（LTC）来学习视频的有效表示。为了不让复杂度过高，使模型易于处理，作者在增加时间范围的同时降低了空间分辨率。</p><h2 id="二-模型结构"><a href="#二-模型结构" class="headerlink" title="二. 模型结构"></a>二. 模型结构</h2><p>作者以C3D模型为基础，扩展该模型实验了不同输入时间分辨率（${20,40,60,80,100}$）和空间分辨率（${58<em>58; 71</em>71}$）的效果。作者认为如果在网络的高层保留更大的时间分辨率可以学习更为复杂的模式。该论文做了丰富的实验。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203311545215.png"                      alt="image-20220331154503089" style="zoom: 50%;"                 ><p>如上图a,b所示，文章发现更大的空间分辨率在时间范围较小时对结果的提升较为明显，但是相当于空间分辨率，时间分辨率对结果的提升更明显，作者认为这可能是因为更多的参数需要大数据集进行训练，而训练数据的不足导致了过拟合。图c说明了时间分辨率对不同行为分类准确率的影响，小部分历时较小的行为（例如shotput）甚至会导致较差的效果。为了判断最优时间范围，作者统计了不同时间分辨率下的准确率最高的行为数量分布，如图d 所示，可见绝大部分的最优准确率均在100处获得。e图计算了平均准确率增益，进一步印证了在100时获得的增益最多。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331164306243.png"                      alt="image-20220331164306243" style="zoom:50%;"                 ><p>如上图，作者还研究了对不同时间分辨率的LTC网络进行组合（通过late fusion）所带来的增益。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331164942582.png"                      alt="image-20220331164942582" style="zoom:50%;"                 ><p>由图，在网络的越高层，越高的时间分辨率，同一个filter所对应的响应更加纯化（即同类的行为具有更高的聚合性）。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition&quot;&gt;&lt;a href=&quot;#Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recog</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_011%20/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_011%20/</id>
+    <published>2022-05-07T13:01:41.958Z</published>
+    <updated>2022-04-10T13:15:00.469Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="MoViNets-Mobile-Video-Networks-for-Effificient-Video-Recognition"><a href="#MoViNets-Mobile-Video-Networks-for-Effificient-Video-Recognition" class="headerlink" title="MoViNets: Mobile Video Networks for Effificient Video Recognition"></a>MoViNets: Mobile Video Networks for Effificient Video Recognition</h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>传统视频行为识别需要巨大的计算量和存储需求，该论文所提出的模型极大地优化了计算和存储效率，movinet可以线上对流视频进行实时推理。该论文首先设计了一个视频网络搜索空间，应用NAS技术生成有效且多样的3D架构。其次论文引入了流缓冲技术，将内存从视频剪辑中解耦，从而允许3D网络仅需常数的内存足迹就可以嵌入任意长度的流视频序列进行训练和推理。该论文还使用了一种简单的组合方法来提升精度。值得注意的是，该模型未使用任何预训练技术，并且仅使用RGB输入。</p><blockquote><p>该论文在提高视频模型的效率做了进一步的研究。SlowFast networks， X3D等是这方面的代表。有些网络TSN等进一步探索了2D网络，这些网络在之后对片段特征图进行late fusion。TSM<a href="#1">[1]</a>使用了early fusion,它沿着时间坐标移动了一部分通道，在支持在线推理的同时提高了准确率。</p><p>对于计算复杂的视频网络，寻找一个有效的架构是十分必要的， <a href="#2">[2]</a><a href="#3">[3]</a>探索了一些寻找架构的方法。在视频架构搜索方面，Tiny video networks<a href="#4">[4]</a>和AssembleNet<a href="#5">[5]</a>有较大贡献。</p><p>深度组合常被用于提升CNN的性能，图像分类的近期研究表明<a href="#6">[6]</a>对小型的深度组合可能比单个大模型更加有效，作者将该发现扩展并应用于视频分类。</p><p>在设计用于在线流视频推理的stream buffer的时候，作者受到了因果卷积<a href="#7">[7]</a>的启发。</p></blockquote><h2 id="二-NAS"><a href="#二-NAS" class="headerlink" title="二. NAS"></a>二. NAS</h2><p>作者通过NAS探索了如何融合时空操作来寻找最佳特征组合以权衡效率与精度。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101455745.png"                      alt="image-20220410145528611" style="zoom: 50%;"                 ><p>从图中可看出对于movinetA0在与mobilenetlarge+TSM达到相似准确率的情况下，浮点数运算减少了近75%。movinetA6达到了83.5%的精度，比X3D精度高了1.6%，浮点数操作减少了近60%。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101514863.png"                      alt="image-20220410151456737" style="zoom:50%;"                 ><p>在2D 移动网络搜索的研究基础上，作者以TuNAS框架为起始，并对它略作修改使之适用于3D网络。Movinet搜索空间的基准是MobileNetV3，上图是对搜索空间的总体描述。对于网络中的每个block，NAS搜索了基准filter width，和每个块中的层数。作者将乘子{0.75，1，1.25}应用在特征图通道。作者设置了5个block，并在每个block的第一个层使用空间降采样。对于时间维度，每层的过滤器大小在如下的范围中选择：{1x3x3, 1x5x5, 1x7x7, 5x1x1,7x1x1, 3x3x3, 5x3x3} 。这些选择使得层关注并聚合不同的维度表示方法，在最适宜的方向扩展网络的感受野，并减少其他维度的计算量。每个层之后有$1<em>1</em>1$卷积在$c^{base}$和$c^{expand}$之间进行转换。文章使用了复合缩放启发式方法来进行搜索（随机搜索缩放系数）， EffificientNet使用了类似的方法。</p><h2 id="二-Stream-Buffering"><a href="#二-Stream-Buffering" class="headerlink" title="二. Stream Buffering"></a>二. Stream Buffering</h2><p><strong>原理</strong>：流缓冲通过缓存子剪辑边界处的特征图将时间依赖在连续非重叠子剪辑的进行传递。它在流缓冲中加入了无向因果操作如因果卷积，累计池化和带位置编码的因果SE操作，使得时间感受野只查看过去帧，允许我们在线上推理时递增地处理流视频。因果操作在kinetics数据集上仅仅损失了1%的精度。</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101605783.png"                      alt="image-20220410160559714"                ></p><p>上图对比了流评估和多剪辑评估方法，左图的多剪辑评估也是一种有效减少内存的解决方法：模型在测试时对n个相互重叠的子剪辑进行平均预测，这种方法将内存消耗降低到$O(T^{clip})$。这种方式有两个缺陷：一是限制了时间感受野的（对每个子剪辑），并忽略了长时间范围的依赖，可能会影响精度；二是重复计算了重叠帧的激活，从而降低了计算效率。右图的Stream Buffering解决了上述两个缺陷，他应用了缓存的思想，对边界处的特征激活进行缓存，从而能够将时间感受野在子剪辑之间进行扩展，提高准确率。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101618355.png"                      alt="image-20220410161809329" style="zoom:50%;"                 ><p>上面的公式将缓冲B与当前子剪辑xi沿时间维度进行拼接,并将得到的张量通过3D卷积进行处理，得到了特征图Fi。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101620557.png"                      alt="image-20220410162055538" style="zoom:50%;"                 ><p>当处理下一个剪辑时，我们需要对buffer进行更新，公式如上图所示。作者在拼接后的张量中选择最新的b个帧来更新该buffer。因此，流缓冲技术的内存复杂度为$O(T^{clip}+b)$。</p><p>在流缓冲中，作者强制使用了因果关系，即任何特征不能从未来特征计算得出。它有很多好处，包括将子剪辑降低到单帧但不会影响激活和预测，从而使得3D网络能够对流视频进行在线推理。在因果卷积中加入CasualSE可以使得精度进一步提高。作者在实验中发现，将帧位置编码向量与CGAP（累积的全局平均池化）输出相加得到的输出来继续进行SE投影效果比不使用位置编码效果好。</p><p>在训练时作者使用了循环训练策略来降低内存需求。作者不会对buffer进行反向传播，所以之前的子剪辑可以被释放掉，以空出内存。相反，它计算相邻clips之间的损失并累积计算的梯度（与batch梯度累积类似）。在线上推理时，我们经常将剪辑长度设为1来最大化内存效率，设置较小的剪辑长度同样降低了帧之间的延迟，使得模型能够输出单帧预测。</p><h2 id="三-时序组装"><a href="#三-时序组装" class="headerlink" title="三. 时序组装"></a>三. 时序组装</h2><p>作者独立地训练了两个具有相同浮点运算数地stream movinets。它们的帧率均为先前的一半，但其中一个网络相对于另一个有一帧的偏移，作者在使用softmax之前先对它们的输出进行算数平均。该方法的计算量与训练一个大模型的计算量相同，但将两个小模型结合起来可以实现更高的精度。</p><h2 id="四-不带流缓冲的movinet"><a href="#四-不带流缓冲的movinet" class="headerlink" title="四. 不带流缓冲的movinet"></a>四. 不带流缓冲的movinet</h2><p>文章对7个不同计算复杂度的模型进行了实验，每个模型主要与X3D进行比对。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101908345.png"                      alt="image-20220410190856319" style="zoom: 67%;"                 ><p>从图中可以看出，movinet在达到state of arts的同时模型的效率也是最高的。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101915639.png"                      alt="image-20220410191548577" style="zoom:50%;"                 ><p>从图中可以看出，带stream buffer的网络相较base网络仅有1%的下降但是随着输入帧数的增加器内存使用是常数的。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101920131.png"                      alt="image-20220410192012107" style="zoom:67%;"                 ><p>有趣的是，在对ResNet3D使用stream buffer方法时，削减的内存并不显著，这可能是因为depthwise卷积和3D全卷积之间的差别。</p><p><span id="1">[1] Progressive neural architecture search. ECCV 2018</span></p><p><span id="2">[2] Progressive neural architecture search. ECCV 2018</span></p><p><span id="3">[3] Effificient neural architecture search via parameter sharing. 2018</span></p><p><span id="4">[4] Tiny video networks: Architecture search for effificient video models. 2020</span></p><p><span id="5">[5] Assemblenet: Searching for multi-stream neural connectivity in video architectures. 2019</span></p><p><span id="6">[6] When ensembling smaller models is more effificient than single large models. 2020</span></p><p><span id="7">[7] Massively parallel video networks. 2018</span></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;MoViNets-Mobile-Video-Networks-for-Effificient-Video-Recognition&quot;&gt;&lt;a href=&quot;#MoViNets-Mobile-Video-Networks-for-Effificient-Video-Rec</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_002/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_002/</id>
+    <published>2022-05-07T13:01:41.956Z</published>
+    <updated>2021-09-27T04:20:29.317Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="BSRN"><a href="#BSRN" class="headerlink" title="BSRN"></a>BSRN</h1><h2 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h2><ul><li><p>RRB</p><ul><li> keep track of the status of the current image features</li></ul></li><li><p>提高BSRN模型性能的方法：</p><ul><li>增加卷积通道宽度c</li><li>增加block state的特征维度s— make the model compact</li></ul></li></ul><h2 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><ul><li>使用DIV2K来训练BSRN模型</li><li>使用四个基准数据集来评估模型性能： Set5 [1],Set14 [2], BSD100 [3], and Urban100 [4]</li></ul><h3 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h3><p>用来检测生成的优化图像的质量</p><ul><li>PSNR</li><li>SSIM</li></ul><h3 id="实验细节"><a href="#实验细节" class="headerlink" title="实验细节"></a>实验细节</h3><ul><li><p>本文建立了single-scale和multi-scale两个BSRN模型。</p></li><li><p>singe-scale模型是用来：</p><ul><li>检验使用块状态的有效性</li><li>探索频率控制变量r的作用</li></ul></li><li><p>multi-scale模型是用来：</p><ul><li>将本文模型同世界上最先进的方法进行比较</li></ul></li><li><p>recursive operations <em>R</em> 和 frequency control variable <em>r</em> 设置为16，1</p></li><li><p>在每一步训练使用8个训练patches，在数据增强时，patches被随机地翻转或旋转</p></li><li><p>检验使用块状态的有效性：</p><ul><li>single-scale BSRN model having an upscaling factor of 4，evaluate on BSD100 dataset</li><li><em>r</em> = 1</li><li> without the block state：</li><li><em>s</em> = 0</li><li> <em>c</em> from 64 to 96</li><li>with block state:<ul><li>c = 64</li><li>s from 1 to 64</li></ul></li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\20210927paperreading00102.png"                      alt="20210927paperreading00102" style="zoom: 67%;"                 ></li><li><p>探索频率控制变量r的作用：它决定了upscaling part被应用的次数, which is R/r，evaluate on BSD100 dataset</p><ul><li>upscaling part 计算复杂性来源：<ul><li>增加的卷积过滤器数量</li><li>depth-to-space操作</li><li> increased spatial resolution</li></ul></li><li><em>c</em> = 64 and <em>s</em> = 64 </li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\20210927paperreading00103.png"                      alt="20210927paperreading00103" style="zoom:67%;"                 ></li><li><p>本文模型同世界上最先进的方法进行比较：</p><ul><li>在四个基准数据集上进行比较</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\20210927paperreading00104.png"                      alt="20210927paperreading00104" style="zoom:50%;"                 ></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;BSRN&quot;&gt;&lt;a href=&quot;#BSRN&quot; class=&quot;headerlink&quot; title=&quot;BSRN&quot;&gt;&lt;/a&gt;BSRN&lt;/h1&gt;&lt;h2 id=&quot;核心方法&quot;&gt;&lt;a href=&quot;#核心方法&quot; class=&quot;headerlink&quot; title=&quot;核心方法&quot;&gt;&lt;/a</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>论文阅读笔记：”Action Recognition by Dense Trajectories“</title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_001/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_001/</id>
+    <published>2022-05-07T13:01:41.954Z</published>
+    <updated>2022-05-07T13:05:27.936Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Action-Recognition-by-Dense-Trajectories"><a href="#Action-Recognition-by-Dense-Trajectories" class="headerlink" title="Action Recognition by Dense Trajectories"></a>Action Recognition by Dense Trajectories</h1><h2 id="生僻术语"><a href="#生僻术语" class="headerlink" title="生僻术语"></a>生僻术语</h2><ul><li>KLT tracker</li></ul><p>用来抽取特征的一种方法，最早被提出是为了解决传统上的影像配准问题</p><ul><li><p>image registration：影像配准</p></li><li><p>SIFT：尺度不变特征转换</p></li></ul><p>用来侦测和描述影像中的局部性特征，它可以帮助辨识物体。基于物体上的一些局部外观的兴趣点而与影像的大小和旋转无关，对于光线，噪声的容忍度也很高</p><ul><li>optical flow field</li></ul><p>光流（optical flow）用来描述相对于观察者的运动所造成的观测目标，表面或边缘的运动。它通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法</p><ul><li>feature</li></ul><p>特征是一块关于图像内容的信息，主要包括图像的特定区域是否包含特定的属性。特征也许是图像中明确的结构，如点，边或是物体，它也可能是对图像进行特征检测后的结果</p><ul><li> interest point</li></ul><p>图像中类点的特征，他有局部二维结构，可以被鲁棒地检测</p><ul><li> Gabor filter</li></ul><p>它是用来进行纹理分析的线性过滤器</p><ul><li>median filter：中值滤波器</li></ul><p>常用于去除图像或其他信号中的噪声</p><ul><li>bilinear interpolation：双线性插值</li></ul><p>双线性插值是一种基本的重采样技术</p><ul><li>HOG：方向梯度直方图</li></ul><p>用于目标检测的特征描述器。该技术是用来计算局部图像梯度的方向信息的统计值。<strong>局部目标的表象和形状（appearance and shape）能够被梯度或边缘的方向密度分布很好地描述</strong></p><h2 id="Bag-of-Features-approach"><a href="#Bag-of-Features-approach" class="headerlink" title="Bag of Features approach"></a>Bag of Features approach</h2><blockquote><p>该论文使用了该方法在行为分类的场景下评估了创新的视频描述方法</p></blockquote><ul><li><p>Bag of Features框架是词包模型在图像识别领域的延申，2004年引入CV领域，逐渐形成了标准物体分类框架：</p><ul><li>底层特征提取</li><li>特征编码</li><li>特征汇聚</li><li>使用SVM分类器进行分类</li></ul></li><li><p>搭建Bag-of_Features的步骤：</p><ul><li>特征提取（SIFT算子）</li><li>K-means聚类</li><li>量化特征，形成词袋</li><li>统计每一类别的视觉单词出现频率，形成视觉单词直方图</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="/static%5C20210912paperreading00101.png"                      alt="20210912paperreading00101"                ></p><ul><li>训练SVM分类器</li></ul></li><li><p>具体代码实践参考<a class="link"   href="https://www.cnblogs.com/skyfsm/p/8097397.html" >这里<i class="fas fa-external-link-alt"></i></a></p></li></ul><h2 id="提取密集轨迹"><a href="#提取密集轨迹" class="headerlink" title="提取密集轨迹"></a>提取密集轨迹</h2><ul><li><p>计算 $P_{t+1}$ ：$P_{t+1} = (x_{t+1},y_{t+1}) = (x_t,y_t) + (M*\omega)|_{(\overline{x}_t,\overline{y}_t)}$</p><ul><li><em>M</em> is the median fifiltering kernel, ${(\overline{x}_t,\overline{y}_t)}$ is the rounded position of $(x_t,y_t)$</li></ul></li><li><p>后续帧的点被连接起来形成轨迹$(P_t,P_{t+1},P_{t+2},…)$，为了提取密集光流，文章使用了Farneback算法</p></li><li><p>给定长度为L的轨迹，我们定义序列$S=(\Delta P_t,…,\Delta P_{t+L-1})$ 来描述它的形状，其中位移向量为$\Delta P_t = (P_{t+1}-P_t)$</p></li><li><p>规范化之后，我们可以得到轨迹描述器：<br>$$<br>S^`= \frac{(\Delta P_t,…,\Delta P_{t+L-1})}{\sum_{j=t}^{t+L-1}||\Delta P_j||}<br>$$</p></li></ul><h2 id="轨迹对齐的描述器"><a href="#轨迹对齐的描述器" class="headerlink" title="轨迹对齐的描述器"></a>轨迹对齐的描述器</h2><ul><li>计算局部描述器已成为视频表示的流行方法，本文在沿着轨迹的时空体（3D）中进行计算<ul><li>现存有很多行为识别的描述器</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Action-Recognition-by-Dense-Trajectories&quot;&gt;&lt;a href=&quot;#Action-Recognition-by-Dense-Trajectories&quot; class=&quot;headerlink&quot; title=&quot;Action Recog</summary>
+      
+    
+    
+    
+    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    
+    
+    <category term="传统方法" scheme="http://example.com/tags/%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95/"/>
+    
+    <category term="光流法" scheme="http://example.com/tags/%E5%85%89%E6%B5%81%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_012%20/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_012%20/</id>
+    <published>2022-05-07T13:01:41.952Z</published>
+    <updated>2022-04-20T09:36:17.233Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="X3D-Expanding-Architectures-for-Effificient-Video-Recognition"><a href="#X3D-Expanding-Architectures-for-Effificient-Video-Recognition" class="headerlink" title="X3D: Expanding Architectures for Effificient Video Recognition"></a>X3D: Expanding Architectures for Effificient Video Recognition</h1><h2 id="一-主要思想"><a href="#一-主要思想" class="headerlink" title="一. 主要思想"></a>一. 主要思想</h2><p>该模型基于“mobile-regime”系列模型MobileNet, 对原模型稍作修改，令乘加运算数少了近10倍，之后将模型从2D空间扩展到3D时空域</p><blockquote><p>为了探索计算高效的架构，MobileNet和ShuffleNet探索了channel-wise separable convolutions and expanded bottlenecks.</p><p>MnasNet是通过采样近8000个模型来获得的（采用EfficientNet的grid search方法），作为对比，作者提出的方法每一个step仅需训练6个模型</p></blockquote><h2 id="二-扩展方法"><a href="#二-扩展方法" class="headerlink" title="二. 扩展方法"></a>二. 扩展方法</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204161003136.png"                      alt="image-20220416100344011" style="zoom: 50%;"                 ><ul><li>mobile-net 核心思想：channel-wise separable convolutions</li><li>沿以下的轴进行扩展：历时，帧率，空间分辨率，网络宽度，瓶颈宽度及网络深度</li><li>递进地增加计算量：每次只扩展一个轴，训练并验证结果架构，选择能够实现最佳复杂度，准确率权衡的扩展。重复该过程直到满足预期的复杂度预算</li><li>该扩展方法可以被解释为坐标下降算法在超参数空间的应用</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204201455511.png"                      alt="image-20220420145518461" style="zoom: 33%;"                 ><h2 id="三-实验"><a href="#三-实验" class="headerlink" title="三. 实验"></a>三. 实验</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204201452303.png"                      alt="image-20220420145244253" style="zoom: 50%;"                 ><p>上图反映了top1准确率与模型容量之间的关系，作者将每一个step选择的维度都在曲线上进行了标注，从中我们可以得到一定的启示。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204201451711.png"                      alt="image-20220420145122664" style="zoom: 50%;"                 ><p>上表展示了根据目标模型复杂度（FLOPs）来划分的6个不同大小的模型</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;X3D-Expanding-Architectures-for-Effificient-Video-Recognition&quot;&gt;&lt;a href=&quot;#X3D-Expanding-Architectures-for-Effificient-Video-Recogniti</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>行为识别survey</title>
@@ -77,50 +283,6 @@
     <published>2022-05-07T12:07:43.000Z</published>
     <updated>2022-05-07T12:07:43.948Z</updated>
     
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>目标识别</title>
-    <link href="http://example.com/2021/12/23/CV%E5%9B%BE%E5%83%8F%E5%AF%B9%E9%BD%90&amp;%E5%9B%BE%E5%83%8F%E6%8B%BC%E6%8E%A5/"/>
-    <id>http://example.com/2021/12/23/CV%E5%9B%BE%E5%83%8F%E5%AF%B9%E9%BD%90&amp;%E5%9B%BE%E5%83%8F%E6%8B%BC%E6%8E%A5/</id>
-    <published>2021-12-23T11:34:59.881Z</published>
-    <updated>2021-12-23T11:37:55.370Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="图像对齐-amp-图像拼接"><a href="#图像对齐-amp-图像拼接" class="headerlink" title="图像对齐&amp;图像拼接"></a>图像对齐&amp;图像拼接</h1><h2 id="特征检测"><a href="#特征检测" class="headerlink" title="特征检测"></a>特征检测</h2><h3 id="边检测"><a href="#边检测" class="headerlink" title="边检测"></a>边检测</h3><h4 id="边"><a href="#边" class="headerlink" title="边"></a>边</h4><ul><li>边是图像中的曲线，横跨边的两侧其亮度变化较大</li><li>分类：<ul><li>深度不连续（深度边）</li><li>标准不连续（普通边）</li><li>图层不连续（反射边）</li><li>阴影边</li></ul></li><li>可视化：通过强度函数和导数极值来理解</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\20211222103337.jpg"                      alt="20211222103337" style="zoom:50%;"                 ><h4 id="微分"><a href="#微分" class="headerlink" title="微分"></a>微分</h4><ul><li><p>微分具有线性性质和平移不变性：</p><ul><li>线性性质</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 103703.jpg"                      alt="屏幕截图 2021-12-22 103703" style="zoom:50%;"                 ><ul><li>因此微分可以表示为卷积</li></ul></li><li><p>对离散值图像进行微分</p><ul><li>重构出连续图像再计算导数</li><li>直接取离散导数（有限差分）</li></ul></li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 104638.jpg"                      alt="屏幕截图 2021-12-22 104638" style="zoom:50%;"                 ><ul><li><p>图像梯度</p><ul><li>对图像梯度的定义：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 105123.jpg"                      alt="屏幕截图 2021-12-22 105123" style="zoom:50%;"                 ><ul><li>边强度由梯度幅值给出：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 105320.jpg"                      alt="屏幕截图 2021-12-22 105320" style="zoom:50%;"                 ><ul><li>梯度方向为：</li></ul></li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 105450.jpg"                      alt="屏幕截图 2021-12-22 105450" style="zoom:50%;"                 ><ul><li><p>使用scipy.signal.convolve2d来求图像梯度</p><ul><li><p>官方API文档：<a class="link"   href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.convolve2d.html" >链接<i class="fas fa-external-link-alt"></i></a></p></li><li><p>代码及运行结果</p><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 113110.jpg"                      alt="屏幕截图 2021-12-22 113110" style="zoom:50%;"                 ></li></ul></li></ul><h4 id="噪声"><a href="#噪声" class="headerlink" title="噪声"></a>噪声</h4><ul><li>噪声对于求图像微分的影响很大</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 115407.jpg"                      alt="屏幕截图 2021-12-22 115407" style="zoom:50%;"                 ><ul><li>使用平滑来解决噪声的影响<ul><li>加噪声可以参考<a class="link"   href="https://www.cnblogs.com/wojianxin/p/12499928.html" >博客<i class="fas fa-external-link-alt"></i></a></li><li>平滑可以使用卷积来做</li></ul></li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 115613.jpg"                      alt="屏幕截图 2021-12-22 115613" style="zoom:50%;"                 ><h4 id="2D边检测过滤器"><a href="#2D边检测过滤器" class="headerlink" title="2D边检测过滤器"></a>2D边检测过滤器</h4><ul><li>原理：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 120910.jpg"                      alt="屏幕截图 2021-12-22 120910" style="zoom:50%;"                 ><ul><li>高斯过滤器</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 120344.jpg"                      alt="屏幕截图 2021-12-22 120344" style="zoom:50%;"                 ><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 120519.jpg"                      alt="屏幕截图 2021-12-22 120519" style="zoom:50%;"                 ><ul><li><p>各向异性高斯核</p><ul><li>应该沿边的方向进行平滑而不是在横跨边的方向上</li><li>对于x-direction方向高斯核，在x的方向的标准差应较小，如下图所示：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 121545.jpg"                      alt="屏幕截图 2021-12-22 121545" style="zoom:50%;"                 ><ul><li>可以不只在x,y方向上进行微分，可以对滤波器进行旋转来得到各个方向上的微分</li></ul><p>![屏幕截图 2021-12-22 121822](static\屏幕截图 2021-12-22 121822.jpg)</p></li><li><p>梯度幅度和方向</p><ul><li>如下图，分别为梯度的幅度和方向图：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 123022.jpg"                      alt="屏幕截图 2021-12-22 123022" style="zoom:50%;"                 ><ul><li>该图为另一例：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 123947.jpg"                      alt="屏幕截图 2021-12-22 123947" style="zoom:50%;"                 ></li></ul><h4 id="边界和梯度幅值"><a href="#边界和梯度幅值" class="headerlink" title="边界和梯度幅值"></a>边界和梯度幅值</h4><ul><li>设置梯度幅值的阈值来获得物体边界<ul><li>从小阈值到大阈值如图所示</li></ul></li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 135051.jpg"                      alt="屏幕截图 2021-12-22 135051" style="zoom: 33%;"                 ><ul><li>使用最大化抑制（Non-maximum suppression ），只保留梯度幅值的局部峰值（local peaks），其他过滤掉，算法如下图所示：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 135515.jpg"                      alt="屏幕截图 2021-12-22 135515" style="zoom:50%;"                 ><ul><li>使用滞后阈值法来获取图像边界的一些实验结果图：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 141914.jpg"                      alt="屏幕截图 2021-12-22 141914" style="zoom:50%;"                 ><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 142359.jpg"                      alt="屏幕截图 2021-12-22 142359" style="zoom:50%;"                 ><img                       lazyload                     src="/images/loading.svg"                     data-src="static\hysteresis.jpg"                      alt="hysteresis" style="zoom:50%;"                 ><h4 id="canny边检测器"><a href="#canny边检测器" class="headerlink" title="canny边检测器"></a>canny边检测器</h4><ul><li>使用高斯函数的x,y导数过滤图像</li><li>找到梯度图像的导数幅值图和导数方向图</li><li>非最大化抑制：将数像素宽降为单像素宽</li><li>阈值化和连接（滞后阈值法）</li></ul><h4 id="如何设计一个好的边检测器"><a href="#如何设计一个好的边检测器" class="headerlink" title="如何设计一个好的边检测器"></a>如何设计一个好的边检测器</h4><ul><li>好的检测：最小化错误检测和误检测的边</li><li>好的定位：检测边应与真实边距离尽可能地近</li><li>单值响应：最小化真实边附近局部极值的数量</li></ul><h3 id="角点检测"><a href="#角点检测" class="headerlink" title="角点检测"></a>角点检测</h3><h4 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h4><blockquote><p>角点</p></blockquote><ul><li>平移窗口会导致patch表观的巨大差异</li><li>沿任意方向移动窗口在强度上都会有巨大变化</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 150600.jpg"                      alt="屏幕截图 2021-12-22 150600" style="zoom:50%;"                 ><h4 id="数学形式化描述"><a href="#数学形式化描述" class="headerlink" title="数学形式化描述"></a>数学形式化描述</h4><ul><li>SSD：将差异的平方进行累加</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 150857.jpg"                      alt="屏幕截图 2021-12-22 150857" style="zoom:50%;"                 ><ul><li>我们希望E对任意的(u,v)都尽可能的大，说明可能存在角点</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 151340.jpg"                      alt="屏幕截图 2021-12-22 151340" style="zoom: 33%;"                 ><ul><li>E函数可以局部近似为二次误差函数</li><li>我们可以给与window表观信息，使之变为权重函数w(x,y)，如下图：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 151646.jpg"                      alt="屏幕截图 2021-12-22 151646" style="zoom:50%;"                 ><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 151824.jpg"                      alt="屏幕截图 2021-12-22 151824" style="zoom:50%;"                 ><ul><li>改写为矩阵形式，方便代码计算：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 152145.jpg"                      alt="屏幕截图 2021-12-22 152145" style="zoom:50%;"                 ><ul><li>对二次误差函数进行可视化：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 152410.jpg"                      alt="屏幕截图 2021-12-22 152410" style="zoom:50%;"                 ><ul><li>通过计算M二阶矩矩阵的特征值和特征向量，来定义移动方向上最大和最小误差的变化</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 153238.jpg"                      alt="屏幕截图 2021-12-22 153238" style="zoom:50%;"                 ><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 153151.jpg"                      alt="屏幕截图 2021-12-22 153151" style="zoom:50%;"                 ><ul><li>对特征值的解释：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 153452.jpg"                      alt="屏幕截图 2021-12-22 153452" style="zoom:50%;"                 ><ul><li>如何高效地计算M？<ul><li>计算图像梯度$I_x,I_y$</li><li>计算$I^2_x,I^2_y,I_xI_y$</li><li>与窗口函数做卷积</li><li>组建每个pixel的M矩阵</li></ul></li></ul><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote><p>角点检测流程</p></blockquote><ul><li>计算图像梯度</li><li>计算M矩阵</li><li>计算特征值</li><li>阈值化（找有大响应的点$\lambda_{min}&gt;threshold$）</li><li>在这些点中找到$\lambda_{min}$局部最大的点作为特征</li></ul><h4 id="Harris操作符（检测器）"><a href="#Harris操作符（检测器）" class="headerlink" title="Harris操作符（检测器）"></a>Harris操作符（检测器）</h4><ul><li>数学定义<ul><li>“Harris operator”  </li></ul></li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 161003.jpg"                      alt="屏幕截图 2021-12-22 161003" style="zoom:50%;"                 ><ul><li>角点响应函数</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 162441.jpg"                      alt="屏幕截图 2021-12-22 162441" style="zoom:50%;"                 ><ul><li><p>Harris角点检测流程：</p><ul><li>计算图像梯度</li><li>计算$I^2_x,I^2_y,I_xI_y$</li><li>apply窗口函数（往往是gaussian）</li><li>计算响应函数：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 162906.jpg"                      alt="屏幕截图 2021-12-22 162906" style="zoom:50%;"                 ><ul><li>非最大化抑制</li></ul></li></ul><ul><li>检测流程图如下图所示：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="static\屏幕截图 2021-12-22 163258.jpg"                      alt="屏幕截图 2021-12-22 163258" style="zoom:50%;"                 >]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;图像对齐-amp-图像拼接&quot;&gt;&lt;a href=&quot;#图像对齐-amp-图像拼接&quot; class=&quot;headerlink&quot; title=&quot;图像对齐&amp;amp;图像拼接&quot;&gt;&lt;/a&gt;图像对齐&amp;amp;图像拼接&lt;/h1&gt;&lt;h2 id=&quot;特征检测&quot;&gt;&lt;a href=&quot;#特征检测&quot;</summary>
-      
-    
-    
-    
-    <category term="计算机视觉，传统方法，目标检测" scheme="http://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%EF%BC%8C%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95%EF%BC%8C%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
-    
-    
-    <category term="计算机视觉" scheme="http://example.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://example.com/2021/12/20/hello-world/"/>
-    <id>http://example.com/2021/12/20/hello-world/</id>
-    <published>2021-12-20T08:01:29.296Z</published>
-    <updated>2021-12-20T08:01:29.299Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a class="link"   href="https://hexo.io/" >Hexo<i class="fas fa-external-link-alt"></i></a>! This is your very first post. Check <a class="link"   href="https://hexo.io/docs/" >documentation<i class="fas fa-external-link-alt"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fas fa-external-link-alt"></i></a> or you can ask me on <a class="link"   href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fas fa-external-link-alt"></i></a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a class="link"   href="https://hexo.io/docs/writing.html" >Writing<i class="fas fa-external-link-alt"></i></a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a class="link"   href="https://hexo.io/docs/server.html" >Server<i class="fas fa-external-link-alt"></i></a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a class="link"   href="https://hexo.io/docs/generating.html" >Generating<i class="fas fa-external-link-alt"></i></a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a class="link"   href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fas fa-external-link-alt"></i></a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Welcome to &lt;a class=&quot;link&quot;   href=&quot;https://hexo.io/&quot; &gt;Hexo&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;! This is your very first post. Che</summary>
-      
     
     
     
