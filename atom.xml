@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-03T11:06:03.478Z</updated>
+  <updated>2022-05-07T12:07:43.948Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo配置</title>
+    <link href="http://example.com/2022/05/07/hexo%E9%85%8D%E7%BD%AE/"/>
+    <id>http://example.com/2022/05/07/hexo%E9%85%8D%E7%BD%AE/</id>
+    <published>2022-05-07T12:07:43.000Z</published>
+    <updated>2022-05-07T12:07:43.948Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title></title>
@@ -61,30 +74,6 @@
   </entry>
   
   <entry>
-    <title>行为识别survey</title>
-    <link href="http://example.com/2021/12/20/paper%20reading%20overview/"/>
-    <id>http://example.com/2021/12/20/paper%20reading%20overview/</id>
-    <published>2021-12-20T08:01:29.296Z</published>
-    <updated>2021-12-20T08:24:17.887Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="行为识别survey"><a href="#行为识别survey" class="headerlink" title="行为识别survey"></a>行为识别survey</h1><h2 id="github论文代码"><a href="#github论文代码" class="headerlink" title="github论文代码"></a>github论文代码</h2><ul><li><p><a class="link"   href="https://github.com/mzolfaghari/ECO-efficient-video-understanding" >ECO: Efficient Convolutional Network for Online Video Understanding<i class="fas fa-external-link-alt"></i></a></p></li><li><p><a class="link"   href="https://github.com/mit-han-lab/temporal-shift-module" >TSM: Temporal Shift Module for Efficient Video Understanding<i class="fas fa-external-link-alt"></i></a></p></li><li><p><a class="link"   href="https://github.com/yjxiong/action-detection" >Temporal Action Detection with Structured Segment Networks<i class="fas fa-external-link-alt"></i></a></p></li><li><p><a class="link"   href="https://github.com/gurkirt/realtime-action-detection" >Online Real-time Multiple Spatiotemporal Action Localisation and Prediction<i class="fas fa-external-link-alt"></i></a></p></li><li><p><a href="">Non-local Neural Networks for Video Classification</a></p></li></ul><h2 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h2><ul><li>no single approach to all problems</li><li>行为识别传统方法依赖于目标检测，姿态检测，密集轨迹或是结构化信息</li><li>卷积神经网络可以提取每个帧的特征来获取视频级别的预测，它的缺点是不能有效地捕获运动信息</li><li>结合光流方法可以捕获短期运动信息</li><li>除了RGB和光流，其他形式的信息如音频，姿势，轨迹也应该加以利用</li><li>王等人关注于带有外观特征的密集轨迹描述符</li><li>choutas等人编码了人体关节点的运动，得到的结果热图在时间上聚集</li><li>我们可以使用双流法，通过融合运动和外观信息构建时空表示，对于短时视频它比较有效，但不适于获取长期的时间动态信息</li><li>双流法包含了两个单独的子网络，一个用于原始图像，另一个用于堆叠的光流，通过融合两个流的softmax分数可以获取时空信息</li><li>RNN，特别是LSTM，因其在长期时间建模的能力，在顺序任务上取得了令人瞩目的成就，所以一个可选的方案是采用LSTM来建模帧级别特征的动态信息</li><li>Donahue等人设计了一个循环卷积架构，which cascaded a CNN with a recurrent model into a unified model。它可以在时间和空间维度学习视频级别的表示</li><li>Ng等人将时间特征池化架构与LSTM相结合</li><li>王等人利用了深层3D卷积网络来处理salient-aware clips</li><li>yuan等人合成了运动轨迹，光流，和视频分割并形成了空间-光流数据，之后使用双流法分别处理合成数据和RGB数据</li><li>除了2D卷积网络，3D卷积网络被提出用来处理视频。但是这些方法通常有冗余参数，并且需要提前在大规模视频数据集上预训练</li><li>并且，近期架构使用了注意力机制来获取视频中的显著部分，它可以克服LSTM中无法区分视频的不同部分的缺点</li></ul><h2 id="no-standard-benchmark"><a href="#no-standard-benchmark" class="headerlink" title="no standard benchmark"></a>no standard benchmark</h2><ul><li>high spatial correlation among the videos makes the actual diversity in the training much lesser.</li><li>given the similar theme (sports) across both the datasets, generalization of benchmarked architectures to other tasks remained a problem</li><li>using pre-trained 2D CNNs as a starting point for drastically better convergence</li></ul><h2 id="actions-recognition-approaches-overview"><a href="#actions-recognition-approaches-overview" class="headerlink" title="actions recognition approaches overview"></a>actions recognition approaches overview</h2><ol><li>Local high-dimensional visual features that describe a region of the video are extracted either densely [<a class="link"   href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#3" >3<i class="fas fa-external-link-alt"></i></a>] or at a sparse set of interest points[<a class="link"   href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#4" >4<i class="fas fa-external-link-alt"></i></a> , <a class="link"   href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#5" >5<i class="fas fa-external-link-alt"></i></a>].(提取高维视觉特征)</li><li>The extracted features get combined into a fixed-sized video level description. One popular variant to the step is to bag of visual words (derived using hierarchical or k-means clustering) for encoding features at video-level.</li><li>A classifier, like SVM or RF, is trained on bag of visual words for final prediction</li></ol><h3 id="Approach-1-Single-Stream-Network"><a href="#Approach-1-Single-Stream-Network" class="headerlink" title="Approach 1: Single Stream Network"></a>Approach 1: Single Stream Network</h3><ol><li>The learnt spatiotemporal features didn’t capture motion features</li><li>The dataset being less diverse, learning such detailed features was tough</li></ol><h3 id="Approach-2-Two-Stream-Networks"><a href="#Approach-2-Two-Stream-Networks" class="headerlink" title="Approach 2: Two Stream Networks"></a>Approach 2: Two Stream Networks</h3>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;行为识别survey&quot;&gt;&lt;a href=&quot;#行为识别survey&quot; class=&quot;headerlink&quot; title=&quot;行为识别survey&quot;&gt;&lt;/a&gt;行为识别survey&lt;/h1&gt;&lt;h2 id=&quot;github论文代码&quot;&gt;&lt;a href=&quot;#github论文代码&quot;</summary>
-      
-    
-    
-    
-    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    
-    
-    <category term="行为识别" scheme="http://example.com/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Hello World</title>
     <link href="http://example.com/2021/12/20/hello-world/"/>
     <id>http://example.com/2021/12/20/hello-world/</id>
@@ -125,6 +114,30 @@
     
     
     <category term="软件工程" scheme="http://example.com/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>行为识别survey</title>
+    <link href="http://example.com/2021/12/20/paper%20reading%20overview/"/>
+    <id>http://example.com/2021/12/20/paper%20reading%20overview/</id>
+    <published>2021-12-20T08:01:29.296Z</published>
+    <updated>2021-12-20T08:24:17.887Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="行为识别survey"><a href="#行为识别survey" class="headerlink" title="行为识别survey"></a>行为识别survey</h1><h2 id="github论文代码"><a href="#github论文代码" class="headerlink" title="github论文代码"></a>github论文代码</h2><ul><li><p><a class="link"   href="https://github.com/mzolfaghari/ECO-efficient-video-understanding" >ECO: Efficient Convolutional Network for Online Video Understanding<i class="fas fa-external-link-alt"></i></a></p></li><li><p><a class="link"   href="https://github.com/mit-han-lab/temporal-shift-module" >TSM: Temporal Shift Module for Efficient Video Understanding<i class="fas fa-external-link-alt"></i></a></p></li><li><p><a class="link"   href="https://github.com/yjxiong/action-detection" >Temporal Action Detection with Structured Segment Networks<i class="fas fa-external-link-alt"></i></a></p></li><li><p><a class="link"   href="https://github.com/gurkirt/realtime-action-detection" >Online Real-time Multiple Spatiotemporal Action Localisation and Prediction<i class="fas fa-external-link-alt"></i></a></p></li><li><p><a href="">Non-local Neural Networks for Video Classification</a></p></li></ul><h2 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h2><ul><li>no single approach to all problems</li><li>行为识别传统方法依赖于目标检测，姿态检测，密集轨迹或是结构化信息</li><li>卷积神经网络可以提取每个帧的特征来获取视频级别的预测，它的缺点是不能有效地捕获运动信息</li><li>结合光流方法可以捕获短期运动信息</li><li>除了RGB和光流，其他形式的信息如音频，姿势，轨迹也应该加以利用</li><li>王等人关注于带有外观特征的密集轨迹描述符</li><li>choutas等人编码了人体关节点的运动，得到的结果热图在时间上聚集</li><li>我们可以使用双流法，通过融合运动和外观信息构建时空表示，对于短时视频它比较有效，但不适于获取长期的时间动态信息</li><li>双流法包含了两个单独的子网络，一个用于原始图像，另一个用于堆叠的光流，通过融合两个流的softmax分数可以获取时空信息</li><li>RNN，特别是LSTM，因其在长期时间建模的能力，在顺序任务上取得了令人瞩目的成就，所以一个可选的方案是采用LSTM来建模帧级别特征的动态信息</li><li>Donahue等人设计了一个循环卷积架构，which cascaded a CNN with a recurrent model into a unified model。它可以在时间和空间维度学习视频级别的表示</li><li>Ng等人将时间特征池化架构与LSTM相结合</li><li>王等人利用了深层3D卷积网络来处理salient-aware clips</li><li>yuan等人合成了运动轨迹，光流，和视频分割并形成了空间-光流数据，之后使用双流法分别处理合成数据和RGB数据</li><li>除了2D卷积网络，3D卷积网络被提出用来处理视频。但是这些方法通常有冗余参数，并且需要提前在大规模视频数据集上预训练</li><li>并且，近期架构使用了注意力机制来获取视频中的显著部分，它可以克服LSTM中无法区分视频的不同部分的缺点</li></ul><h2 id="no-standard-benchmark"><a href="#no-standard-benchmark" class="headerlink" title="no standard benchmark"></a>no standard benchmark</h2><ul><li>high spatial correlation among the videos makes the actual diversity in the training much lesser.</li><li>given the similar theme (sports) across both the datasets, generalization of benchmarked architectures to other tasks remained a problem</li><li>using pre-trained 2D CNNs as a starting point for drastically better convergence</li></ul><h2 id="actions-recognition-approaches-overview"><a href="#actions-recognition-approaches-overview" class="headerlink" title="actions recognition approaches overview"></a>actions recognition approaches overview</h2><ol><li>Local high-dimensional visual features that describe a region of the video are extracted either densely [<a class="link"   href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#3" >3<i class="fas fa-external-link-alt"></i></a>] or at a sparse set of interest points[<a class="link"   href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#4" >4<i class="fas fa-external-link-alt"></i></a> , <a class="link"   href="https://blog.qure.ai/notes/deep-learning-for-videos-action-recognition-review#5" >5<i class="fas fa-external-link-alt"></i></a>].(提取高维视觉特征)</li><li>The extracted features get combined into a fixed-sized video level description. One popular variant to the step is to bag of visual words (derived using hierarchical or k-means clustering) for encoding features at video-level.</li><li>A classifier, like SVM or RF, is trained on bag of visual words for final prediction</li></ol><h3 id="Approach-1-Single-Stream-Network"><a href="#Approach-1-Single-Stream-Network" class="headerlink" title="Approach 1: Single Stream Network"></a>Approach 1: Single Stream Network</h3><ol><li>The learnt spatiotemporal features didn’t capture motion features</li><li>The dataset being less diverse, learning such detailed features was tough</li></ol><h3 id="Approach-2-Two-Stream-Networks"><a href="#Approach-2-Two-Stream-Networks" class="headerlink" title="Approach 2: Two Stream Networks"></a>Approach 2: Two Stream Networks</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;行为识别survey&quot;&gt;&lt;a href=&quot;#行为识别survey&quot; class=&quot;headerlink&quot; title=&quot;行为识别survey&quot;&gt;&lt;/a&gt;行为识别survey&lt;/h1&gt;&lt;h2 id=&quot;github论文代码&quot;&gt;&lt;a href=&quot;#github论文代码&quot;</summary>
+      
+    
+    
+    
+    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    
+    
+    <category term="行为识别" scheme="http://example.com/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
     
   </entry>
   
