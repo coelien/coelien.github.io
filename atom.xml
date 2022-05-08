@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-10T07:56:20.952Z</updated>
+  <updated>2022-05-08T04:59:34.547Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,248 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AI-EARTH学习记录</title>
+    <link href="http://example.com/2022/05/08/projects/nlp%20project/ai-earth_with_pytorch/"/>
+    <id>http://example.com/2022/05/08/projects/nlp%20project/ai-earth_with_pytorch/</id>
+    <published>2022-05-08T04:21:08.168Z</published>
+    <updated>2022-05-08T04:59:34.547Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="AI-EARTH项目"><a href="#AI-EARTH项目" class="headerlink" title="AI-EARTH项目"></a>AI-EARTH项目</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><blockquote><p><strong>2021 “AI Earth”人工智能创新挑战赛</strong>:<a class="link"   href="https://tianchi.aliyun.com/competition/entrance/531871/introduction" >链接<i class="fas fa-external-link-alt"></i></a></p></blockquote><p>发生在热带太平洋上的厄尔尼诺-南方涛动(ENSO)现象是地球上最强、最显著的年际气候信号。准确预测ENSO，是提高东亚和全球气候预测水平和防灾减灾的关键。</p><h2 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h2><p>基于历史气候观测和模式模拟数据，利用T时刻过去12个月(包含T时刻)的时空序列（气象因子），构建预测ENSO的深度学习模型，预测未来1-24个月的Nino3.4指数</p><h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="STTransformer"><a href="#STTransformer" class="headerlink" title="STTransformer"></a>STTransformer</h3><h4 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h4><p><strong>学习率衰减策略</strong></p><blockquote><p>训练初期学习率大一些，使得网络收敛迅速，在训练后期学习率小一些，可学习该<a class="link"   href="https://zhuanlan.zhihu.com/p/93624972?utm_source=qq&utm_medium=social&utm_oi=799204418460459008" >post<i class="fas fa-external-link-alt"></i></a>了解更多</p></blockquote><p>STTransformer采用了Noamopt优化策略，详细可参考Annotated Transformer, Harvard NLP Group, <a class="link"   href="http://nlp.seas.harvard.edu/annotated-transformer/" >ArdalanM/annotated-transformer<i class="fas fa-external-link-alt"></i></a>，衰减公式如下所示：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081136303.png"                      alt="image-20220508113623206"                ></p><h3 id="ConvTTLSTM"><a href="#ConvTTLSTM" class="headerlink" title="ConvTTLSTM"></a>ConvTTLSTM</h3><h4 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h4>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;AI-EARTH项目&quot;&gt;&lt;a href=&quot;#AI-EARTH项目&quot; class=&quot;headerlink&quot; title=&quot;AI-EARTH项目&quot;&gt;&lt;/a&gt;AI-EARTH项目&lt;/h1&gt;&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerli</summary>
+      
+    
+    
+    
+    <category term="nlp项目" scheme="http://example.com/categories/nlp%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="nlp" scheme="http://example.com/tags/nlp/"/>
+    
+    <category term="transformer" scheme="http://example.com/tags/transformer/"/>
+    
+    <category term="AI-EARTH" scheme="http://example.com/tags/AI-EARTH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>跨域问题解决</title>
+    <link href="http://example.com/2022/05/08/projects/nlp%20project/%E8%B7%A8%E5%9F%9F/"/>
+    <id>http://example.com/2022/05/08/projects/nlp%20project/%E8%B7%A8%E5%9F%9F/</id>
+    <published>2022-05-08T03:16:31.761Z</published>
+    <updated>2022-05-08T05:06:16.081Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul><li>为什么会出现跨域</li></ul><p>同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互：即两个页面具有相同的协议（protocol），主机（host）和端口号（port）</p><ul><li>跨域案例<br>当一个请求url的协议、域名、端口三者之间任意一个与当前页面url不同即为跨域</li></ul><table><thead><tr><th>当前页面url</th><th>被请求页面url</th><th>是否跨域</th><th>原因</th></tr></thead><tbody><tr><td><a class="link"   href="http://www.lluozh.com/" >http://www.lluozh.com/<i class="fas fa-external-link-alt"></i></a></td><td><a class="link"   href="http://www.lluozh.com/index.html" >http://www.lluozh.com/index.html<i class="fas fa-external-link-alt"></i></a></td><td>否</td><td>同源(协议、域名、端口号相同)</td></tr></tbody></table><ul><li>客户端发起的这个<code>OPTIONS</code>可以说是一个<code>&quot;预请求&quot;</code>，用于探测后续真正需要发起的跨域<code>POST</code>请求对于服务器来说是否是安全可接受的，因为跨域提交数据对于服务器来说可能存在很大的安全问题</li><li>请求头<code>Access-Control-Request-Method</code>用于提醒服务器在接下来的请求中将会使用什么样的方法来发起请求</li><li><code>Access-Control-Allow-Method</code>和<code>Access-Control-Allow-Origin</code>分别告知客户端，服务器允许客户端用于跨域的方法和域名</li></ul><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul><li>下载flask-cors包</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;跨域&quot;&gt;&lt;a href=&quot;#跨域&quot; class=&quot;headerlink&quot; title=&quot;跨域&quot;&gt;&lt;/a&gt;跨域&lt;/h1&gt;&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;ul&gt;
+&lt;</summary>
+      
+    
+    
+    
+    <category term="nlp项目" scheme="http://example.com/categories/nlp%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="跨域" scheme="http://example.com/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+    <category term="flask" scheme="http://example.com/tags/flask/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于知识图谱的开放域问答系统</title>
+    <link href="http://example.com/2022/05/08/projects/nlp%20project/%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88/"/>
+    <id>http://example.com/2022/05/08/projects/nlp%20project/%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88/</id>
+    <published>2022-05-08T03:16:31.761Z</published>
+    <updated>2022-05-08T05:04:09.744Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="基于知识图谱的开放域问答系统"><a href="#基于知识图谱的开放域问答系统" class="headerlink" title="基于知识图谱的开放域问答系统"></a>基于知识图谱的开放域问答系统</h1><h2 id="一-项目总体介绍"><a href="#一-项目总体介绍" class="headerlink" title="一. 项目总体介绍"></a>一. 项目总体介绍</h2><h3 id="1-任务目标"><a href="#1-任务目标" class="headerlink" title="1. 任务目标"></a>1. 任务目标</h3><p><strong>开放域问答系统：</strong></p><p>使用大量不同主题的文档来回答问题，是自然语言处理（NLP）、信息检索（IR）和相关领域长期研究的主题。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205061136170.png"                      alt="image-20220506113613101" style="zoom:50%;"                 ><p><strong>知识图谱：</strong></p><p>知识图谱（Knowledge Graph），是结构化的语义知识库，用于以符号形式描述物理世界中的概念及其相互关系。其基本组成单位是“实体-关系-实体”三元组，以及实体及其相关属性-值对，实体间通过关系相互联结，构成网状的知识结构。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205061138448.png"                      alt="image-20220506113858423" style="zoom:50%;"                 ><h3 id="2-模型整体设计及流程"><a href="#2-模型整体设计及流程" class="headerlink" title="2. 模型整体设计及流程"></a>2. 模型整体设计及流程</h3><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031723438.png"                      alt="image-20220503172309406" style="zoom:50%;"                 ><p>具体流程如下：</p><ul><li>使用NER模型从问题中抽取实体并将其送入知识库进行匹配，找出所有可能的候选关系。</li><li>使用相似度模型计算所有候选关系与问题实体的相似度，找到可能性最大的候选关系。</li><li>使用该候选关系在知识图谱中查找，找到最终答案。</li></ul><h2 id="二-模型介绍"><a href="#二-模型介绍" class="headerlink" title="二. 模型介绍"></a>二. 模型介绍</h2><h3 id="1-命名实体识别（NER）"><a href="#1-命名实体识别（NER）" class="headerlink" title="1. 命名实体识别（NER）"></a>1. 命名实体识别（NER）</h3><p>命名实体识别( NER )是<a class="link"   href="https://en.wikipedia.org/wiki/Information_extraction" >信息提取<i class="fas fa-external-link-alt"></i></a>、问答系统、句法分析、机器翻译等众多NLP任务的重要基础工具，旨在将<a class="link"   href="https://en.wikipedia.org/wiki/Unstructured_data" >非结构化文本<i class="fas fa-external-link-alt"></i></a>中提到的<a class="link"   href="https://en.wikipedia.org/wiki/Named_entity" >命名实体<i class="fas fa-external-link-alt"></i></a>定位并分类为预定义的类别，例如人姓名、组织、地点、<a class="link"   href="https://en.wikipedia.org/wiki/Medical_classification" >医疗代码<i class="fas fa-external-link-alt"></i></a>、时间表达、数量、货币价值、百分比等。</p><p><strong>BIO标注法</strong></p><p>将每个元素标注为“B-X”、“I-X”或者“O”。其中，“B-X”表示此元素所在的片段属于X类型并且此元素在此片段的开头，“I-X”表示此元素所在的片段属于X类型并且此元素在此片段的中间位置，“O”表示不属于任何类型，如下图所示：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031725389.png"                      alt="image-20220503172543360" style="zoom: 80%;"                 ><p><strong>NER模型结构</strong></p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031726967.png"                      alt="image-20220503172634938" style="zoom: 80%;"                 ><p>上图展示的NER模型使用Bert+BiLSTM+CRF的结构，首先使用Bert对输入的句子进行embedding,然后将这些向量输入BILSTM提取句子信息，最后输入CRF测算不同标注序列的概率，最后选取概率最大的序列作为最终结果。具体流程如下图所示。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031727724.png"                      alt="image-20220503172702670" style="zoom:67%;"                 ><h3 id="2-相似度计算（SIM）"><a href="#2-相似度计算（SIM）" class="headerlink" title="2. 相似度计算（SIM）"></a>2. 相似度计算（SIM）</h3><p><strong>模型设计</strong></p><ul><li><p>KGQA子任务(关系识别)</p><p>确定哪个关系必须被逻辑形式的特定部分使用是一项关键任务。类似于实体链接，我们需要学习映射自然语言表达到知识图谱，在该任务中是针对关系映射。</p></li><li><p>阶段目标</p><p>获得问题与知识三元组&lt;头实体，关系，尾实体&gt; 中相对应的关系。</p></li><li><p>上游任务</p><p>获得通过NER阶段识别到的头实体。</p></li><li><p>下游任务</p><p>通过头实体与SIM计算得到的关系检索尾实体（答案）。</p></li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031731183.png"                      alt="image-20220503173133145" style="zoom: 80%;"                 ><p><strong>流程实现</strong></p><ol><li><p>根据识别到的实体，通过es接口找到可能的候选关系的列表</p></li><li><p>训练相似度模型进行关系预测：输入为问句和候选关系的拼接，输出为两者相似度</p></li><li><p>获得问句和候选关系的相似度，以最高相似度的关系作为结果用于下游任务</p></li></ol><h2 id="三-数据集介绍"><a href="#三-数据集介绍" class="headerlink" title="三. 数据集介绍"></a>三. 数据集介绍</h2><p><strong>知识库</strong></p><p>知识库来源于百科类数据，由百科类搜索页面的事实性三元组构成。格式为&lt;头实体，关系，尾实体&gt;</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031739828.png"                      alt="image-20220503173921792" style="zoom:67%;"                 ><table><thead><tr><th><strong>实体数量</strong></th><th><strong>关系数量</strong></th><th>高频关系(&gt;100)</th><th><strong>三元组数量</strong></th></tr></thead><tbody><tr><td>3121457</td><td>245838</td><td>3833</td><td>20559652</td></tr></tbody></table><p><strong>问答数据集</strong></p><p>问答数据集为json格式，每行为一条问答对。问题是one-hop问题，即答案为知识库中的一条三元组。数据格式如下，其中id为问答对索引，quetion为问题，answer为答案，来自知识库，以’ ||| ‘分割。</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031741753.png"                      alt="image-20220503174113714"                ></p><table><thead><tr><th><strong>Corpus</strong></th><th><strong>Train</strong></th><th><strong>Dev</strong></th><th><strong>Test Public</strong></th><th><strong>Test Private</strong></th></tr></thead><tbody><tr><td>Num Samples</td><td>18k</td><td>2k</td><td>2k</td><td>3k</td></tr><tr><td>Num Relations</td><td>2164</td><td>1258</td><td>1260</td><td>423</td></tr></tbody></table><h2 id="四-项目设计与体验优化"><a href="#四-项目设计与体验优化" class="headerlink" title="四. 项目设计与体验优化"></a>四. 项目设计与体验优化</h2><h3 id="1-项目设计前端"><a href="#1-项目设计前端" class="headerlink" title="1. 项目设计前端"></a>1. 项目设计前端</h3><p>项目采用前端采用uni-app框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序、快应用等多个平台。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031743369.png"                      alt="image-20220503174331338" style="zoom: 80%;"                 ><h3 id="2-项目设计后端"><a href="#2-项目设计后端" class="headerlink" title="2. 项目设计后端"></a>2. 项目设计后端</h3><p>项目后端采用flask框架，搭建简便快速，较其他同类型框架更为灵活、轻便、安全且容易上手；flask社区活跃，基于flask的应用插件及其丰富，足够满足后端需求，同时它也具有很好的扩展性。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031744361.png"                      alt="image-20220503174458340" style="zoom:67%;"                 ><h3 id="3-体验优化"><a href="#3-体验优化" class="headerlink" title="3. 体验优化"></a>3. 体验优化</h3><p><strong>意图识别</strong></p><p>普通的问答系统难以满足日益增长的用户需求，如果是知识库中不存在的问题或是用户的意图不够明确的话，问答系统都难以给出我们期望的回复，因此实现一个可以能够理解我们在问什么的，并能根据我们的询问以不同的方式来回复的聊天机器人是很必要的。目前的话，该项目采用的svm分类器，对预先可能的结果进行分类。作为训练数据目前主要有三类，如打招呼，百科信息询问，普通聊天。若分类为信息询问，则接入我们的问答接口，如果是普通聊天，则接入我们的聊天机器人接口。因为是手动构想用户可能的输入作为训练数据，所有难免效果不好，未来我们打算采用RASA这一更加强大的框架作为我们的意图分类器。</p><p><strong>聊天室</strong></p><p>设计聊天室的功能，是有多方面因素推动的，而非冗余的扩展。</p><ol><li><p>首先的目的是分不同的群组，每个群组有特定支持的机器人，即该机器人是用该领域的语料训练的，并且表现较好。</p></li><li><p>二是收集特定领域的语料数据，有利于机器人把握句子的语义，持续有新的训练数据补充来对模型进行更新，有利于模型的迭代优化。</p></li></ol><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031811717.png"                      alt="image-20220503181147667" style="zoom: 50%;"                 ><h2 id="五-个人工作总结"><a href="#五-个人工作总结" class="headerlink" title="五. 个人工作总结"></a>五. 个人工作总结</h2><blockquote><p>后端模型代码基于<a class="link"   href="https://github.com/CLUEbenchmark/KgCLUE" >该仓库<i class="fas fa-external-link-alt"></i></a>进行修改</p></blockquote><ul><li><p>NER和SIM模型解耦（提取出推理部分，去掉了冗余wrapper）</p></li><li><p>Flask服务器搭建及与前端交互的代码（socketio）编写加调试</p></li><li><p>前端Uniapp聊天室编写及与后端交互的代码编写加调试</p></li><li><p>将该项目开源到<a class="link"   href="https://gitee.com/sixwalter/KgCLUE" >gitee仓库<i class="fas fa-external-link-alt"></i></a>并进行维护</p></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;基于知识图谱的开放域问答系统&quot;&gt;&lt;a href=&quot;#基于知识图谱的开放域问答系统&quot; class=&quot;headerlink&quot; title=&quot;基于知识图谱的开放域问答系统&quot;&gt;&lt;/a&gt;基于知识图谱的开放域问答系统&lt;/h1&gt;&lt;h2 id=&quot;一-项目总体介绍&quot;&gt;&lt;a href</summary>
+      
+    
+    
+    
+    <category term="nlp项目" scheme="http://example.com/categories/nlp%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="知识图谱" scheme="http://example.com/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/"/>
+    
+    <category term="问答系统" scheme="http://example.com/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vhr项目：学习记录1</title>
+    <link href="http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</id>
+    <published>2022-05-08T03:16:31.745Z</published>
+    <updated>2022-05-08T04:56:47.253Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="动态处理角色与资源的关系"><a href="#动态处理角色与资源的关系" class="headerlink" title="动态处理角色与资源的关系"></a>动态处理角色与资源的关系</h1><h2 id="用户类"><a href="#用户类" class="headerlink" title="用户类"></a>用户类</h2><ul><li>实现UserDetails接口（org.springframework.security中）</li><li>账户的锁定、密码的过期等等等接口均返回True，只处理了是否禁用账户的isEnabled()方法</li><li>Collection&lt;? extends GrantedAuthority&gt;解释：？类型实现了Collection接口，且一定是GrantedAuthority的子类</li></ul><h2 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h2><p><strong>即“参数化类型（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）</strong></p><h2 id="SpringBoot-web"><a href="#SpringBoot-web" class="headerlink" title="SpringBoot web"></a>SpringBoot web</h2><h3 id="资源控制器"><a href="#资源控制器" class="headerlink" title="资源控制器"></a>资源控制器</h3><ul><li>HTTP请求由控制器所处理，处理对/greeting下的路由的GET请求，它返回Greeting类的新实例</li><li>注解RestController表明该类是一个Restful控制器类</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;动态处理角色与资源的关系&quot;&gt;&lt;a href=&quot;#动态处理角色与资源的关系&quot; class=&quot;headerlink&quot; title=&quot;动态处理角色与资源的关系&quot;&gt;&lt;/a&gt;动态处理角色与资源的关系&lt;/h1&gt;&lt;h2 id=&quot;用户类&quot;&gt;&lt;a href=&quot;#用户类&quot; class</summary>
+      
+    
+    
+    
+    <category term="java项目" scheme="http://example.com/categories/java%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="java web" scheme="http://example.com/tags/java-web/"/>
+    
+    <category term="springboot" scheme="http://example.com/tags/springboot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用docker配置深度学习环境</title>
+    <link href="http://example.com/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/"/>
+    <id>http://example.com/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/</id>
+    <published>2022-05-08T03:16:31.745Z</published>
+    <updated>2022-05-08T04:30:36.172Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用docker安装pytorch"><a href="#使用docker安装pytorch" class="headerlink" title="使用docker安装pytorch"></a>使用docker安装pytorch</h1><blockquote><p>参考教程：</p><p><a class="link"   href="https://www.runoob.com/docker/docker-container-usage.html" >https://www.runoob.com/docker/docker-container-usage.html<i class="fas fa-external-link-alt"></i></a></p><p><a class="link"   href="https://blog.csdn.net/dreamhome_s/article/details/106049253" >https://blog.csdn.net/dreamhome_s/article/details/106049253<i class="fas fa-external-link-alt"></i></a></p><p>这里默认docker已安装好</p></blockquote><h2 id="1-dockers运行命令"><a href="#1-dockers运行命令" class="headerlink" title="1. dockers运行命令"></a>1. dockers运行命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --gpus all -itd --name torchtest -v <span class="variable">$PWD</span> -w /tmp/workplace -p 10035:22 -p 8889:8888 pytorch/pytorch:latest bash</span><br></pre></td></tr></table></figure><p><strong>notes</strong>:</p><ul><li><p>10035映射到容器的22号端口：用于SSH远程连接服务器</p></li><li><p>8889映射到8888端口：用于远程访问服务器的jupyter notebook</p></li><li><p>若端口号被占用，换一个未被占用的即可</p></li><li><p>-v -w：将当前目录挂载到容器的workplace目录下</p></li><li><p>-i: 交互式操作。</p></li><li><p>-t: 终端。</p></li><li><p>-d: 在后台执行</p></li></ul><p>可以将该命令写入<strong>脚本</strong>里方便持续执行，如图：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141420457.png"                      alt="image-20220414142028424" style="zoom: 67%;"                 ><h2 id="2-docker进入命令"><a href="#2-docker进入命令" class="headerlink" title="2. docker进入命令"></a>2. docker进入命令</h2><ul><li><strong>docker exec</strong>：推荐大家使用 docker exec 命令，因为此命令会退出容器终端，但不会导致容器的停止。</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it torchtest /bin/bash</span><br></pre></td></tr></table></figure><p>使用该命令可以进入终端，退出root也不会导致容器停止。</p><h2 id="3-开启SSH服务"><a href="#3-开启SSH服务" class="headerlink" title="3. 开启SSH服务"></a>3. 开启SSH服务</h2><ul><li>安装SSH服务：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install openssh-server</span><br><span class="line">service ssh start</span><br></pre></td></tr></table></figure><ul><li>设置容器密码：</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入passwd设置密码</span><br></pre></td></tr></table></figure><ul><li>修改容器配置：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt install vim</span><br><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># 在 sshd_config 文件里</span></span><br><span class="line">PermitRootLogin prohibit-password <span class="comment"># 注释掉</span></span><br><span class="line">PermitRootLogin yes <span class="comment"># 添加该行</span></span><br></pre></td></tr></table></figure><ul><li>重新激活SSH服务：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service ssh restart</span><br></pre></td></tr></table></figure><ul><li>在本机测试是否可以连接成功：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141504398.png"                      alt="image-20220414150403363" style="zoom:50%;"                 >]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;使用docker安装pytorch&quot;&gt;&lt;a href=&quot;#使用docker安装pytorch&quot; class=&quot;headerlink&quot; title=&quot;使用docker安装pytorch&quot;&gt;&lt;/a&gt;使用docker安装pytorch&lt;/h1&gt;&lt;blockquote&gt;
+</summary>
+      
+    
+    
+    
+    <category term="kinetics项目" scheme="http://example.com/categories/kinetics%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="环境配置" scheme="http://example.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    <category term="docker" scheme="http://example.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker内配置facebook pyslowfast环境</title>
+    <link href="http://example.com/2022/05/08/projects/kinetics%20project/installation%20of%20slowfast/"/>
+    <id>http://example.com/2022/05/08/projects/kinetics%20project/installation%20of%20slowfast/</id>
+    <published>2022-05-08T03:16:31.745Z</published>
+    <updated>2022-05-08T04:40:50.706Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="facebook-PySlowFast-安装"><a href="#facebook-PySlowFast-安装" class="headerlink" title="facebook PySlowFast 安装"></a>facebook PySlowFast 安装</h1><h2 id="环境配置并处理依赖"><a href="#环境配置并处理依赖" class="headerlink" title="环境配置并处理依赖"></a>环境配置并处理依赖</h2><blockquote><p>docker环境配置方法参考docker for pytorch.md</p><p>下面是项目安装所需要的依赖，详见该<a class="link"   href="https://github.com/facebookresearch/SlowFast" >仓库<i class="fas fa-external-link-alt"></i></a></p></blockquote><h3 id="fvcore"><a href="#fvcore" class="headerlink" title="fvcore"></a>fvcore</h3><p>轻量级的核心库，提供视觉框架开发最通用和基础的功能</p><p><strong>Features:</strong></p><p>Besides some basic utilities, fvcore includes the following features:</p><ul><li>Common pytorch layers, functions and losses in <a class="link"   href="https://github.com/facebookresearch/fvcore/blob/main/fvcore/nn" >fvcore.nn<i class="fas fa-external-link-alt"></i></a>.</li><li>A hierarchical per-operator flop counting tool: see <a class="link"   href="https://github.com/facebookresearch/fvcore/blob/main/docs/flop_count.md" >this note for details<i class="fas fa-external-link-alt"></i></a>.</li><li>Recursive parameter counting: see <a class="link"   href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.nn.parameter_count" >API doc<i class="fas fa-external-link-alt"></i></a>.</li><li>Recompute BatchNorm population statistics: see its <a class="link"   href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.nn.update_bn_stats" >API doc<i class="fas fa-external-link-alt"></i></a>.</li><li>A stateless, scale-invariant hyperparameter scheduler: see its <a class="link"   href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.common.param_scheduler.ParamScheduler" >API doc<i class="fas fa-external-link-alt"></i></a>.</li></ul><h3 id="FFmpeg"><a href="#FFmpeg" class="headerlink" title="FFmpeg"></a>FFmpeg</h3><p>用来处理多媒体内容（音频，视频，字幕）的工具库集合。 官方网站：<a class="link"   href="https://ffmpeg.org/" >website<i class="fas fa-external-link-alt"></i></a></p><blockquote><p>sth interesting: <a class="link"   href="https://ffmpeg.org/git-howto.html" >Using Git to develop FFmpeg<i class="fas fa-external-link-alt"></i></a></p></blockquote><p><strong>Tools</strong></p><ul><li><a class="link"   href="https://ffmpeg.org/ffmpeg.html" >ffmpeg<i class="fas fa-external-link-alt"></i></a> is a command line toolbox to manipulate, convert and stream multimedia content.</li><li><a class="link"   href="https://ffmpeg.org/ffplay.html" >ffplay<i class="fas fa-external-link-alt"></i></a> is a minimalistic multimedia player.</li><li><a class="link"   href="https://ffmpeg.org/ffprobe.html" >ffprobe<i class="fas fa-external-link-alt"></i></a> is a simple analysis tool to inspect multimedia content.</li><li>Additional small tools such as <code>aviocat</code>, <code>ismindex</code> and <code>qt-faststart</code>.</li></ul><h3 id="PyAV"><a href="#PyAV" class="headerlink" title="PyAV"></a>PyAV</h3><p>是对FFmpeg python 风格的binding，提供对下层的库提供强大的控制。PyAV 用于通过容器、流、数据包、编解码器和帧直接和精确地访问媒体。<a class="link"   href="https://pyav.org/docs/stable/" >文档链接<i class="fas fa-external-link-alt"></i></a></p><h3 id="psutil"><a href="#psutil" class="headerlink" title="psutil"></a>psutil</h3><p>获取运行进程和系统利用率信息的库（CPU, memory, disks, network, sensors）。<a class="link"   href="https://psutil.readthedocs.io/en/latest/" >文档链接<i class="fas fa-external-link-alt"></i></a></p><h3 id="tensorboard"><a href="#tensorboard" class="headerlink" title="tensorboard"></a>tensorboard</h3><p><a class="link"   href="https://pytorch.org/docs/stable/tensorboard.html?highlight=tensorboard" >pytorch教程<i class="fas fa-external-link-alt"></i></a></p><p><a class="link"   href="https://www.tensorflow.org/tensorboard/get_started" >更详细的<i class="fas fa-external-link-alt"></i></a></p><p><a class="link"   href="https://zhuanlan.zhihu.com/p/143809933" >Pytorch下的tensorboard可视化<i class="fas fa-external-link-alt"></i></a></p><p><a class="link"   href="https://www.jianshu.com/p/46eb3004beca" >Pytorch使用tensorboardX可视化<i class="fas fa-external-link-alt"></i></a></p><h3 id="PyTorchVideo"><a href="#PyTorchVideo" class="headerlink" title="PyTorchVideo"></a>PyTorchVideo</h3><p>PyTorchVideo is a deeplearning library with a focus on video understanding work. PytorchVideo provides reusable, modular and efficient components needed to accelerate the video understanding research. PyTorchVideo is developed using <a class="link"   href="https://pytorch.org/" >PyTorch<i class="fas fa-external-link-alt"></i></a> and supports different deeplearning video components like video models, video datasets, and video-specific transforms.</p><p><a class="link"   href="https://pytorchvideo.org/docs/tutorial_overview" >getting started<i class="fas fa-external-link-alt"></i></a></p><p><a class="link"   href="https://pytorchvideo.org/#quickstart" >quick start<i class="fas fa-external-link-alt"></i></a></p><p><a class="link"   href="https://github.com/facebookresearch/pytorchvideo/blob/main/docs/source/model_zoo.md" >Using PyTorchVideo model zoo<i class="fas fa-external-link-alt"></i></a></p><h3 id="Detectron2"><a href="#Detectron2" class="headerlink" title="Detectron2"></a>Detectron2</h3><p><a class="link"   href="https://github.com/facebookresearch/detectron2" >https://github.com/facebookresearch/detectron2<i class="fas fa-external-link-alt"></i></a></p><h3 id="pytorch"><a href="#pytorch" class="headerlink" title="pytorch"></a>pytorch</h3><h4 id="install-from-binaries"><a href="#install-from-binaries" class="headerlink" title="install from binaries"></a>install from binaries</h4><ol><li>PyTorch is supported on Linux distributions that use <a class="link"   href="https://www.gnu.org/software/libc/" >glibc<i class="fas fa-external-link-alt"></i></a> &gt;= v2.17</li><li><a class="link"   href="https://www.ubuntu.com/download/desktop" >Ubuntu<i class="fas fa-external-link-alt"></i></a>, minimum version 13.04</li><li>Python 3.7 or greater</li></ol><h4 id="building-from-source"><a href="#building-from-source" class="headerlink" title="building from source"></a>building from source</h4><blockquote><p> install bleeding edge PyTorch code</p></blockquote><p><strong>pre-knowledge</strong></p><p>GPU 计算能力表：<a class="link"   href="https://developer.nvidia.com/cuda-gpus" >https://developer.nvidia.com/cuda-gpus<i class="fas fa-external-link-alt"></i></a></p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220414113639291.png"                      alt="image-20220414113639291" style="zoom:50%;"                 ><p><strong>CUDA</strong>是一个工具包，是NVIDIA推出的用于自家GPU上的并行计算框架。For convenience, the NVIDIA driver is installed as part of the CUDA Toolkit installation</p><p><strong>cuDNN</strong>是一个SDK，是一个专门用于神经网络的加速包，注意，它跟我们的CUDA没有一一对应的关系，即每一个版本的CUDA可能有好几个版本的cuDNN与之对应，但一般有一个最新版本的cuDNN版本与CUDA对应更好，<a class="link"   href="https://developer.nvidia.com/rdp/cudnn-archive" >链接地址<i class="fas fa-external-link-alt"></i></a></p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141233189.png"                      alt="image-20220414123339104" style="zoom: 50%;"                 ><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141235527.png"                      alt="image-20220414123544479" style="zoom:50%;"                 ><h2 id="数据下载与处理"><a href="#数据下载与处理" class="headerlink" title="数据下载与处理"></a>数据下载与处理</h2><blockquote><p>kinetics数据集下载 github:<a class="link"   href="https://github.com/cvdfoundation/kinetics-dataset" >https://github.com/cvdfoundation/kinetics-dataset<i class="fas fa-external-link-alt"></i></a></p></blockquote><ul><li>我下载的数据集为kinetics-700-2020，可参考：<a class="link"   href="https://github.com/cvdfoundation/kinetics-dataset#kinetics-700-2020" >https://github.com/cvdfoundation/kinetics-dataset#kinetics-700-2020<i class="fas fa-external-link-alt"></i></a></li></ul><ol><li><strong>数据集下载</strong>：bash ./k700_2020_downloader.sh<ul><li>确定下载目录和数据集目录</li><li>将训练，验证，测试数据集，标注下载到对应目录</li><li>使用命令：wget -P 下载到指定目录 -c 断点续传 -i 下载多个文件</li></ul></li><li><strong>数据集处理</strong>：bash ./k700_2020_extractor.sh<ul><li>分别解压训练，验证，测试数据集和标注</li><li>使用命令 tar zxf 来解压 -C 解压到的目录</li></ul></li></ol><ul><li><p>下载数据集也可参考<a class="link"   href="https://github.com/activitynet/ActivityNet/tree/master/Crawler/Kinetics%EF%BC%8C%E4%BD%86%E5%8F%AA%E6%9C%89k600%E4%B9%8B%E5%89%8D%E7%9A%84" >https://github.com/activitynet/ActivityNet/tree/master/Crawler/Kinetics，但只有k600之前的<i class="fas fa-external-link-alt"></i></a></p></li><li><p>可参考该仓库进行数据集准备：<a class="link"   href="https://github.com/facebookresearch/video-nonlocal-net/blob/main/DATASET.md" >https://github.com/facebookresearch/video-nonlocal-net/blob/main/DATASET.md<i class="fas fa-external-link-alt"></i></a></p><ol><li><p>获得类别标签映射，因为原仓库是针对k400的，所以我重新生成了映射</p><blockquote><p>详见data_process文件夹下的preprocess.py的generatejsonmap函数</p></blockquote></li><li><p> 使用gen_py_list.py改变文件夹名称，并对训练集和验证集生成txt列表.</p></li></ol><blockquote><p>若gen_py_list.py中途报错，则生成的txt列表会不全，这里写了个简单的函数来进行重新生成（preprocess.py下的generatetxtlist()）。若输出与实际数据集视频数相等，则生成正确（ 即和“ls -lR /tmp/data/train | grep “^-“ | wc -l ”的结果进行比较）</p></blockquote><ol start="3"><li><p>使用downscale_video_joblib.py把视频的高度缩小为256 pixels</p><blockquote><p>检查文件数是否匹配即可</p></blockquote></li></ol></li><li><p>调整视频大小到256, 准备训练集，验证集，测试集的csv文件如 <code>train.csv</code>, <code>val.csv</code>, <code>test.csv</code>. 格式如下:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">path_to_video_1 label_1</span><br><span class="line">path_to_video_2 label_2</span><br><span class="line">path_to_video_3 label_3</span><br><span class="line">...</span><br><span class="line">path_to_video_N label_N</span><br></pre></td></tr></table></figure></li><li><p>依据txt列表生成CSV文件：</p></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data_process/preprocess.py</span></span><br><span class="line"><span class="comment"># generate_csv_file() function</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;data process/trainlist.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&quot;f&quot;</span>)</span><br><span class="line">     lines = file.readlines()</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&quot;d&quot;</span>)</span><br><span class="line">     list_paths = []</span><br><span class="line">     list_labels = []</span><br><span class="line">     <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">         elems = line.strip().split()</span><br><span class="line">         list_labels.append(<span class="built_in">int</span>(elems[<span class="number">1</span>]))</span><br><span class="line">         list_paths.append(videodir+elems[<span class="number">0</span>])</span><br><span class="line">     series_paths = pd.Series(np.array(list_paths))</span><br><span class="line">     series_labels = pd.Series(np.array(list_labels))</span><br><span class="line">     d = &#123;</span><br><span class="line">         <span class="string">&quot;video_path&quot;</span>:series_paths,</span><br><span class="line">         <span class="string">&quot;label&quot;</span>:series_labels</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="built_in">print</span>(d)</span><br><span class="line">     df = pd.DataFrame(d)</span><br><span class="line">     df.to_csv(<span class="string">&quot;data process/train.csv&quot;</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;facebook-PySlowFast-安装&quot;&gt;&lt;a href=&quot;#facebook-PySlowFast-安装&quot; class=&quot;headerlink&quot; title=&quot;facebook PySlowFast 安装&quot;&gt;&lt;/a&gt;facebook PySlowFast </summary>
+      
+    
+    
+    
+    <category term="kinetics项目" scheme="http://example.com/categories/kinetics%E9%A1%B9%E7%9B%AE/"/>
+    
+    <category term="环境安装" scheme="http://example.com/categories/kinetics%E9%A1%B9%E7%9B%AE/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/"/>
+    
+    
+    <category term="环境配置" scheme="http://example.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    <category term="docker" scheme="http://example.com/tags/docker/"/>
+    
+    <category term="pySlowFast" scheme="http://example.com/tags/pySlowFast/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>setuptools入门</title>
+    <link href="http://example.com/2022/05/08/projects/kinetics%20project/setuptools/"/>
+    <id>http://example.com/2022/05/08/projects/kinetics%20project/setuptools/</id>
+    <published>2022-05-08T03:16:31.745Z</published>
+    <updated>2022-05-08T04:49:19.690Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="setuptools-Quickstart"><a href="#setuptools-Quickstart" class="headerlink" title="setuptools Quickstart"></a><code>setuptools</code> Quickstart</h1><h2 id="basics"><a href="#basics" class="headerlink" title="basics"></a>basics</h2><ol><li>声明使用setuptools 来打包项目</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># pyproject.toml</span><br><span class="line">[build-system]</span><br><span class="line">requires = [&quot;setuptools&quot;]</span><br><span class="line">build-backend = &quot;setuptools.build_meta&quot;</span><br></pre></td></tr></table></figure><ol start="2"><li>通过配置文件setup.py来 specify 包信息</li></ol><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">&#x27;mypackage&#x27;</span>,</span><br><span class="line">    version=<span class="string">&#x27;0.0.1&#x27;</span>,</span><br><span class="line">    packages=[<span class="string">&#x27;mypackage&#x27;</span>],</span><br><span class="line">    install_requires=[</span><br><span class="line">        <span class="string">&#x27;requests&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;importlib-metadata; python_version == &quot;3.8&quot;&#x27;</span>,</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="3"><li>需要一个构建器builder</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># pip install build</span><br><span class="line">python -m build</span><br></pre></td></tr></table></figure><h2 id="extensions"><a href="#extensions" class="headerlink" title="extensions"></a>extensions</h2><ol><li>自动包发现</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from setuptools import find_packages  # or find_namespace_packages</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    # ...</span><br><span class="line">    packages=find_packages(</span><br><span class="line">        where=&#x27;.&#x27;,</span><br><span class="line">        include=[&#x27;mypackage*&#x27;],  # [&quot;*&quot;] by default</span><br><span class="line">        exclude=[&#x27;mypackage.tests&#x27;],  # empty by default</span><br><span class="line">    ),</span><br><span class="line">    # ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="2"><li>依赖管理</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setup(</span><br><span class="line">    # ...</span><br><span class="line">    install_requires=[&quot;docutils&quot;, &quot;requests &lt;= 0.4&quot;],</span><br><span class="line">    # ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="3"><li>开发者模式</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --editable .</span><br></pre></td></tr></table></figure><h2 id="experiments"><a href="#experiments" class="headerlink" title="experiments"></a>experiments</h2><blockquote><p>遵循教程，实验打包流程：<a class="link"   href="https://packaging.python.org/en/latest/tutorials/packaging-projects/" >https://packaging.python.org/en/latest/tutorials/packaging-projects/<i class="fas fa-external-link-alt"></i></a></p></blockquote><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141406193.png"                      alt="image-20220414140619160"                ></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;setuptools-Quickstart&quot;&gt;&lt;a href=&quot;#setuptools-Quickstart&quot; class=&quot;headerlink&quot; title=&quot;setuptools Quickstart&quot;&gt;&lt;/a&gt;&lt;code&gt;setuptools&lt;/code&gt;</summary>
+      
+    
+    
+    
+    <category term="kinetics项目" scheme="http://example.com/categories/kinetics%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="环境配置" scheme="http://example.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    <category term="setuptools" scheme="http://example.com/tags/setuptools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pytorch多进程训练</title>
+    <link href="http://example.com/2022/05/08/projects/huawei%20project/distributed/"/>
+    <id>http://example.com/2022/05/08/projects/huawei%20project/distributed/</id>
+    <published>2022-05-08T03:16:31.743Z</published>
+    <updated>2022-05-08T04:52:29.357Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="pytorch多进程训练"><a href="#pytorch多进程训练" class="headerlink" title="pytorch多进程训练"></a>pytorch多进程训练</h1><h2 id="一-基础知识"><a href="#一-基础知识" class="headerlink" title="一. 基础知识"></a>一. 基础知识</h2><ul><li>group：进程组，默认情况下只有一个组，多进程中一个group有多个world</li><li>world：全局进程个数</li><li>rank：表示进程号，用于进程间通信（值越低，优先级越高）</li><li>local-rank：进程内GPU编号</li></ul><h2 id="二-开启分布式模式"><a href="#二-开启分布式模式" class="headerlink" title="二. 开启分布式模式"></a>二. 开启分布式模式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_distributed_mode</span>(<span class="params">args</span>):</span></span><br><span class="line">    <span class="comment"># 函数里的每一行代码都会在每个进程上单独执行</span></span><br><span class="line">    log = [] <span class="comment"># 记录环境信息</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;RANK&#x27;</span> <span class="keyword">in</span> os.environ <span class="keyword">and</span> <span class="string">&#x27;WORLD_SIZE&#x27;</span> <span class="keyword">in</span> os.environ:</span><br><span class="line">        args.rank = <span class="built_in">int</span>(os.environ[<span class="string">&quot;RANK&quot;</span>])</span><br><span class="line">        args.world_size = <span class="built_in">int</span>(os.environ[<span class="string">&#x27;WORLD_SIZE&#x27;</span>])</span><br><span class="line">        args.gpu = <span class="built_in">int</span>(os.environ[<span class="string">&#x27;LOCAL_RANK&#x27;</span>])</span><br><span class="line">        log.extend([args.rank,args.world_size,args.gpu])</span><br><span class="line">    <span class="keyword">elif</span> <span class="string">&#x27;SLURM_PROCID&#x27;</span> <span class="keyword">in</span> os.environ:</span><br><span class="line">        args.rank = <span class="built_in">int</span>(os.environ[<span class="string">&#x27;SLURM_PROCID&#x27;</span>])</span><br><span class="line">        args.gpu = args.rank % torch.cuda.device_count()</span><br><span class="line">        log.extend([args.rank,args.gpu])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Not using distributed mode&#x27;</span>)</span><br><span class="line">        args.distributed = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;args.gpu:<span class="subst">&#123;args.gpu&#125;</span>&quot;</span>)</span><br><span class="line">    args.distributed = <span class="literal">True</span></span><br><span class="line">    <span class="comment"># 打印环境信息</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;environment info: <span class="subst">&#123;log&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    torch.cuda.set_device(args.gpu)</span><br><span class="line">    args.dist_backend = <span class="string">&#x27;nccl&#x27;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;| distributed init (rank &#123;&#125;): &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">        args.rank, args.dist_url), flush=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 分布式初始化</span></span><br><span class="line">    torch.distributed.init_process_group(backend=args.dist_backend, init_method=args.dist_url,</span><br><span class="line">                                         world_size=args.world_size, rank=args.rank)</span><br><span class="line">    <span class="comment"># 同步所有进程</span></span><br><span class="line">    torch.distributed.barrier()</span><br><span class="line">    setup_for_distributed(args.rank == <span class="number">0</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;pytorch多进程训练&quot;&gt;&lt;a href=&quot;#pytorch多进程训练&quot; class=&quot;headerlink&quot; title=&quot;pytorch多进程训练&quot;&gt;&lt;/a&gt;pytorch多进程训练&lt;/h1&gt;&lt;h2 id=&quot;一-基础知识&quot;&gt;&lt;a href=&quot;#一-基础知识&quot;</summary>
+      
+    
+    
+    
+    <category term="华为项目" scheme="http://example.com/categories/%E5%8D%8E%E4%B8%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="分布式训练" scheme="http://example.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/"/>
+    
+    <category term="distributed" scheme="http://example.com/tags/distributed/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>混合精度训练初探</title>
+    <link href="http://example.com/2022/05/08/projects/huawei%20project/apex/"/>
+    <id>http://example.com/2022/05/08/projects/huawei%20project/apex/</id>
+    <published>2022-05-08T03:16:31.740Z</published>
+    <updated>2022-05-08T04:51:29.291Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="自动半精度（混合精度）训练"><a href="#自动半精度（混合精度）训练" class="headerlink" title="自动半精度（混合精度）训练"></a>自动半精度（混合精度）训练</h1><h2 id="一-apex-与-amp"><a href="#一-apex-与-amp" class="headerlink" title="一. apex 与 amp"></a>一. apex 与 amp</h2><p>apex是英伟达构建的一个pytorch扩展，amp为其中提供混合精度的库</p><h2 id="二-fp16的问题"><a href="#二-fp16的问题" class="headerlink" title="二. fp16的问题"></a>二. fp16的问题</h2><h3 id="2-1-数据溢出（下溢）"><a href="#2-1-数据溢出（下溢）" class="headerlink" title="2.1 数据溢出（下溢）"></a>2.1 数据溢出（下溢）</h3><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204121831277.png"                      alt="image-20220412183129207" style="zoom: 67%;"                 ><h3 id="2-2-舍入误差"><a href="#2-2-舍入误差" class="headerlink" title="2.2 舍入误差"></a>2.2 舍入误差</h3><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204121831120.jpeg"                      alt="preview" style="zoom: 50%;"                 ><h2 id="三-解决方法"><a href="#三-解决方法" class="headerlink" title="三. 解决方法"></a>三. 解决方法</h2><h3 id="3-1-FP32权重备份"><a href="#3-1-FP32权重备份" class="headerlink" title="3.1 FP32权重备份"></a>3.1 FP32权重备份</h3><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204121835152.jpeg"                      alt="preview" style="zoom: 67%;"                 ><p>只有更新的时候采用F32</p><h3 id="3-2-loss-scale损失放大"><a href="#3-2-loss-scale损失放大" class="headerlink" title="3.2 loss scale损失放大"></a>3.2 loss scale损失放大</h3><p>根据链式法则，可以通过放大loss从而放大梯度来解决舍入误差</p><h3 id="3-3-提高算数精度"><a href="#3-3-提高算数精度" class="headerlink" title="3.3 提高算数精度"></a>3.3 提高算数精度</h3><p><strong>利用fp16进行乘法和存储，利用fp32来进行加法计算</strong>，来减少加法过程中的舍入误差，保证精度不损失</p><h2 id="四-快速使用"><a href="#四-快速使用" class="headerlink" title="四. 快速使用"></a>四. 快速使用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> apex <span class="keyword">import</span> amp</span><br><span class="line">model, optimizer = amp.initialize(model, optimizer, opt_level=<span class="string">&quot;O1&quot;</span>,loss_scale=<span class="number">128.0</span>) <span class="comment"># 这里是“欧一”，不是“零一”</span></span><br><span class="line"><span class="comment"># loss.backward() becomes:</span></span><br><span class="line"><span class="keyword">with</span> amp.scale_loss(loss, optimizer) <span class="keyword">as</span> scaled_loss:</span><br><span class="line">    scaled_loss.backward()</span><br></pre></td></tr></table></figure><p>opt_level 优先使用O2，若无法收敛则使用O1</p><p>如下是两个pytorch原生支持的apex混合精度和nvidia apex的loss scaler的具体实现：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">from</span> apex <span class="keyword">import</span> amp</span><br><span class="line">    has_apex = <span class="literal">True</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;successfully import amp&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> ImportError:</span><br><span class="line">    amp = <span class="literal">None</span></span><br><span class="line">    has_apex = <span class="literal">False</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;can not import amp from apex&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApexScaler</span>:</span></span><br><span class="line">    state_dict_key = <span class="string">&quot;amp&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self, loss, optimizer, clip_grad=<span class="literal">None</span>, parameters=<span class="literal">None</span>, create_graph=<span class="literal">False</span></span>):</span></span><br><span class="line">        <span class="keyword">with</span> amp.scale_loss(loss, optimizer) <span class="keyword">as</span> scaled_loss:</span><br><span class="line">            scaled_loss.backward(create_graph=create_graph)</span><br><span class="line">        <span class="keyword">if</span> clip_grad <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            torch.nn.utils.clip_grad_norm_(amp.master_params(optimizer), clip_grad)</span><br><span class="line">        optimizer.step()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">state_dict</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;state_dict&#x27;</span> <span class="keyword">in</span> amp.__dict__:</span><br><span class="line">            <span class="keyword">return</span> amp.state_dict()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_state_dict</span>(<span class="params">self, state_dict</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;load_state_dict&#x27;</span> <span class="keyword">in</span> amp.__dict__:</span><br><span class="line">            amp.load_state_dict(state_dict)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NativeScaler</span>:</span></span><br><span class="line">    state_dict_key = <span class="string">&quot;amp_scaler&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># GradScaler对象用来自动做梯度缩放</span></span><br><span class="line">        self._scaler = torch.cuda.amp.GradScaler()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self, loss, optimizer, clip_grad=<span class="literal">None</span>, parameters=<span class="literal">None</span>, create_graph=<span class="literal">False</span></span>):</span></span><br><span class="line">        self._scaler.scale(loss).backward(create_graph=create_graph)</span><br><span class="line">        <span class="keyword">if</span> clip_grad <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">assert</span> parameters <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span></span><br><span class="line">            self._scaler.unscale_(optimizer)  <span class="comment"># unscale the gradients of optimizer&#x27;s assigned params in-place</span></span><br><span class="line">            torch.nn.utils.clip_grad_norm_(parameters, clip_grad)</span><br><span class="line">        self._scaler.step(optimizer)</span><br><span class="line">        self._scaler.update()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">state_dict</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self._scaler.state_dict()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_state_dict</span>(<span class="params">self, state_dict</span>):</span></span><br><span class="line">        self._scaler.load_state_dict(state_dict)</span><br></pre></td></tr></table></figure><p>apex + 分布式：</p><p>apex ddp默认使用当前设备，torch ddp需要手动指定运行的设备，用法和torch类似，</p><p>但需注意</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model, optimizer = amp.initialize(model, optimizer, flags...)</span><br></pre></td></tr></table></figure><p>应在</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = apex.parallel.DistributedDataParallel(model)</span><br></pre></td></tr></table></figure><p>之前</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;自动半精度（混合精度）训练&quot;&gt;&lt;a href=&quot;#自动半精度（混合精度）训练&quot; class=&quot;headerlink&quot; title=&quot;自动半精度（混合精度）训练&quot;&gt;&lt;/a&gt;自动半精度（混合精度）训练&lt;/h1&gt;&lt;h2 id=&quot;一-apex-与-amp&quot;&gt;&lt;a href</summary>
+      
+    
+    
+    
+    <category term="华为项目" scheme="http://example.com/categories/%E5%8D%8E%E4%B8%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="混合精度" scheme="http://example.com/tags/%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6/"/>
+    
+    <category term="amp" scheme="http://example.com/tags/amp/"/>
+    
+  </entry>
   
   <entry>
     <title></title>
@@ -78,26 +320,6 @@
   
   <entry>
     <title></title>
-    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_009%20/"/>
-    <id>http://example.com/2022/05/07/paper-reading/paper_reading_009%20/</id>
-    <published>2022-05-07T13:01:41.958Z</published>
-    <updated>2022-03-31T09:38:57.359Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Deep-Temporal-Linear-Encoding-Networks"><a href="#Deep-Temporal-Linear-Encoding-Networks" class="headerlink" title="Deep Temporal Linear Encoding Networks"></a><strong>Deep Temporal Linear Encoding Networks</strong></h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>这篇文章主要是针对如何对整个视频进行表示，即如何对视频中的片段进行聚合，提出了时间线性编码（TLE），它可以嵌入在CNN中作为一个层，从而允许端到端的训练。</p><h2 id="二-TLE-Layer"><a href="#二-TLE-Layer" class="headerlink" title="二. TLE　Layer"></a>二. TLE　Layer</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331170312907.png"                      alt="image-20220331170312907" style="zoom:50%;"                 ><p>TLE层主要分为两个部分，第一个是对视频的多个片段的特征图进行聚合的操作，第二个是将聚合表示转化为线性编码特征的编码操作，算法如下图所示：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331171227702.png"                      alt="image-20220331171227702" style="zoom: 50%;"                 ><p>聚合方法可采用（逐元素）最大聚合，平均聚合和乘积聚合，编码方法可采用双线性模型和全连接池化。实验表明，双线性模型较第二种方法计算更加快速，参数量更少的同时效果更好，使用Tensor Sketch算法也可以通过将高维空间投影到低维空间而无需直接计算外积。作者在已有的典型模型的基础上只保留卷积，通过加入TLE层来进行实验。实验证明使用该层对模型效果均有较大提升。值得一提的是，作者还将环境场景信息纳入考虑，作为额外信息进行聚合，实验表明准确率有较大提升，该实验证明了TLE合并不同数据流的能力。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331173204667.png"                      alt="image-20220331173204667" style="zoom:50%;"                 >]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Deep-Temporal-Linear-Encoding-Networks&quot;&gt;&lt;a href=&quot;#Deep-Temporal-Linear-Encoding-Networks&quot; class=&quot;headerlink&quot; title=&quot;Deep Temporal Li</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://example.com/2022/05/07/paper-reading/paper_reading_008/"/>
     <id>http://example.com/2022/05/07/paper-reading/paper_reading_008/</id>
     <published>2022-05-07T13:01:41.958Z</published>
@@ -109,6 +331,26 @@
       
       
     <summary type="html">&lt;h1 id=&quot;Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition&quot;&gt;&lt;a href=&quot;#Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recog</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_009%20/"/>
+    <id>http://example.com/2022/05/07/paper-reading/paper_reading_009%20/</id>
+    <published>2022-05-07T13:01:41.958Z</published>
+    <updated>2022-03-31T09:38:57.359Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Deep-Temporal-Linear-Encoding-Networks"><a href="#Deep-Temporal-Linear-Encoding-Networks" class="headerlink" title="Deep Temporal Linear Encoding Networks"></a><strong>Deep Temporal Linear Encoding Networks</strong></h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>这篇文章主要是针对如何对整个视频进行表示，即如何对视频中的片段进行聚合，提出了时间线性编码（TLE），它可以嵌入在CNN中作为一个层，从而允许端到端的训练。</p><h2 id="二-TLE-Layer"><a href="#二-TLE-Layer" class="headerlink" title="二. TLE　Layer"></a>二. TLE　Layer</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331170312907.png"                      alt="image-20220331170312907" style="zoom:50%;"                 ><p>TLE层主要分为两个部分，第一个是对视频的多个片段的特征图进行聚合的操作，第二个是将聚合表示转化为线性编码特征的编码操作，算法如下图所示：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331171227702.png"                      alt="image-20220331171227702" style="zoom: 50%;"                 ><p>聚合方法可采用（逐元素）最大聚合，平均聚合和乘积聚合，编码方法可采用双线性模型和全连接池化。实验表明，双线性模型较第二种方法计算更加快速，参数量更少的同时效果更好，使用Tensor Sketch算法也可以通过将高维空间投影到低维空间而无需直接计算外积。作者在已有的典型模型的基础上只保留卷积，通过加入TLE层来进行实验。实验证明使用该层对模型效果均有较大提升。值得一提的是，作者还将环境场景信息纳入考虑，作为额外信息进行聚合，实验表明准确率有较大提升，该实验证明了TLE合并不同数据流的能力。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331173204667.png"                      alt="image-20220331173204667" style="zoom:50%;"                 >]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Deep-Temporal-Linear-Encoding-Networks&quot;&gt;&lt;a href=&quot;#Deep-Temporal-Linear-Encoding-Networks&quot; class=&quot;headerlink&quot; title=&quot;Deep Temporal Li</summary>
       
     
     
@@ -245,71 +487,6 @@
     
     
     <category term="行为识别" scheme="http://example.com/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“</title>
-    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_004/"/>
-    <id>http://example.com/2022/05/07/paper-reading/paper_reading_004/</id>
-    <published>2022-05-07T12:46:33.420Z</published>
-    <updated>2022-05-07T12:46:33.421Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Social-GAN阅读笔记（cvpr-2018）"><a href="#Social-GAN阅读笔记（cvpr-2018）" class="headerlink" title="Social GAN阅读笔记（cvpr 2018）"></a>Social GAN阅读笔记（cvpr 2018）</h1><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h3><p>论文的目标在于同时推理和预测在一个场景里的所有实体的未来行动轨迹。假设我们可以获得场景里人们的所有轨迹信息为$X=X_1,X_2,…,X_n$，要同时预测所有人的未来轨迹信息为$\hat{Y}=\hat{Y_1},\hat{Y_2},…,\hat{Y_n}$。行人i的输入轨迹为$X_i=(x^t_i,y^t_i)$，t=1,…,$t_{obs}$，真实未来轨迹为$Y_i=(x_i^t，y_i^t),t=t_{obs}+1,…,t_{pred}$</p><h3 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h3><p>论文模型包含三个关键组件：生成器G，池化模块PM，和判别器D。G是基于编解码框架的网络，论文使用了PM模块来连接编码器和解码器的隐状态。模块G提取输入Xi并输出预测轨迹$\hat{Y}_i$。模块D输入整个包含$X_i$和$\hat{Y}_i$的序列，并把他们分类为真或假。SGAN的整体结构如下图所示：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201021843497.png"                      alt="image-20220102184313441"                ></p><h4 id="GENERATOR"><a href="#GENERATOR" class="headerlink" title="GENERATOR"></a>GENERATOR</h4><p>在模块G中，论文首先使用一个单层的多层感知机把每个行人的位置信息嵌入并得到了固定长度的向量$e^t_i$，这些嵌入量之后用来作为编码器中的LSTM单元t时刻的输入。并遵从如下的迭代关系式：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201021851490.png"                      alt="image-20220102185147460"                ></p><p>其中，$\phi()$是一个带有ReLu非线性的嵌入函数，Wee是嵌入权重，LSTM单元的权重$W_{encoder}$被场景里的所有人所共享。编码器可以学习行人的状态并存储他们的历史运动。在论文的方法中，作者是通过PM模块来对人与人之间的交互建模。在$t_{obs}$时刻后，我们对所有场景里的人的隐状态信息进行池化。论文对decoder的隐变量状态进行了初始化：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201021906545.png"                      alt="image-20220102190609514"                ></p><p>其中，$\gamma()$是一个带有ReLu非线性的多层感知机，Wc是嵌入权重。在初始化解码器状态之后，我们可以根据以下步骤来获得预测轨迹：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201021910900.png"                      alt="image-20220102191015871"                ></p><h3 id="Pooling-Module"><a href="#Pooling-Module" class="headerlink" title="Pooling Module"></a>Pooling Module</h3><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201031556153.png"                      alt="image-20220103155639067"                ></p><p>对于行人1来说，其位置为(x1,y1)，将场景内其他人相对行人1的位置坐标（如$(x_2-x_1,y_2-y_1)$）和隐状态传给多层感知机，之后使用最大池化来作为对称函数，池化的结果向量P1如右图所示。</p><h3 id="多模态输出"><a href="#多模态输出" class="headerlink" title="多模态输出"></a>多模态输出</h3><p>论文提出了一种损失函数，它可以促进网络生成多样的样本。对于每个场景，我们生成了K个可能的预测输出，并选择其中最好的预测作为最终的预测。</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201031623105.png"                      alt="image-20220103162323082"                ></p><h3 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h3><p>作者在GAN中使用了长短时记忆这一特殊的RNN来处理序列位置数据。编码器的隐状态维度为16，而解码器的隐状态维度为32。我们将输入坐标序列编码为了16维向量。作者使用Adam优化算法训练生成器和判别器200个epoch。其batch size大小为64，初始学习率为0.001。</p><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h3><ol><li>平均位移误差（ADE）：在所有预测时间点的L2距离</li><li>最终位移误差（FDE）：在预测最终位置和真实最终位置间的距离</li></ol><h3 id="基线"><a href="#基线" class="headerlink" title="基线"></a>基线</h3><ol><li>线性：一个最小化最小二乘误差的线性回归器</li><li>LSTM：一个没有pooling机制的简单LSTM</li><li>S-LSTM：每个行人通过一个带隐状态的LSTM进行建模，该隐状态在LSTM的每个时间点使用social pooling layer进行池化</li></ol><h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h3><p>论文对于不同的控制设定进行了消融实验。在测试时，论文从模型中采样N次并选择最好（L2距离小）的预测用来进行定量评估。</p><h3 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h3><p>论文使用了留一法来评估模型，即将数据集分为5个集合，每次在其中的4个数据集合上进行训练，在剩余的一个数据集合上进行测试，重复训练5次。论文观测8个时间点（总计3.2秒）的历史轨迹，并预测8和12个时间点的未来轨迹。</p><h3 id="定量分析"><a href="#定量分析" class="headerlink" title="定量分析"></a>定量分析</h3><ul><li>指标精度</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201031704349.png"                      alt="image-20220103170421282"                ></p><p>因为线性模型只能够建模直线路径，所有其表现没有LSTM和S-LSTM好，因为他们可以建模更复杂的轨迹。但在实践中S-LSTM的性能并没有像论文中所说的那样超越LSTM。SGAN-1V-1表现没有LSTM好的原因在于模型的条件输出只是多种可能的未来轨迹的其中之一，也许与真实标签有较大差异，但当我们考虑多样本时，SGAN表现超越了baseline方法，这从一个侧面证明了该模型具有很好的多模态输出性质。</p><ul><li>性能速度</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201031829832.png"                      alt="image-20220103182926796" style="zoom: 67%;"                 ><p>SGAN-P的预测速度是S-LSTM块近16倍，LSTM更快但是不能避免碰撞和实现多模态输出预测。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Social-GAN阅读笔记（cvpr-2018）&quot;&gt;&lt;a href=&quot;#Social-GAN阅读笔记（cvpr-2018）&quot; class=&quot;headerlink&quot; title=&quot;Social GAN阅读笔记（cvpr 2018）&quot;&gt;&lt;/a&gt;Social GAN阅</summary>
-      
-    
-    
-    
-    <category term="人工智能" scheme="http://example.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    <category term="行为识别" scheme="http://example.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
-    
-    <category term="CNN方法" scheme="http://example.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/CNN%E6%96%B9%E6%B3%95/"/>
-    
-    
-    <category term="论文阅读,行为识别,CNN" scheme="http://example.com/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB-CNN/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo配置</title>
-    <link href="http://example.com/2022/05/07/hexo%E9%85%8D%E7%BD%AE/"/>
-    <id>http://example.com/2022/05/07/hexo%E9%85%8D%E7%BD%AE/</id>
-    <published>2022-05-07T12:07:43.000Z</published>
-    <updated>2022-05-07T12:07:43.948Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>软件能力成熟度模型</title>
-    <link href="http://example.com/2021/12/20/%E8%BD%AF%E4%BB%B6%E8%83%BD%E5%8A%9B%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B/"/>
-    <id>http://example.com/2021/12/20/%E8%BD%AF%E4%BB%B6%E8%83%BD%E5%8A%9B%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B/</id>
-    <published>2021-12-20T08:01:29.296Z</published>
-    <updated>2021-12-20T08:36:49.990Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="软件能力成熟度模型"><a href="#软件能力成熟度模型" class="headerlink" title="软件能力成熟度模型"></a>软件能力成熟度模型</h1><h2 id="零、导言"><a href="#零、导言" class="headerlink" title="零、导言"></a>零、导言</h2><h3 id="（一）这门课学习什么"><a href="#（一）这门课学习什么" class="headerlink" title="（一）这门课学习什么"></a>（一）这门课学习什么</h3><ul><li>解决18个问题<ul><li>CMM基本概念、体系结构</li><li>成熟度分级标准、关键过程域<ul><li>why</li><li>What</li><li>Who</li><li>When</li><li>How</li></ul></li></ul></li></ul><h3 id="（二）参考资料"><a href="#（二）参考资料" class="headerlink" title="（二）参考资料"></a>（二）参考资料</h3><ul><li>参考资料<ul><li>软件能力成熟度模型CMM方法及其应用</li><li>软件能力成熟度模型（SW-CMM）1.1版</li><li>软件能力成熟度模型（SW-CMM）1.1版的关键实践</li></ul></li></ul><h3 id="（三）课程结构"><a href="#（三）课程结构" class="headerlink" title="（三）课程结构"></a>（三）课程结构</h3><ul><li>绪论</li><li>CMM体系结构</li><li>可重复级(第2级)</li><li>已定义级(第3级)</li><li>已管理级(第4级)</li><li>优化级(第5级)</li></ul><h2 id="一、绪论"><a href="#一、绪论" class="headerlink" title="一、绪论"></a>一、绪论</h2><h3 id="（一）绪论结构"><a href="#（一）绪论结构" class="headerlink" title="（一）绪论结构"></a>（一）绪论结构</h3><ul><li>CMM缘起</li><li>CMM发展</li><li>CMM与软件产业</li></ul><h3 id="（二）CMM缘起"><a href="#（二）CMM缘起" class="headerlink" title="（二）CMM缘起"></a>（二）CMM缘起</h3><ul><li><p>20世纪60年代，软件危机爆发，其主要表现为:</p><ul><li>软件开发费用和进度失控</li><li>软件的可靠性差</li><li>生产出来的软件难以维护</li><li>难以满足用户要求</li></ul></li><li><p>很多项目失败是由于只关注结果而不关注过程引起的</p></li><li><p>什么是“过程”?</p><ul><li>过程(process）是为实现给定目标所执行的一系列操作步骤</li><li>过程集成了<ul><li>人</li><li>工具</li><li>进程</li></ul></li></ul></li><li><p>软件过程管理</p><ul><li>对软件过程进行全面的、规范化及标准化的管理。</li><li>目的: 保证软件产品具有相对稳定的质量</li></ul></li></ul><blockquote><p>过程管理与项目管理是相互作用的:</p><p>过程是项目计划的依据,项目执行所产生的数据又可作为过程改进的依据</p></blockquote><ul><li><p>软件过程管理的主要内容:</p><ul><li>过程定义:对最佳实践加以总结，以形成一套稳定的可重复的软件过程。</li><li>过程改进:根据过程的使用情况，对过程中有偏差或不够切合实际的地方进行优化的活动。</li></ul></li><li><p>软件能力成熟度模型</p><p>（SW-CMM）是由SEI研制的一种的软件过程管理方法。</p></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;软件能力成熟度模型&quot;&gt;&lt;a href=&quot;#软件能力成熟度模型&quot; class=&quot;headerlink&quot; title=&quot;软件能力成熟度模型&quot;&gt;&lt;/a&gt;软件能力成熟度模型&lt;/h1&gt;&lt;h2 id=&quot;零、导言&quot;&gt;&lt;a href=&quot;#零、导言&quot; class=&quot;headerli</summary>
-      
-    
-    
-    
-    <category term="课程总结" scheme="http://example.com/categories/%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93/"/>
-    
-    
-    <category term="软件工程" scheme="http://example.com/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
     
   </entry>
   
