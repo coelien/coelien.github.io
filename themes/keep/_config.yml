@@ -13,7 +13,7 @@ base_info:
 # ---------------------------------------------------------------------------------------
 style:
   # Theme primary color
-  primary_color: "#FFCC99"
+  primary_color: "#CC6600"
 
   # Avatar (You can use local image or image external link)
   avatar: /images/pkq.png
@@ -22,7 +22,7 @@ style:
   favicon: /images/pkq.png
 
   # Article image align position, value: left | center
-  article_img_align: left
+  article_img_align: center
 
   # Left side width
   left_side_width: 260px
@@ -67,12 +67,13 @@ social_contact:
 # Navigation menu
 # ---------------------------------------------------------------------------------------
 menu:
-  Home: /
-  Archives: /archives
-  Categories: /categories
-  Tags: /tags
+  首页: /
+  归档: /archives
+  分类: /categories
+  标签: /tags
   # Links: /links
-  # About: /about
+  关于: /about
+  Baidu: https://www.baidu.com/
   # Changelog: /changelog
   # ......
 
@@ -104,7 +105,7 @@ post:
     enable: true
     auto: true # if true, show Lv1, Lv2, Lv3... , If false, show custom label
     # label array item can be one or more
-    custom_label_list: ["Trainee", "Engineer", "Architect", "CTO", "BOSS"]
+    custom_label_list: ["代码菜鸟", "码农", "编程王者", "编程大师"]
 
 # ---------------------------------------------------------------------------------------
 # Code copy

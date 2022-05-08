@@ -5,7 +5,7 @@
 # Site
 title: Nobody's Website
 subtitle: 'long journey with great sightings'
-description: ''
+description: 'show sth I learned in Computer Science'
 keywords: python cv
 author: sixwalter
 language: en
@@ -138,9 +138,16 @@ mathjax:
   append_css: true         # add CSS to every page
   every_page: false        # if true, every page will be rendered by mathjax regardless the `mathjax` setting in Front-matter of each article
 
+# Feed Atom
+feed:
+    type: atom
+    path: atom.xml
+    limit: 20
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
   repo: git@github.com:coelien/coelien.github.io.git
   branch: master
+
