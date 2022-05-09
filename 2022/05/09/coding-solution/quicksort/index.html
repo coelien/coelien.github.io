@@ -9,6 +9,8 @@
     
     <title>
         
+            coding笔记：快排算法 |
+        
         我的征途是星辰大海
     </title>
     
@@ -182,7 +184,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation"></span>
+            <span class="title-hover-animation">coding笔记：快排算法</span>
         </div>
 
         
@@ -201,21 +203,43 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-07 21:01:41</span>
-        <span class="mobile">2022-05-07 21:01</span>
+        <span class="pc">2022-05-09 11:48:55</span>
+        <span class="mobile">2022-05-09 11:48</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/coding/">coding</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%BF%AB%E6%8E%92/">快排</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>633 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>4 Mins</span>
         </span>
     
     
@@ -231,23 +255,38 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017"><a href="#Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017" class="headerlink" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(CVPR 2017)"></a>Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(CVPR 2017)</h1><p>该论文提出了Kinetics这一更大的人类行为视频数据集，使用它进行预训练的模型更适合于迁移学习。该论文提出了一个新的模型I3D，并将该模型与之前提出的不同行为分类架构进行比较。</p>
-<h2 id="模型网络"><a href="#模型网络" class="headerlink" title="模型网络"></a>模型网络</h2><h3 id="I3D"><a href="#I3D" class="headerlink" title="I3D"></a>I3D</h3><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203221535849.png"
-                      alt="image-20220322153519705" style="zoom:67%;" 
-                >
+            <h1 id="快速排序分析"><a href="#快速排序分析" class="headerlink" title="快速排序分析"></a>快速排序分析</h1><h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><p>寻找一个哨兵，将小于这个哨兵的元素放于其左边，大于他的元素放于其右；递归的排序其左区间和右区间即可完成排序</p>
+<h2 id="think-point"><a href="#think-point" class="headerlink" title="think point"></a>think point</h2><ul>
+<li><p>如何选取哨兵的位置？</p>
+<p>哨兵的位置应该随机选取，或是取中间：若是取左边作为哨兵，若数组本身就是有序的，每次分划的时间为O(n)，之后的子问题规模即为0和n-1，总共的复杂度即为$O(n+n-1+n-2+…)=O(n^2)$，而取中间作为哨兵可以保证每次可以把区间分为长度近似相等的两部分，因而复杂度为递归深度*O(n)即为$O(nlog_2n)$</p>
+</li>
+<li><p>每次划分两部分后，最终哨兵的位置是否需要获知？</p>
+<p>根据每次分划后是否需要知道哨兵的位置，可以有两种思路来进行快排：</p>
+</li>
+</ul>
+<p><strong>哨兵最终位置未知</strong></p>
+<p>第一种思路是acwing的模板思路，缺点是有一些坑，不好理解(i,j位置不能互换，不然可能陷入死循环等)但是代码较为整洁，适合笔试用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quicksort</span><span class="params">(<span class="keyword">int</span> q[], <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l&gt;=r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 使用区间中点作为哨兵</span></span><br><span class="line">    <span class="keyword">int</span> mid = l+r &gt;&gt;<span class="number">1</span>;</span><br><span class="line"><span class="comment">//    swap(q[mid],q[l]);</span></span><br><span class="line">    <span class="keyword">int</span> x = q[mid], i = l<span class="number">-1</span>, j= r+<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//忽略了哨兵的位置，我不在乎哨兵的位置具体在哪里</span></span><br><span class="line">    <span class="comment">//我只知道，j右边的数都大于等于哨兵，j左边的数都小于等于哨兵</span></span><br><span class="line">    <span class="comment">//之所以不取等于是防止数组越界，还有可以更好地划分子问题</span></span><br><span class="line">    <span class="comment">//缺点是可能会有很多次无效交换</span></span><br><span class="line">    <span class="keyword">while</span>(i&lt;j) &#123;</span><br><span class="line">        <span class="keyword">do</span> i++; <span class="keyword">while</span> (q[i] &lt; x);</span><br><span class="line">        <span class="keyword">do</span> j--; <span class="keyword">while</span> (q[j] &gt; x);</span><br><span class="line">        <span class="keyword">if</span> (i &lt; j) <span class="built_in">swap</span>(q[i], q[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">quicksort</span>(q,l,j);</span><br><span class="line">    <span class="built_in">quicksort</span>(q,j+<span class="number">1</span>,r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>b图3D-convnet架构的缺陷是，无法有效利用ImageNet预训练模型，需要从头开始训练，并且由于参数量的庞大而较难以训练，因此网络较浅。c图双流法弥补了a图LSTM低层次运动信息的缺陷，而且更加容易训练。d图在双流法的基础上将空间和光流信息在最后进行融合，并将融合的信息送入3D-convnet进行分类。e图的I3D在d图的架构上进行了改进，用3D-convnet对之前的convnet进行了平滑扩展，并且可以充分利用ImageNet预训练参数。这里的想法是可以通过对原图片进行复制，并将其转换为每帧都相同的视频序列（boring-video）。但其实我们也不需要真的训练，这里需要满足一个条件我们就可以直接利用2D-convnet的参数：在视频上的响应或激活特征应与单张图片时作为输入时相同。所以我们只需对2D-filters沿时间维度进行复制，并将权重缩小n倍即可。还有一个问题也需要处理，就是如何进行时间维度感受野的设置，即我们如何设置时间维度的stride步长。它的设置应与采样帧率与图像维度有关，过大会会导致混淆不同物体的边缘，不利于学习良好的特征；过小也会不利于捕获场景中的动态信息。通过实验，作者认为在前两个maxpooling层不执行时间维度的池化会比较有效。下图是I3D主干网络的结构图：</p>
+<p>算法证明：</p>
+<p>明显地，j右边的数大于等于x,i左边的数小于等于x。现需证明while结束时，q[l..j]均&lt;=x，若成立，即可证明j这个端点可以划分整个区间。因为i&gt;=j，所以q[1..j-1]均&lt;=x。因为退出循环前的i&lt;j判断为false，所以最后一次交换不执行，所以q[j]必然&lt;=x。综上可以证明q[l..j]均&lt;=x，所以j这个端点可以划分整个区间。</p>
+<p><strong>哨兵最终位置已知</strong></p>
+<p>第二种是数据结构教材的官方思路，优点是步骤明确，方便理解，较少坑，缺点是代码冗长</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quicksort2</span><span class="params">(<span class="keyword">int</span> q[], <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l&gt;=r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 首先保存哨兵的值</span></span><br><span class="line">    <span class="keyword">int</span> pio = q[l];</span><br><span class="line">    <span class="keyword">int</span> i = l;</span><br><span class="line">    <span class="keyword">int</span> j = r;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">        <span class="comment">// 之所以可以取=，是因为之前有判断，一定不会越界</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;j &amp;&amp; q[j]&gt;=pio) j--;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;j) q[i] = q[j];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;j &amp;&amp; q[i]&lt;=pio) i++;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;j) q[j] = q[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//哨兵的位置是确定的=i=j，所以只需要对其左边和右边分别进行排序即可</span></span><br><span class="line">    q[i] = pio;</span><br><span class="line">    <span class="built_in">quicksort2</span>(q,l,i<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">quicksort2</span>(q,i+<span class="number">1</span>,r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h2><blockquote>
+<p>实际上是对于某类特殊数据的算法增强</p>
+</blockquote>
+<p>如果数组的每个<strong>数据都相同</strong>时，上面的第一种思路可以pass，但是第二种思路会超过时限，究其原因为：分化后的子问题规模即为0和n-1，总共的复杂度即为$O(n+n-1+n-2+…)=O(n^2)$，所以对于这种情况需要特殊处理，而且不能简单地将中点与左端点交换（实际上没有改变算法流程），第二种思路地修改点如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">        <span class="comment">// 之所以可以取=，是因为之前有判断，一定不会越界</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;j &amp;&amp; q[j]&gt;pio) j--;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;j) q[i++] = q[j];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;j &amp;&amp; q[i]&lt;pio) i++;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;j) q[j--] = q[i];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>经测试，第二种思路改进后速度较第一种思路能快上一点点</p>
 <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203221630934.png"
-                      alt="image-20220322163021793" style="zoom:67%;" 
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091219072.png"
+                      alt="image-20220509121919959" style="zoom:50%;" 
                 >
-
-<p>作者认为如果只使用RGB输入，模型只单纯地进行前馈计算，而因为光流算法涉及一些迭代优化，这可能是加入光流对模型性能有较大提升的原因。值得一提的是，作者并没有进行端到端的训练，而是分别训练两个不同输入的模型；并且训练时作者多个GPU进行同步训练。</p>
 
         </div>
 
@@ -255,11 +294,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：</li>
+        <li>Post title：coding笔记：快排算法</li>
         <li>Post author：sixwalter</li>
-        <li>Create time：2022-05-07 21:01:41</li>
+        <li>Create time：2022-05-09 11:48:55</li>
         <li>
-            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_007/
+            Post link：https://coelien.github.io/2022/05/09/coding-solution/quicksort/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -271,30 +310,23 @@
         
 
         
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%BF%AB%E6%8E%92/">#快排</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
         
             <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/05/07/paper-reading/paper_reading_005/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
                 
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/05/07/paper-reading/paper_reading_008/"
+                           href="/2022/05/08/projects/huawei%20project/%E5%8D%8E%E4%B8%BA%E9%A1%B9%E7%9B%AE%EF%BC%9A%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%A4%8D%E7%9B%98/"
                         >
                             <span class="title flex-center">
                                 <span class="post-nav-title-item"></span>
@@ -493,7 +525,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017"><span class="nav-number">1.</span> <span class="nav-text">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(CVPR 2017)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%BD%91%E7%BB%9C"><span class="nav-number">1.1.</span> <span class="nav-text">模型网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#I3D"><span class="nav-number">1.1.1.</span> <span class="nav-text">I3D</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">快速排序分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">主要思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#think-point"><span class="nav-number">1.2.</span> <span class="nav-text">think point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B"><span class="nav-number">1.3.</span> <span class="nav-text">算法改进</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
