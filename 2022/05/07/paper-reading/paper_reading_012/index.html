@@ -9,8 +9,6 @@
     
     <title>
         
-            Category: 行为识别 |
-        
         我的征途是星辰大海
     </title>
     
@@ -83,7 +81,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/categories"
                             >
                                 分类
@@ -146,7 +144,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/categories">分类</a>
                 </li>
             
@@ -181,42 +179,218 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="category-container">
-        <div class="category-name">
-            <i class="fas fa-folder"></i>&nbsp;行为识别
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation"></span>
         </div>
-        <div class="category-post-list">
-            
-<div class="archive-list-container">
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-07 21:01:41</span>
+        <span class="mobile">2022-05-07 21:01</span>
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[1]</span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>341 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
             </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/05/07/paper-reading/paper_reading_004/"
-                        >论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“</a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="X3D-Expanding-Architectures-for-Effificient-Video-Recognition"><a href="#X3D-Expanding-Architectures-for-Effificient-Video-Recognition" class="headerlink" title="X3D: Expanding Architectures for Effificient Video Recognition"></a>X3D: Expanding Architectures for Effificient Video Recognition</h1><h2 id="一-主要思想"><a href="#一-主要思想" class="headerlink" title="一. 主要思想"></a>一. 主要思想</h2><p>该模型基于“mobile-regime”系列模型MobileNet, 对原模型稍作修改，令乘加运算数少了近10倍，之后将模型从2D空间扩展到3D时空域</p>
+<blockquote>
+<p>为了探索计算高效的架构，MobileNet和ShuffleNet探索了channel-wise separable convolutions and expanded bottlenecks.</p>
+<p>MnasNet是通过采样近8000个模型来获得的（采用EfficientNet的grid search方法），作为对比，作者提出的方法每一个step仅需训练6个模型</p>
+</blockquote>
+<h2 id="二-扩展方法"><a href="#二-扩展方法" class="headerlink" title="二. 扩展方法"></a>二. 扩展方法</h2><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204161003136.png"
+                      alt="image-20220416100344011" style="zoom: 50%;" 
+                >
+
+<ul>
+<li>mobile-net 核心思想：channel-wise separable convolutions</li>
+<li>沿以下的轴进行扩展：历时，帧率，空间分辨率，网络宽度，瓶颈宽度及网络深度</li>
+<li>递进地增加计算量：每次只扩展一个轴，训练并验证结果架构，选择能够实现最佳复杂度，准确率权衡的扩展。重复该过程直到满足预期的复杂度预算</li>
+<li>该扩展方法可以被解释为坐标下降算法在超参数空间的应用</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204201455511.png"
+                      alt="image-20220420145518461" style="zoom: 33%;" 
+                >
+
+<h2 id="三-实验"><a href="#三-实验" class="headerlink" title="三. 实验"></a>三. 实验</h2><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204201452303.png"
+                      alt="image-20220420145244253" style="zoom: 50%;" 
+                >
+
+<p>上图反映了top1准确率与模型容量之间的关系，作者将每一个step选择的维度都在曲线上进行了标注，从中我们可以得到一定的启示。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204201451711.png"
+                      alt="image-20220420145122664" style="zoom: 50%;" 
+                >
+
+<p>上表展示了根据目标模型复杂度（FLOPs）来划分的6个不同大小的模型</p>
 
         </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2022-05-07 21:01:41</li>
+        <li>
+            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_012/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/05/07/paper-reading/paper_reading_001/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">论文阅读笔记：”Action Recognition by Dense Trajectories“</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/05/07/paper-reading/paper_reading_overview/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">行为识别survey</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
     </div>
-    <div class="category-paginator">
-        <div class="paginator">
     
 
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
     
 </div>
 
+            </div>
+        
     </div>
 </div>
 
@@ -263,6 +437,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -318,6 +513,14 @@
 
     </div>
 
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#X3D-Expanding-Architectures-for-Effificient-Video-Recognition"><span class="nav-number">1.</span> <span class="nav-text">X3D: Expanding Architectures for Effificient Video Recognition</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E4%B8%BB%E8%A6%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">一. 主要思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">二. 扩展方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.3.</span> <span class="nav-text">三. 实验</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
     
 
     <div class="image-viewer-container">
@@ -391,6 +594,14 @@
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
     
 </div>
 

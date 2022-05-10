@@ -210,7 +210,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>934 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1k Words</span>
         </span>
     
     
@@ -312,6 +312,17 @@
 <li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li>
 </ul>
 <p>采用第一种方法可以完美解决问题</p>
+<h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote>
+<p>目前，该问题未解决</p>
+</blockquote>
+<p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png"
+                      alt="image-20220509152351457" style="zoom: 50%;" 
+                >
+
 
         </div>
 
@@ -557,7 +568,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pytorch-%E6%A8%A1%E5%9E%8B%E8%BF%81%E7%A7%BB%E5%A4%8D%E7%9B%981"><span class="nav-number">1.</span> <span class="nav-text">pytorch 模型迁移复盘1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.1.1.</span> <span class="nav-text">VPN连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%A4%A7%E5%B0%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">数据集大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E4%B8%8D%E5%8C%B9%E9%85%8D"><span class="nav-number">1.1.3.</span> <span class="nav-text">代码版本不匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NPU%E7%8E%AF%E5%A2%83%E4%B8%8D%E5%A4%AA%E5%A5%BD%E6%94%B9"><span class="nav-number">1.1.4.</span> <span class="nav-text">NPU环境不太好改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU%E8%AE%AD%E7%BB%83%E5%83%B5%E5%8C%96"><span class="nav-number">1.1.5.</span> <span class="nav-text">GPU训练僵化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96"><span class="nav-number">1.1.6.</span> <span class="nav-text">循环依赖</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pytorch-%E6%A8%A1%E5%9E%8B%E8%BF%81%E7%A7%BB%E5%A4%8D%E7%9B%981"><span class="nav-number">1.</span> <span class="nav-text">pytorch 模型迁移复盘1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.1.1.</span> <span class="nav-text">VPN连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%A4%A7%E5%B0%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">数据集大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E4%B8%8D%E5%8C%B9%E9%85%8D"><span class="nav-number">1.1.3.</span> <span class="nav-text">代码版本不匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NPU%E7%8E%AF%E5%A2%83%E4%B8%8D%E5%A4%AA%E5%A5%BD%E6%94%B9"><span class="nav-number">1.1.4.</span> <span class="nav-text">NPU环境不太好改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU%E8%AE%AD%E7%BB%83%E5%83%B5%E5%8C%96"><span class="nav-number">1.1.5.</span> <span class="nav-text">GPU训练僵化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96"><span class="nav-number">1.1.6.</span> <span class="nav-text">循环依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unicode%E7%BC%96%E7%A0%81%E9%94%99%E8%AF%AF"><span class="nav-number">1.1.7.</span> <span class="nav-text">unicode编码错误</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

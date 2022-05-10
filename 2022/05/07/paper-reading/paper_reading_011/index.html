@@ -9,8 +9,6 @@
     
     <title>
         
-            论文阅读笔记：”Action Recognition by Dense Trajectories“ |
-        
         我的征途是星辰大海
     </title>
     
@@ -184,7 +182,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">论文阅读笔记：”Action Recognition by Dense Trajectories“</span>
+            <span class="title-hover-animation"></span>
         </div>
 
         
@@ -207,43 +205,17 @@
         <span class="mobile">2022-05-07 21:01</span>
     </span>
     
-        <span class="article-categories article-meta-item">
-            <i class="fas fa-folder"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fas fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95/">传统方法</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E5%85%89%E6%B5%81%E6%B3%95/">光流法</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
     
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>817 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.9k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>3 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>6 Mins</span>
         </span>
     
     
@@ -259,96 +231,91 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="Action-Recognition-by-Dense-Trajectories"><a href="#Action-Recognition-by-Dense-Trajectories" class="headerlink" title="Action Recognition by Dense Trajectories"></a>Action Recognition by Dense Trajectories</h1><h2 id="生僻术语"><a href="#生僻术语" class="headerlink" title="生僻术语"></a>生僻术语</h2><ul>
-<li>KLT tracker</li>
-</ul>
-<p>用来抽取特征的一种方法，最早被提出是为了解决传统上的影像配准问题</p>
-<ul>
-<li><p>image registration：影像配准</p>
-</li>
-<li><p>SIFT：尺度不变特征转换</p>
-</li>
-</ul>
-<p>用来侦测和描述影像中的局部性特征，它可以帮助辨识物体。基于物体上的一些局部外观的兴趣点而与影像的大小和旋转无关，对于光线，噪声的容忍度也很高</p>
-<ul>
-<li>optical flow field</li>
-</ul>
-<p>光流（optical flow）用来描述相对于观察者的运动所造成的观测目标，表面或边缘的运动。它通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法</p>
-<ul>
-<li>feature</li>
-</ul>
-<p>特征是一块关于图像内容的信息，主要包括图像的特定区域是否包含特定的属性。特征也许是图像中明确的结构，如点，边或是物体，它也可能是对图像进行特征检测后的结果</p>
-<ul>
-<li> interest point</li>
-</ul>
-<p>图像中类点的特征，他有局部二维结构，可以被鲁棒地检测</p>
-<ul>
-<li> Gabor filter</li>
-</ul>
-<p>它是用来进行纹理分析的线性过滤器</p>
-<ul>
-<li>median filter：中值滤波器</li>
-</ul>
-<p>常用于去除图像或其他信号中的噪声</p>
-<ul>
-<li>bilinear interpolation：双线性插值</li>
-</ul>
-<p>双线性插值是一种基本的重采样技术</p>
-<ul>
-<li>HOG：方向梯度直方图</li>
-</ul>
-<p>用于目标检测的特征描述器。该技术是用来计算局部图像梯度的方向信息的统计值。<strong>局部目标的表象和形状（appearance and shape）能够被梯度或边缘的方向密度分布很好地描述</strong></p>
-<h2 id="Bag-of-Features-approach"><a href="#Bag-of-Features-approach" class="headerlink" title="Bag of Features approach"></a>Bag of Features approach</h2><blockquote>
-<p>该论文使用了该方法在行为分类的场景下评估了创新的视频描述方法</p>
+            <h1 id="MoViNets-Mobile-Video-Networks-for-Effificient-Video-Recognition"><a href="#MoViNets-Mobile-Video-Networks-for-Effificient-Video-Recognition" class="headerlink" title="MoViNets: Mobile Video Networks for Effificient Video Recognition"></a>MoViNets: Mobile Video Networks for Effificient Video Recognition</h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>传统视频行为识别需要巨大的计算量和存储需求，该论文所提出的模型极大地优化了计算和存储效率，movinet可以线上对流视频进行实时推理。该论文首先设计了一个视频网络搜索空间，应用NAS技术生成有效且多样的3D架构。其次论文引入了流缓冲技术，将内存从视频剪辑中解耦，从而允许3D网络仅需常数的内存足迹就可以嵌入任意长度的流视频序列进行训练和推理。该论文还使用了一种简单的组合方法来提升精度。值得注意的是，该模型未使用任何预训练技术，并且仅使用RGB输入。</p>
+<blockquote>
+<p>该论文在提高视频模型的效率做了进一步的研究。SlowFast networks， X3D等是这方面的代表。有些网络TSN等进一步探索了2D网络，这些网络在之后对片段特征图进行late fusion。TSM<a href="#1">[1]</a>使用了early fusion,它沿着时间坐标移动了一部分通道，在支持在线推理的同时提高了准确率。</p>
+<p>对于计算复杂的视频网络，寻找一个有效的架构是十分必要的， <a href="#2">[2]</a><a href="#3">[3]</a>探索了一些寻找架构的方法。在视频架构搜索方面，Tiny video networks<a href="#4">[4]</a>和AssembleNet<a href="#5">[5]</a>有较大贡献。</p>
+<p>深度组合常被用于提升CNN的性能，图像分类的近期研究表明<a href="#6">[6]</a>对小型的深度组合可能比单个大模型更加有效，作者将该发现扩展并应用于视频分类。</p>
+<p>在设计用于在线流视频推理的stream buffer的时候，作者受到了因果卷积<a href="#7">[7]</a>的启发。</p>
 </blockquote>
-<ul>
-<li><p>Bag of Features框架是词包模型在图像识别领域的延申，2004年引入CV领域，逐渐形成了标准物体分类框架：</p>
-<ul>
-<li>底层特征提取</li>
-<li>特征编码</li>
-<li>特征汇聚</li>
-<li>使用SVM分类器进行分类</li>
-</ul>
-</li>
-<li><p>搭建Bag-of_Features的步骤：</p>
-<ul>
-<li>特征提取（SIFT算子）</li>
-<li>K-means聚类</li>
-<li>量化特征，形成词袋</li>
-<li>统计每一类别的视觉单词出现频率，形成视觉单词直方图</li>
-</ul>
+<h2 id="二-NAS"><a href="#二-NAS" class="headerlink" title="二. NAS"></a>二. NAS</h2><p>作者通过NAS探索了如何融合时空操作来寻找最佳特征组合以权衡效率与精度。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101455745.png"
+                      alt="image-20220410145528611" style="zoom: 50%;" 
+                >
+
+<p>从图中可看出对于movinetA0在与mobilenetlarge+TSM达到相似准确率的情况下，浮点数运算减少了近75%。movinetA6达到了83.5%的精度，比X3D精度高了1.6%，浮点数操作减少了近60%。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101514863.png"
+                      alt="image-20220410151456737" style="zoom:50%;" 
+                >
+
+<p>在2D 移动网络搜索的研究基础上，作者以TuNAS框架为起始，并对它略作修改使之适用于3D网络。Movinet搜索空间的基准是MobileNetV3，上图是对搜索空间的总体描述。对于网络中的每个block，NAS搜索了基准filter width，和每个块中的层数。作者将乘子{0.75，1，1.25}应用在特征图通道。作者设置了5个block，并在每个block的第一个层使用空间降采样。对于时间维度，每层的过滤器大小在如下的范围中选择：{1x3x3, 1x5x5, 1x7x7, 5x1x1,7x1x1, 3x3x3, 5x3x3} 。这些选择使得层关注并聚合不同的维度表示方法，在最适宜的方向扩展网络的感受野，并减少其他维度的计算量。每个层之后有$1<em>1</em>1$卷积在$c^{base}$和$c^{expand}$之间进行转换。文章使用了复合缩放启发式方法来进行搜索（随机搜索缩放系数）， EffificientNet使用了类似的方法。</p>
+<h2 id="二-Stream-Buffering"><a href="#二-Stream-Buffering" class="headerlink" title="二. Stream Buffering"></a>二. Stream Buffering</h2><p><strong>原理</strong>：流缓冲通过缓存子剪辑边界处的特征图将时间依赖在连续非重叠子剪辑的进行传递。它在流缓冲中加入了无向因果操作如因果卷积，累计池化和带位置编码的因果SE操作，使得时间感受野只查看过去帧，允许我们在线上推理时递增地处理流视频。因果操作在kinetics数据集上仅仅损失了1%的精度。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/static%5C20210912paperreading00101.png"
-                      alt="20210912paperreading00101"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101605783.png"
+                      alt="image-20220410160559714"
                 ></p>
-<ul>
-<li>训练SVM分类器</li>
-</ul>
-</li>
-<li><p>具体代码实践参考<a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/skyfsm/p/8097397.html" >这里<i class="fas fa-external-link-alt"></i></a></p>
-</li>
-</ul>
-<h2 id="提取密集轨迹"><a href="#提取密集轨迹" class="headerlink" title="提取密集轨迹"></a>提取密集轨迹</h2><ul>
-<li><p>计算 $P_{t+1}$ ：$P_{t+1} = (x_{t+1},y_{t+1}) = (x_t,y_t) + (M*\omega)|_{(\overline{x}_t,\overline{y}_t)}$</p>
-<ul>
-<li><em>M</em> is the median fifiltering kernel, ${(\overline{x}_t,\overline{y}_t)}$ is the rounded position of $(x_t,y_t)$</li>
-</ul>
-</li>
-<li><p>后续帧的点被连接起来形成轨迹$(P_t,P_{t+1},P_{t+2},…)$，为了提取密集光流，文章使用了Farneback算法</p>
-</li>
-<li><p>给定长度为L的轨迹，我们定义序列$S=(\Delta P_t,…,\Delta P_{t+L-1})$ 来描述它的形状，其中位移向量为$\Delta P_t = (P_{t+1}-P_t)$</p>
-</li>
-<li><p>规范化之后，我们可以得到轨迹描述器：<br>$$<br>S^`= \frac{(\Delta P_t,…,\Delta P_{t+L-1})}{\sum_{j=t}^{t+L-1}||\Delta P_j||}<br>$$</p>
-</li>
-</ul>
-<h2 id="轨迹对齐的描述器"><a href="#轨迹对齐的描述器" class="headerlink" title="轨迹对齐的描述器"></a>轨迹对齐的描述器</h2><ul>
-<li>计算局部描述器已成为视频表示的流行方法，本文在沿着轨迹的时空体（3D）中进行计算<ul>
-<li>现存有很多行为识别的描述器</li>
-</ul>
-</li>
-</ul>
+<p>上图对比了流评估和多剪辑评估方法，左图的多剪辑评估也是一种有效减少内存的解决方法：模型在测试时对n个相互重叠的子剪辑进行平均预测，这种方法将内存消耗降低到$O(T^{clip})$。这种方式有两个缺陷：一是限制了时间感受野的（对每个子剪辑），并忽略了长时间范围的依赖，可能会影响精度；二是重复计算了重叠帧的激活，从而降低了计算效率。右图的Stream Buffering解决了上述两个缺陷，他应用了缓存的思想，对边界处的特征激活进行缓存，从而能够将时间感受野在子剪辑之间进行扩展，提高准确率。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101618355.png"
+                      alt="image-20220410161809329" style="zoom:50%;" 
+                >
+
+<p>上面的公式将缓冲B与当前子剪辑xi沿时间维度进行拼接,并将得到的张量通过3D卷积进行处理，得到了特征图Fi。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101620557.png"
+                      alt="image-20220410162055538" style="zoom:50%;" 
+                >
+
+<p>当处理下一个剪辑时，我们需要对buffer进行更新，公式如上图所示。作者在拼接后的张量中选择最新的b个帧来更新该buffer。因此，流缓冲技术的内存复杂度为$O(T^{clip}+b)$。</p>
+<p>在流缓冲中，作者强制使用了因果关系，即任何特征不能从未来特征计算得出。它有很多好处，包括将子剪辑降低到单帧但不会影响激活和预测，从而使得3D网络能够对流视频进行在线推理。在因果卷积中加入CasualSE可以使得精度进一步提高。作者在实验中发现，将帧位置编码向量与CGAP（累积的全局平均池化）输出相加得到的输出来继续进行SE投影效果比不使用位置编码效果好。</p>
+<p>在训练时作者使用了循环训练策略来降低内存需求。作者不会对buffer进行反向传播，所以之前的子剪辑可以被释放掉，以空出内存。相反，它计算相邻clips之间的损失并累积计算的梯度（与batch梯度累积类似）。在线上推理时，我们经常将剪辑长度设为1来最大化内存效率，设置较小的剪辑长度同样降低了帧之间的延迟，使得模型能够输出单帧预测。</p>
+<h2 id="三-时序组装"><a href="#三-时序组装" class="headerlink" title="三. 时序组装"></a>三. 时序组装</h2><p>作者独立地训练了两个具有相同浮点运算数地stream movinets。它们的帧率均为先前的一半，但其中一个网络相对于另一个有一帧的偏移，作者在使用softmax之前先对它们的输出进行算数平均。该方法的计算量与训练一个大模型的计算量相同，但将两个小模型结合起来可以实现更高的精度。</p>
+<h2 id="四-不带流缓冲的movinet"><a href="#四-不带流缓冲的movinet" class="headerlink" title="四. 不带流缓冲的movinet"></a>四. 不带流缓冲的movinet</h2><p>文章对7个不同计算复杂度的模型进行了实验，每个模型主要与X3D进行比对。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101908345.png"
+                      alt="image-20220410190856319" style="zoom: 67%;" 
+                >
+
+<p>从图中可以看出，movinet在达到state of arts的同时模型的效率也是最高的。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101915639.png"
+                      alt="image-20220410191548577" style="zoom:50%;" 
+                >
+
+
+
+<p>从图中可以看出，带stream buffer的网络相较base网络仅有1%的下降但是随着输入帧数的增加器内存使用是常数的。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204101920131.png"
+                      alt="image-20220410192012107" style="zoom:67%;" 
+                >
+
+<p>有趣的是，在对ResNet3D使用stream buffer方法时，削减的内存并不显著，这可能是因为depthwise卷积和3D全卷积之间的差别。</p>
+<p><span id="1">[1] Progressive neural architecture search. ECCV 2018</span></p>
+<p><span id="2">[2] Progressive neural architecture search. ECCV 2018</span></p>
+<p><span id="3">[3] Effificient neural architecture search via parameter sharing. 2018</span></p>
+<p><span id="4">[4] Tiny video networks: Architecture search for effificient video models. 2020</span></p>
+<p><span id="5">[5] Assemblenet: Searching for multi-stream neural connectivity in video architectures. 2019</span></p>
+<p><span id="6">[6] When ensembling smaller models is more effificient than single large models. 2020</span></p>
+<p><span id="7">[7] Massively parallel video networks. 2018</span></p>
 
         </div>
 
@@ -356,11 +323,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：论文阅读笔记：”Action Recognition by Dense Trajectories“</li>
+        <li>Post title：</li>
         <li>Post author：sixwalter</li>
         <li>Create time：2022-05-07 21:01:41</li>
         <li>
-            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_001/
+            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_011/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -372,18 +339,6 @@
         
 
         
-            <ul class="post-tags-box">
-                
-                    <li class="tag-item">
-                        <a href="/tags/%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95/">#传统方法</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/%E5%85%89%E6%B5%81%E6%B3%95/">#光流法</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
 
         
             <div class="article-nav">
@@ -391,13 +346,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/05/07/paper-reading/paper_reading_002/"
+                           href="/2022/05/07/paper-reading/paper_reading_009%20/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">论文阅读笔记：”BSRN“</span>
+                                <span class="post-nav-title-item"></span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -407,7 +362,7 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/05/07/paper-reading/paper_reading_012/"
+                           href="/2022/05/07/paper-reading/paper_reading_010/"
                         >
                             <span class="title flex-center">
                                 <span class="post-nav-title-item"></span>
@@ -606,7 +561,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Action-Recognition-by-Dense-Trajectories"><span class="nav-number">1.</span> <span class="nav-text">Action Recognition by Dense Trajectories</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%83%BB%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.1.</span> <span class="nav-text">生僻术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bag-of-Features-approach"><span class="nav-number">1.2.</span> <span class="nav-text">Bag of Features approach</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%8F%96%E5%AF%86%E9%9B%86%E8%BD%A8%E8%BF%B9"><span class="nav-number">1.3.</span> <span class="nav-text">提取密集轨迹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A8%E8%BF%B9%E5%AF%B9%E9%BD%90%E7%9A%84%E6%8F%8F%E8%BF%B0%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">轨迹对齐的描述器</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MoViNets-Mobile-Video-Networks-for-Effificient-Video-Recognition"><span class="nav-number">1.</span> <span class="nav-text">MoViNets: Mobile Video Networks for Effificient Video Recognition</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E8%AE%BA%E6%96%87%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">一. 论文思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-NAS"><span class="nav-number">1.2.</span> <span class="nav-text">二. NAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-Stream-Buffering"><span class="nav-number">1.3.</span> <span class="nav-text">二. Stream Buffering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%97%B6%E5%BA%8F%E7%BB%84%E8%A3%85"><span class="nav-number">1.4.</span> <span class="nav-text">三. 时序组装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E4%B8%8D%E5%B8%A6%E6%B5%81%E7%BC%93%E5%86%B2%E7%9A%84movinet"><span class="nav-number">1.5.</span> <span class="nav-text">四. 不带流缓冲的movinet</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

@@ -234,7 +234,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1k Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.1k Words</span>
         </span>
     
     
@@ -255,7 +255,13 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="快速排序分析"><a href="#快速排序分析" class="headerlink" title="快速排序分析"></a>快速排序分析</h1><h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><p>寻找一个哨兵，将小于这个哨兵的元素放于其左边，大于他的元素放于其右；递归的排序其左区间和右区间即可完成排序</p>
+            <h1 id="快速排序分析"><a href="#快速排序分析" class="headerlink" title="快速排序分析"></a>快速排序分析</h1><p>快排属于分治算法，<strong>分治算法</strong>都有三步：</p>
+<ol>
+<li>分成子问题</li>
+<li>递归处理子问题</li>
+<li>子问题合并</li>
+</ol>
+<h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><p>寻找一个哨兵，将小于这个哨兵的元素放于其左边，大于他的元素放于其右；递归的排序其左区间和右区间即可完成排序</p>
 <h2 id="think-point"><a href="#think-point" class="headerlink" title="think point"></a>think point</h2><ul>
 <li><p>如何选取哨兵的位置？</p>
 <p>哨兵的位置应该随机选取，或是取中间：若是取左边作为哨兵，若数组本身就是有序的，每次分划的时间为O(n)，之后的子问题规模即为0和n-1，总共的复杂度即为$O(n+n-1+n-2+…)=O(n^2)$，而取中间作为哨兵可以保证每次可以把区间分为长度近似相等的两部分，因而复杂度为递归深度*O(n)即为$O(nlog_2n)$</p>
@@ -321,6 +327,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/05/09/coding-solution/k-thNumber/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">coding笔记：第k个数</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
