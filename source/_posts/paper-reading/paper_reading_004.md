@@ -1,7 +1,11 @@
 ---
-title: 论文阅读笔记：”Large-scale Video Classification with Convolutional Neural Networks“
-tags: 论文阅读,行为识别,CNN
-categories: [人工智能,行为识别,CNN方法]
+title: 论文阅读笔记：”Social GAN: Socially Acceptable Trajectories with Generative Adversarial Networks“
+tags: 
+- 轨迹预测
+- RNN
+- GAN
+categories:
+- 论文阅读
 ---
 # 	Social GAN阅读笔记（cvpr 2018）
 

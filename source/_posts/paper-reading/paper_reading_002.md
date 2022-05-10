@@ -1,3 +1,11 @@
+---
+title: 论文阅读笔记：”BSRN“
+tags: 
+- 超分辨率
+- DIV2K
+categories:
+- 论文阅读
+---
 # BSRN
 
 ## 核心方法

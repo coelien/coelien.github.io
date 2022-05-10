@@ -1,3 +1,11 @@
+---
+title: 论文阅读笔记：”Social LSTM:Human Trajectory Prediction in Crowded Spaces“
+tags: 
+- 轨迹预测
+- LSTM
+categories:
+- 论文阅读
+---
 # 论文阅读笔记—Social LSTM:Human Trajectory Prediction in Crowded Spaces（CVPR 2016）
 
 ## 原理
