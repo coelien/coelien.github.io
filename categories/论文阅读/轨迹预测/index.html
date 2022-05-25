@@ -9,6 +9,8 @@
     
     <title>
         
+            Category: 轨迹预测 |
+        
         我的征途是星辰大海
     </title>
     
@@ -81,7 +83,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class=""
+                            <a class="active"
                                href="/categories"
                             >
                                 分类
@@ -144,7 +146,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class=""
+                    <a class="active"
                        href="/categories">分类</a>
                 </li>
             
@@ -179,186 +181,49 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="article-content-container">
-
-        <div class="article-title">
-            <span class="title-hover-animation"></span>
+    <div class="category-container">
+        <div class="category-name">
+            <i class="fas fa-folder"></i>&nbsp;轨迹预测
         </div>
-
-        
-            <div class="article-header">
-                <div class="avatar">
-                    <img src="/images/pkq.png">
-                </div>
-                <div class="info">
-                    <div class="author">
-                        <span class="name">sixwalter</span>
-                        
-                            <span class="author-label">Lv3</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-07 21:01:41</span>
-        <span class="mobile">2022-05-07 21:01</span>
-    </span>
-    
-    
-
-    
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>246 Words</span>
-        </span>
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
-        </span>
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-</div>
-
-                    </div>
-                </div>
-            </div>
-        
-
-        <div class="article-content markdown-body">
-            <h1 id="Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition"><a href="#Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition" class="headerlink" title="Notes on Long-Term Temporal Convolutions for Action Recognition"></a>Notes on Long-Term Temporal Convolutions for Action Recognition</h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>典型的人体动作经常持续数秒，只学习少数帧无法对动作在其持续时间范围内进行有效建模，将具有特定特征的视频分解为clips，并在视频层面将各个clips的信息加以聚合的方法可能不是最优的，因此该论文尝试通过长期时间卷积（LTC）来学习视频的有效表示。为了不让复杂度过高，使模型易于处理，作者在增加时间范围的同时降低了空间分辨率。</p>
-<h2 id="二-模型结构"><a href="#二-模型结构" class="headerlink" title="二. 模型结构"></a>二. 模型结构</h2><p>作者以C3D模型为基础，扩展该模型实验了不同输入时间分辨率（${20,40,60,80,100}$）和空间分辨率（${58<em>58; 71</em>71}$）的效果。作者认为如果在网络的高层保留更大的时间分辨率可以学习更为复杂的模式。该论文做了丰富的实验。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203311545215.png"
-                      alt="image-20220331154503089" style="zoom: 50%;" 
-                >
-
-
-        </div>
-
-        
-            <div class="post-copyright-info">
-                <div class="article-copyright-info-container">
-    <ul>
-        <li>Post title：</li>
-        <li>Post author：sixwalter</li>
-        <li>Create time：2022-05-07 21:01:41</li>
-        <li>
-            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_008/
-        </li>
-        <li>
-            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
-        </li>
-    </ul>
-</div>
-
-            </div>
-        
-
-        
-
-        
-            <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/05/07/paper-reading/paper_reading_007/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next">
-                        <a class="next"
-                           rel="next"
-                           href="/2022/05/07/paper-reading/paper_reading_009%20/"
-                        >
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex-center">
-                              <i class="fas fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
-
-        
-            <div class="comment-container">
-                <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fas fa-comments">&nbsp;Comments</i>
-    </div>
-    
-
-        
+        <div class="category-post-list">
             
-    <div id="gitalk-container"></div>
-    <script data-pjax
-            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
-    <script data-pjax>
-
-        function loadGitalk() {
-            let __gitalk__pathname = decodeURI(location.pathname);
-            const __gitalk__pathnameLength = __gitalk__pathname.length;
-            const __gitalk__pathnameMaxLength = 50;
-            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
-                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
-            }
-
-            try {
-                Gitalk && new Gitalk({
-                    clientID: '71700a6b469f847c8352',
-                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
-                    repo: 'hexo-site-comments',
-                    owner: 'coelien',
-                    admin: ['coelien'],
-                    id: __gitalk__pathname,
-                    language: 'en'
-                }).render('gitalk-container');
-
-            } catch (e) {
-                window.Gitalk = null;
-            }
-        }
-
-        if ('true') {
-            const loadGitalkTimeout = setTimeout(() => {
-                loadGitalk();
-                clearTimeout(loadGitalkTimeout);
-            }, 1000);
-        } else {
-            window.addEventListener('DOMContentLoaded', loadGitalk);
-        }
-    </script>
-
-
-
-        
+<div class="archive-list-container">
+    
+        <section class="archive-item">
+            <div class="archive-item-header">
+                <span class="archive-year">2022</span>
+                <span class="archive-year-post-count">[2]</span>
+            </div>
+            <ul class="article-list">
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2022/05/07/paper-reading/paper_reading_005/"
+                        >论文阅读笔记：”Social LSTM:Human Trajectory Prediction in Crowded Spaces“</a>
+                        <span class="article-date">05-07</span>
+                    </li>
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2022/05/07/paper-reading/paper_reading_006/"
+                        >论文阅读笔记：“From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting(ICCV 2021)”</a>
+                        <span class="article-date">05-07</span>
+                    </li>
+                
+            </ul>
+        </section>
     
 </div>
 
-            </div>
-        
+        </div>
+    </div>
+    <div class="category-paginator">
+        <div class="paginator">
+    
+
+    
+</div>
+
     </div>
 </div>
 
@@ -405,27 +270,6 @@
         </div>
     </div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="tools-item page-aside-toggle">
-                <i class="fas fa-outdent"></i>
-            </li>
-        
-
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fas fa-comment"></i>
-            </li>
-        
-    </ul>
-</div>
-
-        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -481,14 +325,6 @@
 
     </div>
 
-    
-        <aside class="page-aside">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Notes-on-Long-Term-Temporal-Convolutions-for-Action-Recognition"><span class="nav-number">1.</span> <span class="nav-text">Notes on Long-Term Temporal Convolutions for Action Recognition</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E8%AE%BA%E6%96%87%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">一. 论文思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">二. 模型结构</span></a></li></ol></li></ol>
-    </div>
-</div>
-        </aside>
     
 
     <div class="image-viewer-container">
@@ -562,14 +398,6 @@
 
 
 <div class="post-scripts pjax">
-    
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
     
 </div>
 

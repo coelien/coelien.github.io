@@ -242,12 +242,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.5k Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>3k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>5 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>11 Mins</span>
         </span>
     
     
@@ -263,7 +263,7 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="AI-EARTH项目"><a href="#AI-EARTH项目" class="headerlink" title="AI-EARTH项目"></a>AI-EARTH项目</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><blockquote>
+            <h1 id="数据挖掘-AI-Earth项目"><a href="#数据挖掘-AI-Earth项目" class="headerlink" title="数据挖掘-AI-Earth项目"></a>数据挖掘-AI-Earth项目</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><blockquote>
 <p><strong>2021 “AI Earth”人工智能创新挑战赛</strong>:<a class="link"   target="_blank" rel="noopener" href="https://tianchi.aliyun.com/competition/entrance/531871/introduction" >链接<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
 <p>发生在热带太平洋上的厄尔尼诺-南方涛动(ENSO)现象是地球上最强、最显著的年际气候信号。准确预测ENSO，是提高东亚和全球气候预测水平和防灾减灾的关键。</p>
@@ -444,6 +444,195 @@
                       alt="image-20220429122626393" style="zoom:50%;" 
                 >
 
+<h5 id="模型实现"><a href="#模型实现" class="headerlink" title="模型实现"></a>模型实现</h5><p>上边主要从理论方面解释了如何计算attention权重，下面从代码的角度分析如何去实现模型：</p>
+<p>我将encoding和decoding所做的处理进行了分析，如下图所示：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205141433841.png"
+                      alt="image-20220514143322612" style="zoom: 50%;" 
+                >
+
+<p>首先代码定义了SpaceTimeTransformer类，在该类中定义了如下变量：</p>
+<ul>
+<li><p>src_emb</p>
+<p>该变量是input_embedding类的实例，用于对输入进行嵌入，所作的简而言之就是进行一个线性变换，加上位置编码和时间编码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> <span class="built_in">len</span>(x.size()) == <span class="number">4</span> </span><br><span class="line">embedded_space = self.emb_space(self.spatial_pos)  <span class="comment"># (1, S, 1, D)</span></span><br><span class="line">x = self.linear(x) + self.pe_time[:, :, :x.size(<span class="number">2</span>)] + embedded_space  <span class="comment"># (N, S, T, D)</span></span><br><span class="line"><span class="keyword">return</span> self.norm(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>tgt_emb</p>
+<p>该变量是input_embedding类的实例，用于对输出进行嵌入。</p>
+</li>
+<li><p>encoder</p>
+</li>
+<li><p>decoder</p>
+</li>
+<li><p>linear_output</p>
+</li>
+</ul>
+<p>由 定义的变量可以看出，该模型采样了encoder-decoder框架，src即输入序列期待通过该框架生成目标序列tgt，encoder将输入句子通过非线性变换转化为中间表示，decoder根据中间表示和历史信息yi-1生成yi。</p>
+<p>该类的方法为前馈操作，编码方法，解码方法，生成掩膜：</p>
+<ul>
+<li><p>forward</p>
+<p>在forward方法中首先调用了encode方法将src和src_mask作为参数进行编码，如果处在训练过程中：为target生成mask，并将必要参数传入解码器进行解码得到了sst_pred。如果ssr_ratio&gt;1e-6，那么使用Teacher forcing生成一个teacher_forcing_mask，否则该mask为0，Teacher forcing就是直接使用实际标签$y_{t-1}$作为下一个时间步的输入，由老师（ground truth）带领着防止模型越走越偏。但是老师不能总是手把手领着学生走，要逐渐放手让学生自主学习，于是我们使用Scheduled Sampling rate来控制使用实际标签的概率。在训练初期，ratio=1，模型完全由老师带领着，随着训练轮数的增加，ratio以一定的方式衰减（该方案中使用线性衰减，ratio每次减小一个衰减率decay_rate），每个时间步以ratio的概率从伯努利分布中提取二进制随机数0或1，为1时输入就是实际标签$y_{t-1}$，否则输入为$\hat{y}_{t-1}$。再将新的tgt送入decoder进行预测得到了sst_pred。</p>
+<p>如果处于验证阶段，每次预测一次sst_pred并加入，之后计算nino_pred并返回。</p>
+</li>
+<li><p>encode</p>
+<p>在encode方法中，使用了unfold_StackOverChannel方法将原图像分解为patches</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">unfold_StackOverChannel</span>(<span class="params">img, kernel_size</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    divide the original image to patches, then stack the grids in each patch along the channels</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        img (N, *, C, H, W): the last two dimensions must be the spatial dimension</span></span><br><span class="line"><span class="string">        kernel_size: tuple of length 2</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        output (N, *, C*H_k*N_k, H_output, W_output)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    n_dim = <span class="built_in">len</span>(img.size())</span><br><span class="line">    <span class="keyword">assert</span> n_dim == <span class="number">4</span> <span class="keyword">or</span> n_dim == <span class="number">5</span></span><br><span class="line"></span><br><span class="line">    pt = img.unfold(-<span class="number">2</span>, size=kernel_size[<span class="number">0</span>], step=kernel_size[<span class="number">0</span>])</span><br><span class="line">    pt = pt.unfold(-<span class="number">2</span>, size=kernel_size[<span class="number">1</span>], step=kernel_size[<span class="number">1</span>]).flatten(-<span class="number">2</span>)  <span class="comment"># (N, *, C, n0, n1, k0*k1)</span></span><br><span class="line">    <span class="keyword">if</span> n_dim == <span class="number">4</span>:  <span class="comment"># (N, C, H, W)</span></span><br><span class="line">        pt = pt.permute(<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">3</span>).flatten(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">elif</span> n_dim == <span class="number">5</span>:  <span class="comment"># (N, T, C, H, W)</span></span><br><span class="line">        pt = pt.permute(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">4</span>).flatten(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">assert</span> pt.size(-<span class="number">3</span>) == img.size(-<span class="number">3</span>) * kernel_size[<span class="number">0</span>] * kernel_size[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> pt</span><br></pre></td></tr></table></figure>
+
+<p>分解为patches后，将其reshape并做一个embeding，再将编码张量送入encoder中进行处理并返回（memory）</p>
+</li>
+<li><p>decode</p>
+<p>与encode的过程类似，也需将tgt分解为patches并将其嵌入传给decoder进行解码（还有memory,mask等参数）并返回</p>
+</li>
+<li><p>generate_square_subsequent_mask</p>
+<p>该方法为生成掩膜的方法</p>
+</li>
+</ul>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><h5 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h5><p><strong>读入数据</strong></p>
+<ul>
+<li>首先使用xarray库读入数据集</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131549861.png"
+                      alt="image-20220513154957818" style="zoom: 50%;" 
+                >
+
+<ul>
+<li>查看cmip数据集的sst变量的shape</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131549347.png"
+                      alt="image-20220513154921242" style="zoom:50%;" 
+                >
+
+<p><strong>数据扁平化</strong></p>
+<ul>
+<li><p>使用sel方法选择纬度在一定范围内的数据：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131553372.png"
+                      alt="image-20220513155342338" style="zoom:50%;" 
+                ></li>
+</ul>
+<blockquote>
+<p>这一步的主要作用在于降低空间分辨率，从而减少计算量</p>
+</blockquote>
+<ul>
+<li>分解为cmip6和cmip5并对每一个数据集进行数据变换，以cmip6为例，他只使用sst特征，一共有15个模式，每个模式151年，并将同种模式下的数据拼接起来，之后采用滑窗构造数据集（每3年采样一次，去重）：</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131622431.png"
+                      alt="image-20220513162228369" style="zoom:50%;" 
+                >
+
+<p><strong>构造CMIP数据集</strong></p>
+<blockquote>
+<p>12+26 = 38</p>
+</blockquote>
+<p>下面是我手动分析如何构造cmipdataset的过程，简要概括一下就是，cmipdataset将cmip5、cmip6连接在了一起，对于cmip5的操作，对于cmip6是同理的。下面的红色的shape主要是针对cmip6的，概括一下数据集构建的过程：</p>
+<ul>
+<li>将序列数据集模拟为视频数据集，设定输入帧时间间隔，输入帧长度，预测偏移和要预测的未来帧长度，具体如下图所示；</li>
+<li>以gap=5为采样间隔提取clips，将clips分为input_sst(长度为12)和target_sst(长度为26)，每两个输入clip之间有7个月是重复的，输出clip之间有21个帧是重复的；</li>
+<li>维度转换在每一步中已清晰列出，注意，为了模拟视频数据集，代码手动添加了channel维度；</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131632136.png"
+                      alt="image-20220513163209973" style="zoom:50%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131632278.png"
+                      alt="image-20220513163226142" style="zoom: 67%;" 
+                >
+
+<p>下图是数据集的生成结果，可以看出sst_input，sst_target，nino target均与手动推导的shape是一致的：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131629150.png"
+                      alt="image-20220513162900082"
+                ></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131630853.png"
+                      alt="image-20220513163040825" style="zoom:50%;" 
+                >
+
+<p>验证集的处理类似，这里不再赘述：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131655406.png"
+                      alt="image-20220513165542374" style="zoom:50%;" 
+                >
+
+<h5 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h5><p>导入训练以及模型配置：</p>
+<ul>
+<li>单卡gpu</li>
+<li>batch-size=8</li>
+<li>epochs=100</li>
+<li>gradient_clipping = False</li>
+<li>weight_decay=0</li>
+<li>d_model=256</li>
+<li>patience = 3</li>
+<li>patch_size=(2,3)</li>
+<li>emb_spatial_size = 12*16</li>
+<li>number of heads = 4</li>
+<li>num of encoding layers = 3</li>
+<li>num of decoding layers = 3</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131705401.png"
+                      alt="image-20220513170526353" style="zoom:50%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131722699.png"
+                      alt="image-20220513172233630" style="zoom:50%;" 
+                >
+
+<h5 id="模型验证"><a href="#模型验证" class="headerlink" title="模型验证"></a>模型验证</h5><p>将训练好的模型进行验证，先将模型的weight进行读取，将得到的模型在测试集上进行推理，最终的score分数约为33，如下图所示：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205132125646.png"
+                      alt="image-20220513212548609" style="zoom: 67%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205132125790.png"
+                      alt="image-20220513212503712" style="zoom:50%;" 
+                >
+
+<h5 id="精度优化"><a href="#精度优化" class="headerlink" title="精度优化"></a>精度优化</h5><p><strong>自注意力权重修改</strong></p>
+<p>计算注意力权重时，将顺序计算改为对空间和时间同时进行计算</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205132130277.png"
+                      alt="image-20220513213041188" style="zoom:50%;" 
+                >
+
+<p>并将合并式注意力替代分离式注意力重新进行训练，发现效果没有提升</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>实验证明，将时间序列数据集当作视频使用transformer进行训练是可行的，最终的score可以达到32。相较于CNN，transformer的结构更加复杂，而且自注意力的设计对于网络的性能影响很大，稍微修改一点，网络就有可能无法收敛。实验证明使用transformer去捕获长范围的时间依赖是十分有效的。</p>
 
         </div>
 
@@ -705,7 +894,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AI-EARTH%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">AI-EARTH项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STTransformer"><span class="nav-number">1.3.1.</span> <span class="nav-text">STTransformer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B-1"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">模型结构</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-AI-Earth%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">数据挖掘-AI-Earth项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STTransformer"><span class="nav-number">1.3.1.</span> <span class="nav-text">STTransformer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B-1"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.1.2.2.</span> <span class="nav-text">模型实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="nav-number">1.3.1.3.1.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="nav-number">1.3.1.3.2.</span> <span class="nav-text">模型训练</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81"><span class="nav-number">1.3.1.3.3.</span> <span class="nav-text">模型验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B2%BE%E5%BA%A6%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.1.3.4.</span> <span class="nav-text">精度优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.3.2.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

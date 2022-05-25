@@ -9,7 +9,7 @@
     
     <title>
         
-            coding笔记：第k个数 |
+            coding笔记： 快排的应用 |
         
         我的征途是星辰大海
     </title>
@@ -184,7 +184,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">coding笔记：第k个数</span>
+            <span class="title-hover-animation">coding笔记： 快排的应用</span>
         </div>
 
         
@@ -238,7 +238,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>626 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>629 Words</span>
         </span>
     
     
@@ -259,16 +259,21 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="Acwing-786-第k个数"><a href="#Acwing-786-第k个数" class="headerlink" title="Acwing 786.第k个数"></a>Acwing 786.第k个数</h1><p>给定一个长度为 n 的整数数列，以及一个整数 k，请用快速选择算法求出数列从小到大排序后的第 k个数。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含两个整数 n 和 k</p>
+            <h1 id="快排的应用"><a href="#快排的应用" class="headerlink" title="快排的应用"></a>快排的应用</h1><h2 id="第k个数"><a href="#第k个数" class="headerlink" title="第k个数"></a>第k个数</h2><p>给定一个长度为 n 的整数数列，以及一个整数 k，请用快速选择算法求出数列从小到大排序后的第 k个数。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行包含两个整数 n 和 k</p>
 <p>第二行包含 n 个整数（所有整数均在 1∼10^9 范围内），表示整数数列。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示数列的第 k 小数。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100000<br>1≤k≤n</p>
-<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5 3</span><br><span class="line">2 4 1 5 3</span><br></pre></td></tr></table></figure>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，表示数列的第 k 小数。</p>
+<p><strong>数据范围</strong></p>
+<p>1≤n≤100000<br>1≤k≤n</p>
+<p><strong>输入样例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5 3</span><br><span class="line">2 4 1 5 3</span><br></pre></td></tr></table></figure>
 
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
+<p><strong>输出样例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
 
-<h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><p>如果先排序再取第k个数，会导致$O(nlog_2n)$的复杂度，因此采用快速选择算法，基于快排的模板进行修改即可：</p>
+<h3 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h3><p>如果先排序再取第k个数，会导致$O(nlog_2n)$的复杂度，因此采用快速选择算法，基于快排的模板进行修改即可：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findKthNumber</span><span class="params">(<span class="keyword">int</span> q[],<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==r) <span class="keyword">return</span> q[l];</span><br><span class="line">    <span class="keyword">int</span> mid = l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> x = q[mid];</span><br><span class="line">    <span class="keyword">int</span> i = l<span class="number">-1</span>,j = r+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">        <span class="keyword">do</span>&#123;i++;&#125;<span class="keyword">while</span>(q[i]&lt;x);</span><br><span class="line">        <span class="keyword">do</span>&#123;j--;&#125;<span class="keyword">while</span>(q[j]&gt;x);</span><br><span class="line">        <span class="keyword">if</span>(i&lt;j) <span class="built_in">swap</span>(q[i],q[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> lol = j-l+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=lol) <span class="keyword">return</span> <span class="built_in">findKthNumber</span>(q,l,j,k);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">findKthNumber</span>(q,j+<span class="number">1</span>,r,k-lol);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <img  
@@ -299,7 +304,7 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：coding笔记：第k个数</li>
+        <li>Post title：coding笔记： 快排的应用</li>
         <li>Post author：sixwalter</li>
         <li>Create time：2022-05-09 17:33:06</li>
         <li>
@@ -340,7 +345,7 @@
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-title-item">论文阅读笔记：“Is Space-Time Attention All You Need for Video Understanding”</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -549,7 +554,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Acwing-786-%E7%AC%ACk%E4%B8%AA%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">Acwing 786.第k个数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">主要思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%96%91%E6%83%91%E4%B8%8E%E8%A7%A3%E9%87%8A"><span class="nav-number">1.1.1.</span> <span class="nav-text">疑惑与解释</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E6%8E%92%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">快排的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%ACk%E4%B8%AA%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">第k个数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.1.</span> <span class="nav-text">主要思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%96%91%E6%83%91%E4%B8%8E%E8%A7%A3%E9%87%8A"><span class="nav-number">1.1.2.</span> <span class="nav-text">疑惑与解释</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
