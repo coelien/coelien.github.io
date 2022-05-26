@@ -9,7 +9,7 @@
     
     <title>
         
-            coding笔记：高精度加减乘除 |
+            coding笔记：KMP算法 |
         
         我的征途是星辰大海
     </title>
@@ -184,7 +184,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">coding笔记：高精度加减乘除</span>
+            <span class="title-hover-animation">coding笔记：KMP算法</span>
         </div>
 
         
@@ -203,8 +203,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-11 21:21:54</span>
-        <span class="mobile">2022-05-11 21:21</span>
+        <span class="pc">2022-05-26 11:14:18</span>
+        <span class="mobile">2022-05-26 11:14</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -224,7 +224,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/">高精度</a>&nbsp;
+                        <a href="/tags/KMP/">KMP</a>&nbsp;
                     </li>
                 
             </ul>
@@ -234,12 +234,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>560 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>5 Mins</span>
         </span>
     
     
@@ -255,38 +255,66 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="高精度算数"><a href="#高精度算数" class="headerlink" title="高精度算数"></a>高精度算数</h1><h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><ul>
-<li><p>如何存储大数？使用数组（<strong>vector</strong>）</p>
-</li>
-<li><p>怎么存储？<strong>低位在前，高位在后</strong></p>
-<p>之所以这样是因为进位容易，不需要将数组整体向后移动一位</p>
-</li>
-<li><p><strong>模拟人工</strong>算数流程</p>
-</li>
-</ul>
-<h2 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">highAccAdd</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp;A,vector&lt;<span class="keyword">int</span>&gt;&amp;B)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; C;</span><br><span class="line">    <span class="keyword">if</span> (A.<span class="built_in">size</span>()&lt;B.<span class="built_in">size</span>()) <span class="keyword">return</span> <span class="built_in">highAccAdd</span>(B,A);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;A.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;B.<span class="built_in">size</span>()) c+= B[i];</span><br><span class="line">        c += A[i];</span><br><span class="line">        C.<span class="built_in">push_back</span>(c%<span class="number">10</span>);</span><br><span class="line">        c /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(c) C.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h1 id="KMP算法浅析"><a href="#KMP算法浅析" class="headerlink" title="KMP算法浅析"></a>KMP算法浅析</h1><blockquote>
+<p>KMP算法在各种参考书中均有讲解，但均较为复杂，且不易于理解其中原理，现佐以笔记，记录自己的学习心得</p>
+<p>因为kmp算法相对抽象，因此本文大多辅以图像方便理解</p>
+<p>参考视频：<a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MY4y1Y7Nh" >https://www.bilibili.com/video/BV1MY4y1Y7Nh<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一个模式串 S，以及一个模板串 P，所有字符串中只包含大小写英文字母以及阿拉伯数字。</p>
+<p>模板串 P 在模式串 S 中多次作为子串出现。</p>
+<p>求出模板串 P 在模式串 S 中所有出现的位置的起始下标。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入整数 N，表示字符串 P 的长度。</p>
+<p>第二行输入字符串 P。</p>
+<p>第三行输入整数 M，表示字符串 S 的长度。</p>
+<p>第四行输入字符串 S。</p>
+<p><strong>输出格式</strong></p>
+<p>共一行，输出所有出现位置的起始下标（下标从 0 开始计数），整数之间用空格隔开。</p>
+<p><strong>数据范围</strong></p>
+<p>1≤N≤105<br>1≤M≤106</p>
+<h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205261124929.png"
+                      alt="image-20220526112430740" style="zoom: 33%;" 
+                >
 
-<h2 id="减法"><a href="#减法" class="headerlink" title="减法"></a>减法</h2><ul>
-<li>减法我们规定只能大数减小数，否则不够借位；</li>
-<li>小数减大数可以转化为负的大数减小数</li>
-<li>(c+10)%10合并了c&lt;0时借位和&gt;0时不用借位的情况；</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">biggerThan</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp;A,vector&lt;<span class="keyword">int</span>&gt;&amp;B)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(A.<span class="built_in">size</span>()!=B.<span class="built_in">size</span>()) <span class="keyword">return</span> A.<span class="built_in">size</span>()&gt;B.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=A.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">            <span class="keyword">if</span>(A[i]!=B[i]) <span class="keyword">return</span> A[i]&gt;B[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如图，假设现在已匹配了j个字符，但是第j+1个字符不匹配，即$S[i]!=P[j+1]$，这里S为红色的目标串，P为蓝色的模式串。不匹配时，需将模式传尽可能少的往后移动（我的理解是为了防止漏掉正解），使得移动后的模式串仍与目标串匹配且长度为next[j]，这里采用的思想是<strong>不浪费过去已匹配的信息的同时确保找到所有的解</strong>，这里只需简单的令$j=next[j]$即可减少无用的重复匹配次数，然后再判断P[next[j]+1]和S[i]是否相等，不相等则重复上述步骤直到j=0。</p>
+<p><strong>最大前后缀相等长度</strong></p>
+<p>上述的next[j]的定义为：<strong>P[1,j]的前缀和后缀相等的最大长度</strong>，之所有取最大前文也有解释，是为了确保找到所有解。</p>
+<h2 id="next数组求解"><a href="#next数组求解" class="headerlink" title="next数组求解"></a>next数组求解</h2><p>既然问题的关键在于求解next数组，那么找到行之有效的算法是很必要的。这里的思想为<strong>归纳法</strong>：假设我们已经求解出了next[1,i-1]，现在求出next[i]即可归纳求出整个next数组。依旧可以看上面的图，因为next[i-1]已知，我们可以把模式串移到对应的位置，判断P[i]是否等于P[next[i-1]+1]。若相等说明next[i] = next[i-1] + 1；若不等令P[next[next[i-1]]+1]和P[i]再进行判断，若一直不满足，那么直到next[…] = 0，说明P[1,i]的前缀和后缀相等的最大长度为0，因此next[i]则为0。</p>
+<p><strong>next[i] = next[i-1] + 1</strong></p>
+<p>下面用反证法解释下为什么该式是成立的：若存在一个更长的前缀和后缀相等的子串，那么同时去掉一个刚匹配的字符，则剩下的串比next[i-1]也要长，这与假设next[i-1]已经是最长的相互矛盾，因此next[i]所存的就是P[1,i]的前缀和后缀相等的最大长度。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求解next数组</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,j=<span class="number">0</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    <span class="keyword">while</span>(j &amp;&amp; P[j+<span class="number">1</span>]==P[i]) j = ne[j];</span><br><span class="line">    <span class="keyword">if</span>(P[j+<span class="number">1</span>]==P[i]) j++;</span><br><span class="line">    ne[i] = j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// kmp匹配</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,j=<span class="number">0</span>;i&lt;=m;i++)&#123;</span><br><span class="line">    <span class="keyword">while</span>(j &amp;&amp; P[j+<span class="number">1</span>]==S[i]) j = ne[j];</span><br><span class="line">    <span class="keyword">if</span>(P[j+<span class="number">1</span>]==S[i]) j++;</span><br><span class="line">    <span class="keyword">if</span>(j==n)&#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;%d &quot;</span>, i-n);</span><br><span class="line">        j = ne[j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">highAccMinus</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp;A,vector&lt;<span class="keyword">int</span>&gt;&amp;B)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; C;</span><br><span class="line">    <span class="comment">// 我们假设A一定大于B,且均为正数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;A.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        c+=A[i];</span><br><span class="line">        <span class="keyword">if</span>(i&lt;B.<span class="built_in">size</span>()) c-=B[i];</span><br><span class="line">        C.<span class="built_in">push_back</span>((c+<span class="number">10</span>)%<span class="number">10</span>);</span><br><span class="line">        <span class="keyword">if</span>(c&lt;<span class="number">0</span>) c=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> c=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(C.<span class="built_in">size</span>()&gt;<span class="number">1</span>&amp;&amp;C.<span class="built_in">back</span>()==<span class="number">0</span>) C.<span class="built_in">pop_back</span>();</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h2><ul>
-<li>高精度乘法实际上是一个大数乘以小数</li>
-<li>注意要去除前导零；</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">highAccMul</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp;A,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; C;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;A.<span class="built_in">size</span>()||c;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;A.<span class="built_in">size</span>()) c+=A[i]*b;</span><br><span class="line">        C.<span class="built_in">push_back</span>(c%<span class="number">10</span>);</span><br><span class="line">        c/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(C.<span class="built_in">size</span>()&gt;<span class="number">1</span>&amp;&amp;C.<span class="built_in">back</span>()==<span class="number">0</span>) C.<span class="built_in">pop_back</span>();</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h2><ul>
-<li>模拟手工除法，注意这次是从高位开始循环，不同于之前的算数</li>
-<li>每次的借位可以使用c来存储，使用c*10+A[i]来表示当前的被除数</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">highAccDiv</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp;A,<span class="keyword">int</span> b,<span class="keyword">int</span>*r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c=<span class="number">0</span>;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt;C;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=A.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        c= c*<span class="number">10</span>+A[i];</span><br><span class="line">        C.<span class="built_in">push_back</span>(c/b);</span><br><span class="line">        c%=b;</span><br><span class="line">    &#125;</span><br><span class="line">    *r = c;</span><br><span class="line">    <span class="built_in">reverse</span>(C.<span class="built_in">begin</span>(),C.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">while</span>(C.<span class="built_in">size</span>()&gt;<span class="number">1</span>&amp;&amp;C.<span class="built_in">back</span>()==<span class="number">0</span>) C.<span class="built_in">pop_back</span>();</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="KMP算法应用"><a href="#KMP算法应用" class="headerlink" title="KMP算法应用"></a>KMP算法应用</h2><h3 id="字符串的循环节"><a href="#字符串的循环节" class="headerlink" title="字符串的循环节"></a>字符串的循环节</h3><p>next数组的解法可以让我们求出字符串的循环节：n-next[n]</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205261218096.png"
+                      alt="image-20220526121842989" style="zoom:33%;" 
+                >
 
+<p>由图，因为绿色字符串的前缀和后缀相等的最大长度为next[n]，因此我们可以将该串向后移动n-next[n]，使得重叠部分恰好相等。又因为下面的串是平移的，因此上面串的第一段就等于下面串的第一段且长度为n-next[n]，又下面串的第一段与上面串的重叠部分相等（第二段），因此上面串的第一段和第二段相等，以此类推上面串的所有段都相等且以n-next[n]为长度进行循环，因此是字符串的循环节。</p>
+<p><strong>不具有循环节的串</strong></p>
+<p>例如，“abcdefgh”,不重复的串是不可能有循环节的，若是以其作为模式串，next[i]均为0，kmp算法最多比较O(m+n)次</p>
+<p><strong>循环节最多的串</strong></p>
+<p>例如，“aaaaaaa”，每个字符都相等的串的循环次数最多，若是以其为模式串，kmp算法最多比较匹配O(2m)次</p>
+<blockquote>
+<p>详细证明可参考<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/niukai1768/article/details/79579709" >博客<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<h3 id="字符串所有前后缀相等的子串"><a href="#字符串所有前后缀相等的子串" class="headerlink" title="字符串所有前后缀相等的子串"></a>字符串所有前后缀相等的子串</h3><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205261253952.png"
+                      alt="image-20220526125319859" style="zoom:33%;" 
+                >
+
+<p>这个求解实际和循环节的求解是完全相似的。每次我们将字符串向后平移(实际上是令j = next[j])，求出next数组后我们可以很方便的求出其所有前缀与后缀相等的子串<code>P[:next[j]], j = next[j] util j = 0</code></p>
+<p><strong>现证明该算法为什么能找到所有前后缀相等的子串</strong></p>
+<p>假设存在长度为k的前后缀未能通过上述递归式找到。我们先去找长度大于k的长度为i_t的前后缀，假设找到了且为图中第一段的next[n]，那么下一段next[next[n]]即是以next[n]为结尾的最长的前后缀，因为k也是前后缀，但是k比next[next[n]]长与next[next[n]]的定义相互矛盾，所以k必然不存在，因此算法找到了所有前后缀相等的子串。</p>
 
         </div>
 
@@ -294,11 +322,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：coding笔记：高精度加减乘除</li>
+        <li>Post title：coding笔记：KMP算法</li>
         <li>Post author：sixwalter</li>
-        <li>Create time：2022-05-11 21:21:54</li>
+        <li>Create time：2022-05-26 11:14:18</li>
         <li>
-            Post link：https://coelien.github.io/2022/05/11/coding-solution/highaccuracy/
+            Post link：https://coelien.github.io/2022/05/26/coding-solution/kmp/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -313,7 +341,7 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/">#高精度</a>&nbsp;
+                        <a href="/tags/KMP/">#KMP</a>&nbsp;
                     </li>
                 
             </ul>
@@ -322,29 +350,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/05/26/coding-solution/kmp/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">coding笔记：KMP算法</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/05/10/paper-reading/paper_reading_013/"
+                           href="/2022/05/11/coding-solution/highaccuracy/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">论文阅读笔记：“Is Space-Time Attention All You Need for Video Understanding”</span>
+                                <span class="post-nav-title-item">coding笔记：高精度加减乘除</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -540,7 +553,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E7%B2%BE%E5%BA%A6%E7%AE%97%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">高精度算数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">主要思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">加法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">减法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%98%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%A4%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">除法</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95%E6%B5%85%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">KMP算法浅析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="nav-number">1.2.</span> <span class="nav-text">核心思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#next%E6%95%B0%E7%BB%84%E6%B1%82%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">next数组求解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">KMP算法应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%BE%AA%E7%8E%AF%E8%8A%82"><span class="nav-number">1.4.1.</span> <span class="nav-text">字符串的循环节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%80%E6%9C%89%E5%89%8D%E5%90%8E%E7%BC%80%E7%9B%B8%E7%AD%89%E7%9A%84%E5%AD%90%E4%B8%B2"><span class="nav-number">1.4.2.</span> <span class="nav-text">字符串所有前后缀相等的子串</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
