@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-26T05:26:13.272Z</updated>
+  <updated>2022-05-27T05:44:28.382Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>论文阅读笔记：“Aggregated Residual Transformations for Deep Neural Networks”</title>
+    <link href="http://example.com/2022/05/26/paper-reading/paper_reading_014/"/>
+    <id>http://example.com/2022/05/26/paper-reading/paper_reading_014/</id>
+    <published>2022-05-26T05:49:43.968Z</published>
+    <updated>2022-05-27T05:44:28.382Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="论文阅读笔记：“Aggregated-Residual-Transformations-for-Deep-Neural-Networks”"><a href="#论文阅读笔记：“Aggregated-Residual-Transformations-for-Deep-Neural-Networks”" class="headerlink" title="论文阅读笔记：“Aggregated Residual Transformations for Deep Neural Networks”"></a>论文阅读笔记：“Aggregated Residual Transformations for Deep Neural Networks”</h1><blockquote><p>我想读一些关于网络架构设计的文章，也许会有利于我搭建自己的network，虽然说他们只是2D的架构但是迁移到3D应该不是很困难</p></blockquote><h2 id="核心亮点"><a href="#核心亮点" class="headerlink" title="核心亮点"></a>核心亮点</h2><p><strong>lego blocks</strong></p><p>ResNeXt继承了VGG的思想，就是使用一种简单但是有效的策略来构建深度网络：像堆乐高积木一样，使用大小相同的<strong>building block</strong>来构建，这个block可以是多个层的组合，多个block具有<strong>相似的拓扑结构</strong>。这种思路不仅有利于代码实现，也可以减少需要调整的超参数。他还有一个“致命”的好处就是减少超参数对于特定数据集的过度适应。</p><p><strong>split-transform-merge</strong></p><p>“分离，变换，合并”，听起来很抽象，但实际上很易懂。一个最简单的neuron可以帮助我们更好地理解这个思想：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205261408479.png"                      alt="image-20220526140833440" style="zoom:50%;"                 ><p>对于一个向量x，我们对其使用神经元来处理，实际上就是将x在其特征维度分解为一个个标量$X_i$（split），对于每一个变量$X_i$乘以对应的权重$W_i$（transform），最后将这些值进行求和（merge）。</p><p>更加形式化地，可以将<strong>split-transform-merge</strong>表示为：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205271212985.png"                      alt="image-20220527121238964" style="zoom: 50%;"                 ><p>$T_i(x)$可以为任意地函数，它会将x投影到低维度的embedding，再对其进行transform，C代表cardinality，也就是分组的组数。</p><p><strong>group convolutioon</strong></p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205271058333.png"                      alt="image-20220527105800241" style="zoom: 50%;"                 ><p>分组卷积是上述两个思想的自然延深和实际应用，因为每个block的拓扑结构均相同，因此通道的数量也可以作为参数来进行实验。如图c中，分组卷积实际上就是执行了32组的输入和输出channel均为4的卷积。</p><h2 id="亮点思考"><a href="#亮点思考" class="headerlink" title="亮点思考"></a>亮点思考</h2><p><strong>为什么分组卷积可以降低复杂度？</strong></p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205271103438.png"                      alt="image-20220527110332388" style="zoom:50%;"                 ><p>从上图可以看出，左边block的复杂度近似等于右边的block，右边block也与图3的(c)block等价，因此感觉处理的通道数明明变多了，但实际上复杂度却近似相同。</p><p>从计算的角度设输入的大小为（t,t)，那么左边block的运算量为：</p><p>$t<em>t</em>256<em>64+t</em>t*(3<em>3</em>64<em>2)<em>64+t</em>t</em>64<em>256=106496</em>t^2$</p><p>右边block的计算量为：</p><p>$(t<em>t</em>256<em>4+t</em>t*(3<em>3</em>4<em>2)<em>4+t</em>t</em>4<em>256)<em>32 + t</em>t</em>256<em>31=82688</em>t^2$</p><blockquote><p>为了计算方便我省去了padding，因其对计算量影响不大。从计算可见右边block的计算量实际比左边要小（文中说的等价实际上是参数数量的等价，这个更好计算，这里不再赘述），这也证明了使用分组卷积可以大大降低计算量。</p></blockquote><p>从直观上进行理解的话是，虽然bottleneck更加wider，但是<strong>连接更加稀疏</strong>，因此需要计算和训练的参数也更少。</p><p><strong>channel-wise conv &amp;&amp; group conv</strong></p><p>channer-wise conv实际上分组卷积的特例，它将通道维度进行了split，令cardinality等于输入通道数</p><h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205271206070.png"                      alt="image-20220527120652015" style="zoom: 50%;"                 ><h2 id="关键结论"><a href="#关键结论" class="headerlink" title="关键结论"></a>关键结论</h2><p><strong>新维度 cardinality</strong></p><p>基数（split的组数），可以作为设计深度架构的一个<strong>新的维度</strong>，必要时可以将其纳入考虑。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;论文阅读笔记：“Aggregated-Residual-Transformations-for-Deep-Neural-Networks”&quot;&gt;&lt;a href=&quot;#论文阅读笔记：“Aggregated-Residual-Transformations-for-Dee</summary>
+      
+    
+    
+    
+    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    
+    <category term="图像分类" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"/>
+    
+    
+    <category term="ResNeXt" scheme="http://example.com/tags/ResNeXt/"/>
+    
+    <category term="group convlution" scheme="http://example.com/tags/group-convlution/"/>
+    
+    <category term="architecture design" scheme="http://example.com/tags/architecture-design/"/>
+    
+  </entry>
   
   <entry>
     <title>coding笔记：KMP算法</title>
@@ -150,9 +180,9 @@
     <link href="http://example.com/2022/05/08/projects/huawei%20project/%E5%8D%8E%E4%B8%BA%E9%A1%B9%E7%9B%AE%EF%BC%9A%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%A4%8D%E7%9B%98/"/>
     <id>http://example.com/2022/05/08/projects/huawei%20project/%E5%8D%8E%E4%B8%BA%E9%A1%B9%E7%9B%AE%EF%BC%9A%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%A4%8D%E7%9B%98/</id>
     <published>2022-05-08T11:56:25.449Z</published>
-    <updated>2022-05-15T09:39:28.628Z</updated>
+    <updated>2022-05-27T02:40:29.593Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="pytorch-模型迁移复盘1"><a href="#pytorch-模型迁移复盘1" class="headerlink" title="pytorch 模型迁移复盘1"></a>pytorch 模型迁移复盘1</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="VPN连接"><a href="#VPN连接" class="headerlink" title="VPN连接"></a>VPN连接</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>连接华为提供的服务器需要vpn，在连vpn时遇到了一些问题：</p><ul><li>IP访问地址未设置正确</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png"                      alt="img"                ></p><ul><li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png"                      alt="img"                ></p><h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png"                      alt="image-20220508193544091" style="zoom:67%;"                 ><p>解决方法：</p><p>直接从gpu环境上scp一份解压好的上去</p><p><code>scp -r imagenet root@192.168.88.155:/opt/npu</code></p><blockquote><p><strong>Linux scp命令</strong>用于在Linux下进行远程拷贝文件的命令，和它类似的命令有<a class="link"   href="https://www.coonote.com/linux/linux-cmd-cp.html" >cp<i class="fas fa-external-link-alt"></i></a>，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，<a class="link"   href="https://www.coonote.com/linux/linux-cmd-rsync.html" >rsync<i class="fas fa-external-link-alt"></i></a>就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p></blockquote><h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote><p>目前该问题已解决</p></blockquote><p>因为我用的代码是pytorch1.7, 其中有一些新的接口1.5不支持，因此在NPU的torch1.5环境上需要修改API使之能跑通。主要修改点是torch.cuda.amp.autocast这个接口，将torch原生的amp接口改成apex的amp接口。</p><h3 id="NPU环境不太好改"><a href="#NPU环境不太好改" class="headerlink" title="NPU环境不太好改"></a>NPU环境不太好改</h3><blockquote><p>目前环境未出现问题</p></blockquote><p>需要直接在裸机上跑，不能使用conda，因此想改变环境不太容易，目前的环境启动方法为：’’source /home/gp/test_op/setenv.sh’’。该文件的主要内容是设置一些NPU相关的环境变量。</p><h3 id="GPU训练僵化"><a href="#GPU训练僵化" class="headerlink" title="GPU训练僵化"></a>GPU训练僵化</h3><blockquote><p>目前，该问题未解决</p></blockquote><p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p><p>如下是发现的问题：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png"                      alt="img"                ></p><ul><li><p>从日志可以发现损失变成了nan导致训练直接结束</p></li><li><p>一开始以为是Loss scale过大导致loss为nan，实则发现，loss scale是在获得损失值并判断它是否为nan之后，也就是模型采用的loss函数导致了其为nan,和混合精度没有关系，目前还在想办法解决这个问题</p></li></ul><h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png"                      alt="image-20220508201747487" style="zoom:67%;"                 ><p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p><ul><li>目前的修改方法主要有两种，将usenpu作为参数传给对应方法的默认参数，从而取代原先的import</li><li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li></ul><p>采用第一种方法可以完美解决问题</p><h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png"                      alt="image-20220509152351457" style="zoom: 50%;"                 >]]></content>
+    <content type="html"><![CDATA[<h1 id="pytorch-模型迁移复盘1"><a href="#pytorch-模型迁移复盘1" class="headerlink" title="pytorch 模型迁移复盘1"></a>pytorch 模型迁移复盘1</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="VPN连接"><a href="#VPN连接" class="headerlink" title="VPN连接"></a>VPN连接</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>连接华为提供的服务器需要vpn，在连vpn时遇到了一些问题：</p><ul><li>IP访问地址未设置正确</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png"                      alt="img"                ></p><ul><li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png"                      alt="img"                ></p><h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png"                      alt="image-20220508193544091" style="zoom:67%;"                 ><p>解决方法：</p><p>直接从gpu环境上scp一份解压好的上去</p><p><code>scp -r imagenet root@192.168.88.155:/opt/npu</code></p><blockquote><p><strong>Linux scp命令</strong>用于在Linux下进行远程拷贝文件的命令，和它类似的命令有<a class="link"   href="https://www.coonote.com/linux/linux-cmd-cp.html" >cp<i class="fas fa-external-link-alt"></i></a>，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，<a class="link"   href="https://www.coonote.com/linux/linux-cmd-rsync.html" >rsync<i class="fas fa-external-link-alt"></i></a>就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p></blockquote><blockquote><p>从本地服务器传到另一台服务器的docker容器而无需密码</p><p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link"   href="mailto:&#114;&#x6f;&#x6f;&#x74;&#x40;&#x32;&#48;&#x32;&#x2e;&#49;&#49;&#x37;&#x2e;&#x32;&#x31;&#x2e;&#x39;&#x33;" >&#114;&#x6f;&#x6f;&#x74;&#x40;&#x32;&#48;&#x32;&#x2e;&#49;&#49;&#x37;&#x2e;&#x32;&#x31;&#x2e;&#x39;&#x33;<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p></blockquote><h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote><p>目前该问题已解决</p></blockquote><p>因为我用的代码是pytorch1.7, 其中有一些新的接口1.5不支持，因此在NPU的torch1.5环境上需要修改API使之能跑通。主要修改点是torch.cuda.amp.autocast这个接口，将torch原生的amp接口改成apex的amp接口。</p><h3 id="NPU环境不太好改"><a href="#NPU环境不太好改" class="headerlink" title="NPU环境不太好改"></a>NPU环境不太好改</h3><blockquote><p>目前环境未出现问题</p></blockquote><p>需要直接在裸机上跑，不能使用conda，因此想改变环境不太容易，目前的环境启动方法为：’’source /home/gp/test_op/setenv.sh’’。该文件的主要内容是设置一些NPU相关的环境变量。</p><h3 id="GPU训练僵化"><a href="#GPU训练僵化" class="headerlink" title="GPU训练僵化"></a>GPU训练僵化</h3><blockquote><p>目前，该问题未解决</p></blockquote><p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p><p>如下是发现的问题：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png"                      alt="img"                ></p><ul><li><p>从日志可以发现损失变成了nan导致训练直接结束</p></li><li><p>一开始以为是Loss scale过大导致loss为nan，实则发现，loss scale是在获得损失值并判断它是否为nan之后，也就是模型采用的loss函数导致了其为nan,和混合精度没有关系，目前还在想办法解决这个问题</p></li></ul><h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png"                      alt="image-20220508201747487" style="zoom:67%;"                 ><p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p><ul><li>目前的修改方法主要有两种，将usenpu作为参数传给对应方法的默认参数，从而取代原先的import</li><li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li></ul><p>采用第一种方法可以完美解决问题</p><h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png"                      alt="image-20220509152351457" style="zoom: 50%;"                 >]]></content>
     
     
       
@@ -297,33 +327,6 @@
   </entry>
   
   <entry>
-    <title>使用docker配置深度学习环境</title>
-    <link href="http://example.com/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/"/>
-    <id>http://example.com/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/</id>
-    <published>2022-05-08T03:16:31.745Z</published>
-    <updated>2022-05-08T04:30:36.172Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="使用docker安装pytorch"><a href="#使用docker安装pytorch" class="headerlink" title="使用docker安装pytorch"></a>使用docker安装pytorch</h1><blockquote><p>参考教程：</p><p><a class="link"   href="https://www.runoob.com/docker/docker-container-usage.html" >https://www.runoob.com/docker/docker-container-usage.html<i class="fas fa-external-link-alt"></i></a></p><p><a class="link"   href="https://blog.csdn.net/dreamhome_s/article/details/106049253" >https://blog.csdn.net/dreamhome_s/article/details/106049253<i class="fas fa-external-link-alt"></i></a></p><p>这里默认docker已安装好</p></blockquote><h2 id="1-dockers运行命令"><a href="#1-dockers运行命令" class="headerlink" title="1. dockers运行命令"></a>1. dockers运行命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --gpus all -itd --name torchtest -v <span class="variable">$PWD</span> -w /tmp/workplace -p 10035:22 -p 8889:8888 pytorch/pytorch:latest bash</span><br></pre></td></tr></table></figure><p><strong>notes</strong>:</p><ul><li><p>10035映射到容器的22号端口：用于SSH远程连接服务器</p></li><li><p>8889映射到8888端口：用于远程访问服务器的jupyter notebook</p></li><li><p>若端口号被占用，换一个未被占用的即可</p></li><li><p>-v -w：将当前目录挂载到容器的workplace目录下</p></li><li><p>-i: 交互式操作。</p></li><li><p>-t: 终端。</p></li><li><p>-d: 在后台执行</p></li></ul><p>可以将该命令写入<strong>脚本</strong>里方便持续执行，如图：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141420457.png"                      alt="image-20220414142028424" style="zoom: 67%;"                 ><h2 id="2-docker进入命令"><a href="#2-docker进入命令" class="headerlink" title="2. docker进入命令"></a>2. docker进入命令</h2><ul><li><strong>docker exec</strong>：推荐大家使用 docker exec 命令，因为此命令会退出容器终端，但不会导致容器的停止。</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it torchtest /bin/bash</span><br></pre></td></tr></table></figure><p>使用该命令可以进入终端，退出root也不会导致容器停止。</p><h2 id="3-开启SSH服务"><a href="#3-开启SSH服务" class="headerlink" title="3. 开启SSH服务"></a>3. 开启SSH服务</h2><ul><li>安装SSH服务：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install openssh-server</span><br><span class="line">service ssh start</span><br></pre></td></tr></table></figure><ul><li>设置容器密码：</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入passwd设置密码</span><br></pre></td></tr></table></figure><ul><li>修改容器配置：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt install vim</span><br><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># 在 sshd_config 文件里</span></span><br><span class="line">PermitRootLogin prohibit-password <span class="comment"># 注释掉</span></span><br><span class="line">PermitRootLogin yes <span class="comment"># 添加该行</span></span><br></pre></td></tr></table></figure><ul><li>重新激活SSH服务：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service ssh restart</span><br></pre></td></tr></table></figure><ul><li>在本机测试是否可以连接成功：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141504398.png"                      alt="image-20220414150403363" style="zoom:50%;"                 >]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;使用docker安装pytorch&quot;&gt;&lt;a href=&quot;#使用docker安装pytorch&quot; class=&quot;headerlink&quot; title=&quot;使用docker安装pytorch&quot;&gt;&lt;/a&gt;使用docker安装pytorch&lt;/h1&gt;&lt;blockquote&gt;
-</summary>
-      
-    
-    
-    
-    <category term="kinetics项目" scheme="http://example.com/categories/kinetics%E9%A1%B9%E7%9B%AE/"/>
-    
-    
-    <category term="环境配置" scheme="http://example.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
-    
-    <category term="docker" scheme="http://example.com/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title>docker内配置facebook pyslowfast环境</title>
     <link href="http://example.com/2022/05/08/projects/kinetics%20project/installation%20of%20slowfast/"/>
     <id>http://example.com/2022/05/08/projects/kinetics%20project/installation%20of%20slowfast/</id>
@@ -350,6 +353,33 @@
     <category term="docker" scheme="http://example.com/tags/docker/"/>
     
     <category term="pySlowFast" scheme="http://example.com/tags/pySlowFast/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用docker配置深度学习环境</title>
+    <link href="http://example.com/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/"/>
+    <id>http://example.com/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/</id>
+    <published>2022-05-08T03:16:31.745Z</published>
+    <updated>2022-05-08T04:30:36.172Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用docker安装pytorch"><a href="#使用docker安装pytorch" class="headerlink" title="使用docker安装pytorch"></a>使用docker安装pytorch</h1><blockquote><p>参考教程：</p><p><a class="link"   href="https://www.runoob.com/docker/docker-container-usage.html" >https://www.runoob.com/docker/docker-container-usage.html<i class="fas fa-external-link-alt"></i></a></p><p><a class="link"   href="https://blog.csdn.net/dreamhome_s/article/details/106049253" >https://blog.csdn.net/dreamhome_s/article/details/106049253<i class="fas fa-external-link-alt"></i></a></p><p>这里默认docker已安装好</p></blockquote><h2 id="1-dockers运行命令"><a href="#1-dockers运行命令" class="headerlink" title="1. dockers运行命令"></a>1. dockers运行命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --gpus all -itd --name torchtest -v <span class="variable">$PWD</span> -w /tmp/workplace -p 10035:22 -p 8889:8888 pytorch/pytorch:latest bash</span><br></pre></td></tr></table></figure><p><strong>notes</strong>:</p><ul><li><p>10035映射到容器的22号端口：用于SSH远程连接服务器</p></li><li><p>8889映射到8888端口：用于远程访问服务器的jupyter notebook</p></li><li><p>若端口号被占用，换一个未被占用的即可</p></li><li><p>-v -w：将当前目录挂载到容器的workplace目录下</p></li><li><p>-i: 交互式操作。</p></li><li><p>-t: 终端。</p></li><li><p>-d: 在后台执行</p></li></ul><p>可以将该命令写入<strong>脚本</strong>里方便持续执行，如图：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141420457.png"                      alt="image-20220414142028424" style="zoom: 67%;"                 ><h2 id="2-docker进入命令"><a href="#2-docker进入命令" class="headerlink" title="2. docker进入命令"></a>2. docker进入命令</h2><ul><li><strong>docker exec</strong>：推荐大家使用 docker exec 命令，因为此命令会退出容器终端，但不会导致容器的停止。</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it torchtest /bin/bash</span><br></pre></td></tr></table></figure><p>使用该命令可以进入终端，退出root也不会导致容器停止。</p><h2 id="3-开启SSH服务"><a href="#3-开启SSH服务" class="headerlink" title="3. 开启SSH服务"></a>3. 开启SSH服务</h2><ul><li>安装SSH服务：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install openssh-server</span><br><span class="line">service ssh start</span><br></pre></td></tr></table></figure><ul><li>设置容器密码：</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入passwd设置密码</span><br></pre></td></tr></table></figure><ul><li>修改容器配置：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt install vim</span><br><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># 在 sshd_config 文件里</span></span><br><span class="line">PermitRootLogin prohibit-password <span class="comment"># 注释掉</span></span><br><span class="line">PermitRootLogin yes <span class="comment"># 添加该行</span></span><br></pre></td></tr></table></figure><ul><li>重新激活SSH服务：</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service ssh restart</span><br></pre></td></tr></table></figure><ul><li>在本机测试是否可以连接成功：</li></ul><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141504398.png"                      alt="image-20220414150403363" style="zoom:50%;"                 >]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;使用docker安装pytorch&quot;&gt;&lt;a href=&quot;#使用docker安装pytorch&quot; class=&quot;headerlink&quot; title=&quot;使用docker安装pytorch&quot;&gt;&lt;/a&gt;使用docker安装pytorch&lt;/h1&gt;&lt;blockquote&gt;
+</summary>
+      
+    
+    
+    
+    <category term="kinetics项目" scheme="http://example.com/categories/kinetics%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="环境配置" scheme="http://example.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    <category term="docker" scheme="http://example.com/tags/docker/"/>
     
   </entry>
   
@@ -512,34 +542,6 @@
     <category term="Kinetics" scheme="http://example.com/tags/Kinetics/"/>
     
     <category term="I3D" scheme="http://example.com/tags/I3D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读笔记：“Deep Temporal Linear Encoding Networks”</title>
-    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_009%20/"/>
-    <id>http://example.com/2022/05/07/paper-reading/paper_reading_009%20/</id>
-    <published>2022-05-07T13:01:41.958Z</published>
-    <updated>2022-05-25T13:45:57.435Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Deep-Temporal-Linear-Encoding-Networks"><a href="#Deep-Temporal-Linear-Encoding-Networks" class="headerlink" title="Deep Temporal Linear Encoding Networks"></a>Deep Temporal Linear Encoding Networks</h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>这篇文章主要是针对如何对整个视频进行表示，即如何对视频中的片段进行聚合，提出了时间线性编码（TLE），它可以嵌入在CNN中作为一个层，从而允许端到端的训练。</p><h2 id="二-TLE-Layer"><a href="#二-TLE-Layer" class="headerlink" title="二. TLE　Layer"></a>二. TLE　Layer</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331170312907.png"                      alt="image-20220331170312907" style="zoom:50%;"                 ><p>TLE层主要分为两个部分，第一个是对视频的多个片段的特征图进行聚合的操作，第二个是将聚合表示转化为线性编码特征的编码操作，算法如下图所示：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331171227702.png"                      alt="image-20220331171227702" style="zoom: 50%;"                 ><p>聚合方法可采用（逐元素）最大聚合，平均聚合和乘积聚合，编码方法可采用双线性模型和全连接池化。实验表明，双线性模型较第二种方法计算更加快速，参数量更少的同时效果更好，使用Tensor Sketch算法也可以通过将高维空间投影到低维空间而无需直接计算外积。作者在已有的典型模型的基础上只保留卷积，通过加入TLE层来进行实验。实验证明使用该层对模型效果均有较大提升。值得一提的是，作者还将环境场景信息纳入考虑，作为额外信息进行聚合，实验表明准确率有较大提升，该实验证明了TLE合并不同数据流的能力。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331173204667.png"                      alt="image-20220331173204667" style="zoom:50%;"                 >]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Deep-Temporal-Linear-Encoding-Networks&quot;&gt;&lt;a href=&quot;#Deep-Temporal-Linear-Encoding-Networks&quot; class=&quot;headerlink&quot; title=&quot;Deep Temporal Li</summary>
-      
-    
-    
-    
-    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    
-    <category term="行为识别" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
-    
-    
-    <category term="时间线性编码" scheme="http://example.com/tags/%E6%97%B6%E9%97%B4%E7%BA%BF%E6%80%A7%E7%BC%96%E7%A0%81/"/>
-    
-    <category term="TLE Layer" scheme="http://example.com/tags/TLE-Layer/"/>
     
   </entry>
   
