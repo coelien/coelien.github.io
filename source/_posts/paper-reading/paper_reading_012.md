@@ -1,3 +1,12 @@
+---
+title: 论文阅读笔记：“X3D: Expanding Architectures for Effificient Video Recognition”
+tags: 
+- X3D
+- 坐标上升算法
+categories:
+- 论文阅读
+- 行为识别
+---
 # X3D: Expanding Architectures for Effificient Video Recognition
 
 ## 一. 主要思想

@@ -1,3 +1,12 @@
+---
+title: 论文阅读笔记：“Notes on Long-Term Temporal Convolutions for Action Recognition”
+tags: 
+- Long-Term
+- 长期时间卷积（LTC）
+categories:
+- 论文阅读
+- 行为识别
+---
 # Notes on Long-Term Temporal Convolutions for Action Recognition
 
 ## 一. 论文思想

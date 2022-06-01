@@ -6,6 +6,7 @@ tags:
 - GAN
 categories:
 - 论文阅读
+- 轨迹预测
 ---
 # 	Social GAN阅读笔记（cvpr 2018）
 

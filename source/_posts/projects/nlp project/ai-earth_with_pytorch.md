@@ -9,7 +9,7 @@ categories:
 - nlp项目
 ---
 
-# AI-EARTH项目
+# 数据挖掘-AI-Earth项目
 
 ## 背景
 
@@ -190,4 +190,175 @@ SM（）代表softmax激活函数，自注意力仅在p(空间维度)或t(时间
 - 将这些向量沿HEAD维度进行连接，再传入多层感知机即可得到最终编码向量（注，在每一个操作中还使用了残差连接）：
 
 <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291226426.png" alt="image-20220429122626393" style="zoom:50%;" />
+
+##### 模型实现
+
+上边主要从理论方面解释了如何计算attention权重，下面从代码的角度分析如何去实现模型：
+
+我将encoding和decoding所做的处理进行了分析，如下图所示：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205141433841.png" alt="image-20220514143322612" style="zoom: 50%;" />
+
+首先代码定义了SpaceTimeTransformer类，在该类中定义了如下变量：
+
+- src_emb
+
+  该变量是input_embedding类的实例，用于对输入进行嵌入，所作的简而言之就是进行一个线性变换，加上位置编码和时间编码：
+
+  ```python
+  assert len(x.size()) == 4 
+  embedded_space = self.emb_space(self.spatial_pos)  # (1, S, 1, D)
+  x = self.linear(x) + self.pe_time[:, :, :x.size(2)] + embedded_space  # (N, S, T, D)
+  return self.norm(x)
+  ```
+
+- tgt_emb
+
+  该变量是input_embedding类的实例，用于对输出进行嵌入。
+
+- encoder
+
+- decoder
+
+- linear_output
+
+由 定义的变量可以看出，该模型采样了encoder-decoder框架，src即输入序列期待通过该框架生成目标序列tgt，encoder将输入句子通过非线性变换转化为中间表示，decoder根据中间表示和历史信息yi-1生成yi。
+
+该类的方法为前馈操作，编码方法，解码方法，生成掩膜：
+
+- forward
+
+  在forward方法中首先调用了encode方法将src和src_mask作为参数进行编码，如果处在训练过程中：为target生成mask，并将必要参数传入解码器进行解码得到了sst_pred。如果ssr_ratio>1e-6，那么使用Teacher forcing生成一个teacher_forcing_mask，否则该mask为0，Teacher forcing就是直接使用实际标签$y_{t-1}$作为下一个时间步的输入，由老师（ground truth）带领着防止模型越走越偏。但是老师不能总是手把手领着学生走，要逐渐放手让学生自主学习，于是我们使用Scheduled Sampling rate来控制使用实际标签的概率。在训练初期，ratio=1，模型完全由老师带领着，随着训练轮数的增加，ratio以一定的方式衰减（该方案中使用线性衰减，ratio每次减小一个衰减率decay_rate），每个时间步以ratio的概率从伯努利分布中提取二进制随机数0或1，为1时输入就是实际标签$y_{t-1}$，否则输入为$\hat{y}_{t-1}$。再将新的tgt送入decoder进行预测得到了sst_pred。
+
+  如果处于验证阶段，每次预测一次sst_pred并加入，之后计算nino_pred并返回。
+
+- encode
+
+  在encode方法中，使用了unfold_StackOverChannel方法将原图像分解为patches
+
+  ```python
+  def unfold_StackOverChannel(img, kernel_size):
+      """
+      divide the original image to patches, then stack the grids in each patch along the channels
+      Args:
+          img (N, *, C, H, W): the last two dimensions must be the spatial dimension
+          kernel_size: tuple of length 2
+      Returns:
+          output (N, *, C*H_k*N_k, H_output, W_output)
+      """
+      n_dim = len(img.size())
+      assert n_dim == 4 or n_dim == 5
+  
+      pt = img.unfold(-2, size=kernel_size[0], step=kernel_size[0])
+      pt = pt.unfold(-2, size=kernel_size[1], step=kernel_size[1]).flatten(-2)  # (N, *, C, n0, n1, k0*k1)
+      if n_dim == 4:  # (N, C, H, W)
+          pt = pt.permute(0, 1, 4, 2, 3).flatten(1, 2)
+      elif n_dim == 5:  # (N, T, C, H, W)
+          pt = pt.permute(0, 1, 2, 5, 3, 4).flatten(2, 3)
+      assert pt.size(-3) == img.size(-3) * kernel_size[0] * kernel_size[1]
+      return pt
+  ```
+
+  分解为patches后，将其reshape并做一个embeding，再将编码张量送入encoder中进行处理并返回（memory）
+
+- decode
+
+  与encode的过程类似，也需将tgt分解为patches并将其嵌入传给decoder进行解码（还有memory,mask等参数）并返回
+
+- generate_square_subsequent_mask
+
+  该方法为生成掩膜的方法
+
+#### 实验
+
+##### 数据处理
+
+**读入数据**
+
+- 首先使用xarray库读入数据集
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131549861.png" alt="image-20220513154957818" style="zoom: 50%;" />
+
+- 查看cmip数据集的sst变量的shape
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131549347.png" alt="image-20220513154921242" style="zoom:50%;" />
+
+**数据扁平化**
+
+- 使用sel方法选择纬度在一定范围内的数据：
+
+  <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131553372.png" alt="image-20220513155342338" style="zoom:50%;" />
+
+> 这一步的主要作用在于降低空间分辨率，从而减少计算量
+
+- 分解为cmip6和cmip5并对每一个数据集进行数据变换，以cmip6为例，他只使用sst特征，一共有15个模式，每个模式151年，并将同种模式下的数据拼接起来，之后采用滑窗构造数据集（每3年采样一次，去重）：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131622431.png" alt="image-20220513162228369" style="zoom:50%;" />
+
+**构造CMIP数据集**
+
+> 12+26 = 38
+
+下面是我手动分析如何构造cmipdataset的过程，简要概括一下就是，cmipdataset将cmip5、cmip6连接在了一起，对于cmip5的操作，对于cmip6是同理的。下面的红色的shape主要是针对cmip6的，概括一下数据集构建的过程：
+
+- 将序列数据集模拟为视频数据集，设定输入帧时间间隔，输入帧长度，预测偏移和要预测的未来帧长度，具体如下图所示；
+- 以gap=5为采样间隔提取clips，将clips分为input_sst(长度为12)和target_sst(长度为26)，每两个输入clip之间有7个月是重复的，输出clip之间有21个帧是重复的；
+- 维度转换在每一步中已清晰列出，注意，为了模拟视频数据集，代码手动添加了channel维度；
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131632136.png" alt="image-20220513163209973" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131632278.png" alt="image-20220513163226142" style="zoom: 67%;" />
+
+下图是数据集的生成结果，可以看出sst_input，sst_target，nino target均与手动推导的shape是一致的：
+
+![image-20220513162900082](https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131629150.png)
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131630853.png" alt="image-20220513163040825" style="zoom:50%;" />
+
+验证集的处理类似，这里不再赘述：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131655406.png" alt="image-20220513165542374" style="zoom:50%;" />
+
+##### 模型训练
+
+导入训练以及模型配置：
+
+- 单卡gpu
+- batch-size=8
+- epochs=100
+- gradient_clipping = False
+- weight_decay=0
+- d_model=256
+- patience = 3
+- patch_size=(2,3)
+- emb_spatial_size = 12*16
+- number of heads = 4
+- num of encoding layers = 3
+- num of decoding layers = 3
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131705401.png" alt="image-20220513170526353" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205131722699.png" alt="image-20220513172233630" style="zoom:50%;" />
+
+##### 模型验证
+
+将训练好的模型进行验证，先将模型的weight进行读取，将得到的模型在测试集上进行推理，最终的score分数约为33，如下图所示：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205132125646.png" alt="image-20220513212548609" style="zoom: 67%;" />
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205132125790.png" alt="image-20220513212503712" style="zoom:50%;" />
+
+##### 精度优化
+
+**自注意力权重修改**
+
+计算注意力权重时，将顺序计算改为对空间和时间同时进行计算
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205132130277.png" alt="image-20220513213041188" style="zoom:50%;" />
+
+并将合并式注意力替代分离式注意力重新进行训练，发现效果没有提升
+
+### 结论
+
+实验证明，将时间序列数据集当作视频使用transformer进行训练是可行的，最终的score可以达到32。相较于CNN，transformer的结构更加复杂，而且自注意力的设计对于网络的性能影响很大，稍微修改一点，网络就有可能无法收敛。实验证明使用transformer去捕获长范围的时间依赖是十分有效的。
 

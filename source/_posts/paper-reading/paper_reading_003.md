@@ -5,6 +5,7 @@ tags:
 - 时间信息融合
 categories:
 - 论文阅读
+- 行为识别
 ---
 
 # Large-scale Video Classification with Convolutional Neural Networks

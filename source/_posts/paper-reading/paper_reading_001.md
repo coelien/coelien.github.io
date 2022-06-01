@@ -5,6 +5,7 @@ tags:
 - 光流法
 categories:
 - 论文阅读
+- 传统方法
 ---
 
 # Action Recognition by Dense Trajectories

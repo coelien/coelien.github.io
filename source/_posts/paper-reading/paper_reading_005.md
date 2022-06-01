@@ -5,6 +5,7 @@ tags:
 - LSTM
 categories:
 - 论文阅读
+- 轨迹预测
 ---
 # 论文阅读笔记—Social LSTM:Human Trajectory Prediction in Crowded Spaces（CVPR 2016）
 

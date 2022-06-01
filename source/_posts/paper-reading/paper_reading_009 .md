@@ -1,4 +1,13 @@
-# **Deep Temporal Linear Encoding Networks**
+---
+title: 论文阅读笔记：“Deep Temporal Linear Encoding Networks”
+tags: 
+- 时间线性编码
+- TLE Layer
+categories:
+- 论文阅读
+- 行为识别
+---
+# Deep Temporal Linear Encoding Networks
 
 ## 一. 论文思想
 

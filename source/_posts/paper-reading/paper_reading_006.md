@@ -1,3 +1,13 @@
+---
+title: 论文阅读笔记：“From Goals, Waypoints & Paths To Long Term Human Trajectory Forecasting(ICCV 2021)”
+tags: 
+- 轨迹预测
+- Y-NET
+categories:
+- 论文阅读
+- 轨迹预测
+---
+
 # Notes  of Reading "From Goals, Waypoints & Paths To Long Term Human Trajectory Forecasting"(ICCV 2021)
 
 ## 原理

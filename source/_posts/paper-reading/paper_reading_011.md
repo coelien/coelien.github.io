@@ -1,3 +1,12 @@
+---
+title: 论文阅读笔记：“MoViNets: Mobile Video Networks for Effificient Video Recognition”
+tags: 
+- MoViNets
+- NAS
+categories:
+- 论文阅读
+- 行为识别
+---
 # MoViNets: Mobile Video Networks for Effificient Video Recognition
 
 ## 一. 论文思想

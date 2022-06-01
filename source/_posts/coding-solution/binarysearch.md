@@ -5,7 +5,6 @@ tags:
 categories:
 - coding
 ---
-
 # 二分算法
 
 ## 整数二分
@@ -77,3 +76,34 @@ double fbsearch(double l,double r,double target){
     return l;
 }
 ```
+
+
+
+## 应用：数的三次方根
+
+求数的三次方根可以使用二分查找来做。因为函数$x^3$是单调的，所以很容易判断mid和target的大小关系，从而缩小查找范围，代码如下：
+
+```c++
+double fbiSearch(double l, double r, double target, double (*pf)(double)) {
+    while (r - l > 1e-7) {
+        double mid = (l + r) / 2;
+        if (pf(mid) <= target) l = mid;
+        else r = mid;
+    }
+    return r;
+}
+double calTrip(double x){
+    return x*x*x;
+}
+int findRoot3(){
+    double n;
+    double (*pf)(double)=calTrip;
+    cin>>n;
+    if(n<0) printf("-%.6f",fbiSearch(0,ceil(-n),-n,calTrip));
+    else printf("%.6f",fbiSearch(0,ceil(n),n,calTrip));
+    return 0;
+}
+```
+
+简要介绍下引入的函数指针，有了函数指针就可以方便地将计算方法传入二分查找算法来找解。`double (*pf)(double)=calTrip;`可以定义一个函数指针，非常有用。
+

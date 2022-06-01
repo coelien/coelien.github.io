@@ -1,3 +1,12 @@
+---
+title: 论文阅读笔记：“Is Space-Time Attention All You Need for Video Understanding”
+tags: 
+- TimeSformer
+- 坐标上升算法
+categories:
+- 论文阅读
+- 行为识别
+---
 # Is Space-Time Attention All You Need for Video Understanding?
 
 ## 一. 主要思想

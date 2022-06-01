@@ -1,3 +1,13 @@
+---
+title: 论文阅读笔记：“From Goals, Waypoints & Paths To Long Term Human Trajectory Forecasting(ICCV 2021)”
+tags: 
+- Kinetics
+- I3D
+categories:
+- 论文阅读
+- 行为识别
+---
+
 # Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(CVPR 2017)
 
 该论文提出了Kinetics这一更大的人类行为视频数据集，使用它进行预训练的模型更适合于迁移学习。该论文提出了一个新的模型I3D，并将该模型与之前提出的不同行为分类架构进行比较。

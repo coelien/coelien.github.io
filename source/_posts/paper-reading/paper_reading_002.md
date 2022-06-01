@@ -5,6 +5,7 @@ tags:
 - DIV2K
 categories:
 - 论文阅读
+- 超分辨
 ---
 # BSRN
 
