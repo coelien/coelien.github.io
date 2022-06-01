@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-27T05:44:28.382Z</updated>
+  <updated>2022-06-01T07:27:40.570Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,66 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>论文阅读笔记：“ AssembleNet++： Assembling Modality Representations via Attention Connections”</title>
+    <link href="http://example.com/2022/05/30/paper-reading/paper_reading_017/"/>
+    <id>http://example.com/2022/05/30/paper-reading/paper_reading_017/</id>
+    <published>2022-05-30T06:36:52.586Z</published>
+    <updated>2022-06-01T07:27:40.570Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="AssembleNet-Assembling-Modality-Representations-via-Attention-Connections"><a href="#AssembleNet-Assembling-Modality-Representations-via-Attention-Connections" class="headerlink" title="AssembleNet++: Assembling Modality Representations via Attention Connections"></a>AssembleNet++: Assembling Modality Representations via Attention Connections</h1><h2 id="主要工作"><a href="#主要工作" class="headerlink" title="主要工作"></a>主要工作</h2><p>为了学习原始输入模态和语义输入模态之间的交互关系，作者提出了一族可以显示地学习表观信息，运动特征和对象特定信息之间相互作用的模型AssembleNet++。为了对这种不同模态信息的相互作用进行建模，作者搜索了块间的同辈注意力连接性，引入了创新性的peer-attention模块。</p><h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p>该模型采用了继承自AssembleNet的多流，多block的架构设计模式。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205301641284.png"                      alt="image-20220530164115003" style="zoom:50%;"                 ><p>如图所示的连接图未加入注意力。可以看出输入block包括原始RGB，光流以及图中物体的信息多个模态。且图中的连接并非人为简单的设计，而是通过NAS方法搜索出来的，每个block都可以和其上层的多个block进行连接，也可以跳层连接，如图中最右侧的Object Input Block。每个Block又是R(2+1)D的residual block，包含1D的时间卷积，2D的空间卷积层还有一个1*1的conv层。</p><h2 id="核心亮点"><a href="#核心亮点" class="headerlink" title="核心亮点"></a>核心亮点</h2><p><strong>object information</strong></p><p>物体以及他们的位置可以提供丰富的语义信息来对视频中的行为进行有效理解，从搜索得到的网络结构也可看出，语义信息包含在了整个架构中，所以可以和其他模态以及从中得到的中间特征进行交互，而且每一个学习到的物体连接的权重都大于0.7，可见该输入block的有用性。</p><p><strong>weighted connections</strong></p><p>任和一个块的输入都可以由其下层的一个或多个块的输出进行加权和来得到：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311952372.png"                      alt="image-20220531195223271" style="zoom:50%;"                 ><p>模型考虑了所有满足条件的connection(j,i)：只要block j 所在的层数小于i所在的层数。思想即通过<strong>设置权重</strong>来允许学习连接的大小。</p><p><strong>peer-attention</strong>（channel-wise attention）</p><blockquote><p>同辈注意力连接性</p></blockquote><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311956830.png"                      alt="image-20220531195640795" style="zoom:50%;"                 ><p>对于每个连接，上面的公式可以计算大小为Ci的权重向量。它首先对张量x进行全局平均池化，之后通过一个全连接层映射为大小为Ci的向量。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311957675.png"                      alt="image-20220531195707644" style="zoom:50%;"                 ><p>假设我们已经知道block k对connection(j,i)有影响，那么通过考虑来自块k的注意力，结合所有连接(j,i)，我们就可以得到块i的输入，如果xj == xk，那么这种注意力就等价于经典的SE注意力。</p><p> <strong>one-shot differentiable architecture search</strong></p><blockquote><p>one of NAS approaches</p></blockquote><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311957309.png"                      alt="image-20220531195732278" style="zoom:50%;"                 ><p>思想与<strong>weighted connections</strong>近似，通过设置每个peer block的weights，令weights是可学习的。通过训练，模型对每一个block会软选择（soft select）一个最好的peer block，这个peer会最大化识别的效果。从公式可以看出，x为所有peer block的加权和，公式的其他部分与前面的类似。</p><h2 id="实验结论"><a href="#实验结论" class="headerlink" title="实验结论"></a>实验结论</h2><p><strong>物体信息的重要性</strong></p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011413702.png"                      alt="image-20220601141335608" style="zoom:50%;"                 ><p>从实验可以看出，物体连接数量越多，数据集的mAP指标成比例的升高。</p><p><strong>peer attention的有效性</strong></p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011418526.png"                      alt="image-20220601141835495" style="zoom:50%;"                 ><p>从图中可以看出，带有peer attention的mAP较无attention的网络提升了近6个百分点。</p><p><strong>对其他架构具有通用性</strong></p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011437364.png"                      alt="image-20220601143738316" style="zoom:50%;"                 >]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;AssembleNet-Assembling-Modality-Representations-via-Attention-Connections&quot;&gt;&lt;a href=&quot;#AssembleNet-Assembling-Modality-Representations</summary>
+      
+    
+    
+    
+    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    
+    <category term="行为识别" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
+    
+    
+    <category term="NAS" scheme="http://example.com/tags/NAS/"/>
+    
+    <category term="peer attention" scheme="http://example.com/tags/peer-attention/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>论文阅读笔记：“MobileNetV2：Inverted Residuals and Linear Bottlenecks”</title>
+    <link href="http://example.com/2022/05/29/paper-reading/paper_reading_016/"/>
+    <id>http://example.com/2022/05/29/paper-reading/paper_reading_016/</id>
+    <published>2022-05-29T06:10:09.324Z</published>
+    <updated>2022-06-01T07:27:33.870Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="论文阅读笔记：MobileNets系列论文浅析：mobilenet-v2"><a href="#论文阅读笔记：MobileNets系列论文浅析：mobilenet-v2" class="headerlink" title="论文阅读笔记：MobileNets系列论文浅析：mobilenet v2"></a>论文阅读笔记：MobileNets系列论文浅析：mobilenet v2</h1><blockquote><p>参考<a class="link"   href="https://arxiv.org/abs/1801.04381v4" >原论文<i class="fas fa-external-link-alt"></i></a></p><p>参考<a class="link"   href="https://www.bilibili.com/video/BV1yE411p7L7/" >B站视频<i class="fas fa-external-link-alt"></i></a></p><p>hint: 为了去寻找一个最优的网络架构，有哪些思考模式是可以借鉴的。哪怕我无法提出一个通用的网路架构design的创新方法，学习已有的架构设计思路来改进已有模型也是可以的，所以为了改进模型而去学习这些改进的思路是很必要的。</p></blockquote><blockquote><p>究竟有哪些架构优化方法呢？</p><ul><li>强化学习: <a href="#1">[1]</a></li><li>通用算法：<a href="#2">[2]</a></li></ul></blockquote><h2 id="核心亮点"><a href="#核心亮点" class="headerlink" title="核心亮点"></a>核心亮点</h2><p><strong>manifold of interest</strong></p><ul><li>manifold: 流形的概念:</li></ul><blockquote><p>流形学习的观点是认为，我们所能观察到的数据实际上是由一个低维流形映射到高维空间上的。由于数据内部特征的限制，一些高维中的数据会产生维度上的冗余，实际上只需要比较低的维度就能唯一地表示。参考链接：<a class="link"   href="https://en.wikipedia.org/wiki/Manifold" >https://en.wikipedia.org/wiki/Manifold<i class="fas fa-external-link-alt"></i></a></p></blockquote><ul><li>举例1：实际上二维空间中的圆就是一个一维流形（维度冗余）</li><li>举例2：三维空间中一个球面（只需要经纬两个维度即可描述）</li></ul><p>在深度学习领域，我们可以将激活张量视为多个容器组合而成的，每个容器包含了数量为$h_i*w_i$的pixels向量，每个向量的维度为$d_i$。这些激活张量的集合组成了流形特征（interest）。而且认为神经网络中的流形特征可以被嵌入到低维子空间中。正是这个概念，令如mobilenetv1（Width Multiplier），shufflenet等网络取得了不错的效果。</p><p><span id="1">[1] Neural architecture search with reinforcement learning. CoRR 2016</span></p><p><span id="2">[2]  Learning transferable architectures for scalable image recognition. CoRR 2017</span></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;论文阅读笔记：MobileNets系列论文浅析：mobilenet-v2&quot;&gt;&lt;a href=&quot;#论文阅读笔记：MobileNets系列论文浅析：mobilenet-v2&quot; class=&quot;headerlink&quot; title=&quot;论文阅读笔记：MobileNets系列论</summary>
+      
+    
+    
+    
+    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    
+    <category term="图像分类" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/"/>
+    
+    
+    <category term="architecture design" scheme="http://example.com/tags/architecture-design/"/>
+    
+    <category term="MobileNet" scheme="http://example.com/tags/MobileNet/"/>
+    
+    <category term="Inverted Residuals" scheme="http://example.com/tags/Inverted-Residuals/"/>
+    
+    <category term="Linear Bottlenecks" scheme="http://example.com/tags/Linear-Bottlenecks/"/>
+    
+  </entry>
   
   <entry>
     <title>论文阅读笔记：“Aggregated Residual Transformations for Deep Neural Networks”</title>
@@ -117,9 +177,9 @@
     <category term="行为识别" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
     
     
-    <category term="TimeSformer" scheme="http://example.com/tags/TimeSformer/"/>
-    
     <category term="坐标上升算法" scheme="http://example.com/tags/%E5%9D%90%E6%A0%87%E4%B8%8A%E5%8D%87%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="TimeSformer" scheme="http://example.com/tags/TimeSformer/"/>
     
   </entry>
   
@@ -143,9 +203,9 @@
     <category term="coding" scheme="http://example.com/categories/coding/"/>
     
     
-    <category term="快排" scheme="http://example.com/tags/%E5%BF%AB%E6%8E%92/"/>
-    
     <category term="快速选择" scheme="http://example.com/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/"/>
+    
+    <category term="快排" scheme="http://example.com/tags/%E5%BF%AB%E6%8E%92/"/>
     
   </entry>
   
@@ -182,7 +242,7 @@
     <published>2022-05-08T11:56:25.449Z</published>
     <updated>2022-05-27T02:40:29.593Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="pytorch-模型迁移复盘1"><a href="#pytorch-模型迁移复盘1" class="headerlink" title="pytorch 模型迁移复盘1"></a>pytorch 模型迁移复盘1</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="VPN连接"><a href="#VPN连接" class="headerlink" title="VPN连接"></a>VPN连接</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>连接华为提供的服务器需要vpn，在连vpn时遇到了一些问题：</p><ul><li>IP访问地址未设置正确</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png"                      alt="img"                ></p><ul><li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png"                      alt="img"                ></p><h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png"                      alt="image-20220508193544091" style="zoom:67%;"                 ><p>解决方法：</p><p>直接从gpu环境上scp一份解压好的上去</p><p><code>scp -r imagenet root@192.168.88.155:/opt/npu</code></p><blockquote><p><strong>Linux scp命令</strong>用于在Linux下进行远程拷贝文件的命令，和它类似的命令有<a class="link"   href="https://www.coonote.com/linux/linux-cmd-cp.html" >cp<i class="fas fa-external-link-alt"></i></a>，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，<a class="link"   href="https://www.coonote.com/linux/linux-cmd-rsync.html" >rsync<i class="fas fa-external-link-alt"></i></a>就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p></blockquote><blockquote><p>从本地服务器传到另一台服务器的docker容器而无需密码</p><p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link"   href="mailto:&#114;&#x6f;&#111;&#x74;&#64;&#50;&#x30;&#50;&#x2e;&#x31;&#49;&#x37;&#46;&#50;&#49;&#46;&#x39;&#51;" >&#114;&#x6f;&#111;&#x74;&#64;&#50;&#x30;&#50;&#x2e;&#x31;&#49;&#x37;&#46;&#50;&#49;&#46;&#x39;&#51;<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p></blockquote><h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote><p>目前该问题已解决</p></blockquote><p>因为我用的代码是pytorch1.7, 其中有一些新的接口1.5不支持，因此在NPU的torch1.5环境上需要修改API使之能跑通。主要修改点是torch.cuda.amp.autocast这个接口，将torch原生的amp接口改成apex的amp接口。</p><h3 id="NPU环境不太好改"><a href="#NPU环境不太好改" class="headerlink" title="NPU环境不太好改"></a>NPU环境不太好改</h3><blockquote><p>目前环境未出现问题</p></blockquote><p>需要直接在裸机上跑，不能使用conda，因此想改变环境不太容易，目前的环境启动方法为：’’source /home/gp/test_op/setenv.sh’’。该文件的主要内容是设置一些NPU相关的环境变量。</p><h3 id="GPU训练僵化"><a href="#GPU训练僵化" class="headerlink" title="GPU训练僵化"></a>GPU训练僵化</h3><blockquote><p>目前，该问题未解决</p></blockquote><p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p><p>如下是发现的问题：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png"                      alt="img"                ></p><ul><li><p>从日志可以发现损失变成了nan导致训练直接结束</p></li><li><p>一开始以为是Loss scale过大导致loss为nan，实则发现，loss scale是在获得损失值并判断它是否为nan之后，也就是模型采用的loss函数导致了其为nan,和混合精度没有关系，目前还在想办法解决这个问题</p></li></ul><h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png"                      alt="image-20220508201747487" style="zoom:67%;"                 ><p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p><ul><li>目前的修改方法主要有两种，将usenpu作为参数传给对应方法的默认参数，从而取代原先的import</li><li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li></ul><p>采用第一种方法可以完美解决问题</p><h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png"                      alt="image-20220509152351457" style="zoom: 50%;"                 >]]></content>
+    <content type="html"><![CDATA[<h1 id="pytorch-模型迁移复盘1"><a href="#pytorch-模型迁移复盘1" class="headerlink" title="pytorch 模型迁移复盘1"></a>pytorch 模型迁移复盘1</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="VPN连接"><a href="#VPN连接" class="headerlink" title="VPN连接"></a>VPN连接</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>连接华为提供的服务器需要vpn，在连vpn时遇到了一些问题：</p><ul><li>IP访问地址未设置正确</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png"                      alt="img"                ></p><ul><li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png"                      alt="img"                ></p><h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png"                      alt="image-20220508193544091" style="zoom:67%;"                 ><p>解决方法：</p><p>直接从gpu环境上scp一份解压好的上去</p><p><code>scp -r imagenet root@192.168.88.155:/opt/npu</code></p><blockquote><p><strong>Linux scp命令</strong>用于在Linux下进行远程拷贝文件的命令，和它类似的命令有<a class="link"   href="https://www.coonote.com/linux/linux-cmd-cp.html" >cp<i class="fas fa-external-link-alt"></i></a>，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，<a class="link"   href="https://www.coonote.com/linux/linux-cmd-rsync.html" >rsync<i class="fas fa-external-link-alt"></i></a>就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p></blockquote><blockquote><p>从本地服务器传到另一台服务器的docker容器而无需密码</p><p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link"   href="mailto:&#x72;&#111;&#111;&#x74;&#64;&#x32;&#48;&#50;&#x2e;&#x31;&#49;&#x37;&#x2e;&#50;&#49;&#x2e;&#x39;&#51;" >&#x72;&#111;&#111;&#x74;&#64;&#x32;&#48;&#50;&#x2e;&#x31;&#49;&#x37;&#x2e;&#50;&#49;&#x2e;&#x39;&#51;<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p></blockquote><h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote><p>目前该问题已解决</p></blockquote><p>因为我用的代码是pytorch1.7, 其中有一些新的接口1.5不支持，因此在NPU的torch1.5环境上需要修改API使之能跑通。主要修改点是torch.cuda.amp.autocast这个接口，将torch原生的amp接口改成apex的amp接口。</p><h3 id="NPU环境不太好改"><a href="#NPU环境不太好改" class="headerlink" title="NPU环境不太好改"></a>NPU环境不太好改</h3><blockquote><p>目前环境未出现问题</p></blockquote><p>需要直接在裸机上跑，不能使用conda，因此想改变环境不太容易，目前的环境启动方法为：’’source /home/gp/test_op/setenv.sh’’。该文件的主要内容是设置一些NPU相关的环境变量。</p><h3 id="GPU训练僵化"><a href="#GPU训练僵化" class="headerlink" title="GPU训练僵化"></a>GPU训练僵化</h3><blockquote><p>目前，该问题未解决</p></blockquote><p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p><p>如下是发现的问题：</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png"                      alt="img"                ></p><ul><li><p>从日志可以发现损失变成了nan导致训练直接结束</p></li><li><p>一开始以为是Loss scale过大导致loss为nan，实则发现，loss scale是在获得损失值并判断它是否为nan之后，也就是模型采用的loss函数导致了其为nan,和混合精度没有关系，目前还在想办法解决这个问题</p></li></ul><h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png"                      alt="image-20220508201747487" style="zoom:67%;"                 ><p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p><ul><li>目前的修改方法主要有两种，将usenpu作为参数传给对应方法的默认参数，从而取代原先的import</li><li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li></ul><p>采用第一种方法可以完美解决问题</p><h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png"                      alt="image-20220509152351457" style="zoom: 50%;"                 >]]></content>
     
     
       
@@ -301,32 +361,6 @@
   </entry>
   
   <entry>
-    <title>vhr项目：学习记录1</title>
-    <link href="http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
-    <id>http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</id>
-    <published>2022-05-08T03:16:31.745Z</published>
-    <updated>2022-05-08T04:56:47.253Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="动态处理角色与资源的关系"><a href="#动态处理角色与资源的关系" class="headerlink" title="动态处理角色与资源的关系"></a>动态处理角色与资源的关系</h1><h2 id="用户类"><a href="#用户类" class="headerlink" title="用户类"></a>用户类</h2><ul><li>实现UserDetails接口（org.springframework.security中）</li><li>账户的锁定、密码的过期等等等接口均返回True，只处理了是否禁用账户的isEnabled()方法</li><li>Collection&lt;? extends GrantedAuthority&gt;解释：？类型实现了Collection接口，且一定是GrantedAuthority的子类</li></ul><h2 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h2><p><strong>即“参数化类型（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）</strong></p><h2 id="SpringBoot-web"><a href="#SpringBoot-web" class="headerlink" title="SpringBoot web"></a>SpringBoot web</h2><h3 id="资源控制器"><a href="#资源控制器" class="headerlink" title="资源控制器"></a>资源控制器</h3><ul><li>HTTP请求由控制器所处理，处理对/greeting下的路由的GET请求，它返回Greeting类的新实例</li><li>注解RestController表明该类是一个Restful控制器类</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;动态处理角色与资源的关系&quot;&gt;&lt;a href=&quot;#动态处理角色与资源的关系&quot; class=&quot;headerlink&quot; title=&quot;动态处理角色与资源的关系&quot;&gt;&lt;/a&gt;动态处理角色与资源的关系&lt;/h1&gt;&lt;h2 id=&quot;用户类&quot;&gt;&lt;a href=&quot;#用户类&quot; class</summary>
-      
-    
-    
-    
-    <category term="java项目" scheme="http://example.com/categories/java%E9%A1%B9%E7%9B%AE/"/>
-    
-    
-    <category term="java web" scheme="http://example.com/tags/java-web/"/>
-    
-    <category term="springboot" scheme="http://example.com/tags/springboot/"/>
-    
-  </entry>
-  
-  <entry>
     <title>使用docker配置深度学习环境</title>
     <link href="http://example.com/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/"/>
     <id>http://example.com/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/</id>
@@ -410,6 +444,32 @@
   </entry>
   
   <entry>
+    <title>vhr项目：学习记录1</title>
+    <link href="http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</id>
+    <published>2022-05-08T03:16:31.745Z</published>
+    <updated>2022-05-08T04:56:47.253Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="动态处理角色与资源的关系"><a href="#动态处理角色与资源的关系" class="headerlink" title="动态处理角色与资源的关系"></a>动态处理角色与资源的关系</h1><h2 id="用户类"><a href="#用户类" class="headerlink" title="用户类"></a>用户类</h2><ul><li>实现UserDetails接口（org.springframework.security中）</li><li>账户的锁定、密码的过期等等等接口均返回True，只处理了是否禁用账户的isEnabled()方法</li><li>Collection&lt;? extends GrantedAuthority&gt;解释：？类型实现了Collection接口，且一定是GrantedAuthority的子类</li></ul><h2 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h2><p><strong>即“参数化类型（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）</strong></p><h2 id="SpringBoot-web"><a href="#SpringBoot-web" class="headerlink" title="SpringBoot web"></a>SpringBoot web</h2><h3 id="资源控制器"><a href="#资源控制器" class="headerlink" title="资源控制器"></a>资源控制器</h3><ul><li>HTTP请求由控制器所处理，处理对/greeting下的路由的GET请求，它返回Greeting类的新实例</li><li>注解RestController表明该类是一个Restful控制器类</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;动态处理角色与资源的关系&quot;&gt;&lt;a href=&quot;#动态处理角色与资源的关系&quot; class=&quot;headerlink&quot; title=&quot;动态处理角色与资源的关系&quot;&gt;&lt;/a&gt;动态处理角色与资源的关系&lt;/h1&gt;&lt;h2 id=&quot;用户类&quot;&gt;&lt;a href=&quot;#用户类&quot; class</summary>
+      
+    
+    
+    
+    <category term="java项目" scheme="http://example.com/categories/java%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="java web" scheme="http://example.com/tags/java-web/"/>
+    
+    <category term="springboot" scheme="http://example.com/tags/springboot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>pytorch多进程训练</title>
     <link href="http://example.com/2022/05/08/projects/huawei%20project/distributed/"/>
     <id>http://example.com/2022/05/08/projects/huawei%20project/distributed/</id>
@@ -462,11 +522,11 @@
   </entry>
   
   <entry>
-    <title>论文阅读笔记：”Social LSTM:Human Trajectory Prediction in Crowded Spaces“</title>
+    <title>论文阅读笔记：”Social LSTM：Human Trajectory Prediction in Crowded Spaces“</title>
     <link href="http://example.com/2022/05/07/paper-reading/paper_reading_005/"/>
     <id>http://example.com/2022/05/07/paper-reading/paper_reading_005/</id>
     <published>2022-05-07T13:01:41.958Z</published>
-    <updated>2022-05-25T13:46:51.352Z</updated>
+    <updated>2022-06-01T07:28:24.922Z</updated>
     
     <content type="html"><![CDATA[<h1 id="论文阅读笔记—Social-LSTM-Human-Trajectory-Prediction-in-Crowded-Spaces（CVPR-2016）"><a href="#论文阅读笔记—Social-LSTM-Human-Trajectory-Prediction-in-Crowded-Spaces（CVPR-2016）" class="headerlink" title="论文阅读笔记—Social LSTM:Human Trajectory Prediction in Crowded Spaces（CVPR 2016）"></a>论文阅读笔记—Social LSTM:Human Trajectory Prediction in Crowded Spaces（CVPR 2016）</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简单来讲，该论文通过邻域池化的思想来综合多个行人轨迹的的信息，提供给LSTM模型来生成下一个隐变量，这个隐变量包含了自身的历史轨迹信息，也包含了其邻域LSTM的历史信息。这个问题的目的是预测密集行人的轨迹，来防止与人发生碰撞，是序列生成问题的一种变体。作者使用了带有社交池化的LSTM模型，希望对复杂的行人社交常识（避让，转向等）进行建模，并通过该模型解释聚集行人场景下的运动行为。</p><h2 id="隐变量社交池化"><a href="#隐变量社交池化" class="headerlink" title="隐变量社交池化"></a>隐变量社交池化</h2><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201101457140.png"                      alt="image-20220110145702970" style="zoom:50%;"                 ><p>作者的思想很简单，通过共享周围邻域内的LSTM隐变量，使得模型具有捕获周围人运动信息的能力。在每一个时间步，LSTM单元从其领域LSTM单元接受池化隐状态信息，如下图所示，池化时，隐变量的空间信息可以在一定程度上保持。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201101503438.png"                      alt="image-20220110150338386" style="zoom: 50%;"                 ><p>下面的等式(1)即社交池化的形式化表达，它是一个（$n<em>n</em>D$）形状的3D张量，n代表邻域的范围，D为隐状态的维度。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201101504279.png"                      alt="image-20220110150417254" style="zoom:50%;"                 ><h2 id="位置估计"><a href="#位置估计" class="headerlink" title="位置估计"></a>位置估计</h2><p>论文里使用了t时刻的隐状态来预测t+1时刻人i轨迹位置的分布。作者假设其分布服从二元高斯分布，因其有5个待估计参数，可以利用线性层（权重矩阵shape为5*D）来估计，如等式4所示。我们可以通过该分布生成t+1时刻人i的轨迹位置。LSTM的参数可以使用似然函数损失作为目标函数来进行优化（即最小化负对数似然损失）。</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201101505559.png"                      alt="image-20220110150501520" style="zoom:50%;"                 >]]></content>
     
@@ -486,62 +546,6 @@
     <category term="轨迹预测" scheme="http://example.com/tags/%E8%BD%A8%E8%BF%B9%E9%A2%84%E6%B5%8B/"/>
     
     <category term="LSTM" scheme="http://example.com/tags/LSTM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读笔记：“From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting(ICCV 2021)”</title>
-    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_006/"/>
-    <id>http://example.com/2022/05/07/paper-reading/paper_reading_006/</id>
-    <published>2022-05-07T13:01:41.958Z</published>
-    <updated>2022-05-25T13:46:39.745Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Notes-of-Reading-“From-Goals-Waypoints-amp-Paths-To-Long-Term-Human-Trajectory-Forecasting”-ICCV-2021"><a href="#Notes-of-Reading-“From-Goals-Waypoints-amp-Paths-To-Long-Term-Human-Trajectory-Forecasting”-ICCV-2021" class="headerlink" title="Notes  of Reading “From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting”(ICCV 2021)"></a>Notes  of Reading “From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting”(ICCV 2021)</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>行人轨迹预测是一个内在的多模态问题，因为行人轨迹存在很多不确定性，论文将这种不确定性分解为认知不确定性（对于模型未知）和偶然不确定性（不可避免的随机性）。这篇文章利用了分解的思想，分别对认知不确定性（行人的目标）和偶然不确定性（路径）进行建模，从而能够预测更长时间且多样的轨迹。这篇文章极大的参考了U-net这个网络，并基于这个网络进行了一系列改进。</p><h2 id="模型网络"><a href="#模型网络" class="headerlink" title="模型网络"></a>模型网络</h2><h3 id="Y-NET"><a href="#Y-NET" class="headerlink" title="Y-NET"></a>Y-NET</h3><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201171737948.png"                      alt="image-20220117173701779" style="zoom:50%;"                 ><p>Y-NET模型包含了3个子网络（Ue,Ug,Ut），并将整个随机性分解为两种模式。首先，对认知不确定性建模的模块A会预测多个目标（即行人轨迹的最终目的地坐标，共预测Ke个）；之后对随即不确定性建模的模块会根据从模块A得到的估计目标位置来预测多条路径（Ka个）。</p><ul><li>场景轨迹热图表示</li></ul><p>为了正确引入场景信息，在满足像素对齐的情况下，作者使用了场景轨迹热图表示的方法，即在和图片相同的空间内去表示轨迹信息。如图所示，RGB图像首先经过语义分割网络处理得到了语义分割图S（包含C个类别），在下方平行的路径中，作者将历史轨迹序列转化为了轨迹热图H，其空间大小和场景图像相同，通道数即为历史轨迹采样点数。作者将分割图和轨迹热图在通道维度进行连接，得到了轨迹场景热图张量$Hs(H<em>W</em>(C+np))$，并将其作为输入传递到编码网络Ue中。</p><ul><li>场景轨迹热图编码器（Ue）</li></ul><p>在编码器Ue中，它包含了M个block，在每个block后使用最大池化来进行降采样，最终空间紧凑的输出张量shape为($H_M<em>W_M</em>C_M$)。网络将该张量与中间M-1个block的输出张量合并起来作为输入传给目标位置解码器和轨迹解码器</p><ul><li>场景轨迹热图解码器（Ug）</li></ul><h3 id="非参数化采样过程"><a href="#非参数化采样过程" class="headerlink" title="非参数化采样过程"></a>非参数化采样过程</h3><h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Notes-of-Reading-“From-Goals-Waypoints-amp-Paths-To-Long-Term-Human-Trajectory-Forecasting”-ICCV-2021&quot;&gt;&lt;a href=&quot;#Notes-of-Reading-“F</summary>
-      
-    
-    
-    
-    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    
-    <category term="轨迹预测" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E8%BD%A8%E8%BF%B9%E9%A2%84%E6%B5%8B/"/>
-    
-    
-    <category term="轨迹预测" scheme="http://example.com/tags/%E8%BD%A8%E8%BF%B9%E9%A2%84%E6%B5%8B/"/>
-    
-    <category term="Y-NET" scheme="http://example.com/tags/Y-NET/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读笔记：“From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting(ICCV 2021)”</title>
-    <link href="http://example.com/2022/05/07/paper-reading/paper_reading_007/"/>
-    <id>http://example.com/2022/05/07/paper-reading/paper_reading_007/</id>
-    <published>2022-05-07T13:01:41.958Z</published>
-    <updated>2022-05-25T13:49:21.240Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017"><a href="#Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017" class="headerlink" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(CVPR 2017)"></a>Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(CVPR 2017)</h1><p>该论文提出了Kinetics这一更大的人类行为视频数据集，使用它进行预训练的模型更适合于迁移学习。该论文提出了一个新的模型I3D，并将该模型与之前提出的不同行为分类架构进行比较。</p><h2 id="模型网络"><a href="#模型网络" class="headerlink" title="模型网络"></a>模型网络</h2><h3 id="I3D"><a href="#I3D" class="headerlink" title="I3D"></a>I3D</h3><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203221535849.png"                      alt="image-20220322153519705" style="zoom:67%;"                 ><p>b图3D-convnet架构的缺陷是，无法有效利用ImageNet预训练模型，需要从头开始训练，并且由于参数量的庞大而较难以训练，因此网络较浅。c图双流法弥补了a图LSTM低层次运动信息的缺陷，而且更加容易训练。d图在双流法的基础上将空间和光流信息在最后进行融合，并将融合的信息送入3D-convnet进行分类。e图的I3D在d图的架构上进行了改进，用3D-convnet对之前的convnet进行了平滑扩展，并且可以充分利用ImageNet预训练参数。这里的想法是可以通过对原图片进行复制，并将其转换为每帧都相同的视频序列（boring-video）。但其实我们也不需要真的训练，这里需要满足一个条件我们就可以直接利用2D-convnet的参数：在视频上的响应或激活特征应与单张图片时作为输入时相同。所以我们只需对2D-filters沿时间维度进行复制，并将权重缩小n倍即可。还有一个问题也需要处理，就是如何进行时间维度感受野的设置，即我们如何设置时间维度的stride步长。它的设置应与采样帧率与图像维度有关，过大会会导致混淆不同物体的边缘，不利于学习良好的特征；过小也会不利于捕获场景中的动态信息。通过实验，作者认为在前两个maxpooling层不执行时间维度的池化会比较有效。下图是I3D主干网络的结构图：</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202203221630934.png"                      alt="image-20220322163021793" style="zoom:67%;"                 ><p>作者认为如果只使用RGB输入，模型只单纯地进行前馈计算，而因为光流算法涉及一些迭代优化，这可能是加入光流对模型性能有较大提升的原因。值得一提的是，作者并没有进行端到端的训练，而是分别训练两个不同输入的模型；并且训练时作者多个GPU进行同步训练。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-CVPR-2017&quot;&gt;&lt;a href=&quot;#Quo-Vadis-Action-Recognition-A-New-Model-and-</summary>
-      
-    
-    
-    
-    <category term="论文阅读" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    
-    <category term="行为识别" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
-    
-    
-    <category term="Kinetics" scheme="http://example.com/tags/Kinetics/"/>
-    
-    <category term="I3D" scheme="http://example.com/tags/I3D/"/>
     
   </entry>
   
