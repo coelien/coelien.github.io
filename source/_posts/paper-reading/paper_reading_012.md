@@ -1,5 +1,5 @@
 ---
-title: 论文阅读笔记：“X3D: Expanding Architectures for Effificient Video Recognition”
+title: 论文阅读笔记：“X3D：Expanding Architectures for Effificient Video Recognition”
 tags: 
 - X3D
 - 坐标上升算法

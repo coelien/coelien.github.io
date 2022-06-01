@@ -1,5 +1,5 @@
 ---
-title: 论文阅读笔记：“MobileNetV2: Inverted Residuals and Linear Bottlenecks”
+title: 论文阅读笔记：“MobileNetV2：Inverted Residuals and Linear Bottlenecks”
 tags: 
 - MobileNet
 - Inverted Residuals

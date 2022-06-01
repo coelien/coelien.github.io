@@ -1,5 +1,5 @@
 ---
-title: 论文阅读笔记：“MoViNets: Mobile Video Networks for Effificient Video Recognition”
+title: 论文阅读笔记：“MoViNets： Mobile Video Networks for Effificient Video Recognition”
 tags: 
 - MoViNets
 - NAS

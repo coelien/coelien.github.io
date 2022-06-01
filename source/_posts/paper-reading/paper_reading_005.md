@@ -1,5 +1,5 @@
 ---
-title: 论文阅读笔记：”Social LSTM:Human Trajectory Prediction in Crowded Spaces“
+title: 论文阅读笔记：”Social LSTM：Human Trajectory Prediction in Crowded Spaces“
 tags: 
 - 轨迹预测
 - LSTM

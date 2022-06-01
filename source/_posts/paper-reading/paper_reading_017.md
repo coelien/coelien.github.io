@@ -1,5 +1,5 @@
 ---
-title: 论文阅读笔记：“ AssembleNet++: Assembling Modality Representations via Attention Connections”
+title: 论文阅读笔记：“ AssembleNet++： Assembling Modality Representations via Attention Connections”
 tags: 
 - peer attention
 - NAS

@@ -1,6 +1,5 @@
 ---
-title: 论文阅读笔记：“MobileNets: Efficient Convolutional Neural Networks for Mobile Vision
-Applications”
+title: 论文阅读笔记：“MobileNets：Efficient Convolutional Neural Networks for Mobile Vision Applications”
 tags: 
 - MobileNet
 - depth-wise separable convolution

@@ -1,5 +1,5 @@
 ---
-title: 论文阅读笔记：”Social GAN: Socially Acceptable Trajectories with Generative Adversarial Networks“
+title: 论文阅读笔记：”Social GAN：Socially Acceptable Trajectories with Generative Adversarial Networks“
 tags: 
 - 轨迹预测
 - RNN
