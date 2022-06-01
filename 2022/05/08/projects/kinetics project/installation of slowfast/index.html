@@ -26,7 +26,119 @@
     KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
 </head>
 
 
@@ -246,7 +358,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1k Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>998 Words</span>
         </span>
     
     
@@ -269,80 +381,65 @@
         <div class="article-content markdown-body">
             <h1 id="facebook-PySlowFast-安装"><a href="#facebook-PySlowFast-安装" class="headerlink" title="facebook PySlowFast 安装"></a>facebook PySlowFast 安装</h1><h2 id="环境配置并处理依赖"><a href="#环境配置并处理依赖" class="headerlink" title="环境配置并处理依赖"></a>环境配置并处理依赖</h2><blockquote>
 <p>docker环境配置方法参考docker for pytorch.md</p>
-<p>下面是项目安装所需要的依赖，详见该<a class="link"   target="_blank" rel="noopener" href="https://github.com/facebookresearch/SlowFast" >仓库<i class="fas fa-external-link-alt"></i></a></p>
+<p>下面是项目安装所需要的依赖，详见该<a class="link" target="_blank" rel="noopener" href="https://github.com/facebookresearch/SlowFast">仓库<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
 <h3 id="fvcore"><a href="#fvcore" class="headerlink" title="fvcore"></a>fvcore</h3><p>轻量级的核心库，提供视觉框架开发最通用和基础的功能</p>
 <p><strong>Features:</strong></p>
 <p>Besides some basic utilities, fvcore includes the following features:</p>
 <ul>
-<li>Common pytorch layers, functions and losses in <a class="link"   target="_blank" rel="noopener" href="https://github.com/facebookresearch/fvcore/blob/main/fvcore/nn" >fvcore.nn<i class="fas fa-external-link-alt"></i></a>.</li>
-<li>A hierarchical per-operator flop counting tool: see <a class="link"   target="_blank" rel="noopener" href="https://github.com/facebookresearch/fvcore/blob/main/docs/flop_count.md" >this note for details<i class="fas fa-external-link-alt"></i></a>.</li>
-<li>Recursive parameter counting: see <a class="link"   target="_blank" rel="noopener" href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.nn.parameter_count" >API doc<i class="fas fa-external-link-alt"></i></a>.</li>
-<li>Recompute BatchNorm population statistics: see its <a class="link"   target="_blank" rel="noopener" href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.nn.update_bn_stats" >API doc<i class="fas fa-external-link-alt"></i></a>.</li>
-<li>A stateless, scale-invariant hyperparameter scheduler: see its <a class="link"   target="_blank" rel="noopener" href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.common.param_scheduler.ParamScheduler" >API doc<i class="fas fa-external-link-alt"></i></a>.</li>
+<li>Common pytorch layers, functions and losses in <a class="link" target="_blank" rel="noopener" href="https://github.com/facebookresearch/fvcore/blob/main/fvcore/nn">fvcore.nn<i class="fas fa-external-link-alt"></i></a>.</li>
+<li>A hierarchical per-operator flop counting tool: see <a class="link" target="_blank" rel="noopener" href="https://github.com/facebookresearch/fvcore/blob/main/docs/flop_count.md">this note for details<i class="fas fa-external-link-alt"></i></a>.</li>
+<li>Recursive parameter counting: see <a class="link" target="_blank" rel="noopener" href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.nn.parameter_count">API doc<i class="fas fa-external-link-alt"></i></a>.</li>
+<li>Recompute BatchNorm population statistics: see its <a class="link" target="_blank" rel="noopener" href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.nn.update_bn_stats">API doc<i class="fas fa-external-link-alt"></i></a>.</li>
+<li>A stateless, scale-invariant hyperparameter scheduler: see its <a class="link" target="_blank" rel="noopener" href="https://detectron2.readthedocs.io/en/latest/modules/fvcore.html#fvcore.common.param_scheduler.ParamScheduler">API doc<i class="fas fa-external-link-alt"></i></a>.</li>
 </ul>
-<h3 id="FFmpeg"><a href="#FFmpeg" class="headerlink" title="FFmpeg"></a>FFmpeg</h3><p>用来处理多媒体内容（音频，视频，字幕）的工具库集合。 官方网站：<a class="link"   target="_blank" rel="noopener" href="https://ffmpeg.org/" >website<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="FFmpeg"><a href="#FFmpeg" class="headerlink" title="FFmpeg"></a>FFmpeg</h3><p>用来处理多媒体内容（音频，视频，字幕）的工具库集合。 官方网站：<a class="link" target="_blank" rel="noopener" href="https://ffmpeg.org/">website<i class="fas fa-external-link-alt"></i></a></p>
 <blockquote>
-<p>sth interesting: <a class="link"   target="_blank" rel="noopener" href="https://ffmpeg.org/git-howto.html" >Using Git to develop FFmpeg<i class="fas fa-external-link-alt"></i></a></p>
+<p>sth interesting: <a class="link" target="_blank" rel="noopener" href="https://ffmpeg.org/git-howto.html">Using Git to develop FFmpeg<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
 <p><strong>Tools</strong></p>
 <ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://ffmpeg.org/ffmpeg.html" >ffmpeg<i class="fas fa-external-link-alt"></i></a> is a command line toolbox to manipulate, convert and stream multimedia content.</li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://ffmpeg.org/ffplay.html" >ffplay<i class="fas fa-external-link-alt"></i></a> is a minimalistic multimedia player.</li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://ffmpeg.org/ffprobe.html" >ffprobe<i class="fas fa-external-link-alt"></i></a> is a simple analysis tool to inspect multimedia content.</li>
+<li><a class="link" target="_blank" rel="noopener" href="https://ffmpeg.org/ffmpeg.html">ffmpeg<i class="fas fa-external-link-alt"></i></a> is a command line toolbox to manipulate, convert and stream multimedia content.</li>
+<li><a class="link" target="_blank" rel="noopener" href="https://ffmpeg.org/ffplay.html">ffplay<i class="fas fa-external-link-alt"></i></a> is a minimalistic multimedia player.</li>
+<li><a class="link" target="_blank" rel="noopener" href="https://ffmpeg.org/ffprobe.html">ffprobe<i class="fas fa-external-link-alt"></i></a> is a simple analysis tool to inspect multimedia content.</li>
 <li>Additional small tools such as <code>aviocat</code>, <code>ismindex</code> and <code>qt-faststart</code>.</li>
 </ul>
-<h3 id="PyAV"><a href="#PyAV" class="headerlink" title="PyAV"></a>PyAV</h3><p>是对FFmpeg python 风格的binding，提供对下层的库提供强大的控制。PyAV 用于通过容器、流、数据包、编解码器和帧直接和精确地访问媒体。<a class="link"   target="_blank" rel="noopener" href="https://pyav.org/docs/stable/" >文档链接<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="psutil"><a href="#psutil" class="headerlink" title="psutil"></a>psutil</h3><p>获取运行进程和系统利用率信息的库（CPU, memory, disks, network, sensors）。<a class="link"   target="_blank" rel="noopener" href="https://psutil.readthedocs.io/en/latest/" >文档链接<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="tensorboard"><a href="#tensorboard" class="headerlink" title="tensorboard"></a>tensorboard</h3><p><a class="link"   target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/tensorboard.html?highlight=tensorboard" >pytorch教程<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.tensorflow.org/tensorboard/get_started" >更详细的<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143809933" >Pytorch下的tensorboard可视化<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/46eb3004beca" >Pytorch使用tensorboardX可视化<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="PyTorchVideo"><a href="#PyTorchVideo" class="headerlink" title="PyTorchVideo"></a>PyTorchVideo</h3><p>PyTorchVideo is a deeplearning library with a focus on video understanding work. PytorchVideo provides reusable, modular and efficient components needed to accelerate the video understanding research. PyTorchVideo is developed using <a class="link"   target="_blank" rel="noopener" href="https://pytorch.org/" >PyTorch<i class="fas fa-external-link-alt"></i></a> and supports different deeplearning video components like video models, video datasets, and video-specific transforms.</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://pytorchvideo.org/docs/tutorial_overview" >getting started<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://pytorchvideo.org/#quickstart" >quick start<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/facebookresearch/pytorchvideo/blob/main/docs/source/model_zoo.md" >Using PyTorchVideo model zoo<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Detectron2"><a href="#Detectron2" class="headerlink" title="Detectron2"></a>Detectron2</h3><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2" >https://github.com/facebookresearch/detectron2<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="PyAV"><a href="#PyAV" class="headerlink" title="PyAV"></a>PyAV</h3><p>是对FFmpeg python 风格的binding，提供对下层的库提供强大的控制。PyAV 用于通过容器、流、数据包、编解码器和帧直接和精确地访问媒体。<a class="link" target="_blank" rel="noopener" href="https://pyav.org/docs/stable/">文档链接<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="psutil"><a href="#psutil" class="headerlink" title="psutil"></a>psutil</h3><p>获取运行进程和系统利用率信息的库（CPU, memory, disks, network, sensors）。<a class="link" target="_blank" rel="noopener" href="https://psutil.readthedocs.io/en/latest/">文档链接<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="tensorboard"><a href="#tensorboard" class="headerlink" title="tensorboard"></a>tensorboard</h3><p><a class="link" target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/tensorboard.html?highlight=tensorboard">pytorch教程<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link" target="_blank" rel="noopener" href="https://www.tensorflow.org/tensorboard/get_started">更详细的<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143809933">Pytorch下的tensorboard可视化<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link" target="_blank" rel="noopener" href="https://www.jianshu.com/p/46eb3004beca">Pytorch使用tensorboardX可视化<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="PyTorchVideo"><a href="#PyTorchVideo" class="headerlink" title="PyTorchVideo"></a>PyTorchVideo</h3><p>PyTorchVideo is a deeplearning library with a focus on video understanding work. PytorchVideo provides reusable, modular and efficient components needed to accelerate the video understanding research. PyTorchVideo is developed using <a class="link" target="_blank" rel="noopener" href="https://pytorch.org/">PyTorch<i class="fas fa-external-link-alt"></i></a> and supports different deeplearning video components like video models, video datasets, and video-specific transforms.</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://pytorchvideo.org/docs/tutorial_overview">getting started<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link" target="_blank" rel="noopener" href="https://pytorchvideo.org/#quickstart">quick start<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link" target="_blank" rel="noopener" href="https://github.com/facebookresearch/pytorchvideo/blob/main/docs/source/model_zoo.md">Using PyTorchVideo model zoo<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="Detectron2"><a href="#Detectron2" class="headerlink" title="Detectron2"></a>Detectron2</h3><p><a class="link" target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2">https://github.com/facebookresearch/detectron2<i class="fas fa-external-link-alt"></i></a></p>
 <h3 id="pytorch"><a href="#pytorch" class="headerlink" title="pytorch"></a>pytorch</h3><h4 id="install-from-binaries"><a href="#install-from-binaries" class="headerlink" title="install from binaries"></a>install from binaries</h4><ol>
-<li>PyTorch is supported on Linux distributions that use <a class="link"   target="_blank" rel="noopener" href="https://www.gnu.org/software/libc/" >glibc<i class="fas fa-external-link-alt"></i></a> &gt;= v2.17</li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://www.ubuntu.com/download/desktop" >Ubuntu<i class="fas fa-external-link-alt"></i></a>, minimum version 13.04</li>
+<li>PyTorch is supported on Linux distributions that use <a class="link" target="_blank" rel="noopener" href="https://www.gnu.org/software/libc/">glibc<i class="fas fa-external-link-alt"></i></a> &gt;= v2.17</li>
+<li><a class="link" target="_blank" rel="noopener" href="https://www.ubuntu.com/download/desktop">Ubuntu<i class="fas fa-external-link-alt"></i></a>, minimum version 13.04</li>
 <li>Python 3.7 or greater</li>
 </ol>
 <h4 id="building-from-source"><a href="#building-from-source" class="headerlink" title="building from source"></a>building from source</h4><blockquote>
 <p> install bleeding edge PyTorch code</p>
 </blockquote>
 <p><strong>pre-knowledge</strong></p>
-<p>GPU 计算能力表：<a class="link"   target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-gpus" >https://developer.nvidia.com/cuda-gpus<i class="fas fa-external-link-alt"></i></a></p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220414113639291.png"
-                      alt="image-20220414113639291" style="zoom:50%;" 
-                >
+<p>GPU 计算能力表：<a class="link" target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-gpus">https://developer.nvidia.com/cuda-gpus<i class="fas fa-external-link-alt"></i></a></p>
+<img lazyload="" src="/images/loading.svg" data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220414113639291.png" alt="image-20220414113639291" style="zoom:50%;">
 
 <p><strong>CUDA</strong>是一个工具包，是NVIDIA推出的用于自家GPU上的并行计算框架。For convenience, the NVIDIA driver is installed as part of the CUDA Toolkit installation</p>
-<p><strong>cuDNN</strong>是一个SDK，是一个专门用于神经网络的加速包，注意，它跟我们的CUDA没有一一对应的关系，即每一个版本的CUDA可能有好几个版本的cuDNN与之对应，但一般有一个最新版本的cuDNN版本与CUDA对应更好，<a class="link"   target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-archive" >链接地址<i class="fas fa-external-link-alt"></i></a></p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141233189.png"
-                      alt="image-20220414123339104" style="zoom: 50%;" 
-                >
+<p><strong>cuDNN</strong>是一个SDK，是一个专门用于神经网络的加速包，注意，它跟我们的CUDA没有一一对应的关系，即每一个版本的CUDA可能有好几个版本的cuDNN与之对应，但一般有一个最新版本的cuDNN版本与CUDA对应更好，<a class="link" target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-archive">链接地址<i class="fas fa-external-link-alt"></i></a></p>
+<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141233189.png" alt="image-20220414123339104" style="zoom: 50%;">
 
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141235527.png"
-                      alt="image-20220414123544479" style="zoom:50%;" 
-                >
+<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141235527.png" alt="image-20220414123544479" style="zoom:50%;">
 
 
 
 <h2 id="数据下载与处理"><a href="#数据下载与处理" class="headerlink" title="数据下载与处理"></a>数据下载与处理</h2><blockquote>
-<p>kinetics数据集下载 github:<a class="link"   target="_blank" rel="noopener" href="https://github.com/cvdfoundation/kinetics-dataset" >https://github.com/cvdfoundation/kinetics-dataset<i class="fas fa-external-link-alt"></i></a></p>
+<p>kinetics数据集下载 github:<a class="link" target="_blank" rel="noopener" href="https://github.com/cvdfoundation/kinetics-dataset">https://github.com/cvdfoundation/kinetics-dataset<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
 <ul>
-<li>我下载的数据集为kinetics-700-2020，可参考：<a class="link"   target="_blank" rel="noopener" href="https://github.com/cvdfoundation/kinetics-dataset#kinetics-700-2020" >https://github.com/cvdfoundation/kinetics-dataset#kinetics-700-2020<i class="fas fa-external-link-alt"></i></a></li>
+<li>我下载的数据集为kinetics-700-2020，可参考：<a class="link" target="_blank" rel="noopener" href="https://github.com/cvdfoundation/kinetics-dataset#kinetics-700-2020">https://github.com/cvdfoundation/kinetics-dataset#kinetics-700-2020<i class="fas fa-external-link-alt"></i></a></li>
 </ul>
 <ol>
 <li><strong>数据集下载</strong>：bash ./k700_2020_downloader.sh<ul>
@@ -358,9 +455,9 @@
 </li>
 </ol>
 <ul>
-<li><p>下载数据集也可参考<a class="link"   target="_blank" rel="noopener" href="https://github.com/activitynet/ActivityNet/tree/master/Crawler/Kinetics%EF%BC%8C%E4%BD%86%E5%8F%AA%E6%9C%89k600%E4%B9%8B%E5%89%8D%E7%9A%84" >https://github.com/activitynet/ActivityNet/tree/master/Crawler/Kinetics，但只有k600之前的<i class="fas fa-external-link-alt"></i></a></p>
+<li><p>下载数据集也可参考<a class="link" target="_blank" rel="noopener" href="https://github.com/activitynet/ActivityNet/tree/master/Crawler/Kinetics%EF%BC%8C%E4%BD%86%E5%8F%AA%E6%9C%89k600%E4%B9%8B%E5%89%8D%E7%9A%84">https://github.com/activitynet/ActivityNet/tree/master/Crawler/Kinetics，但只有k600之前的<i class="fas fa-external-link-alt"></i></a></p>
 </li>
-<li><p>可参考该仓库进行数据集准备：<a class="link"   target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net/blob/main/DATASET.md" >https://github.com/facebookresearch/video-nonlocal-net/blob/main/DATASET.md<i class="fas fa-external-link-alt"></i></a></p>
+<li><p>可参考该仓库进行数据集准备：<a class="link" target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net/blob/main/DATASET.md">https://github.com/facebookresearch/video-nonlocal-net/blob/main/DATASET.md<i class="fas fa-external-link-alt"></i></a></p>
 <ol>
 <li><p>获得类别标签映射，因为原仓库是针对k400的，所以我重新生成了映射</p>
 <blockquote>
@@ -386,7 +483,7 @@
 <li><p>依据txt列表生成CSV文件：</p>
 </li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data_process/preprocess.py</span></span><br><span class="line"><span class="comment"># generate_csv_file() function</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;data process/trainlist.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&quot;f&quot;</span>)</span><br><span class="line">     lines = file.readlines()</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&quot;d&quot;</span>)</span><br><span class="line">     list_paths = []</span><br><span class="line">     list_labels = []</span><br><span class="line">     <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">         elems = line.strip().split()</span><br><span class="line">         list_labels.append(<span class="built_in">int</span>(elems[<span class="number">1</span>]))</span><br><span class="line">         list_paths.append(videodir+elems[<span class="number">0</span>])</span><br><span class="line">     series_paths = pd.Series(np.array(list_paths))</span><br><span class="line">     series_labels = pd.Series(np.array(list_labels))</span><br><span class="line">     d = &#123;</span><br><span class="line">         <span class="string">&quot;video_path&quot;</span>:series_paths,</span><br><span class="line">         <span class="string">&quot;label&quot;</span>:series_labels</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="built_in">print</span>(d)</span><br><span class="line">     df = pd.DataFrame(d)</span><br><span class="line">     df.to_csv(<span class="string">&quot;data process/train.csv&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data_process/preprocess.py</span></span><br><span class="line"><span class="comment"># generate_csv_file() function</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"data process/trainlist.txt"</span>,<span class="string">"r"</span>) <span class="keyword">as</span> file:</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">"f"</span>)</span><br><span class="line">     lines = file.readlines()</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">"d"</span>)</span><br><span class="line">     list_paths = []</span><br><span class="line">     list_labels = []</span><br><span class="line">     <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">         elems = line.strip().split()</span><br><span class="line">         list_labels.append(<span class="built_in">int</span>(elems[<span class="number">1</span>]))</span><br><span class="line">         list_paths.append(videodir+elems[<span class="number">0</span>])</span><br><span class="line">     series_paths = pd.Series(np.array(list_paths))</span><br><span class="line">     series_labels = pd.Series(np.array(list_labels))</span><br><span class="line">     d = {</span><br><span class="line">         <span class="string">"video_path"</span>:series_paths,</span><br><span class="line">         <span class="string">"label"</span>:series_labels</span><br><span class="line">     }</span><br><span class="line">     <span class="built_in">print</span>(d)</span><br><span class="line">     df = pd.DataFrame(d)</span><br><span class="line">     df.to_csv(<span class="string">"data process/train.csv"</span>)</span><br></pre></td></tr></table></figure>
 
 
         </div>
@@ -434,13 +531,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/05/08/projects/kinetics%20project/docker%20for%20pytrorch/"
+                           href="/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">使用docker配置深度学习环境</span>
+                                <span class="post-nav-title-item">vhr项目：学习记录1</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>

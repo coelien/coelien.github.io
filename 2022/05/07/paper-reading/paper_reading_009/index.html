@@ -26,7 +26,119 @@
     KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
 </head>
 
 
@@ -264,28 +376,13 @@
 
         <div class="article-content markdown-body">
             <h1 id="Deep-Temporal-Linear-Encoding-Networks"><a href="#Deep-Temporal-Linear-Encoding-Networks" class="headerlink" title="Deep Temporal Linear Encoding Networks"></a>Deep Temporal Linear Encoding Networks</h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>这篇文章主要是针对如何对整个视频进行表示，即如何对视频中的片段进行聚合，提出了时间线性编码（TLE），它可以嵌入在CNN中作为一个层，从而允许端到端的训练。</p>
-<h2 id="二-TLE-Layer"><a href="#二-TLE-Layer" class="headerlink" title="二. TLE　Layer"></a>二. TLE　Layer</h2><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331170312907.png"
-                      alt="image-20220331170312907" style="zoom:50%;" 
-                >
+<h2 id="二-TLE-Layer"><a href="#二-TLE-Layer" class="headerlink" title="二. TLE　Layer"></a>二. TLE　Layer</h2><img lazyload="" src="/images/loading.svg" data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331170312907.png" alt="image-20220331170312907" style="zoom:50%;">
 
 <p>TLE层主要分为两个部分，第一个是对视频的多个片段的特征图进行聚合的操作，第二个是将聚合表示转化为线性编码特征的编码操作，算法如下图所示：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331171227702.png"
-                      alt="image-20220331171227702" style="zoom: 50%;" 
-                >
+<img lazyload="" src="/images/loading.svg" data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331171227702.png" alt="image-20220331171227702" style="zoom: 50%;">
 
 <p>聚合方法可采用（逐元素）最大聚合，平均聚合和乘积聚合，编码方法可采用双线性模型和全连接池化。实验表明，双线性模型较第二种方法计算更加快速，参数量更少的同时效果更好，使用Tensor Sketch算法也可以通过将高维空间投影到低维空间而无需直接计算外积。作者在已有的典型模型的基础上只保留卷积，通过加入TLE层来进行实验。实验证明使用该层对模型效果均有较大提升。值得一提的是，作者还将环境场景信息纳入考虑，作为额外信息进行聚合，实验表明准确率有较大提升，该实验证明了TLE合并不同数据流的能力。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331173204667.png"
-                      alt="image-20220331173204667" style="zoom:50%;" 
-                >
+<img lazyload="" src="/images/loading.svg" data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331173204667.png" alt="image-20220331173204667" style="zoom:50%;">
 
         </div>
 

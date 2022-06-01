@@ -26,7 +26,119 @@
     KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
 </head>
 
 
@@ -238,7 +350,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>285 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>253 Words</span>
         </span>
     
     
@@ -265,7 +377,7 @@
 <li>rank：表示进程号，用于进程间通信（值越低，优先级越高）</li>
 <li>local-rank：进程内GPU编号</li>
 </ul>
-<h2 id="二-开启分布式模式"><a href="#二-开启分布式模式" class="headerlink" title="二. 开启分布式模式"></a>二. 开启分布式模式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_distributed_mode</span>(<span class="params">args</span>):</span></span><br><span class="line">    <span class="comment"># 函数里的每一行代码都会在每个进程上单独执行</span></span><br><span class="line">    log = [] <span class="comment"># 记录环境信息</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;RANK&#x27;</span> <span class="keyword">in</span> os.environ <span class="keyword">and</span> <span class="string">&#x27;WORLD_SIZE&#x27;</span> <span class="keyword">in</span> os.environ:</span><br><span class="line">        args.rank = <span class="built_in">int</span>(os.environ[<span class="string">&quot;RANK&quot;</span>])</span><br><span class="line">        args.world_size = <span class="built_in">int</span>(os.environ[<span class="string">&#x27;WORLD_SIZE&#x27;</span>])</span><br><span class="line">        args.gpu = <span class="built_in">int</span>(os.environ[<span class="string">&#x27;LOCAL_RANK&#x27;</span>])</span><br><span class="line">        log.extend([args.rank,args.world_size,args.gpu])</span><br><span class="line">    <span class="keyword">elif</span> <span class="string">&#x27;SLURM_PROCID&#x27;</span> <span class="keyword">in</span> os.environ:</span><br><span class="line">        args.rank = <span class="built_in">int</span>(os.environ[<span class="string">&#x27;SLURM_PROCID&#x27;</span>])</span><br><span class="line">        args.gpu = args.rank % torch.cuda.device_count()</span><br><span class="line">        log.extend([args.rank,args.gpu])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Not using distributed mode&#x27;</span>)</span><br><span class="line">        args.distributed = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;args.gpu:<span class="subst">&#123;args.gpu&#125;</span>&quot;</span>)</span><br><span class="line">    args.distributed = <span class="literal">True</span></span><br><span class="line">    <span class="comment"># 打印环境信息</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;environment info: <span class="subst">&#123;log&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    torch.cuda.set_device(args.gpu)</span><br><span class="line">    args.dist_backend = <span class="string">&#x27;nccl&#x27;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;| distributed init (rank &#123;&#125;): &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">        args.rank, args.dist_url), flush=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 分布式初始化</span></span><br><span class="line">    torch.distributed.init_process_group(backend=args.dist_backend, init_method=args.dist_url,</span><br><span class="line">                                         world_size=args.world_size, rank=args.rank)</span><br><span class="line">    <span class="comment"># 同步所有进程</span></span><br><span class="line">    torch.distributed.barrier()</span><br><span class="line">    setup_for_distributed(args.rank == <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="二-开启分布式模式"><a href="#二-开启分布式模式" class="headerlink" title="二. 开启分布式模式"></a>二. 开启分布式模式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_distributed_mode</span>(<span class="params">args</span>):</span></span><br><span class="line">    <span class="comment"># 函数里的每一行代码都会在每个进程上单独执行</span></span><br><span class="line">    log = [] <span class="comment"># 记录环境信息</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">'RANK'</span> <span class="keyword">in</span> os.environ <span class="keyword">and</span> <span class="string">'WORLD_SIZE'</span> <span class="keyword">in</span> os.environ:</span><br><span class="line">        args.rank = <span class="built_in">int</span>(os.environ[<span class="string">"RANK"</span>])</span><br><span class="line">        args.world_size = <span class="built_in">int</span>(os.environ[<span class="string">'WORLD_SIZE'</span>])</span><br><span class="line">        args.gpu = <span class="built_in">int</span>(os.environ[<span class="string">'LOCAL_RANK'</span>])</span><br><span class="line">        log.extend([args.rank,args.world_size,args.gpu])</span><br><span class="line">    <span class="keyword">elif</span> <span class="string">'SLURM_PROCID'</span> <span class="keyword">in</span> os.environ:</span><br><span class="line">        args.rank = <span class="built_in">int</span>(os.environ[<span class="string">'SLURM_PROCID'</span>])</span><br><span class="line">        args.gpu = args.rank % torch.cuda.device_count()</span><br><span class="line">        log.extend([args.rank,args.gpu])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'Not using distributed mode'</span>)</span><br><span class="line">        args.distributed = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"args.gpu:<span class="subst">{args.gpu}</span>"</span>)</span><br><span class="line">    args.distributed = <span class="literal">True</span></span><br><span class="line">    <span class="comment"># 打印环境信息</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"environment info: <span class="subst">{log}</span>"</span>)</span><br><span class="line"></span><br><span class="line">    torch.cuda.set_device(args.gpu)</span><br><span class="line">    args.dist_backend = <span class="string">'nccl'</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'| distributed init (rank {}): {}'</span>.<span class="built_in">format</span>(</span><br><span class="line">        args.rank, args.dist_url), flush=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 分布式初始化</span></span><br><span class="line">    torch.distributed.init_process_group(backend=args.dist_backend, init_method=args.dist_url,</span><br><span class="line">                                         world_size=args.world_size, rank=args.rank)</span><br><span class="line">    <span class="comment"># 同步所有进程</span></span><br><span class="line">    torch.distributed.barrier()</span><br><span class="line">    setup_for_distributed(args.rank == <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 
 
         </div>

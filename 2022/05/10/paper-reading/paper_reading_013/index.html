@@ -26,7 +26,119 @@
     KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
 </head>
 
 
@@ -228,11 +340,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%9D%90%E6%A0%87%E4%B8%8A%E5%8D%87%E7%AE%97%E6%B3%95/">坐标上升算法</a>&nbsp;
+                        <a href="/tags/TimeSformer/">TimeSformer</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/TimeSformer/">TimeSformer</a>&nbsp;
+                        | <a href="/tags/%E5%9D%90%E6%A0%87%E4%B8%8A%E5%8D%87%E7%AE%97%E6%B3%95/">坐标上升算法</a>&nbsp;
                     </li>
                 
             </ul>
@@ -292,30 +404,15 @@
 </blockquote>
 <h2 id="三-TimeSformer模型"><a href="#三-TimeSformer模型" class="headerlink" title="三. TimeSformer模型"></a>三. TimeSformer模型</h2><p><strong>线性嵌入</strong></p>
 <p>首先论文将clip分解为patches，用x来表示每一个patch，公式1进行了线性嵌入得到嵌入向量z，其中E和e都是可以学习的参数，e代表对每个patch的时空位置进行编码的位置嵌入向量。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291136330.png"
-                      alt="image-20220429113605223" style="zoom:50%;" 
-                >
+<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291136330.png" alt="image-20220429113605223" style="zoom:50%;">
 
 <p><strong>查询键值计算</strong></p>
 <p>模型包含了L个编码块，在每个块中，为每一个patch的表示（由上一个块编码得到）中计算查询/键/值向量。其中LN（）代表LayerNorm；a = 1,…,A，其中A为多头注意力的数量，其中每个注意力头的隐维度数量为Dh = D/A</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291150047.png"
-                      alt="image-20220429115006018" style="zoom:50%;" 
-                >
+<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291150047.png" alt="image-20220429115006018" style="zoom:50%;">
 
 <p><strong>自注意力计算</strong></p>
 <p>自注意力权重可以按照如下的公式进行计算：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291204875.png"
-                      alt="image-20220429120419846" style="zoom:50%;" 
-                >
+<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291204875.png" alt="image-20220429120419846" style="zoom:50%;">
 
 <p>SM（）代表softmax激活函数，自注意力仅在p(空间维度)或t(时间维度)上进行计算所以计算量被显著地降低了。</p>
 <p><strong>编码过程</strong></p>
@@ -323,22 +420,12 @@
 <ul>
 <li>先计算值向量的加权和，公式如下：</li>
 </ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291223852.png"
-                      alt="image-20220429122304822" style="zoom:50%;" 
-                >
+<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291223852.png" alt="image-20220429122304822" style="zoom:50%;">
 
 <ul>
 <li>将这些向量沿HEAD维度进行连接，再传入多层感知机即可得到最终编码向量（注，在每一个操作中还使用了残差连接）：</li>
 </ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291226426.png"
-                      alt="image-20220429122626393" style="zoom:50%;" 
-                >
+<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204291226426.png" alt="image-20220429122626393" style="zoom:50%;">
 
 
         </div>
@@ -366,11 +453,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/%E5%9D%90%E6%A0%87%E4%B8%8A%E5%8D%87%E7%AE%97%E6%B3%95/">#坐标上升算法</a>&nbsp;
+                        <a href="/tags/TimeSformer/">#TimeSformer</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/TimeSformer/">#TimeSformer</a>&nbsp;
+                        <a href="/tags/%E5%9D%90%E6%A0%87%E4%B8%8A%E5%8D%87%E7%AE%97%E6%B3%95/">#坐标上升算法</a>&nbsp;
                     </li>
                 
             </ul>
