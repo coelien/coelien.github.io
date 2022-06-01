@@ -209,9 +209,9 @@
     <category term="行为识别" scheme="http://example.com/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
     
     
-    <category term="TimeSformer" scheme="http://example.com/tags/TimeSformer/"/>
-    
     <category term="坐标上升算法" scheme="http://example.com/tags/%E5%9D%90%E6%A0%87%E4%B8%8A%E5%8D%87%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="TimeSformer" scheme="http://example.com/tags/TimeSformer/"/>
     
   </entry>
   
@@ -235,9 +235,9 @@
     <category term="coding" scheme="http://example.com/categories/coding/"/>
     
     
-    <category term="快排" scheme="http://example.com/tags/%E5%BF%AB%E6%8E%92/"/>
-    
     <category term="快速选择" scheme="http://example.com/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/"/>
+    
+    <category term="快排" scheme="http://example.com/tags/%E5%BF%AB%E6%8E%92/"/>
     
   </entry>
   
@@ -274,7 +274,7 @@
     <published>2022-05-08T11:56:25.449Z</published>
     <updated>2022-05-27T02:40:29.593Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="pytorch-模型迁移复盘1"><a href="#pytorch-模型迁移复盘1" class="headerlink" title="pytorch 模型迁移复盘1"></a>pytorch 模型迁移复盘1</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="VPN连接"><a href="#VPN连接" class="headerlink" title="VPN连接"></a>VPN连接</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>连接华为提供的服务器需要vpn，在连vpn时遇到了一些问题：</p><ul><li>IP访问地址未设置正确</li></ul><p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png" alt="img"></p><ul><li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li></ul><p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png" alt="img"></p><h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png" alt="image-20220508193544091" style="zoom:67%;"><p>解决方法：</p><p>直接从gpu环境上scp一份解压好的上去</p><p><code>scp -r imagenet root@192.168.88.155:/opt/npu</code></p><blockquote><p><strong>Linux scp命令</strong>用于在Linux下进行远程拷贝文件的命令，和它类似的命令有<a class="link" href="https://www.coonote.com/linux/linux-cmd-cp.html">cp<i class="fas fa-external-link-alt"></i></a>，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，<a class="link" href="https://www.coonote.com/linux/linux-cmd-rsync.html">rsync<i class="fas fa-external-link-alt"></i></a>就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p></blockquote><blockquote><p>从本地服务器传到另一台服务器的docker容器而无需密码</p><p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link" href="mailto:&#x72;&#111;&#x6f;&#116;&#64;&#x32;&#48;&#x32;&#46;&#49;&#49;&#x37;&#46;&#x32;&#x31;&#46;&#x39;&#51;">root@202.117.21.93<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p></blockquote><h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote><p>目前该问题已解决</p></blockquote><p>因为我用的代码是pytorch1.7, 其中有一些新的接口1.5不支持，因此在NPU的torch1.5环境上需要修改API使之能跑通。主要修改点是torch.cuda.amp.autocast这个接口，将torch原生的amp接口改成apex的amp接口。</p><h3 id="NPU环境不太好改"><a href="#NPU环境不太好改" class="headerlink" title="NPU环境不太好改"></a>NPU环境不太好改</h3><blockquote><p>目前环境未出现问题</p></blockquote><p>需要直接在裸机上跑，不能使用conda，因此想改变环境不太容易，目前的环境启动方法为：’’source /home/gp/test_op/setenv.sh’’。该文件的主要内容是设置一些NPU相关的环境变量。</p><h3 id="GPU训练僵化"><a href="#GPU训练僵化" class="headerlink" title="GPU训练僵化"></a>GPU训练僵化</h3><blockquote><p>目前，该问题未解决</p></blockquote><p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p><p>如下是发现的问题：</p><p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png" alt="img"></p><ul><li><p>从日志可以发现损失变成了nan导致训练直接结束</p></li><li><p>一开始以为是Loss scale过大导致loss为nan，实则发现，loss scale是在获得损失值并判断它是否为nan之后，也就是模型采用的loss函数导致了其为nan,和混合精度没有关系，目前还在想办法解决这个问题</p></li></ul><h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png" alt="image-20220508201747487" style="zoom:67%;"><p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p><ul><li>目前的修改方法主要有两种，将usenpu作为参数传给对应方法的默认参数，从而取代原先的import</li><li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li></ul><p>采用第一种方法可以完美解决问题</p><h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png" alt="image-20220509152351457" style="zoom: 50%;">]]></content>
+    <content type="html"><![CDATA[<h1 id="pytorch-模型迁移复盘1"><a href="#pytorch-模型迁移复盘1" class="headerlink" title="pytorch 模型迁移复盘1"></a>pytorch 模型迁移复盘1</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="VPN连接"><a href="#VPN连接" class="headerlink" title="VPN连接"></a>VPN连接</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>连接华为提供的服务器需要vpn，在连vpn时遇到了一些问题：</p><ul><li>IP访问地址未设置正确</li></ul><p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png" alt="img"></p><ul><li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li></ul><p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png" alt="img"></p><h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png" alt="image-20220508193544091" style="zoom:67%;"><p>解决方法：</p><p>直接从gpu环境上scp一份解压好的上去</p><p><code>scp -r imagenet root@192.168.88.155:/opt/npu</code></p><blockquote><p><strong>Linux scp命令</strong>用于在Linux下进行远程拷贝文件的命令，和它类似的命令有<a class="link" href="https://www.coonote.com/linux/linux-cmd-cp.html">cp<i class="fas fa-external-link-alt"></i></a>，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，<a class="link" href="https://www.coonote.com/linux/linux-cmd-rsync.html">rsync<i class="fas fa-external-link-alt"></i></a>就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p></blockquote><blockquote><p>从本地服务器传到另一台服务器的docker容器而无需密码</p><p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link" href="mailto:&#x72;&#x6f;&#x6f;&#116;&#64;&#x32;&#x30;&#x32;&#46;&#x31;&#49;&#55;&#x2e;&#50;&#49;&#x2e;&#x39;&#x33;">root@202.117.21.93<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p></blockquote><h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote><p>目前该问题已解决</p></blockquote><p>因为我用的代码是pytorch1.7, 其中有一些新的接口1.5不支持，因此在NPU的torch1.5环境上需要修改API使之能跑通。主要修改点是torch.cuda.amp.autocast这个接口，将torch原生的amp接口改成apex的amp接口。</p><h3 id="NPU环境不太好改"><a href="#NPU环境不太好改" class="headerlink" title="NPU环境不太好改"></a>NPU环境不太好改</h3><blockquote><p>目前环境未出现问题</p></blockquote><p>需要直接在裸机上跑，不能使用conda，因此想改变环境不太容易，目前的环境启动方法为：’’source /home/gp/test_op/setenv.sh’’。该文件的主要内容是设置一些NPU相关的环境变量。</p><h3 id="GPU训练僵化"><a href="#GPU训练僵化" class="headerlink" title="GPU训练僵化"></a>GPU训练僵化</h3><blockquote><p>目前，该问题未解决</p></blockquote><p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p><p>如下是发现的问题：</p><p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png" alt="img"></p><ul><li><p>从日志可以发现损失变成了nan导致训练直接结束</p></li><li><p>一开始以为是Loss scale过大导致loss为nan，实则发现，loss scale是在获得损失值并判断它是否为nan之后，也就是模型采用的loss函数导致了其为nan,和混合精度没有关系，目前还在想办法解决这个问题</p></li></ul><h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png" alt="image-20220508201747487" style="zoom:67%;"><p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p><ul><li>目前的修改方法主要有两种，将usenpu作为参数传给对应方法的默认参数，从而取代原先的import</li><li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li></ul><p>采用第一种方法可以完美解决问题</p><h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png" alt="image-20220509152351457" style="zoom: 50%;">]]></content>
     
     
       
@@ -420,32 +420,6 @@
   </entry>
   
   <entry>
-    <title>vhr项目：学习记录1</title>
-    <link href="http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
-    <id>http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</id>
-    <published>2022-05-08T03:16:31.745Z</published>
-    <updated>2022-05-08T04:56:47.253Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="动态处理角色与资源的关系"><a href="#动态处理角色与资源的关系" class="headerlink" title="动态处理角色与资源的关系"></a>动态处理角色与资源的关系</h1><h2 id="用户类"><a href="#用户类" class="headerlink" title="用户类"></a>用户类</h2><ul><li>实现UserDetails接口（org.springframework.security中）</li><li>账户的锁定、密码的过期等等等接口均返回True，只处理了是否禁用账户的isEnabled()方法</li><li>Collection&lt;? extends GrantedAuthority&gt;解释：？类型实现了Collection接口，且一定是GrantedAuthority的子类</li></ul><h2 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h2><p><strong>即“参数化类型（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）</strong></p><h2 id="SpringBoot-web"><a href="#SpringBoot-web" class="headerlink" title="SpringBoot web"></a>SpringBoot web</h2><h3 id="资源控制器"><a href="#资源控制器" class="headerlink" title="资源控制器"></a>资源控制器</h3><ul><li>HTTP请求由控制器所处理，处理对/greeting下的路由的GET请求，它返回Greeting类的新实例</li><li>注解RestController表明该类是一个Restful控制器类</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;动态处理角色与资源的关系&quot;&gt;&lt;a href=&quot;#动态处理角色与资源的关系&quot; class=&quot;headerlink&quot; title=&quot;动态处理角色与资源的关系&quot;&gt;&lt;/a&gt;动态处理角色与资源的关系&lt;/h1&gt;&lt;h2 id=&quot;用户类&quot;&gt;&lt;a href=&quot;#用户类&quot; class</summary>
-      
-    
-    
-    
-    <category term="java项目" scheme="http://example.com/categories/java%E9%A1%B9%E7%9B%AE/"/>
-    
-    
-    <category term="java web" scheme="http://example.com/tags/java-web/"/>
-    
-    <category term="springboot" scheme="http://example.com/tags/springboot/"/>
-    
-  </entry>
-  
-  <entry>
     <title>docker内配置facebook pyslowfast环境</title>
     <link href="http://example.com/2022/05/08/projects/kinetics%20project/installation%20of%20slowfast/"/>
     <id>http://example.com/2022/05/08/projects/kinetics%20project/installation%20of%20slowfast/</id>
@@ -498,6 +472,32 @@
     <category term="环境配置" scheme="http://example.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
     
     <category term="setuptools" scheme="http://example.com/tags/setuptools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vhr项目：学习记录1</title>
+    <link href="http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://example.com/2022/05/08/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</id>
+    <published>2022-05-08T03:16:31.745Z</published>
+    <updated>2022-05-08T04:56:47.253Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="动态处理角色与资源的关系"><a href="#动态处理角色与资源的关系" class="headerlink" title="动态处理角色与资源的关系"></a>动态处理角色与资源的关系</h1><h2 id="用户类"><a href="#用户类" class="headerlink" title="用户类"></a>用户类</h2><ul><li>实现UserDetails接口（org.springframework.security中）</li><li>账户的锁定、密码的过期等等等接口均返回True，只处理了是否禁用账户的isEnabled()方法</li><li>Collection&lt;? extends GrantedAuthority&gt;解释：？类型实现了Collection接口，且一定是GrantedAuthority的子类</li></ul><h2 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h2><p><strong>即“参数化类型（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）</strong></p><h2 id="SpringBoot-web"><a href="#SpringBoot-web" class="headerlink" title="SpringBoot web"></a>SpringBoot web</h2><h3 id="资源控制器"><a href="#资源控制器" class="headerlink" title="资源控制器"></a>资源控制器</h3><ul><li>HTTP请求由控制器所处理，处理对/greeting下的路由的GET请求，它返回Greeting类的新实例</li><li>注解RestController表明该类是一个Restful控制器类</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;动态处理角色与资源的关系&quot;&gt;&lt;a href=&quot;#动态处理角色与资源的关系&quot; class=&quot;headerlink&quot; title=&quot;动态处理角色与资源的关系&quot;&gt;&lt;/a&gt;动态处理角色与资源的关系&lt;/h1&gt;&lt;h2 id=&quot;用户类&quot;&gt;&lt;a href=&quot;#用户类&quot; class</summary>
+      
+    
+    
+    
+    <category term="java项目" scheme="http://example.com/categories/java%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="java web" scheme="http://example.com/tags/java-web/"/>
+    
+    <category term="springboot" scheme="http://example.com/tags/springboot/"/>
     
   </entry>
   
