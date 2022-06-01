@@ -9,7 +9,7 @@
     
     <title>
         
-            论文阅读笔记：“Deep Temporal Linear Encoding Networks” |
+            论文阅读笔记：“MobileNets：Efficient Convolutional Neural Networks for Mobile Vision Applications” |
         
         我的征途是星辰大海
     </title>
@@ -184,7 +184,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">论文阅读笔记：“Deep Temporal Linear Encoding Networks”</span>
+            <span class="title-hover-animation">论文阅读笔记：“MobileNets：Efficient Convolutional Neural Networks for Mobile Vision Applications”</span>
         </div>
 
         
@@ -203,8 +203,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-07 21:01:41</span>
-        <span class="mobile">2022-05-07 21:01</span>
+        <span class="pc">2022-05-27 13:41:26</span>
+        <span class="mobile">2022-05-27 13:41</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -216,7 +216,7 @@
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>&nbsp;
+                        &gt; <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/">图像分类</a>&nbsp;
                     </li>
                 
             </ul>
@@ -228,11 +228,19 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E6%97%B6%E9%97%B4%E7%BA%BF%E6%80%A7%E7%BC%96%E7%A0%81/">时间线性编码</a>&nbsp;
+                        <a href="/tags/architecture-design/">architecture design</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/TLE-Layer/">TLE Layer</a>&nbsp;
+                        | <a href="/tags/MobileNet/">MobileNet</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/depth-wise-separable-convolution/">depth-wise separable convolution</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/embedded-vision-application/">embedded vision application</a>&nbsp;
                     </li>
                 
             </ul>
@@ -242,12 +250,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>357 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>586 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
         </span>
     
     
@@ -263,29 +271,129 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="Deep-Temporal-Linear-Encoding-Networks"><a href="#Deep-Temporal-Linear-Encoding-Networks" class="headerlink" title="Deep Temporal Linear Encoding Networks"></a>Deep Temporal Linear Encoding Networks</h1><h2 id="一-论文思想"><a href="#一-论文思想" class="headerlink" title="一. 论文思想"></a>一. 论文思想</h2><p>这篇文章主要是针对如何对整个视频进行表示，即如何对视频中的片段进行聚合，提出了时间线性编码（TLE），它可以嵌入在CNN中作为一个层，从而允许端到端的训练。</p>
-<h2 id="二-TLE-Layer"><a href="#二-TLE-Layer" class="headerlink" title="二. TLE　Layer"></a>二. TLE　Layer</h2><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331170312907.png"
-                      alt="image-20220331170312907" style="zoom:50%;" 
-                >
-
-<p>TLE层主要分为两个部分，第一个是对视频的多个片段的特征图进行聚合的操作，第二个是将聚合表示转化为线性编码特征的编码操作，算法如下图所示：</p>
+            <h1 id="论文阅读笔记：MobileNets系列论文浅析：mobilenet-v1"><a href="#论文阅读笔记：MobileNets系列论文浅析：mobilenet-v1" class="headerlink" title="论文阅读笔记：MobileNets系列论文浅析：mobilenet v1"></a>论文阅读笔记：MobileNets系列论文浅析：mobilenet v1</h1><blockquote>
+<p>参考<a class="link"   target="_blank" rel="noopener" href="https://arxiv.org/pdf/1704.04861v1.pdf" >原论文<i class="fas fa-external-link-alt"></i></a></p>
+<p>参考<a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yE411p7L7/" >B站视频<i class="fas fa-external-link-alt"></i></a></p>
+<p>hint: 为了去寻找一个最优的网络架构，有哪些思考模式是可以借鉴的</p>
+</blockquote>
+<h2 id="核心亮点"><a href="#核心亮点" class="headerlink" title="核心亮点"></a>核心亮点</h2><p><strong>depth-wise separable convolution</strong></p>
 <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331171227702.png"
-                      alt="image-20220331171227702" style="zoom: 50%;" 
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205271359458.png"
+                      alt="image-20220527135924308" style="zoom: 33%;" 
                 >
 
-<p>聚合方法可采用（逐元素）最大聚合，平均聚合和乘积聚合，编码方法可采用双线性模型和全连接池化。实验表明，双线性模型较第二种方法计算更加快速，参数量更少的同时效果更好，使用Tensor Sketch算法也可以通过将高维空间投影到低维空间而无需直接计算外积。作者在已有的典型模型的基础上只保留卷积，通过加入TLE层来进行实验。实验证明使用该层对模型效果均有较大提升。值得一提的是，作者还将环境场景信息纳入考虑，作为额外信息进行聚合，实验表明准确率有较大提升，该实验证明了TLE合并不同数据流的能力。</p>
+<p>深度可分离卷积是分解卷积的一种，如图它包含了DW卷积和PW卷积。DW卷积（depth-wise conv）也叫 channel-wise 卷积，实际上是分组卷积的特例。而PW卷积是卷积核大小为1的普通卷积，其目的是将depthwise convolution的输出进行结合。普通卷积在一步里同时完成了过滤（filter）和组合（求和combination）的操作，而深度可分离卷积将filter和combination分为了两步，每一步由一个单独的layer来负责。</p>
+<p><strong>引入新超参：Width Multiplier&amp;&amp;Resolution Multiplier</strong> </p>
+<ul>
+<li>目的：让模型更小，更快</li>
+<li>引入Width Multiplier的计算量：</li>
+</ul>
 <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:\Users\sixwa\AppData\Roaming\Typora\typora-user-images\image-20220331173204667.png"
-                      alt="image-20220331173204667" style="zoom:50%;" 
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291345003.png"
+                      alt="image-20220529134507964" style="zoom:50%;" 
                 >
+
+<ul>
+<li>再引入Resolution Multiplier的计算量：</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291349397.png"
+                      alt="image-20220529134959365" style="zoom:50%;" 
+                >
+
+<ul>
+<li><p>效果如下图所示：（计算量减少了近30倍）</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291351945.png"
+                      alt="image-20220529135157899" style="zoom:50%;" 
+                ></li>
+</ul>
+<h2 id="亮点思考"><a href="#亮点思考" class="headerlink" title="亮点思考"></a>亮点思考</h2><p><strong>为什么使用深度可分离卷积可以减少计算量？</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>普通卷积</th>
+<th>dw卷积</th>
+<th>pw卷积</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>参数量</td>
+<td>$M<em>D_K</em>D_K*N$</td>
+<td>$D_K<em>D_K</em>M$</td>
+<td>$M*N$</td>
+</tr>
+<tr>
+<td>计算量</td>
+<td>$D_K<em>D_K</em>M<em>N</em>D_F*D_F$</td>
+<td>$D_K<em>D_K</em>M<em>D_F</em>D_F$</td>
+<td>$M<em>D_F</em>D_F*N$</td>
+</tr>
+</tbody></table>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291325553.png"
+                      alt="image-20220529132536462" style="zoom:50%;" 
+                >
+
+<p>以卷积核大小为3为例，由上式可发现深度可分离卷积的计算量是普通卷积的$1/8至1/9$</p>
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291329315.png"
+                      alt="image-20220529132938255" style="zoom:50%;" 
+                >
+
+<h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p>与大模型相比，该模型仅有28层，因此论文用了更少的数据增强与正则化方法（小模型不容易过拟合），且未用到side heads 或是 label smoothing。实验发现，在dw卷积上使用较小或是不使用l2正则会比较好，因为所含参数量较少。</p>
+<h2 id="有意思的实验"><a href="#有意思的实验" class="headerlink" title="有意思的实验"></a>有意思的实验</h2><p><strong>更浅的网络好还是更瘦的网路好？</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291355737.png"
+                      alt="image-20220529135547707" style="zoom:50%;" 
+                >
+
+<p>实验证明，参数量和计算量基本一致的情况下，更瘦的网络效果更好，高了近3个百分点。看系列第二篇笔记可以从理论上对这个结果进行解释。</p>
+<p><strong>trade-offs: 精度与计算量的平衡</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291400896.png"
+                      alt="image-20220529140030848" style="zoom:50%;" 
+                >
+
+<ul>
+<li>精度vs计算量：</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291405526.png"
+                      alt="image-20220529140530481" style="zoom:50%;" 
+                >
+
+<ul>
+<li>精度vs参数：</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291407204.png"
+                      alt="image-20220529140723147" style="zoom:50%;" 
+                >
+
+<p>可以根据实际应用需求来调整，究竟是需要精度还是需要速度。</p>
+<h2 id="关键结论"><a href="#关键结论" class="headerlink" title="关键结论"></a>关键结论</h2><p>可以考虑深度可分离卷积，和Width Multiplier&amp;&amp;Resolution Multiplier超参来降低模型复杂度</p>
 
         </div>
 
@@ -293,11 +401,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：论文阅读笔记：“Deep Temporal Linear Encoding Networks”</li>
+        <li>Post title：论文阅读笔记：“MobileNets：Efficient Convolutional Neural Networks for Mobile Vision Applications”</li>
         <li>Post author：sixwalter</li>
-        <li>Create time：2022-05-07 21:01:41</li>
+        <li>Create time：2022-05-27 13:41:26</li>
         <li>
-            Post link：https://coelien.github.io/2022/05/07/paper-reading/paper_reading_009/
+            Post link：https://coelien.github.io/2022/05/27/paper-reading/paper_reading_015/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -312,11 +420,19 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/%E6%97%B6%E9%97%B4%E7%BA%BF%E6%80%A7%E7%BC%96%E7%A0%81/">#时间线性编码</a>&nbsp;
+                        <a href="/tags/architecture-design/">#architecture design</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/TLE-Layer/">#TLE Layer</a>&nbsp;
+                        <a href="/tags/MobileNet/">#MobileNet</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/depth-wise-separable-convolution/">#depth-wise separable convolution</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/embedded-vision-application/">#embedded vision application</a>&nbsp;
                     </li>
                 
             </ul>
@@ -328,13 +444,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/05/07/paper-reading/paper_reading_007/"
+                           href="/2022/05/29/paper-reading/paper_reading_016/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">论文阅读笔记：“From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting(ICCV 2021)”</span>
+                                <span class="post-nav-title-item">论文阅读笔记：“MobileNetV2：Inverted Residuals and Linear Bottlenecks”</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -344,10 +460,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/05/07/paper-reading/paper_reading_010/"
+                           href="/2022/05/26/paper-reading/paper_reading_014/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">论文阅读笔记：“Notes on Long-Term Temporal Convolutions for Action Recognition”</span>
+                                <span class="post-nav-title-item">论文阅读笔记：“Aggregated Residual Transformations for Deep Neural Networks”</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -543,7 +659,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Temporal-Linear-Encoding-Networks"><span class="nav-number">1.</span> <span class="nav-text">Deep Temporal Linear Encoding Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E8%AE%BA%E6%96%87%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">一. 论文思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-TLE-Layer"><span class="nav-number">1.2.</span> <span class="nav-text">二. TLE　Layer</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%EF%BC%9AMobileNets%E7%B3%BB%E5%88%97%E8%AE%BA%E6%96%87%E6%B5%85%E6%9E%90%EF%BC%9Amobilenet-v1"><span class="nav-number">1.</span> <span class="nav-text">论文阅读笔记：MobileNets系列论文浅析：mobilenet v1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BA%AE%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">核心亮点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%AE%E7%82%B9%E6%80%9D%E8%80%83"><span class="nav-number">1.2.</span> <span class="nav-text">亮点思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">模型架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="nav-number">1.4.</span> <span class="nav-text">模型训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.5.</span> <span class="nav-text">有意思的实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%BB%93%E8%AE%BA"><span class="nav-number">1.6.</span> <span class="nav-text">关键结论</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
