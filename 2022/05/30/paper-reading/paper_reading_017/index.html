@@ -17,13 +17,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
     <link rel="shortcut icon" href="/images/pkq.png">
-    
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
@@ -377,43 +375,43 @@ mjx-container[display="true"] + br {
         <div class="article-content markdown-body">
             <h1 id="AssembleNet-Assembling-Modality-Representations-via-Attention-Connections"><a href="#AssembleNet-Assembling-Modality-Representations-via-Attention-Connections" class="headerlink" title="AssembleNet++: Assembling Modality Representations via Attention Connections"></a>AssembleNet++: Assembling Modality Representations via Attention Connections</h1><h2 id="主要工作"><a href="#主要工作" class="headerlink" title="主要工作"></a>主要工作</h2><p>为了学习原始输入模态和语义输入模态之间的交互关系，作者提出了一族可以显示地学习表观信息，运动特征和对象特定信息之间相互作用的模型AssembleNet++。为了对这种不同模态信息的相互作用进行建模，作者搜索了块间的同辈注意力连接性，引入了创新性的peer-attention模块。</p>
 <h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p>该模型采用了继承自AssembleNet的多流，多block的架构设计模式。</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205301641284.png" alt="image-20220530164115003" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205301641284.png" alt="image-20220530164115003" style="zoom:50%;">
 
 <p>如图所示的连接图未加入注意力。可以看出输入block包括原始RGB，光流以及图中物体的信息多个模态。且图中的连接并非人为简单的设计，而是通过NAS方法搜索出来的，每个block都可以和其上层的多个block进行连接，也可以跳层连接，如图中最右侧的Object Input Block。每个Block又是R(2+1)D的residual block，包含1D的时间卷积，2D的空间卷积层还有一个1*1的conv层。</p>
 <h2 id="核心亮点"><a href="#核心亮点" class="headerlink" title="核心亮点"></a>核心亮点</h2><p><strong>object information</strong></p>
 <p>物体以及他们的位置可以提供丰富的语义信息来对视频中的行为进行有效理解，从搜索得到的网络结构也可看出，语义信息包含在了整个架构中，所以可以和其他模态以及从中得到的中间特征进行交互，而且每一个学习到的物体连接的权重都大于0.7，可见该输入block的有用性。</p>
 <p><strong>weighted connections</strong></p>
 <p>任和一个块的输入都可以由其下层的一个或多个块的输出进行加权和来得到：</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311952372.png" alt="image-20220531195223271" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311952372.png" alt="image-20220531195223271" style="zoom:50%;">
 
 <p>模型考虑了所有满足条件的connection(j,i)：只要block j 所在的层数小于i所在的层数。思想即通过<strong>设置权重</strong>来允许学习连接的大小。</p>
 <p><strong>peer-attention</strong>（channel-wise attention）</p>
 <blockquote>
 <p>同辈注意力连接性</p>
 </blockquote>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311956830.png" alt="image-20220531195640795" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311956830.png" alt="image-20220531195640795" style="zoom:50%;">
 
 <p>对于每个连接，上面的公式可以计算大小为Ci的权重向量。它首先对张量x进行全局平均池化，之后通过一个全连接层映射为大小为Ci的向量。</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311957675.png" alt="image-20220531195707644" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311957675.png" alt="image-20220531195707644" style="zoom:50%;">
 
 <p>假设我们已经知道block k对connection(j,i)有影响，那么通过考虑来自块k的注意力，结合所有连接(j,i)，我们就可以得到块i的输入，如果xj == xk，那么这种注意力就等价于经典的SE注意力。</p>
 <p> <strong>one-shot differentiable architecture search</strong></p>
 <blockquote>
 <p>one of NAS approaches</p>
 </blockquote>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311957309.png" alt="image-20220531195732278" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311957309.png" alt="image-20220531195732278" style="zoom:50%;">
 
 <p>思想与<strong>weighted connections</strong>近似，通过设置每个peer block的weights，令weights是可学习的。通过训练，模型对每一个block会软选择（soft select）一个最好的peer block，这个peer会最大化识别的效果。从公式可以看出，x为所有peer block的加权和，公式的其他部分与前面的类似。</p>
 <h2 id="实验结论"><a href="#实验结论" class="headerlink" title="实验结论"></a>实验结论</h2><p><strong>物体信息的重要性</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011413702.png" alt="image-20220601141335608" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011413702.png" alt="image-20220601141335608" style="zoom:50%;">
 
 <p>从实验可以看出，物体连接数量越多，数据集的mAP指标成比例的升高。</p>
 <p><strong>peer attention的有效性</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011418526.png" alt="image-20220601141835495" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011418526.png" alt="image-20220601141835495" style="zoom:50%;">
 
 <p>从图中可以看出，带有peer attention的mAP较无attention的网络提升了近6个百分点。</p>
 <p><strong>对其他架构具有通用性</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011437364.png" alt="image-20220601143738316" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011437364.png" alt="image-20220601143738316" style="zoom:50%;">
         </div>
 
         
@@ -716,52 +714,26 @@ mjx-container[display="true"] + br {
 
 
 
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
 
-<script src="/js/utils.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script src="/js/header-shrink.js"></script>
-
-<script src="/js/back2top.js"></script>
-
-<script src="/js/dark-light-toggle.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
 
 
 
-    
-<script src="/js/local-search.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
 
-
-
-
-    
-<script src="/js/code-copy.js"></script>
-
-
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 
 <div class="post-scripts pjax">
     
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
     
 </div>
 
 
-    
-<script src="/js/libs/pjax.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         window.pjax = new Pjax({

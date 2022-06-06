@@ -17,13 +17,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
     <link rel="shortcut icon" href="/images/pkq.png">
-    
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
@@ -376,7 +374,7 @@ mjx-container[display="true"] + br {
 
         <div class="article-content markdown-body">
             <h1 id="Notes-of-Reading-“From-Goals-Waypoints-amp-Paths-To-Long-Term-Human-Trajectory-Forecasting”-ICCV-2021"><a href="#Notes-of-Reading-“From-Goals-Waypoints-amp-Paths-To-Long-Term-Human-Trajectory-Forecasting”-ICCV-2021" class="headerlink" title="Notes  of Reading “From Goals, Waypoints & Paths To Long Term Human Trajectory Forecasting”(ICCV 2021)"></a>Notes  of Reading “From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting”(ICCV 2021)</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>行人轨迹预测是一个内在的多模态问题，因为行人轨迹存在很多不确定性，论文将这种不确定性分解为认知不确定性（对于模型未知）和偶然不确定性（不可避免的随机性）。这篇文章利用了分解的思想，分别对认知不确定性（行人的目标）和偶然不确定性（路径）进行建模，从而能够预测更长时间且多样的轨迹。这篇文章极大的参考了U-net这个网络，并基于这个网络进行了一系列改进。</p>
-<h2 id="模型网络"><a href="#模型网络" class="headerlink" title="模型网络"></a>模型网络</h2><h3 id="Y-NET"><a href="#Y-NET" class="headerlink" title="Y-NET"></a>Y-NET</h3><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201171737948.png" alt="image-20220117173701779" style="zoom:50%;">
+<h2 id="模型网络"><a href="#模型网络" class="headerlink" title="模型网络"></a>模型网络</h2><h3 id="Y-NET"><a href="#Y-NET" class="headerlink" title="Y-NET"></a>Y-NET</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202201171737948.png" alt="image-20220117173701779" style="zoom:50%;">
 
 <p>Y-NET模型包含了3个子网络（Ue,Ug,Ut），并将整个随机性分解为两种模式。首先，对认知不确定性建模的模块A会预测多个目标（即行人轨迹的最终目的地坐标，共预测Ke个）；之后对随即不确定性建模的模块会根据从模块A得到的估计目标位置来预测多条路径（Ka个）。</p>
 <ul>
@@ -693,52 +691,26 @@ mjx-container[display="true"] + br {
 
 
 
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
 
-<script src="/js/utils.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script src="/js/header-shrink.js"></script>
-
-<script src="/js/back2top.js"></script>
-
-<script src="/js/dark-light-toggle.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
 
 
 
-    
-<script src="/js/local-search.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
 
-
-
-
-    
-<script src="/js/code-copy.js"></script>
-
-
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 
 <div class="post-scripts pjax">
     
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
     
 </div>
 
 
-    
-<script src="/js/libs/pjax.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         window.pjax = new Pjax({

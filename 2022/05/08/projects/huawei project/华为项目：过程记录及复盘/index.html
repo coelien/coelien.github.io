@@ -15,13 +15,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
     <link rel="shortcut icon" href="/images/pkq.png">
-    
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
@@ -350,16 +348,16 @@ mjx-container[display="true"] + br {
 <ul>
 <li>IP访问地址未设置正确</li>
 </ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png" alt="img"></p>
 <ul>
 <li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li>
 </ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png" alt="img"></p>
 <h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote>
 <p>目前，该问题已解决</p>
 </blockquote>
 <p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png" alt="image-20220508193544091" style="zoom:67%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png" alt="image-20220508193544091" style="zoom:67%;">
 
 <p>解决方法：</p>
 <p>直接从gpu环境上scp一份解压好的上去</p>
@@ -369,7 +367,7 @@ mjx-container[display="true"] + br {
 </blockquote>
 <blockquote>
 <p>从本地服务器传到另一台服务器的docker容器而无需密码</p>
-<p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link" href="mailto:&#114;&#111;&#111;&#116;&#64;&#50;&#48;&#50;&#46;&#49;&#x31;&#55;&#46;&#x32;&#49;&#46;&#57;&#51;">root@202.117.21.93<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p>
+<p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link" href="mailto:&#114;&#111;&#111;&#116;&#x40;&#x32;&#48;&#x32;&#x2e;&#x31;&#49;&#x37;&#46;&#50;&#x31;&#x2e;&#57;&#x33;">root@202.117.21.93<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p>
 </blockquote>
 <h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote>
 <p>目前该问题已解决</p>
@@ -384,7 +382,7 @@ mjx-container[display="true"] + br {
 </blockquote>
 <p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p>
 <p>如下是发现的问题：</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png" alt="img"></p>
 <ul>
 <li><p>从日志可以发现损失变成了nan导致训练直接结束</p>
 </li>
@@ -395,7 +393,7 @@ mjx-container[display="true"] + br {
 <p>目前，该问题已解决</p>
 </blockquote>
 <p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png" alt="image-20220508201747487" style="zoom:67%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png" alt="image-20220508201747487" style="zoom:67%;">
 
 <p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p>
 <ul>
@@ -407,7 +405,7 @@ mjx-container[display="true"] + br {
 <p>目前，该问题已解决</p>
 </blockquote>
 <p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png" alt="image-20220509152351457" style="zoom: 50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png" alt="image-20220509152351457" style="zoom: 50%;">
 
 
         </div>
@@ -700,52 +698,26 @@ mjx-container[display="true"] + br {
 
 
 
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
 
-<script src="/js/utils.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script src="/js/header-shrink.js"></script>
-
-<script src="/js/back2top.js"></script>
-
-<script src="/js/dark-light-toggle.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
 
 
 
-    
-<script src="/js/local-search.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
 
-
-
-
-    
-<script src="/js/code-copy.js"></script>
-
-
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 
 <div class="post-scripts pjax">
     
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
     
 </div>
 
 
-    
-<script src="/js/libs/pjax.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         window.pjax = new Pjax({

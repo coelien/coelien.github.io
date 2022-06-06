@@ -17,13 +17,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
     <link rel="shortcut icon" href="/images/pkq.png">
-    
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
@@ -382,10 +380,10 @@ mjx-container[display="true"] + br {
 <p>论文首先从实践的角度，判断当时没有合适的视频分类基准数据集。为了获取足够充分的数据来训练CNN，作者团队自己采集了名为Sports-1M的数据集。</p>
 <p>从建模的角度，作者以问题为导向，分析了在CNN中，什么样的时间连接模式在利用视频中的局部动作信息是最佳的；而这些额外的运动信息是如何影响模型的预测的；它对性能的提升究竟有多大。作者尝试了在时间域中结合信息的不同方法。</p>
 <p>从计算的角度，因为训练CNN需要优化数百万参数，非常消耗时间，提高计算能力，对于网络结构的搜索和迭代较为重要。如上图所示，作者提出了双流法，将处理过程分为了两个结构相同的场景流和中心流。场景流学习低分辨率帧的特征，而中心流只学习图像中心的特征。使用这种方法大大提高了计算速度，同时对网络的性能几乎没有影响。</p>
-<h2 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h2><h3 id="CNN-时间信息融合"><a href="#CNN-时间信息融合" class="headerlink" title="CNN 时间信息融合"></a>CNN 时间信息融合</h3><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202112231703437.png" alt="image-20211223170350392" style="zoom:50%;">
+<h2 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h2><h3 id="CNN-时间信息融合"><a href="#CNN-时间信息融合" class="headerlink" title="CNN 时间信息融合"></a>CNN 时间信息融合</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202112231703437.png" alt="image-20211223170350392" style="zoom:50%;">
 
 <p>如上图所示，最左边的single frame模型是baseline模型，而右边的三种不同时间融合方式的模型是它的扩展。最左边的single frame baseline模型只提取了视频中的静态表观信息；第二个late fusion模型设置了两个平行的且共享参数的single-frame网络，这两个相隔15帧的流在第一个全连接层中进行汇聚；early fusion在像素级别上就将整个时间窗口上的多帧信息进行融合，这时其第一个卷积层的过滤器的shape就变为了$11<em>11</em>3*T$​​，实际上所做的就是3维卷积；slow fusion结合了前两种方法，在整个网络中缓慢地融合时间信息，这样高层能同时获取较为同步的全局时空信息，整个表观特征的提取和时序信息的提取是同时进行的。3D卷积可以参考论文 （Sequential deep learning for human action recognition，2011）和（3D convolutional neural networks for human action recognition， PAMI 2013）</p>
-<h3 id="多分辨率CNN"><a href="#多分辨率CNN" class="headerlink" title="多分辨率CNN"></a>多分辨率CNN</h3><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202112231704560.png" alt="image-20211223170415501" style="zoom:50%;">
+<h3 id="多分辨率CNN"><a href="#多分辨率CNN" class="headerlink" title="多分辨率CNN"></a>多分辨率CNN</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202112231704560.png" alt="image-20211223170415501" style="zoom:50%;">
 
 <p>如上图所示，为了试验不同的网络结构和不同的超参，作者提出了双流法，将处理过程分为了两个结构相同的场景流和中心流。这种双流方法改变了网络结构，但缩减了运行时间的同时又没有牺牲性能。场景流学习低分辨率帧的特征，而中心流只学习图像中心的特征。使用这种方法将帧分辨率从$178<em>178<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.452ex" xmlns="http://www.w3.org/2000/svg" width="6.109ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 2700 950"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><text data-variant="italic" transform="scale(1,-1)" font-size="884px" font-family="serif" font-style="italic">降</text></g><g data-mml-node="mi" transform="translate(900,0)"><text data-variant="italic" transform="scale(1,-1)" font-size="884px" font-family="serif" font-style="italic">低</text></g><g data-mml-node="mi" transform="translate(1800,0)"><text data-variant="italic" transform="scale(1,-1)" font-size="884px" font-family="serif" font-style="italic">为</text></g></g></g></svg></mjx-container>89</em>89$，大大提高了计算速度。</p>
 <h3 id="学习过程"><a href="#学习过程" class="headerlink" title="学习过程"></a>学习过程</h3><ul>
@@ -700,52 +698,26 @@ mjx-container[display="true"] + br {
 
 
 
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
 
-<script src="/js/utils.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script src="/js/header-shrink.js"></script>
-
-<script src="/js/back2top.js"></script>
-
-<script src="/js/dark-light-toggle.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
 
 
 
-    
-<script src="/js/local-search.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
 
-
-
-
-    
-<script src="/js/code-copy.js"></script>
-
-
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 
 <div class="post-scripts pjax">
     
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
     
 </div>
 
 
-    
-<script src="/js/libs/pjax.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         window.pjax = new Pjax({

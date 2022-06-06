@@ -17,13 +17,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
     <link rel="shortcut icon" href="/images/pkq.png">
-    
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#CC6600","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/flat-mountains.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
@@ -340,15 +338,15 @@ mjx-container[display="true"] + br {
             <ul>
                 
                     <li>
-                        <a href="/tags/MobileNet/">MobileNet</a>&nbsp;
+                        <a href="/tags/architecture-design/">architecture design</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/MobileNet/">MobileNet</a>&nbsp;
                     </li>
                 
                     <li>
                         | <a href="/tags/depth-wise-separable-convolution/">depth-wise separable convolution</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/architecture-design/">architecture design</a>&nbsp;
                     </li>
                 
                     <li>
@@ -389,7 +387,7 @@ mjx-container[display="true"] + br {
 <p>hint: 为了去寻找一个最优的网络架构，有哪些思考模式是可以借鉴的</p>
 </blockquote>
 <h2 id="核心亮点"><a href="#核心亮点" class="headerlink" title="核心亮点"></a>核心亮点</h2><p><strong>depth-wise separable convolution</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205271359458.png" alt="image-20220527135924308" style="zoom: 33%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205271359458.png" alt="image-20220527135924308" style="zoom: 33%;">
 
 <p>深度可分离卷积是分解卷积的一种，如图它包含了DW卷积和PW卷积。DW卷积（depth-wise conv）也叫 channel-wise 卷积，实际上是分组卷积的特例，它处理长宽方向的信息。而PW卷积是卷积核大小为1的普通卷积，其目的是将depthwise convolution的输出进行结合，处理跨通道的信息。普通卷积在一步里同时完成了过滤（filter）和组合（求和combination）的操作，而深度可分离卷积将filter和combination分为了两步，每一步由一个单独的layer来负责。</p>
 <p><strong>引入新超参：Width Multiplier&amp;&amp;Resolution Multiplier</strong> </p>
@@ -397,16 +395,16 @@ mjx-container[display="true"] + br {
 <li>目的：让模型更小，更快</li>
 <li>引入Width Multiplier的计算量：</li>
 </ul>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291345003.png" alt="image-20220529134507964" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291345003.png" alt="image-20220529134507964" style="zoom:50%;">
 
 <ul>
 <li>再引入Resolution Multiplier的计算量：</li>
 </ul>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291349397.png" alt="image-20220529134959365" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291349397.png" alt="image-20220529134959365" style="zoom:50%;">
 
 <ul>
 <li><p>效果如下图所示：（计算量减少了近30倍）</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291351945.png" alt="image-20220529135157899" style="zoom:50%;"></li>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291351945.png" alt="image-20220529135157899" style="zoom:50%;"></li>
 </ul>
 <h2 id="亮点思考"><a href="#亮点思考" class="headerlink" title="亮点思考"></a>亮点思考</h2><p><strong>为什么使用深度可分离卷积可以减少计算量？</strong></p>
 <table>
@@ -431,28 +429,28 @@ mjx-container[display="true"] + br {
 <td>$M<em>D_F</em>D_F*N$</td>
 </tr>
 </tbody></table>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291325553.png" alt="image-20220529132536462" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291325553.png" alt="image-20220529132536462" style="zoom:50%;">
 
 <p>以卷积核大小为3为例，由上式可发现深度可分离卷积的计算量是普通卷积的<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex" xmlns="http://www.w3.org/2000/svg" width="8.824ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3900 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(500,0)"><g data-mml-node="mo"><path data-c="2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path></g></g><g data-mml-node="mn" transform="translate(1000,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g><g data-mml-node="mi" transform="translate(1500,0)"><text data-variant="italic" transform="scale(1,-1)" font-size="884px" font-family="serif" font-style="italic">至</text></g><g data-mml-node="mn" transform="translate(2400,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(2900,0)"><g data-mml-node="mo"><path data-c="2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path></g></g><g data-mml-node="mn" transform="translate(3400,0)"><path data-c="39" d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z"></path></g></g></g></svg></mjx-container></p>
-<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291329315.png" alt="image-20220529132938255" style="zoom:50%;">
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291329315.png" alt="image-20220529132938255" style="zoom:50%;">
 
 <h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p>与大模型相比，该模型仅有28层，因此论文用了更少的数据增强与正则化方法（小模型不容易过拟合），且未用到side heads 或是 label smoothing。实验发现，在dw卷积上使用较小或是不使用l2正则会比较好，因为所含参数量较少。</p>
 <h2 id="有意思的实验"><a href="#有意思的实验" class="headerlink" title="有意思的实验"></a>有意思的实验</h2><p><strong>更浅的网络好还是更瘦的网路好？</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291355737.png" alt="image-20220529135547707" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291355737.png" alt="image-20220529135547707" style="zoom:50%;">
 
 <p>实验证明，参数量和计算量基本一致的情况下，更瘦的网络效果更好，高了近3个百分点。看系列第二篇笔记可以从理论上对这个结果进行解释。</p>
 <p><strong>trade-offs: 精度与计算量的平衡</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291400896.png" alt="image-20220529140030848" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291400896.png" alt="image-20220529140030848" style="zoom:50%;">
 
 <ul>
 <li>精度vs计算量：</li>
 </ul>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291405526.png" alt="image-20220529140530481" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291405526.png" alt="image-20220529140530481" style="zoom:50%;">
 
 <ul>
 <li>精度vs参数：</li>
 </ul>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291407204.png" alt="image-20220529140723147" style="zoom:50%;">
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205291407204.png" alt="image-20220529140723147" style="zoom:50%;">
 
 <p>可以根据实际应用需求来调整，究竟是需要精度还是需要速度。</p>
 <h2 id="关键结论"><a href="#关键结论" class="headerlink" title="关键结论"></a>关键结论</h2><p>可以考虑深度可分离卷积，和Width Multiplier&amp;&amp;Resolution Multiplier超参来降低模型复杂度</p>
@@ -482,15 +480,15 @@ mjx-container[display="true"] + br {
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
+                        <a href="/tags/architecture-design/">#architecture design</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
                         <a href="/tags/MobileNet/">#MobileNet</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
                         <a href="/tags/depth-wise-separable-convolution/">#depth-wise separable convolution</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/architecture-design/">#architecture design</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
@@ -767,52 +765,26 @@ mjx-container[display="true"] + br {
 
 
 
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
 
-<script src="/js/utils.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script src="/js/header-shrink.js"></script>
-
-<script src="/js/back2top.js"></script>
-
-<script src="/js/dark-light-toggle.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
 
 
 
-    
-<script src="/js/local-search.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
 
-
-
-
-    
-<script src="/js/code-copy.js"></script>
-
-
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 
 <div class="post-scripts pjax">
     
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
     
 </div>
 
 
-    
-<script src="/js/libs/pjax.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         window.pjax = new Pjax({
