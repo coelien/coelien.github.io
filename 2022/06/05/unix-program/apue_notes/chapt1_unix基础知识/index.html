@@ -9,8 +9,6 @@
     
     <title>
         
-            论文阅读笔记：“ AssembleNet++： Assembling Modality Representations via Attention Connections” |
-        
         我的征途是星辰大海
     </title>
     
@@ -296,7 +294,7 @@ mjx-container[display="true"] + br {
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">论文阅读笔记：“ AssembleNet++： Assembling Modality Representations via Attention Connections”</span>
+            <span class="title-hover-animation"></span>
         </div>
 
         
@@ -315,51 +313,21 @@ mjx-container[display="true"] + br {
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-30 14:36:52</span>
-        <span class="mobile">2022-05-30 14:36</span>
+        <span class="pc">2022-06-05 17:21:35</span>
+        <span class="mobile">2022-06-05 17:21</span>
     </span>
     
-        <span class="article-categories article-meta-item">
-            <i class="fas fa-folder"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fas fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/NAS/">NAS</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/peer-attention/">peer attention</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
     
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>810 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>100 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
         </span>
     
     
@@ -375,56 +343,22 @@ mjx-container[display="true"] + br {
         
 
         <div class="article-content markdown-body">
-            <h1 id="AssembleNet-Assembling-Modality-Representations-via-Attention-Connections"><a href="#AssembleNet-Assembling-Modality-Representations-via-Attention-Connections" class="headerlink" title="AssembleNet++: Assembling Modality Representations via Attention Connections"></a>AssembleNet++: Assembling Modality Representations via Attention Connections</h1><h2 id="主要工作"><a href="#主要工作" class="headerlink" title="主要工作"></a>主要工作</h2><p>为了学习原始输入模态和语义输入模态之间的交互关系，作者提出了一族可以显示地学习表观信息，运动特征和对象特定信息之间相互作用的模型AssembleNet++。为了对这种不同模态信息的相互作用进行建模，作者搜索了块间的同辈注意力连接性，引入了创新性的peer-attention模块。</p>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p>该模型采用了继承自AssembleNet的多流，多block的架构设计模式。</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205301641284.png" alt="image-20220530164115003" style="zoom:50%;">
+            <h1 id="chapter-1-unix基础知识"><a href="#chapter-1-unix基础知识" class="headerlink" title="chapter 1 unix基础知识"></a>chapter 1 unix基础知识</h1><h2 id="1-4-文件和目录"><a href="#1-4-文件和目录" class="headerlink" title="1.4 文件和目录"></a>1.4 文件和目录</h2><ul>
+<li>目录：一个包含目录项的文件。逻辑上认为每个目录项都包含一个文件名和文件属性信息。stat命令可以查看文件属性。目录项的逻辑视图与实际在磁盘上的存储是不同的。</li>
+<li>创建新目录时，会自动创建两个文件名：<code>.</code> 和 <code>..</code></li>
+</ul>
 
-<p>如图所示的连接图未加入注意力。可以看出输入block包括原始RGB，光流以及图中物体的信息多个模态。且图中的连接并非人为简单的设计，而是通过NAS方法搜索出来的，每个block都可以和其上层的多个block进行连接，也可以跳层连接，如图中最右侧的Object Input Block。每个Block又是R(2+1)D的residual block，包含1D的时间卷积，2D的空间卷积层还有一个1*1的conv层。</p>
-<h2 id="核心亮点"><a href="#核心亮点" class="headerlink" title="核心亮点"></a>核心亮点</h2><p><strong>object information</strong></p>
-<p>物体以及他们的位置可以提供丰富的语义信息来对视频中的行为进行有效理解，从搜索得到的网络结构也可看出，语义信息包含在了整个架构中，所以可以和其他模态以及从中得到的中间特征进行交互，而且每一个学习到的物体连接的权重都大于0.7，可见该输入block的有用性。</p>
-<p><strong>weighted connections</strong></p>
-<p>任和一个块的输入都可以由其下层的一个或多个块的输出进行加权和来得到：</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311952372.png" alt="image-20220531195223271" style="zoom:50%;">
-
-<p>模型考虑了所有满足条件的connection(j,i)：只要block j 所在的层数小于i所在的层数。思想即通过<strong>设置权重</strong>来允许学习连接的大小。</p>
-<p><strong>peer-attention</strong>（channel-wise attention）</p>
-<blockquote>
-<p>同辈注意力连接性</p>
-</blockquote>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311956830.png" alt="image-20220531195640795" style="zoom:50%;">
-
-<p>对于每个连接，上面的公式可以计算大小为Ci的权重向量。它首先对张量x进行全局平均池化，之后通过一个全连接层映射为大小为Ci的向量。</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311957675.png" alt="image-20220531195707644" style="zoom:50%;">
-
-<p>假设我们已经知道block k对connection(j,i)有影响，那么通过考虑来自块k的注意力，结合所有连接(j,i)，我们就可以得到块i的输入，如果xj == xk，那么这种注意力就等价于经典的SE注意力。</p>
-<p> <strong>one-shot differentiable architecture search</strong></p>
-<blockquote>
-<p>one of NAS approaches</p>
-</blockquote>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205311957309.png" alt="image-20220531195732278" style="zoom:50%;">
-
-<p>思想与<strong>weighted connections</strong>近似，通过设置每个peer block的weights，令weights是可学习的。通过训练，模型对每一个block会软选择（soft select）一个最好的peer block，这个peer会最大化识别的效果。从公式可以看出，x为所有peer block的加权和，公式的其他部分与前面的类似。</p>
-<h2 id="实验结论"><a href="#实验结论" class="headerlink" title="实验结论"></a>实验结论</h2><p><strong>物体信息的重要性</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011413702.png" alt="image-20220601141335608" style="zoom:50%;">
-
-<p>从实验可以看出，物体连接数量越多，数据集的mAP指标成比例的升高。</p>
-<p><strong>peer attention的有效性</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011418526.png" alt="image-20220601141835495" style="zoom:50%;">
-
-<p>从图中可以看出，带有peer attention的mAP较无attention的网络提升了近6个百分点。</p>
-<p><strong>对其他架构具有通用性</strong></p>
-<img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206011437364.png" alt="image-20220601143738316" style="zoom:50%;">
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：论文阅读笔记：“ AssembleNet++： Assembling Modality Representations via Attention Connections”</li>
+        <li>Post title：</li>
         <li>Post author：sixwalter</li>
-        <li>Create time：2022-05-30 14:36:52</li>
+        <li>Create time：2022-06-05 17:21:35</li>
         <li>
-            Post link：https://coelien.github.io/2022/05/30/paper-reading/paper_reading_017/
+            Post link：https://coelien.github.io/2022/06/05/unix-program/apue_notes/chapt1_unix基础知识/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -436,18 +370,6 @@ mjx-container[display="true"] + br {
         
 
         
-            <ul class="post-tags-box">
-                
-                    <li class="tag-item">
-                        <a href="/tags/NAS/">#NAS</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/peer-attention/">#peer attention</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
 
         
             <div class="article-nav">
@@ -455,13 +377,13 @@ mjx-container[display="true"] + br {
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/06/05/unix-program/apue_notes/chapt1_unix%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+                           href="/2022/06/06/coding-solution/%E5%89%8D%E7%BC%80%E5%92%8C%E5%92%8C%E5%B7%AE%E5%88%86/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-title-item">coding笔记：前缀和和差分</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -471,10 +393,10 @@ mjx-container[display="true"] + br {
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/05/29/paper-reading/paper_reading_016/"
+                           href="/2022/05/30/paper-reading/paper_reading_017/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">论文阅读笔记：“MobileNetV2：Inverted Residuals and Linear Bottlenecks”</span>
+                                <span class="post-nav-title-item">论文阅读笔记：“ AssembleNet++： Assembling Modality Representations via Attention Connections”</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -670,7 +592,7 @@ mjx-container[display="true"] + br {
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AssembleNet-Assembling-Modality-Representations-via-Attention-Connections"><span class="nav-number">1.</span> <span class="nav-text">AssembleNet++: Assembling Modality Representations via Attention Connections</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">主要工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BA%AE%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">核心亮点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E8%AE%BA"><span class="nav-number">1.4.</span> <span class="nav-text">实验结论</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#chapter-1-unix%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">chapter 1 unix基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.4 文件和目录</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
