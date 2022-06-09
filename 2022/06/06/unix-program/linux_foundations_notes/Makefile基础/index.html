@@ -9,7 +9,7 @@
     
     <title>
         
-            Category: 图像分类 |
+            linux笔记： Makefile基础 |
         
         我的征途是星辰大海
     </title>
@@ -195,7 +195,7 @@ mjx-container[display="true"] + br {
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/categories"
                             >
                                 分类
@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/categories">分类</a>
                 </li>
             
@@ -293,63 +293,230 @@ mjx-container[display="true"] + br {
 
                 
                     <div class="fade-in-down-animation">
-    <div class="category-container">
-        <div class="category-name">
-            <i class="fas fa-folder"></i>&nbsp;图像分类
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">linux笔记： Makefile基础</span>
         </div>
-        <div class="category-post-list">
-            
-<div class="archive-list-container">
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-06-06 20:36:18</span>
+        <span class="mobile">2022-06-06 20:36</span>
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[4]</span>
-            </div>
-            <ul class="article-list">
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/06/07/paper-reading/paper_reading_018/"
-                        >论文阅读笔记：“MobileNetV3：Searching for MobileNetV3”</a>
-                        <span class="article-date">06-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/05/29/paper-reading/paper_reading_016/"
-                        >论文阅读笔记：“MobileNetV2：Inverted Residuals and Linear Bottlenecks”</a>
-                        <span class="article-date">05-29</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/05/27/paper-reading/paper_reading_015/"
-                        >论文阅读笔记：“MobileNets：Efficient Convolutional Neural Networks for Mobile Vision Applications”</a>
-                        <span class="article-date">05-27</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/05/26/paper-reading/paper_reading_014/"
-                        >论文阅读笔记：“Aggregated Residual Transformations for Deep Neural Networks”</a>
-                        <span class="article-date">05-26</span>
+                    <li>
+                        <a href="/categories/linux/">linux</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/makefile/">makefile</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>174 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Makefile基础"><a href="#Makefile基础" class="headerlink" title="Makefile基础"></a>Makefile基础</h1><h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><ul>
+<li>成百上千个源文件，按照类型，功能，模块分别放到若干个目录中，Makefile文件定义了一系列的规则来指定哪些文件需要先编译，哪些文件需要后编译</li>
+<li>自动化编译，一旦写好就可以整个工程完全自动编译</li>
+</ul>
+<h2 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h2><ul>
+<li><p>规则：</p>
+<ul>
+<li><p>目标 …：依赖 …</p>
+<p>​        命令</p>
+<p>​        …</p>
+</li>
+<li><p>目标：最终要生成的文件</p>
+</li>
+<li><p>依赖：生成目标所需要的文件或是目标</p>
+</li>
+<li><p>命令：通过执行命令对依赖操作生成目标（需添加tab缩进）</p>
+</li>
+</ul>
+</li>
+<li><p>可以有多个规则，一般来说其他规则都是为了第一个规则服务的</p>
+</li>
+<li></li>
+</ul>
 
         </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：linux笔记： Makefile基础</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2022-06-06 20:36:18</li>
+        <li>
+            Post link：https://coelien.github.io/2022/06/06/unix-program/linux_foundations_notes/Makefile基础/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/makefile/">#makefile</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/06/07/paper-reading/paper_reading_018/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">论文阅读笔记：“MobileNetV3：Searching for MobileNetV3”</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/06/06/unix-program/linux_foundations_notes/Linux%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">linux笔记：静态库和动态库浅析</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
     </div>
-    <div class="category-paginator">
-        <div class="paginator">
     
 
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
     
 </div>
 
+            </div>
+        
     </div>
 </div>
 
@@ -396,6 +563,27 @@ mjx-container[display="true"] + br {
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -451,6 +639,14 @@ mjx-container[display="true"] + br {
 
     </div>
 
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Makefile%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">Makefile基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99"><span class="nav-number">1.2.</span> <span class="nav-text">使用规则</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
     
 
     <div class="image-viewer-container">
@@ -520,6 +716,14 @@ mjx-container[display="true"] + br {
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
     
 </div>
 
