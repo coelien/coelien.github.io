@@ -24,7 +24,7 @@ categories:
 
 <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205271359458.png" alt="image-20220527135924308" style="zoom: 33%;" />
 
-深度可分离卷积是分解卷积的一种，如图它包含了DW卷积和PW卷积。DW卷积（depth-wise conv）也叫 channel-wise 卷积，实际上是分组卷积的特例。而PW卷积是卷积核大小为1的普通卷积，其目的是将depthwise convolution的输出进行结合。普通卷积在一步里同时完成了过滤（filter）和组合（求和combination）的操作，而深度可分离卷积将filter和combination分为了两步，每一步由一个单独的layer来负责。
+深度可分离卷积是分解卷积的一种，如图它包含了DW卷积和PW卷积。DW卷积（depth-wise conv）也叫 channel-wise 卷积，实际上是分组卷积的特例，它处理长宽方向的信息。而PW卷积是卷积核大小为1的普通卷积，其目的是将depthwise convolution的输出进行结合，处理跨通道的信息。普通卷积在一步里同时完成了过滤（filter）和组合（求和combination）的操作，而深度可分离卷积将filter和combination分为了两步，每一步由一个单独的layer来负责。
 
 **引入新超参：Width Multiplier&&Resolution Multiplier** 
 

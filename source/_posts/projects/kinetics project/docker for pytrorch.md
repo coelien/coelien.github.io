@@ -7,7 +7,7 @@ categories:
 - kinetics项目
 ---
 
-# 使用docker安装pytorch
+# docker使用基础
 
 > 参考教程：
 >
@@ -85,3 +85,40 @@ service ssh restart
 - 在本机测试是否可以连接成功：
 
 <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141504398.png" alt="image-20220414150403363" style="zoom:50%;" />
+
+ ## 4. docker 保存镜像
+
+> 当对环境做出了修改时，安装新的包等，我们需要对当前比较稳定的环境做一个备份。方便错误恢复或是迁移到其他机器。
+
+> 有这个需求的原因是需要在宿主机和docker容器加一个端口映射，但是我不想丢失之前对容器所做的任何变动，才有了这一步骤
+
+### 基础版-基于备份
+
+**导出容器**
+
+```sh
+sudo docker export 1e560fca3906 > ubuntu.tar
+```
+
+**导入容器**
+
+```sh
+cat docker/ubuntu.tar | sudo docker import - test/ubuntu:v1
+```
+
+## 进阶版-基于版本控制
+
+**更新镜像**
+
+```sh
+docker commit -m="has update" -a="runoob" e218edb10161 runoob/ubuntu:v2
+```
+
+各个参数说明：
+
+- **-m:** 提交的描述信息
+- **-a:** 指定镜像作者
+- **e218edb10161：**容器 ID
+- **runoob/ubuntu:v2:** 指定要创建的目标镜像名
+
+可以使用 **docker images** 命令来查看我们的新镜像 **runoob/ubuntu:v2**：
