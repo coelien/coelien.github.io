@@ -207,7 +207,7 @@ int main() {
 - 二分一定会保证区间里有答案的，但是存在特例，即原问题无解的情况（无解一定和题目有关）
 - 在原问题无解的情况下，若没有遇到数组边界，找到的区间一定是满足条件的，但不是query；而如果遇到数组边界，那么就可能不会满足找到的区间一定是满足条件的（以整数的范围这道题为例）
 
-<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209071515734.png" alt="image-20220508181123806" style="zoom: 33%;" />
+
 
 <p align="center">该图即为寻找满足check的最右端端点示意图</p>
 
@@ -1193,7 +1193,7 @@ bool hasNum(int x){
 - p=131或13331，Q=2^64时，99.9%都不会出现冲突
 - **预处理前缀哈希**：h(i) = h(i-1)*p + str(i)
 
-- 利用前缀哈希可以**求出所有子串的哈希值**: h(R) = h[L-1]*p^(R-L+1)
+- 利用前缀哈希可以**求出所有子串的哈希值**: h(R) -h[L-1]*p^(R-L+1)
 
 - 另外用unsigned long long来存Q，即可以省略取模这步（因为会溢出）
 
@@ -1834,7 +1834,7 @@ int dijkstra(){
         for(int j=1;j<=n;j++)
             if(!st[j]&&(t==-1||dist[t]>dist[j]))
                 t= j;
-        st[j] = true;
+        st[t] = true;
         for(int j=1;j<=n;j++)
             dist[j] = min(dist[j],dist[t]+g[t][j]);
     }
@@ -2273,6 +2273,10 @@ void divide(int n){
 
 **hints:** n中最多只包含一个大于sqrt(n)的质因子，所以可以枚举所有小于sqrt的质因子，如果最后剩下的因子n，若大于1直接输出即可。
 
+- 优化 O(logn)
+
+
+
 **求从1~n的所有质数**
 
 - 筛法 O(nlogn)
@@ -2295,6 +2299,20 @@ void get_prime(int n){
 
 根据基本分解定理，每个数只需要被素数筛掉就可以了，所有可以把第二个循环放到if里。
 
+```c++
+bool st[N]; //为false代表没有被筛掉
+int prime[N];
+void get_prime(int n){
+    int cnt = 0;
+     for(int i=2;i<=n;i++){
+         if(!st[i]){
+             prime[cnt++]=i;
+             for(int j=i+i;j<=n;j+=i) st[j] = true;
+         }      
+     }
+}
+```
+
 - 线性筛法
 
 ```c++
@@ -2302,7 +2320,7 @@ void get_primes(int n){
     for(int i=2;i<=n;i++){
         if(!st[i]) primes[cnt++] = i;
         for(int j = 0;primes[j] <= n/i ; j++){
-            st[primes[j]*i] = true;
+            st[primes[j]*i] = true; 
             if(i%primes[j] == 0) break;
         }
     }
@@ -2313,7 +2331,7 @@ void get_primes(int n){
 
 论断：**如果是和数，只会被最小质因子筛掉，且一定能被筛掉**
 
-1. 从小到大枚举所有质数，每一次把当前质数同i的乘积筛掉
+1.  从小到大枚举所有质数，每一次把当前质数同i的乘积筛掉
 
 2. 第一次出现`i%primes[j] == 0`发生时意味着primes[j]一定是i的最小质因子，那么primes[j]也一定是primes[j]*i的最小质因子
 
@@ -2334,7 +2352,7 @@ void get_primes(int n){
 ```c++
 vector<int> get_divisors(int n){
     vector<int> res;
-    for(int i=1;i<=n/2;i++){
+    for(int i=1;i<=n/i;i++){
         if(n%i == 0){
             res.push_back(i);
             if(i!=n/i) res.push_back(n/i);
@@ -2352,7 +2370,28 @@ vector<int> get_divisors(int n){
 n的每一个约数d就和我们从$\beta_1 到 \beta_k$的一种选法一一对应，所以约数个数为所有选法数量：$(\alpha_1+1)*(\alpha_2+1)*...*(\alpha_{k-1}+1)*(\alpha_k+1)$
 
 ```c++
-
+int main(){
+    int n;
+    cin>>n;
+    unordered_map<int,int> map;
+    
+    while(n--){
+        int x;
+        cin>>x;
+        for(int i=2; i<=x/i; i++){
+            int cnt = 0;
+            while(x%i==0){
+                cnt++;
+                x/=i;
+            }
+            map[i]+=cnt;
+        }
+        if(x>1) map[x]+=1;
+    }
+    LL res = 1;
+    for(auto prime:map) res = res * (prime.second+1) % mod;
+    cout<<res<<endl;
+}
 ```
 
 
@@ -2364,6 +2403,38 @@ n的每一个约数d就和我们从$\beta_1 到 \beta_k$的一种选法一一对
 每个约数均不相同，且是选法数量之一。
 
 `while(a--) t = t*p+1`可以方便的求等比数列的和，其中a为指数，p为底数，也可以用公式做（尝试）
+
+```c++
+int main(){
+    int n;
+    cin>>n;
+    unordered_map<int,int> map;
+    
+    while(n--){
+        int x;
+        cin>>x;
+        for(int i=2; i<=x/i; i++){
+            int cnt = 0;
+            while(x%i==0){
+                cnt++;
+                x/=i;
+            }
+            map[i]+=cnt;
+        }
+        if(x>1) map[x]+=1;
+    }
+    LL res = 1;
+    for(auto prime:map) {
+        LL temp = 0;
+        prime.second+=1;
+        while (prime.second--) {
+            temp = (temp * prime.first + 1) % mod;
+        }
+        res = res * temp % mod;
+    }
+    cout<<res<<endl;
+}
+```
 
 **求最大公约数**
 
@@ -2381,7 +2452,9 @@ int gcd(int a,b){
 
 **概念**：
 
-$\phi(n)$为1~n中与n互质的数的个数
+记号为$\phi(n)$，表示为1~n中与n互质的数的个数
+
+例如$phi(6) = 2$。
 
 **欧拉公式**：
 
@@ -2391,19 +2464,30 @@ $\phi(n)$为1~n中与n互质的数的个数
 
 使用容斥原理可以证明
 
-1.  从1~n中去掉$p1,p2,3 $
-2.  加上所有$pi*pj$的倍数
+1.  从1~n中去掉$p1,p2, ... ,p_k $的所有倍数
+2.  加上所有$pi*pj$的倍数（加回多减的）
 3.  减去所有$pi*pj*pk$的倍数
 4.  以此类推
 
->  某些情况下，需要求出1~n中每一个数的欧拉函数
+把欧拉公式展开和容斥原理的式子是等价的：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209201637131.png" alt="image-20220920163736057" style="zoom: 33%;" />
+
+可画图理解：
+
+![image-20220920163535256](https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209201635313.png)
+
+
 
 **筛法求欧拉函数 O(n)**
-
+>  某些情况下，需要求出1~n中每一个数的欧拉函数。若用公式法需要O(N*sqrt(N))的复杂度
+>
+>  若用线性筛法，可以用O(n)的复杂度计算出每一个数的欧拉函数
 ```c++
 void get_eulers(int n){
     for(int i=2;i<=n;i++){
         if(!st[i]) {
+            // 如果一个数i是质数，那么欧拉函数就是i-1
             primes[cnt++] = i;
             phi[i] = i-1;
         }
@@ -2412,14 +2496,14 @@ void get_eulers(int n){
             if(i%primes[j] == 0) {
                 phi[primes[j]*i] = primes[j]*phi[i];
                 break;
-            };
+            }
             phi[primes[j]*i] = (primes[j]-1)*phi[i];
         }
     }
 }
 ```
 
-**应用：欧拉定理**
+**应用场景：欧拉定理**
 
 若a与n互质，$a^{\phi(n)}=1(mod(n))$
 
@@ -2431,9 +2515,23 @@ void get_eulers(int n){
 
 ### 快速幂
 
-在O(log k)的情况下快速地求出$a^k mod (p)$的结果。
+- 在**O(log k)**的情况下快速地求出$a^k mod (p)$的结果。
 
-把$a^k$拆成若干个预处理出来的数的乘积的形式（用2进制表示即可），即把k换成2进制即可。
+- 核心思路：反复平方法
+
+我们先要预处理出来这些值：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209201712264.png" alt="image-20220920171218205" style="zoom: 33%;" />
+
+**如何组合成ak?**
+
+把$a^k$拆成若干个上面的预处理出来的数的乘积的形式（用2进制表示即可），即把k换成2进制即可。
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209201715904.png" alt="image-20220920171538284" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209201717804.png" alt="image-20220920171725759" style="zoom:50%;" />
+
+所有问题等价于：底数相同，将k表示成以2为底的指数的和
 
  ```c++
 typedef Long Long LL;
@@ -2442,6 +2540,7 @@ int qmi(int a , int k, int p){
     while(k){
         if(k&1) res = (LL)res*a%p;
         k>>=1;
+        //每个数都是前面的数的平方模p
         a=(LL)a*a%p;
     }
 }
@@ -2469,7 +2568,7 @@ int qmi(int a , int k, int p){
 
 **裴蜀定理**
 
-有任意一对正整数a、b，那么一定存在整数x、y，使得ax+by = gcd(a,b)
+有任意一对正整数a、b，那么一定存在整数x、y，使得ax+by = gcd(a,b)。a,b所能凑出来的所有数都是最大公约数的倍数，所以能凑出来的最小的数就是最大公约数。
 
 > 注：x，y可取负整数
 
@@ -2495,7 +2594,7 @@ int ext_gcd(int a, int b, int &x, int &y){
 
 ### 中国剩余定理
 
-> 求解一元线性同余方程组
+> 求解一元线性同余方程组，m1-k两两互质
 
 <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206291515290.png" alt="image-20220629151521256" style="zoom: 67%;" />
 
@@ -2527,19 +2626,42 @@ int ext_gcd(int a, int b, int &x, int &y){
 
 **算法流程**
 
-- 枚举每一列，找出绝对值最大的这一行
+- 从不固定的方程里，枚举每一列，找出绝对值最大的这一行（处理精度问题）
 - 将这行换到上面去
 - 将该行第一个数变为1
 - 将下面所有行的当前列消成0
 - 若有唯一解，那么用消元法即可得到解
 
 ```c++
+//因为c++浮点数存的时候是有误差的，所以不能直接判断0，而是应该判断是不是小于一个很小的数
+const double eps = 1e-6;
+
 double a[N][N] ;
 int gauss(){
     int c,r;
-    for(int i=r;i<n;i++){
-        
+    // 从第0行，第0列开始枚举
+    for(c=0,r=0;c<n;c++){
+        int t = r;
+        for(int i = t; i<n;i++)
+            if(fabs(a[i][c])>fabs(a[t][c]))
+                t = i;
+        if(fabs(a[t][c])<eps) continue;
+    	for(int i=c;i<=n;i++) swap(a[t][i],a[r][i]);
+    	for(int i=n;i>=c;i--) a[r][i] /= a[r][c];
+        for(int i=r+1;i<n;i++)
+            if(a[i][c] > eps)
+                for(int j=n;j>=c;j--)
+                    a[i][j] -= a[r][j] * a[i][c];
+        r++;               
+    } 
+    
+    if(r<n){
+        for(int i=r;i<n;i++)
+            if(fabs(a[i][n])>eps)
+                return 2; //无解
+        return 1; //有无穷多组解
     }
+    return 0;//有唯一解
 }
 ```
 
@@ -2569,6 +2691,34 @@ int C(int a, int b){
 
 <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207041132945.png" alt="image-20220704113215891" style="zoom:50%;" />
 
+```c++
+#include<iostream>
+using namespace std;
+const int K = 2010;
+const int mod = 1e9+7;
+typedef long long LL;
+
+int com[K][K];
+
+int main(){
+    int n;
+    cin>>n;
+    for(int i=1;i<K;i++){
+        com[i][0]=1;
+        com[i][i]=1;
+        for(int j=1;j<i;j++){
+            com[i][j] = (com[i-1][j]+com[i-1][j-1])%mod;
+        }
+    }
+    while(n--){
+        int a,b;
+        scanf("%d%d",&a,&b);
+        printf("%d\n",com[a][b]);
+    }
+    return 0;
+}
+```
+
 **预处理公式法**
 
 > 1万组询问，a,b范围适中：1<=a,b<=1e5
@@ -2577,20 +2727,96 @@ int C(int a, int b){
 
 也可以用查表的方式O(NlogN)来求$C^b_a = fact[a]* infact[b-a]\%(10^9+7)*infact[b]\%(10^9+7)$ 
 
+```c++
+#include<iostream>
+using namespace std;
+typedef long long LL;
+const int mod = 1e9+7;
+const int N = 100010;
+int fact[N];
+
+int qmi(int a , int k, int p){
+    int res = 1;
+    while(k){
+        if(k&1) res = (LL)res * a % p;
+        k>>=1;
+        a = (LL)a * a % p;
+    }
+    return res;
+}
+int main(){
+    fact[0]=1;
+    for(int i=1;i<=N;i++)
+        fact[i] = (LL)i*fact[i-1] % mod;
+    int n;
+    scanf("%d",&n);
+    while(n--){
+        int a,b;
+        scanf("%d%d",&a,&b);
+        int infact1 = qmi(fact[a-b],mod-2,mod);
+        int infact2 = qmi(fact[b],mod-2,mod);
+        int com = (LL)fact[a] * infact1 % mod * infact2 % mod;
+        printf("%d\n",com);
+        // printf("%d %d %d\n",fact[a],infact[a-b],infact[b]);
+    }
+    
+    
+    return 0;
+}
+```
+
 **卢卡斯定理**
 
 > 20组询问，a,b范围巨大：1<=a,b<=10^18，1<=p<=10^5
 
 $C^b_a = C^{b\%p}_{a\%p}*C^{b/p}_{a/p} (\%p)$
 
-算法复杂度为O($logN* p*logp$)，前半部分为递归层数，后半部分为每层递归里求组合数的复杂度；
+算法复杂度为O($lointgN* p*logp$)，前半部分为递归层数，后半部分为每层递归里求组合数的复杂度；
 
 证明可参考该[博客](https://blog.csdn.net/qq_40679299/article/details/80489761)
 
 ```c++
-int lukas(int a,int b){
-    if(a<p && b<p) return C(a,b);
-    return (LL)C(a%p,b%p) * lucas(a/p,b/p) % p;
+#include<iostream>
+using namespace std;
+typedef long long LL;
+
+int qmi(int a, int k, int p){
+    int res = 1;
+    while(k){
+        if(k&1) res = (LL)res * a %p;
+        k>>=1;
+        a =(LL)a * a % p;
+    }
+    return res;
+}
+
+
+
+int C(int a, int b,int p){
+    if(b>a) return 0;
+    int res = 1;
+    for(int j=1,i=a;j<=b;j++,i--){
+        res =  (LL)res * i % p;
+        res = (LL)res * qmi(j,p-2,p) % p;
+    }
+    return res;
+}
+
+int lukas(LL a, LL b, int p){
+    if(a<p && b<p) return C(a,b,p);
+    return (LL)C(a%p,b%p,p) * lukas(a/p,b/p,p) % p;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    while(n--){
+        LL a,b;
+        int p;
+        scanf("%ld%ld%d",&a,&b,&p);
+        printf("%d\n",lukas(a,b,p));
+    }
+    return 0;
 }
 ```
 
@@ -2599,10 +2825,20 @@ int lukas(int a,int b){
 先把$C^b_a$分解质因数 ，即$p_1^{\alpha_1}*p_2^{\alpha_2}*...*p_k^{\alpha_k}$，之后只需要实现一个高精度乘法即可。
 
 - 对每一个数分解质因数，效率较低O(NlogN)
+- 改进：先处理出所有的质因子（筛素数），再求出这个质因子的次数是多少。由公式$C^b_a = \frac{a!}{b!(a-b)!}$，求p次数的方法为，先看分子里p的个数，再看分母里p的个数，差值即为真正的p的个数。那么如何得到阶乘里p的个数呢？通过下面的算法可以巧妙地计算出**阶乘里p的个数**：
 
-- 改进：先处理出所有的质因子，再求出这个质因子的次数是多少。由公式$C^b_a = \frac{a!}{b!(a-b)!}$，求p次数的方法为，先看分子里p的个数，再看分母里p的个数，差值即为真正的p的个数。那么如何得到阶乘里p的个数呢？通过下面的算法可以巧妙地计算出阶乘里p的个数：
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209261648195.png" alt="image-20220926164810125" style="zoom:50%;" />
+
+
 
 ```c++
+#include<vector>
+#include<iostream>
+using namespace std;
+const int N  = 5010;
+int prime[N];
+bool st[N];
+int cnt=0;
 // 暴力解法
 // 分别求出1~n的质因子p的数量再相加：O(NlogN)
 int get(int n, int p){
@@ -2618,6 +2854,7 @@ int get(int n, int p){
         res += cnt[i];
     }
 }
+
 // 优化
 // 计算出阶乘里p的个数O(logN)
 int get(int n, int p){
@@ -2628,9 +2865,58 @@ int get(int n, int p){
     }
     return res;
 }
+// 筛素数
+void get_prime(int n){
+     st[1] = true;
+     for(int i=2;i<=n;i++){
+         if(!st[i]){
+             prime[cnt++]=i;
+         }
+         for(int j=0;prime[j]<=n/i;j++){
+             st[prime[j]*i] = true;
+             if(i%prime[j]==0) break;
+         }
+         
+     }
+}
+
+vector<int> multiply(vector<int>  a, int b){
+    int c = 0;
+    vector<int> C;
+    for(int i=0; i<a.size()||c;i++){
+        if(i<a.size()) c+=a[i]*b;
+        C.push_back(c%10);
+        c/=10;
+    }
+    while(C.size()>1&&C.back()==0) C.pop_back();
+    return C;
+}
+int main(){
+    vector<int> base;
+    base.push_back(1);
+    get_prime(N);
+    int a,b;
+    cin>>a>>b;
+    for(int i=0;i<cnt;i++){
+        int p = prime[i];
+        int k = get(a,p)-get(b,p)-get(a-b,p);
+        while(k--) base = multiply(base,p);
+    }
+    
+    for(int i=base.size()-1;i>=0;i--) printf("%d",base[i]);
+    return 0;
+}
 ```
 
 ### 卡特兰数
+
+889. 满足条件的01序列
+
+给定 n 个 0 和 n 个 1，它们将按照某种顺序排成长度为 2n 的序列，求它们能排列成的所有序列中，能够满足任意前缀序列中 0 的个数都不少于 1 的个数的序列有多少个。
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209271518467.png" alt="image-20220927151801338" style="zoom:50%;" />
+
+每一个数列都对应一个从（0，0）到（6，6）的路径，反过来也成立。
 
 $C_{2n}^{n}-C^{n-1}_{2n}=1/(n+1)*C^n_{2n}$
 
@@ -2650,7 +2936,7 @@ $C_{2n}^{n}-C^{n-1}_{2n}=1/(n+1)*C^n_{2n}$
 
 $C_n^0+C_n^1+C_n^2+...+C_n^n=$从n个数里挑任意多个数的方案数$=2^n$
 
-所以一共有$2^n-1$项，所以时间复杂度为$=O(2^n)$
+所以一共有$2^n-1$项，所以**时间复杂度**为$=O(2^n)$
 
 **为什么是+、-、+、-？**
 
@@ -2660,25 +2946,1358 @@ $C_n^0+C_n^1+C_n^2+...+C_n^n=$从n个数里挑任意多个数的方案数$=2^n$
 
 **实际应用**
 
-### 博弈论
+给定一个整数 n 和 m个不同的质数，请你求出 1∼n中能被 p1,p2,…,pm 中的至少一个数整除的整数有多少个。
 
-**Nim游戏**
+时间复杂度O(2^m)
+
+```c++
+#include<iostream>
+using namespace std;
+const int N = 20;
+int p[N];
+
+int main(){
+    int n,m;
+    cin>>n>>m;
+    int res =0;
+    for(int i=0;i<m;i++) scanf("%d",&p[i]);
+    for(int i=1;i<1<<m;i++){
+        int t = 1;
+        int cnt = 0;
+        for(int j=0;j<m;j++){
+            if(i>>j&1) {
+                cnt++;
+                t*=p[j];
+                if ((LL)t*p[j]>n) {
+                    t=-1;
+                    break;
+                }
+            }
+        }
+        if(t!=-1){
+            if(cnt % 2) res += n/t;
+            else res -= n/t;
+    	}
+    }
+    cout<<res<<endl;
+    return 0;
+}
+```
+
+### 博弈论
+#### 公平组合游戏ICG
+
+若一个游戏满足：
+1. 由两名玩家交替行动；
+2. 在游戏进程的任意时刻，可以执行的合法行动与轮到哪名玩家无关;
+3. 不能行动的玩家判负；
+则称该游戏为一个公平组合游戏。下面介绍的Nim游戏即为公平组合游戏。但围棋等游戏不满足2，3，判胜条件比较复杂。
+
+#### 有向图游戏
+
+给定一个有向无环图，图中由唯一的一个起点，在起点上有一枚棋。两名玩家交替地把这枚棋子沿有向边进行移动，每次可以移动一步，无法移动者判负。任何一个公平组合游戏都可以转化为有向图游戏。具体方法：
+- 把每个局面看成图中的一个节点，并且从每一个局面沿着（有向边）合法行动能够到达下一个局面。
+
+#### Nim游戏
 
 给定n堆石子，两位玩家轮流操作，每次操作可以从任意一堆石子中拿走任意数量的石子，最后无法进行操作的人视为失败。
 
 - 先手必胜状态：可以走到某一个必败状态
-- 先手必败状态：走不到任何一个必败状态
+- 先手必败状态：every state you go is a win state, i.e. 走不到任何一个必败状态
 
-定理：对于n堆石子(a1,a2,a3,...,an)，如果a1^a2^...^an=0，先手必败，否则先手必胜
+- so how to judge the win or lose state ?
+
+*定理*：对于n堆石子(a1,a2,a3,...,an)，如果a1^a2^...^an=0，先手必败，否则先手必胜
+*provement*:
+1. 0^0^0^...^0=0
+2. a1^a2^...^an = x != 0, can go to all 0 state: retrieve ai-ai^x
+3. a1^a2^...^an=0, can go to none 0 state
 
 **思考题：台阶Nim游戏**
+hint: xor what numbers
 
 **集合-Nim游戏**
+- Mex 运算：
+设S为一个非负整数集合。定义mex(S)为求出不属于集合S的最小非负整数的运算，即：mex(S)=min{x}，x属于自然数且x不属于S
+
+- SG函数：
+
 
 局面（状态）
 
 SG（终点）=0；
 
-SG（x）=mex{SG(y1),SG(y2),...,SG(yk)};
+每个状态的 SG（x）=mex{SG(y1),SG(y2),...,SG(yk)}; 其中y1-k为从x经过某些操作能到的局面（状态）
 
 若SG(x)!=0，必胜，否则必败。
+因为任何一种非0状态一定可以走到0状态，而从0状态只能走到非0状态。出生决定了最终的结果，即如果我一开始不是0，那么我未来永远都不是0；
+
+*extentison*: if there is more than one graph. if one can operate on any graph, he will lose. Suppose we have n graphs to use, we xor all the SG values of the beginning nodes. 
+if SG(x1)^SG(x2)^...^SG(xn) ==0 lose, otherwise will win. 
+
+> The provement is the same as the nim games;
+
+- Set Nim Game
+Given n piles of stones and a digit set of K different positive numbers. There are two players who can alternatively pick stones from any piles of stones. But the number of stones taken each time must belong to the digit set. The one who can't make any actions will lose.(*restrict the numbers of stones taken*)
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209291239045.png" alt="image-20220929123941913" style="zoom:50%;" />
+
+```c++
+#include<cstring>
+using namespace std;
+
+const int N = 10010;
+int sg(int x){
+    if(f[x]!=-1) return f[x];
+    unordered_set<int> S;
+    for(int i=0;i<m;i++){
+        int sum = s[i];
+        if(x>=sum) S.insert(sg(x-sum));
+    }
+
+    for(int i=0;;i++)
+        if(!S.count(i))
+            return f[x] = i;
+
+}
+
+```
+
+## 第六讲 动态规划基础
+
+### 理解动态规划的思考方式
+
+> 从集合的角度理解DP问题
+
+- **状态表示** f(i,j)（存的是所有选法的集合的最值），考虑清楚需要几维来表示我们的问题
+
+  - 集合：每一个状态都是表明一个集合，在背包问题里表示所有选法的集合
+
+    条件：
+
+    - 只考虑前i个物品
+    - 总体积不超过 j
+
+  - 属性：集合的**最大值**，最小值，元素数量
+
+- **状态计算** ，如何将每个状态计算出来
+
+  - 目标：求f(N,V)
+
+  - 状态计算一般表示**集合的划分**：把当前集合划分为若干个更小的子集，使得每一个子集我们都可以由前面更小的状态计算得到
+
+    例如f(i,j)可以包含两类：
+
+    - 左边类是不包含第i个物品的选法
+    - 右边类是包含第i个物品的选法
+
+    实际的最大值是两类取一个max
+
+DP问题的优化一般只是**等价变形**，所以写出**朴素解法十分重要**
+
+DP问题一定要结合题目来理解，上面的思考方式就像是**骨架，根据具体问题填补具体的血肉**
+
+### 背包模型
+
+#### 01背包问题
+
+**什么是01背包？**
+
+> 每件物品最多只能用一次
+
+在背包容量的范围内如何挑选物品，让总价值最大
+
+**朴素做法**
+
+```c++
+//枚举所有状态f[0,0]~f[n,m]
+//其中f[0,0-m]表示考虑0件物品，总体积不超过0~m的最大价值是多少
+//因此只需从1开始遍历即可
+for(int i=1;i<=n;i++)
+    for(int j=0;j<=m;j++){
+        f[i][j] = f[i-1][j];
+        if(j>=v[i]) f[i][j] = max(f[i][j],f[i-1][j-v[i]] + w[i]);
+    }
+```
+
+**一维做法**
+
+> 第i层的状态只依赖于第i-1层；不超过的总体积j只依赖于<=j的状态，因此可以优化到一维来做
+
+```c++
+int f[N];//直接去掉一维
+for(int i=1;i<=n;i++)
+    for(int j=m;j>=v[i];j--){
+        f[j] = max(f[j],f[j-v[i]]+w[i]);
+    }
+```
+
+#### 完全背包问题
+
+>  每件物品可以用无限次
+
+**解题思路**
+
+分成若干组，分成k类：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207141352611.png" alt="image-20220714135234544" style="zoom:50%;" />
+
+不妨设第i个物品选了k个
+
+曲线救国：
+
+1. 去掉k个物品i
+1. 求Max，f[i-1,j-k*v[i]]
+1. 再加回来k个物品i
+
+综上，`f[i,j] = f[i-1,j-k*v[i]] + k * w[i]`
+
+**朴素做法**
+
+```c++
+//最坏情况下：O(n*m^2))
+for(int i=1;i<=n;i++)
+    for(int j=0;j<=m,j++)
+        for(int k=0;k*v[i]<=j;k++)
+            f[i][j] = max(f[i][j],f[i-1][j-k*v[i]]+k*w[i]);
+```
+
+**二维做法**
+
+```c++
+//f[i,j] = Max(f[i-1][j],f[i-1,j-v]+w,f[i-1,j-2v]+2w,f[i-1,j-3v]+3w,...)
+//f[i,j-v] = Max(f[i-1][j-v],f[i-1,j-2v]+w,f[i-1,j-3v]+2w,...)
+//f[i,j] = Max(f[i-1][j],f[i,j-v]+w);
+//优化为二维
+for(int i=1;i<=n;i++)
+    for(int j=0;j<=m,j++){
+        f[i][j] = f[i-1][j];
+        if(j>=v[i]) f[i][j] = max(f[i][j],f[i][j-v[i]]+w[i]);
+    }
+```
+
+**一维做法**
+
+完全背包问题的终极解法
+
+```c++
+int f[N];
+for(int i=1;i<=n;i++)
+    for(int j=v[i];j<=m;j++)
+        f[j] = max(f[j],f[j-v[i]]+w[i]);
+```
+
+#### 多重背包问题
+
+> 每件物品最多有Si个
+
+**解题思路**
+
+枚举第i个物品选多少个，根据第i个物品选多少个来将我们所有的选法分成若干种类别：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207141459165.png" alt="image-20220714145946121" style="zoom:50%;" />
+
+其实就是朴素版本的完全背包问题：`f[i,j] = f[i-1,j-k*v[i]] + k * w[i]`
+
+**朴素版本**
+
+```c++
+//最坏情况下：O(n*m^2))
+for(int i=1;i<=n;i++)
+    for(int j=0;j<=m,j++)
+        for(int k=0;k<=s[i] && k*v[i]<=j ;k++)
+            f[i][j] = max(f[i][j],f[i-1][j-k*v[i]]+k*w[i]);
+```
+
+ **优化版本**：二进制优化
+
+>  c++1s最多算1亿次，超过一亿次会超时
+
+ 从0~s中的任何一个数都可以被拼凑出来（由1，2，4，2^k, ... , c）。 
+
+**将s个物品i拆分程log(s)个新的物品，新的物品只能用一次**
+
+对所有这些新出来的物品做一遍01背包即可，时间复杂度为`O(N*v*log(s))`
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+const int N = 11100,M=2010;
+int v[N];
+int w[N];
+int f[N];
+
+void backpack_multi_bin_Test() {
+    int n, m;
+    cin >> n >> m;
+    //如果用三重循环，4亿的计算量很可能会爆掉
+    //思路：将s[i]个相同的物品分解为多个不同的物品且每个物品只能取一次
+    int cnt = 0;
+    for (int i = 1; i <= n; i++) {
+        int a,b,s;
+        cin >> a >> b >> s;
+        int j;
+        for (j = 1; j <= s; j *= 2) {
+            cnt++;
+            s-=j;
+            v[cnt] = j * a;
+            w[cnt] = j * b;
+        }
+        if(s){
+            cnt++;
+            v[cnt] = s*a;
+            w[cnt] = s*b;
+        }
+    }
+
+    for(int i=1;i<=cnt;i++)
+        for(int j=m;j>=v[i];j--){
+            f[j] = max(f[j], f[j-v[i]]+w[i]);
+        }
+    cout<<f[m]<<endl;
+}
+```
+
+
+
+#### 分组背包问题
+
+有n组物品，同一组内的物品最多只能选一个
+
+> 状态表示的集合：只能从前i组物品中选，且总体积不大于j的所有选法
+
+枚举第i组物品选不选，选哪个
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207141550589.png" alt="image-20220714155045511" style="zoom:50%;" />
+
+**朴素解法**
+
+```c++
+for(int i=1;i<=n;i++)
+    for(int j=0;j<=m;j++){
+        f[i][j] = f[i-1][j];
+        for(int k=0;k<s[i];k++){
+            if(j>=v[i][k]) f[i][j] = max(f[i][j],f[i-1][j-v[i][k]]+w[i][k]);
+        }
+    }
+```
+
+**优化解法**
+
+```c++
+int f[N];//直接去掉一维
+for(int i=1;i<=n;i++)
+    for(int j=m;j>=0;j--)
+    	for(int k=0;k<s[i];k++){
+            if(j>=v[i,k]) f[j] = max(f[j],f[j-v[i,k]]+w[i,k]);
+        }
+```
+
+### 线性DP
+
+#### 数字三角形
+
+从顶部出发，在每一结点可以选择移动至其左下方的结点或移动至右下方的结点，一直走到底层。要求找到一条路径上的数字的和最大。
+
+**状态表示**
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207181027753.png" alt="image-20220718102743701" style="zoom:50%;" />
+
+- 集合：从顶点到(i,j)的所有路径
+- 属性：MAX
+
+**状态计算**
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207181033073.png" alt="image-20220718103338018" style="zoom:50%;" />
+
+**复杂度**：状态数量*转移数量
+
+```c++
+const int  N = 510,inf = -1e9;
+int f[N][N];
+int d[N][N];
+void digi_Tran_Test(){
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=i;j++)
+            scanf("%d",&d[i][j]);
+    for(int i=0;i<=n;i++)
+        for(int j=0;j<=i+1;j++)
+            f[i][j]= inf;
+    f[1][1] = d[1][1];
+    for(int i=2;i<=n;i++)
+        for(int j=1;j<=i;j++){
+            f[i][j] = max(f[i-1][j-1],f[i-1][j])+d[i][j];
+        }
+
+    int res = inf;
+    for(int i=1;i<=n;i++)
+        res = max(res,f[n][i]);
+    cout<<res<<endl;
+
+}
+```
+
+#### 最长上升子序列
+
+给定一个数列，求数值严格单调递增的子序列的长度最长是多少
+
+> 可以按照顺序跳着选择
+
+**状态表示**
+
+- 集合：所有以第i个数为结尾的数值上升的子序列
+- 属性：子序列的最大长度
+
+**状态计算**
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207181053434.png" alt="image-20220718105358393" style="zoom:50%;" />
+
+以倒数第二个数在哪个位置来进行划分，需满足数值严格单调上升（即第i个数大于倒数第二个数）
+
+**朴素版**
+
+```c++
+const int M = 1010;
+int sta[M];
+int sq[M];
+void maxLenIncSubTest() {
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++) scanf("%d",&sq[i]);
+    for(int i=1;i<=n;i++) {
+        sta[i] = 1;
+        for (int j = 1; j < i; j++) {
+            if(sq[j]<sq[i])
+                sta[i] = max(sta[i],sta[j]+1);
+        }
+    }
+    int res = 0;
+    for(int i=1;i<=n;i++)
+        if(res < sta[i]) res = sta[i];
+    cout<<res<<endl;
+}
+```
+
+**优化版**
+
+如果数列过长，会爆掉，因此需要找到一个优化的算法。存所有不同长度的所有严格上升子序列的结尾的最小值。
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202210081632625.png" alt="image-20221008163234567" style="zoom:50%;" />
+
+我们可以证明，随着长度的增加，结尾的最小值必然严格上升。假设长度为6的最小值等于长度为5的最小值，又严格上升子序列，因此第5个数比之前的长度为5的最小值还要小，产生了矛盾。因此长度为6的最小值一定大于长度为5的最小值。
+
+对于当前的数ai，找到序列中最大的小于ai的数，假设是q[4]，则q[5]>=ai，也就是说ai不能接到长度>=5的子序列后边。也就是说以ai为结尾的子序列长度最大即为5。找出小于ai的最大的一个数可以用二分来做。
+
+```c++
+int find_pos(int le, int ri, int tar){
+    while(le<ri){
+        int mid = le + ri + 1 >> 1;
+        if (q[mid] < tar)
+            le = mid;
+        else ri = mid -1;
+    }
+    return le;
+}
+
+void maxlenII(){
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++) scanf("%d",&nums[i]);
+    q[0] = -pintf;
+    int qLen = 0;
+    for(int i=1;i<=n;i++){
+        int pos = find_pos(0,qLen,nums[i]);
+        q[pos+1] = nums[i];
+        if(pos+1>qLen) = qLen = pos + 1;
+    }
+    cout<<qLen<<endl;
+}
+```
+
+#### 最长公共子序列
+
+既是a的子序列，又是b的子序列的字符串长度的最大值。
+
+**状态表示**
+
+- 集合：所有由第一个序列的前i个字母，和第二个序列的前j个字母的构成的公共子序列
+- 属性：公共序列的最大值
+
+**状态计算**
+
+> 求max是可以重复的，只要不漏掉某一元素即可
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207181436423.png" alt="image-20220718143637328" style="zoom:50%;" />
+
+```c++
+const int M = 1010;
+char a[M];
+char b[M];
+int st[M][M];
+void maxCommenSubTest(){
+    int n,m;
+    cin>>n>>m;
+    scanf("%s",a+1);
+    scanf("%s",b+1);
+    // A中前i个字符和B中前j个字符所构成的公共子序列的集合
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=m;j++){
+            st[i][j] = max(st[i][j-1],st[i-1][j]);
+            if(a[i]==b[j]) st[i][j] = max(st[i][j],st[i-1][j-1]+1);
+        }
+    cout<<st[n][m]<<endl;
+}
+```
+
+#### 最短编辑距离
+
+给定两个字符串A和B，现在要将A经过若干操作变为B，可进行的操作：
+
+1. 删除
+2. 插入
+3. 替换
+
+求变换所需的最小操作次数。
+
+**状态表示**
+
+- 集合：将A的前i个字符变为B的前j个字符的所有操作集合
+- 属性：操作次数最小值
+
+**状态计算**
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202210091420922.png" alt="image-20221009142012801" style="zoom:50%;" />
+
+```c++
+for(int i=1;i<=n;i++)
+        for(int j=1;j<=m;j++){
+            if(a[i]==b[j]) st[i][j] = st[i-1][j-1];
+            else{
+                st[i][j] = min(st[i-1][j] + 1,st[i-1][j-1]+1);
+                st[i][j] = min(st[i][j],st[i][j-1]+1);
+
+            }
+        }
+```
+
+#### 编辑距离
+
+给定n个字符串，以及m次询问，每次询问给出一个字符串和操作上限，求给定的n个字符串中有多少个串可以在操作上限次数内变成询问给出的字符串。
+
+```c++
+for(int i=1;i<=n;i++) 
+        scanf("%s",strs[i]+1);
+for(int i=1;i<=m;i++){
+        char tar[K];
+        int max_edits;
+        scanf("%s%d",tar+1,&max_edits);
+        int count = 0;
+        for(int j = 1;j<=n;j++)
+            if(findMinDis(strs[j],tar)<=max_edits) count++;
+        cout<<count<<endl;
+}
+```
+
+### 区间DP
+
+#### 石子合并
+
+n堆石子排成一排，每次只能合并相邻的两堆，合并的代价为这两堆石子的质量之和，求合并所需的最小代价。
+
+> 不同的合并顺序需要的体力是不同的
+
+**状态表示**
+
+- 集合：从第i堆石子到第j堆石子合并成一堆石子的合并方式
+- 属性：Min
+
+**状态计算**
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207181516479.png" alt="image-20220718151622394" style="zoom:50%;" />
+
+```C++
+	for(int i=1;i<=n;i++) cin>>m[i];
+    for(int i=1;i<=n;i++) s[i] = s[i-1] + m[i];
+    // st[i][j] 表示将第i~j堆石子合并起来的所有方案代价集合的最小代价
+    // 要注意状态计算的顺序
+    for(int i=1;i<=n;i++) 
+        for (int j = i; j <= n; j++) 
+            st[i][j] = pinf;
+    // 这种遍历方式可以保证区间内的所有可能st均已得到
+	// 按区间长度从小到大枚举
+    for(int i=n;i>=1;i--)
+        for(int j=i;j<=n;j++) {
+            if(i==j) st[i][i] = 0;
+            for (int k = i; k <= j - 1; k++) {
+                st[i][j] = min(st[i][j], st[i][k] + st[k + 1][j] + s[j] - s[i-1]);
+//                printf("%d %d : %d ", i,j,st[i][j]);
+            }
+//            printf("\n");
+        }
+    cout<<st[1][n]<<endl;
+```
+
+### 计数类DP
+
+#### 整数划分问题
+
+一个正整数可以表示为若干正整数之和，形如：n=n1+n2+…+nk，其中n1≥n2≥…≥nk，求出n有多少种不同的划分方法。
+
+可以把这个问题作为完全背包问题，背包容量为N，每个物品的体积为1~N，不限个数，问恰好装满背包的方案数。
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207251845010.png" alt="image-20220725184543921" style="zoom:50%;" />
+
+```c++
+// 朴素版
+	for(int i=0;i<=n;i++) f[i][0] = 1;
+    for(int i =1;i<=n;i++)
+        for(int j=1;j<=n;j++){
+            for(int k=0;k*i<=j;k++){
+                f[i][j] = (f[i][j] + f[i-1][j-k*i]) % mod;
+            }
+        // f[i][j] = f[i-1][j];
+        // if(j>=i) f[i][j] = (f[i][j] + f[i][j-i]) % mod;
+        }
+    cout << f[n][n]<<endl;
+// 二维优化版
+	for(int i=0;i<=n;i++) f[i][0] = 1;
+    for(int i =1;i<=n;i++)
+        for(int j=1;j<=n;j++){
+            f[i][j] = f[i-1][j];
+            if(j>=i) f[i][j] = (f[i][j] + f[i][j-i]) % mod; 
+        }
+// 一维优化版
+fo[0] = 1;
+for(int i=1;i<=n;i++)
+    for(int j=i;j<=n;j++){
+        fo[j] = (fo[j] + fo[j-i]) % mod;
+    }
+
+cout << fo[n] << endl;
+```
+
+### 数位统计DP
+
+#### 计数问题
+
+给定两个整数，求a和b之间所有数字中0~9的出现次数
+
+- 技巧1：计算a和b之间的所有数字中x的出现次数，可以转换为1~b中所有数字中x的次数减去1~（a-1）中x的次数
+- 技巧2：计算1~n中x的次数，可以通过x在1~n中每一位出现的次数求和得到，由题，n可以表示为‘abcdegfh’。
+
+假设我们要求x在第5位出现的次数：
+
+即求出，满足条件`1<=abcdxfgh<=n`的数有多少个，我们需要分情况进行讨论。
+
+- 若前4位 mmmm=0000~(abcd-1)，无论后三位（nnn=000~999）取何值，均满足条件：（abcd * 1000)
+- 若前4位 mmmm=abcd
+  - 若第5位e<x : (0)
+  - e=x: (nnn=000~fgh, fgh+1)
+  - e>x: (nnn=000~999,1000)
+
+特例情况：x=0时需要特殊讨论，即前4位mmmm=1~(abcd-1）并且0不能出现在第一位。其他情况不变
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+int get_cnt(vector<int> nums, int le,int ri){
+    int res = 0;
+    for(int i=ri;i>=le;i--){
+        res = res * 10 + nums[i];
+    }
+    return res;
+}
+
+int power_10(int num){
+    int res = 1;
+    for(int i=0;i<num;i++) res *= 10;
+    return res;
+}
+
+int count_num(int num, int h){
+    if(!num) return 0;
+    vector<int> nums;
+    while(num){
+        nums.push_back(num%10);
+        num/=10;
+    }
+    int l = nums.size();
+    int res = 0;
+
+    for(int i=0;i<=l-1-!h;i++){
+        if(i<l-1) {
+            res += get_cnt(nums, i + 1, l - 1) * power_10(i);
+            if(!h) res -= power_10(i);
+        }
+        if(nums[i]>h) res += power_10(i);
+        else if(nums[i]==h)
+            res += get_cnt(nums,0,i-1)+1;
+    }
+    return res;
+}
+void cntNumTest(){
+    int a,b;
+    while(scanf("%d%d",&a,&b),a||b){
+        if(a>b) swap(a,b);
+        for(int i=0;i<10;i++)
+            printf("%d ",count_num(b,i)-count_num(a-1,i));
+        puts("");
+    }
+}
+
+int main() {
+    cntNumTest();
+//    mendleanDreamTest();
+//    IntDivTest();
+    return 0;
+}
+```
+
+### 状态压缩DP
+
+> 使用整数来表示状态，把这个整数看作是二进制数，每一位是0是1代表不同的情况，因此位数(n)最多取到20位（1e6种状态）
+
+#### 蒙德里安的梦想
+
+求把N$\times$M的棋盘分割成若干个1$\times$2的长方形，有多少种方案。
+
+
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207282032854.png" alt="image-20220728203213749" style="zoom:50%;" />
+
+```c++
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+const int M = 13;
+bool st[1 << M];
+long long fm[M][1 << M];
+
+void mendleanDreamTest() {
+    int n, m;
+    while (scanf("%d%d", &n, &m), n || m) {
+        memset(fm,0,sizeof fm);
+        for (int i = 0; i < 1 << n; i++) {
+            st[i] = true;
+            int cnt = 0;
+            for (int j = 0; j < n; j++) {
+                if (i >> j & 1) {
+                    if (cnt & 1) st[i] = false;
+                    cnt = 0;
+                } else cnt++;
+            }
+            if (cnt & 1) st[i] = false;
+        }
+        fm[0][0] = 1;
+        for (int i = 1; i <= m; i++)
+            for (int j = 0; j < 1 << n; j++)
+                for (int k = 0; k < 1 << n; k++) {
+                    if ((j & k) == 0 && st[j | k])
+                        fm[i][j] += fm[i - 1][k];
+                }
+        cout << fm[m][0] << endl;
+    }
+}
+int main() {
+//    cntNumTest();
+    mendleanDreamTest();
+//    IntDivTest();
+    return 0;
+}
+```
+
+#### 最短Hamilton路径
+
+> Hamilton路径：从0到n-1不重不漏地经过每一个点恰好一次
+
+给定n个结点的带权无向图，求起点0到终点n-1的最短Hamilton路径
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207291050154.png" alt="image-20220729105012006" style="zoom:50%;" />
+
+```c++
+#include <iostream>
+#include <cstring>
+using namespace std;
+const int Q = 21;
+int a[Q][Q];
+int hamil[1<<Q][Q];
+
+void hamiltonTest() {
+    int n;
+    cin >> n;
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            scanf("%d", &a[i][j]);
+    memset(hamil,0x3f, sizeof hamil);
+    hamil[1][0]=0;
+    for(int i=0;i<1<<n;i++)
+        for(int j=0;j<n;j++){
+             if(i>>j&1){
+                 for(int k=0;k<n;k++){
+                     if(j!=k && i>>k&1){
+                         hamil[i][j] = min(hamil[i][j],hamil[i-(1<<j)][k] + a[k][j]);
+                     }
+                 }
+             }
+        }
+    cout<<hamil[(1<<n)-1][n-1]<<endl;
+}
+
+int main() {
+    hamiltonTest();
+//    cntNumTest();
+//    mendleanDreamTest();
+//    IntDivTest();
+    return 0;
+}
+```
+
+### 树形DP
+
+> 接受了之后思维跨度就不高
+
+#### 没有上司的舞会
+
+有N名职员，他们的关系为一颗以校长为根的树，父节点就是子结点的直接上司。
+
+每个职员有一个快乐指数，用整数Hi给出，要求邀请一部分职员参会，使得所有的参会职员的快乐指数总和最大，限制是职员不能与其直接上司参会。
+
+**思路**：因为是树形DP，所以状态可以设置为f[i,j]，在以i为根节点的子树中选择（j=1）或不选择(j=0)根节点的所有选法的最大值
+
+```c++
+#include <iostream>
+#include <cstring>
+using namespace std;
+const int P= 6010;
+int hapi[P];
+int h[P],e[P],ne[P],idx;
+int mem[P][2];
+void insert(int a, int b){
+    e[idx] = b;
+    ne[idx] = h[a];
+    h[a] = idx++;
+}
+int proc_node2(int node, int choose){
+    if(mem[node][choose]) return mem[node][choose];
+
+    int res = 0;
+    if(choose==1){
+        res+=hapi[node];
+        for(int i = h[node];i!=-1;i=ne[i]) {
+            int j = e[i];
+            res += proc_node2(j, 0);
+        }
+    }else{
+        for(int i = h[node];i!=-1;i=ne[i]) {
+            int j = e[i];
+            res += max(proc_node2(j, 0), proc_node2(j, 1));
+        }
+    }
+    mem[node][choose] = res;
+    return res;
+}
+void treeDpTest3(){
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++) cin>>hapi[i];
+    int root = 1;
+    memset(h,-1, sizeof h);
+    for(int i=1;i<=n-1;i++){
+        int l,k;
+        cin>>l>>k;
+        insert(k,l);
+        if(l==root) root = k;
+    }
+    int res = max(proc_node2(root,1),proc_node2(root,0));
+    cout<<res<<endl;
+
+}
+int main() {
+    treeDpTest3();
+
+    return 0;
+}
+```
+
+### 记忆化搜索
+
+> 每一道动规题都可以用递归的方法做
+
+#### 滑雪
+
+给定一个R行C列的矩阵，表示一个矩形网格滑雪场。矩阵中第i行第j列的点表示区域的高度。只有某相邻区域的高度低于自己目前的高度才可滑动到该区域
+
+```c++
+#include<cstring>
+#include<iostream>
+using namespace std;
+const int U = 310;
+int board[U][U];
+int lens[U][U];
+int R,C;
+int find_len(int r, int c){
+    if(lens[r][c]!=-1) return lens[r][c];
+    int di[5]={0,1,0,-1,0};
+    for(int i = 0;i<4;i++){
+        int x = r + di[i];
+        int y = c + di[i+1];
+        if(board[x][y]<board[r][c] && x<R && x>=0 && y<C &&y>=0)
+            lens[r][c] = max(find_len(x,y) + 1,lens[r][c]);
+    }
+    if(lens[r][c]==-1) lens[r][c] = 1;
+    return lens[r][c];
+
+}
+void skiTest(){
+    cin>>R>>C;
+    for(int i=0;i<R;i++)
+        for (int j = 0; j < C; j++)
+            scanf("%d",&board[i][j]);
+    memset(lens,-1,sizeof lens);
+    int res = 0;
+    for(int i=0;i<R;i++)
+        for (int j = 0; j < C; j++)
+            if(lens[i][j]==-1)
+                res = max(res,find_len(i,j));
+    cout<<res<<endl;
+
+}
+
+int main() {
+    skiTest();
+    return 0;
+}
+```
+
+## 第七讲 贪心算法
+
+> 证明困难，没有常用的套路
+
+对于区间问题：
+
+- 左端点排序
+- 右端点排序
+- 双关键字排序
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202208181216088.png" alt="image-20220818121637002" style="zoom:50%;" />
+
+如上图，局部极值不一定是权重最优解，因此只有一个问题是**单峰**的，才可以用贪心算法来解
+
+### 区间选点
+
+给定 N个闭区间[ai,bi], 请你在数轴上选择尽量少的点，使得每个区间内至少包含一个选出的点。输出选择的点的最小数量。
+
+#### 算法思路
+
+1. 将每个区间按右端点从小到大排序
+2. 从前往后依次枚举每个区间：
+   - 如果当前区间中已经包含选点，则直接pass
+   - 否则，选择当前区间的右端点
+
+```c++
+#include<iostream>
+#include<algorithm>
+using namespace std;
+const int N = 1e5+10;
+struct Range {
+    int l, r;
+
+    int operator<(Range &ran) const {
+        return r < ran.r;
+    }
+}ranges[N];
+
+void interSecPntTest() {
+    int n;
+    cin >> n;
+    for(int i=0;i<n;i++){
+        int a, b;
+        scanf("%d%d", &a, &b);
+        ranges[i] = {a,b};
+    }
+    sort(ranges,ranges+n);
+    int ed = -2e9;
+    int res = 0;
+    for(int i=0;i<n;i++){
+        if(ed<ranges[i].l){
+            res++;
+            ed = ranges[i].r;
+        }
+    }
+    cout<<res<<endl;
+}
+
+int main() {
+    interSecPntTest();
+    return 0;
+}
+```
+
+#### 算法证明
+
+1. Ans <= Cnt
+
+整个算法流程保证了，选出Cnt个点的方案是合法方案，因此有上面的不等式
+
+2. Ans >= Cnt
+
+选出Cnt个点，实际上是找出了Cnt个不重叠区间，因此选点方案的最小数量至少为Cnt，即Ans>=Cnt
+
+由上，即可证明Ans==Cnt
+
+### 最大不相交区间的数量
+
+给定N个闭区间[ai,bi]，请你在数轴上选择若干区间，使得选中的区间之间互不相交（包括端点）。求可选取区间的最大数量。
+
+#### 算法思路
+
+做法和上一题完全一样
+
+#### 算法证明
+
+> Ans是最大不相交区间的数量，Cnt是算法选择的点的数量（Cnt个不重叠区间）
+
+1. Ans >= Cnt
+
+选出Cnt个点的方案一定是合法方案，所以Ans>=Cnt
+
+2. Ans <= Cnt
+
+反证法：假设Ans>Cnt，意味着我们可以选出比Cnt更多个互不相交区间；由每一个区间至少包含一个我们选择出来的点，那么根据假设我们至少要选出来Ans个点，这与实际我们最少选出Cnt个点相矛盾，因此Ans <= Cnt
+
+### 区间分组
+
+给定N个闭区间[ai,bi]，请你将这些区间分成若干组，使得每组内部的区间两两之间没有交集，并使得组数尽可能小。输出最小组数。
+
+
+#### 算法思路
+
+1. 将所有区间按左端点从小到大排序
+2. 从前往后处理每个区间
+   - 判断能否将其放到某个现有的组中
+     - 不能放入(不存在一个组可以放入)，则开新组，然后再将其放进去；
+     - 可以放入：L[i] > Max_r，将其放进去，并更新当前Max_r
+
+```c++
+#include<iostream>
+#include<algorithm>
+#include<queue>
+
+using namespace std;
+const int N = 1e5+10;
+struct Range {
+    int l, r;
+
+    int operator<(Range &ran) const {
+        return l < ran.l;
+    }
+}ranges[N];
+void interGroupTest(){
+    int n;
+    cin >> n;
+    for(int i=0;i<n;i++){
+        int a, b;
+        scanf("%d%d", &a, &b);
+        ranges[i] = {a,b};
+    }
+    priority_queue<int, vector<int>,greater<int>> que;
+    sort(ranges,ranges+n);
+    for(int i=0;i<n;i++){
+        if(que.empty() || ranges[i].l <= que.top()){
+            que.push(ranges[i].r);
+        }
+        else{
+            que.pop();
+            que.push(ranges[i].r);
+        }
+    }
+    cout<<que.size()<<endl;
+}
+int main() {
+//    interSecPntTest();
+    interGroupTest();
+    return 0;
+}
+```
+
+
+#### 算法证明
+
+> Ans是相互补充的的区间的组的最小组数，cnt是算法的组数
+
+1. Ans <= Cnt
+
+按照算法得到的组数一定是一种合法的方案，而Ans是方案的最小值，因此Ans <= Cnt
+
+2. Ans >= Cnt
+
+算法开新组的条件是该区间与每个组都有交集，因此Cnt其实是最少开的组的数量（不能更少，否则会有交集），因此Ans >= Cnt
+
+### 区间覆盖问题
+
+给定N个闭区间[ai,bi]以及一个线段区间[s,t]，请你选择尽量少的区间，将指定线段区间完全覆盖。输出最小区间数，如果无法完全覆盖则输出-1。
+
+#### 算法思路
+
+1. 将所有区间按照左端点从小到大排序
+2. 从前往后依次枚举每个区间，在所有能覆盖开始点的区间中选择右端点最大的区间，若右端点>end，算法退出
+   - 若能选出，将start更新成右端点最大值
+   - 若找不到满足对应条件的区间，输出-1
+
+```c++
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+const int N = 1e5 + 10;
+
+struct Range {
+    int l, r;
+
+    int operator<(const Range &ran) const {
+        return l < ran.l;
+    }
+} ranges[N];
+void interCoverTest() {
+    int s, t;
+    cin >> s >> t;
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        int a, b;
+        scanf("%d%d", &a, &b);
+        ranges[i] = {a, b};
+    }
+    sort(ranges, ranges + n);
+    int res = 0;
+    for (int i = 0; i < n; i++) {
+        
+        int max_r = -2e9;
+        int j;
+        for (j = i; j < n && ranges[j].l <= s; j++) {
+            if (ranges[j].r > max_r)
+                max_r = ranges[j].r;
+        }
+        if (max_r == -2e9) {
+            cout << "-1" << endl;
+            return;
+        }
+        s = max_r;
+        i = j-1;
+        res++;
+        if(s>=t) break;
+    }
+    if(s>=t) cout << res << endl;
+    else cout<<"-1";
+}
+
+int main() {
+//    interSecPntTest();
+//    interGroupTest();
+    interCoverTest();
+
+    return 0;
+}
+```
+
+### 霍夫曼树-合并果子
+
+每一次合并消耗的体力等于两堆果子的重量之和。总耗体力等于每次合并耗的体力之和。设计出合并次序方案，使得消耗的体力最少
+
+#### 算法思路
+
+叶节点到根结点一共有多长，对叶节点就要加多少遍。因此每次挑两个值最小的点相合并，他们深度一定最深，可以互为兄弟。
+
+```c++
+#include<iostream>
+#include<algorithm>
+#include<queue>
+
+using namespace std;
+const int M = 10010;
+int fruits[M];
+void comb_fruitTest(){
+    int n;
+    cin>>n;
+    priority_queue<int,vector<int>,greater<>> que;
+    for(int i=0;i<n;i++) {
+        scanf("%d",&fruits[i]);
+        que.push(fruits[i]);
+    }
+    int min_cost = 0;
+    while(que.size()>1){
+        int s1 = que.top();
+        que.pop();
+        int s2 = que.top();
+        que.pop();
+        min_cost += s2+s1;
+        que.push(s1+s2);
+    }
+    cout<<min_cost<<endl;
+
+}
+
+int main() {
+//    interSecPntTest();
+//    interGroupTest();
+//    interCoverTest();
+    comb_fruitTest();
+    return 0;
+}
+
+```
+
+
+
+#### 算法证明
+
+1. 深度最深：假设最小的两个点为a,f，那么b,f交换后一定收益为正
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202208181453694.png" alt="image-20220818145334644" style="zoom:50%;" />
+
+2. 可以互为兄弟：a,b,c,d顺序可以交换，不影响全局最优解
+
+3. 合并剩下n-1个果子的最优解一定是合并n个果子的最优解吗？
+
+   即f(n) = f(n-1)+a+b成立吗？
+
+   因为合并果子一定可以**先合并最小两个点**作为最优解，所以对于所有方案都可以把（a+b）去掉不影响最值，因此原问题就可以变为n-1个点的huffman问题，所以合并剩下n-1个果子的最优解一定是合并n个果子的最优解
+
+### 排序不等式
+
+> 可能会爆int，所以用Long Long来做
+
+#### 算法思路
+
+按照从小到大的顺序排队，总时间最小
+
+```c++
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+const int N = 100010;
+int q[N];
+typedef long long LL;
+void MinWaitTimeTest(){
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++) scanf("%d",&q[i]);
+    sort(q,q+n);
+    LL res = 0;
+    for(int i=0;i<n-1;i++){
+        res += q[i]*(n-i-1);
+    }
+    cout<<res<<endl;
+}
+int main(){
+    MinWaitTimeTest();
+    return 0;
+}
+```
+
+#### 算法证明
+
+**调整法**
+
+若不是排好序的，那么一定存在ti>ti+1,若我们将ti和ti+1交换位置，那么交换前比交换后多了ti-ti+1>0，也就是说交换完后总时间就会降低。
+
+### 绝对值不等式
+
+#### 算法思路
+
+按照从小到大排序，取中位数
+
+```c++
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+const int N = 100010;
+int q[N];
+
+void MinDistTest(){
+    int n;
+    cin>>n;
+    for (int i = 0; i < n; i++) scanf("%d", &q[i]);
+    sort(q,q+n);
+    int res =0;
+    for(int i=0;i<n;i++){
+        res += abs(q[n/2]-q[i]);
+    }
+    cout<<res<<endl;
+
+}
+
+int main() {
+//    MinWaitTimeTest();
+    MinDistTest();
+    return 0;
+}
+```
+
+#### 算法证明
+
+**分组法**
+
+$|a-x|+|b-x|>=|b-a|$
+
+只要x位于a,b之间，就可以取到最小值。分组后对每一个组都可以取到最小值，同时取即是总共的最小值，即取到正中间即可。
+
+### 推公式
+
+> 基于不等式来证明贪心问题
+
+**耍杂技的牛**
+
+```c++
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+const int C = 50010;
+typedef pair<int, int> pii;
+pii ent[C];
+
+void MinRiskTest() {
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        int w, s;
+        scanf("%d%d", &w, &s);
+        ent[i] = {w + s, s};
+    }
+    sort(ent, ent + n);
+    int res = -2e9;
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        int s = ent[i].second;
+        int w = ent[i].first - s;
+        res = max(res, sum - s);
+        sum += w;
+    }
+    cout<<res<<endl;
+}
+
+int main() {
+//    MinWaitTimeTest();
+//    MinDistTest();
+    MinRiskTest();
+    return 0;
+}
+```
+
+#### 算法思路
+
+按照wi+si从小到大的顺序排，最大的危险系数一定是最小的
+
+#### 算法证明
+
+只要最优解不是严格从小到大递增的，我们一定可以找到第i个位置上的牛和第i+1位置上的牛他们满足$w_i+s_i>w(i+1)+s(i+1)$，交换完这两个牛后，我们可以证明，这两个危险系数的最大值一定会严格变小
+

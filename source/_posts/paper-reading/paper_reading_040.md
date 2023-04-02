@@ -85,3 +85,27 @@ STT使用了全连接的注意力机制，但是这样其实计算了很多冗�
 - t-SNE
 
 <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202209080945816.png" alt="image-20220908094553747" style="zoom:50%;" />
+
+## 代码实验阅读
+
+### 获取光流
+
+- 配光流网络的环境，获取光流数据
+
+在官方提供的MPI-Sintel数据集上跑了下网络的推理：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202210191612437.png" alt="image-20221019161207383" style="zoom:50%;" />
+
+下图是对生成光流图的一个可视化：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202210191609134.png" alt="image-20221019160926689" style="zoom: 33%;" />
+
+获取expriment dir
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202210141452409.png" alt="image-20221014145228346" style="zoom:50%;" />
+
+```python
+# basedir: experiment dir
+config['basedir'] = os.getcwd() + '/experiments/' + Path(args.config).resolve().stem
+```
+

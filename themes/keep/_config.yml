@@ -13,7 +13,7 @@ base_info:
 # ---------------------------------------------------------------------------------------
 style:
   # Theme primary color
-  primary_color: "#CC6600"
+  primary_color: "#0066cc"
 
   # Avatar (You can use local image or image external link)
   avatar: /images/pkq.png
@@ -38,7 +38,7 @@ style:
   # First screen
   first_screen:
     enable: true
-    background_img: /images/flat-mountains.svg # You can use local image or image external link
+    background_img: /images/bg.svg # You can use local image or image external link
     description: 山的那边是海
 
   # Scroll style settings
@@ -73,7 +73,6 @@ menu:
   标签: /tags
   # Links: /links
   关于: /about
-  Baidu: https://www.baidu.com/
   # Changelog: /changelog
   # ......
 

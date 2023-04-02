@@ -66,3 +66,20 @@ GAR激起了研究兴趣因其广泛的应用：安保/运动视频分析，社�
 <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202208011100187.png" alt="image-20220801110017091" style="zoom:50%;" />
 
 论文进行消融实验来说明提出方法的有效性。MCA和MPCA分别代表，分类准确率和平均类准确率。
+
+## 代码阅读
+
+整体的训练代码包含了两个阶段。第一阶段微调一个backbone，使之可以适应Volleyball数据集；第二阶段是训练+动态推理。
+
+第一部分利用action loss和activity loss来学习模型。模型的架构图如下所示：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202210121041793.png" alt="image-20221012104148681" style="zoom:50%;" />
+
+参数数量，及所占内存如下：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202210121042777.png" alt="image-20221012104233749" style="zoom:50%;" />
+
+第二阶段动态推理的模型框架图如下所示：
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202210121130956.png" alt="image-20221012113006895" style="zoom:50%;" />
+
