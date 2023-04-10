@@ -328,6 +328,293 @@ kconfig定义了一套简单的语言, 开发者可以使用这套语言来编�
 
 #### 项目构建和Makefile
 
-##### 与配置系统进行关联
+**与配置系统进行关联**
 
 通过包含`nemu/include/config/auto.conf`, 与kconfig生成的变量进行关联. 因此在通过menuconfig更新配置选项后, Makefile的行为可能也会有所变化.
+
+**文件列表**
+
+通过filelist决定最终参与编译的源文件，它们会根据menuconfig的配置对如下4个变量进行维护:
+
+- `SRCS-y` - 参与编译的源文件的候选集合
+- `SRCS-BLACKLIST-y` - 不参与编译的源文件的黑名单集合
+- `DIRS-y` - 参与编译的目录集合, 该目录下的所有文件都会被加入到`SRCS-y`中
+- `DIRS-BLACKLIST-y` - 不参与编译的目录集合, 该目录下的所有文件都会被加入到`SRCS-BLACKLIST-y`中
+
+Makefile会包含项目中的所有`filelist.mk`文件, 对上述4个变量的追加定义进行汇总, 最终会过滤出在`SRCS-y`中但不在`SRCS-BLACKLIST-y`中的源文件, 来作为最终**参与编译的源文件的集合**.
+
+```makefile
+# Include all filelist.mk to merge file lists
+FILELIST_MK = $(shell find ./src -name "filelist.mk")
+include $(FILELIST_MK)
+# Filter out directories and files in blacklist to obtain the final set of source files
+DIRS-BLACKLIST-y += $(DIRS-BLACKLIST)
+SRCS-BLACKLIST-y += $(SRCS-BLACKLIST) $(shell find $(DIRS-BLACKLIST-y) -name "*.c")
+SRCS-y += $(shell find $(DIRS-y) -name "*.c")
+SRCS = $(filter-out $(SRCS-BLACKLIST-y),$(SRCS-y))
+```
+
+
+
+上述4个变量还可以与menuconfig的配置结果中的布尔选项进行关联, 例如`DIRS-BLACKLIST-$(CONFIG_TARGET_AM) += src/monitor/sdb`, 当我们在menuconfig中选择了`TARGET_AM`相关的布尔选项时, kconfig最终会在`nemu/include/config/auto.conf`中生成形如`CONFIG_TARGET_AM=y`的代码, 对变量进行展开后将会得到`DIRS-BLACKLIST-y += src/monitor/sdb`; 当我们在menuconfig中未选择`TARGET_AM`相关的布尔选项时, kconfig将会生成形如`CONFIG_TARGET_AM=n`的代码, 或者未对`CONFIG_TARGET_AM`进行定义, 此时将会得到`DIRS-BLACKLIST-n += src/monitor/sdb`, 或者`DIRS-BLACKLIST- += src/monitor/sdb`, 这两种情况都不会影响`DIRS-BLACKLIST-y`的值, 从而实现了如下效果:
+
+```
+在menuconfig中选中TARGET_AM时, nemu/src/monitor/sdb目录下的所有文件都不会参与编译.
+```
+
+**编译和链接**
+
+Makefile的编译规则在`nemu/scripts/build.mk`中定义:
+
+```makefile
+# Compilation patterns
+$(OBJ_DIR)/%.o: %.c
+	@echo + CC $<
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c -o $@ $<
+	$(call call_fixdep, $(@:.o=.d), $@)
+
+$(OBJ_DIR)/%.o: %.cc
+	@echo + CXX $<
+	@mkdir -p $(dir $@)
+	@$(CXX) $(CFLAGS) $(CXXFLAGS) -c -o $@ $<
+	$(call call_fixdep, $(@:.o=.d), $@)
+```
+
+> Makefile 中的 $@, $^, $< , $? 符號
+
+```makefile
+$@  表示目標文件
+$^  表示所有的依賴文件
+$<  表示第一個依賴文件
+$?  表示比目標還要新的依賴文件列表
+```
+
+- call_fixdep 调用用于生成更合理的依赖关系
+
+链接命令：
+
+```makefile
+$(BINARY): $(OBJS) $(ARCHIVES)
+	@echo + LD $@
+	@$(LD) -o $@ $(OBJS) $(LDFLAGS) $(ARCHIVES) $(LIBS)
+```
+
+### 准备第一个客户程序
+
+> NEMU is a process that execute guest process
+
+We need to read guest process into our computer, monitor is responsible for this part.
+
+When NEMU is starting, it will first call init_monitor() to do some initialization work.(在`nemu/src/monitor/monitor.c`中定义) 
+
+> kconfig generates 宏
+
+kconfig will define some CONFIG_xxx in 'nemu/include/generated/autoconf.h' according to the configuration we made in `kconfig`.
+
+we can also test these defines using **conditional compiling**. For example, if `CONFIG_DEVICE` is not defined, device related code will not be compiled.
+
+To write more compact code, we define a lot of test in `nemu/inlcude/generated/autoconf.h`:`IFDEF(CONFIG_DEVICE, init_device());` 而`MUXDEF(CONFIG_TRACE, "ON", "OFF")`则表示, 如果定义了`CONFIG_TRACE`, 则预处理结果为`"ON"`(`"OFF"`在预处理后会消失), 否则预处理结果为`"OFF"`.
+
+```c++
+void init_monitor(int argc, char *argv[]) {
+  /* Perform some global initialization. */
+
+  /* Parse arguments. */
+  parse_args(argc, argv);
+
+  /* Set random seed. */
+  init_rand();j
+
+  /* Open the log file. */
+  init_log(log_file);
+
+  /* Initialize memory. */
+  init_mem();
+
+  /* Initialize devices. */
+  IFDEF(CONFIG_DEVICE, init_device());
+
+  /* Perform ISA dependent initialization. */
+  init_isa();
+
+  /* Load the image to memory. This will overwrite the built-in image. */
+  long img_size = load_img();
+
+  /* Initialize differential testing. */
+  init_difftest(diff_so_file, img_size, difftest_port);
+
+  /* Initialize the simple debugger. */
+  init_sdb();
+
+  IFDEF(CONFIG_ITRACE, init_disasm(
+    MUXDEF(CONFIG_ISA_x86,     "i686",
+    MUXDEF(CONFIG_ISA_mips32,  "mipsel",
+    MUXDEF(CONFIG_ISA_riscv32, "riscv32",
+    MUXDEF(CONFIG_ISA_riscv64, "riscv64", "bad")))) "-pc-linux-gnu"
+  ));
+
+  /* Display welcome message. */
+  welcome();
+}
+```
+
+- We can see that in the i`nit_monitor()`, all lines are  functions. And in `parse_args()`:
+
+```c
+static int parse_args(int argc, char *argv[]) {
+  const struct option table[] = {
+    {"batch"    , no_argument      , NULL, 'b'},
+    {"log"      , required_argument, NULL, 'l'},
+    {"diff"     , required_argument, NULL, 'd'},
+    {"port"     , required_argument, NULL, 'p'},
+    {"help"     , no_argument      , NULL, 'h'},
+    {0          , 0                , NULL,  0 },
+  };
+  int o;
+  while ( (o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1) {
+    switch (o) {
+      case 'b': sdb_set_batch_mode(); break;
+      case 'p': sscanf(optarg, "%d", &difftest_port); break;
+      case 'l': log_file = optarg; break;
+      case 'd': diff_so_file = optarg; break;
+      case 1: img_file = optarg; return 0;
+      default:
+        printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
+        printf("\t-b,--batch              run with batch mode\n");
+        printf("\t-l,--log=FILE           output log to FILE\n");
+        printf("\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n");
+        printf("\t-p,--port=PORT          run DiffTest with port PORT\n");
+        printf("\n");
+        exit(0);
+    }
+  }
+  return 0;
+}
+```
+
+> some notes about getopt_long()
+
+- getopt_long() works like getopt() except that it also accept long options :"--".
+
+- longopts is a pointer to the first element of an array of struct option:
+
+```c
+struct option{
+    cosnt char *name; // name
+    int has_arg;// 0: no_argument; 1: required_argument; 2: optional_argument
+    int *flag;// NULL: getopt_long() return val; otherwise: getopt_long() return 0, flag points to a variable set to val if the option is found.
+    int val; // the value to return
+}
+```
+
+The last element of the array has to be filled with zeros
+
+接下来monitor会调用`init_isa()`函数(在`nemu/src/isa/$ISA/init.c`中定义), 来进行一些ISA相关的初始化工作.
+
+#### `init_isa()`函数的第一项工作：读入客户程序到内存里
+
+1. 客户程序是什么？：程序本身是ISA相关的，因此内置程序放在`nemu/src/isa/$ISA/init.c`中。
+2. 内存是什么？：一段连续的地址空间，按字节编址（一个内存位置存放一个字节的数据）。 在C语言中我们就很自然地使用一个`uint8_t`类型的数组来对内存进行模拟。NEMU默认为客户计算机提供128MB的物理内存(见`nemu/src/memory/paddr.c`中定义的`pmem`)
+3. 需要将客户程序读入到内存的什么位置？
+
+约定. 具体地, 我们让monitor直接把客户程序读入到一个固定的内存位置`RESET_VECTOR`。其值在`nemu/include/memory/paddr.h`中定义.
+
+> BIOS和计算机启动
+
+在真实的计算机系统中, 计算机启动后首先会把控制权交给BIOS, BIOS经过一系列初始化工作之后, 再从磁盘中将有意义的程序读入内存中执行.对这个过程的模拟需要了解很多超出本课程范围的细节, 我们在PA中做了简化: 采取约定的方式让CPU直接从约定的内存位置开始执行.
+
+> 初探操作系统启动
+
+如何得知操作系统在启动时，做了什么？
+
+- 在linux中，`sudo dmesg`可以输出操作系统的启动日志
+
+#### `init_isa()`函数的第二项工作：是初始化寄存器
+
+ 在C语言中我们就很自然地使用相应的结构体来描述CPU的寄存器结构. 
+
+不同ISA的寄存器结构也各不相同, 为此我们把寄存器结构体`CPU_state`的定义放在`nemu/src/isa/$ISA/include/isa-def.h`中, 并在`nemu/src/cpu/cpu-exec.c`中定义一个全局变量`cpu`.
+
+初始化寄存器的一个重要工作就是设置`cpu.pc`的初值, 我们需要将它设置成刚才加载客户程序的内存位置, 这样就可以让CPU从我们约定的内存位置开始执行客户程序了
+
+**物理内存的起始地址**
+
+x86的物理内存是从0开始编址的
+
+例如mips32和riscv32的物理地址均从`0x80000000`开始。因此对于上面的两个，其CONFIG_MBASE，将会被定义为：`0x80000000`，将来CPU访问内存时，我们会将要访问的内存**地址映射**到**`pmem`中的相应偏移位置**，这是通过`nemu/src/memory/paddr.c`中的`guest_to_host()`函数实现的.
+
+Monitor读入客户程序并对寄存器进行初始化后, 这时内存的布局如下:
+
+```
+pmem:
+
+CONFIG_MBASE      RESET_VECTOR
+      |                 |
+      v                 v
+      -----------------------------------------------
+      |                 |                  |
+      |                 |    guest prog    |
+      |                 |                  |
+      -----------------------------------------------
+                        ^
+                        |
+                       pc
+```
+
+### 运行第一个客户程序
+
+main()函数包含了monitor的初始化，并且会继续调用`engine_start`函数。代码会进入简易调试器的主循环。
+
+键入c后，执行主循环`cpu_exec`， 它又会调用`execute()`。后者模拟了CPU的工作方式。它又会执行`exec_once()`：让CPU执行当前PC指向的一条指令，然后更新PC。
+
+**不同的ISA有着不同的指令格式和含义**, 因此**执行指令的代码自然是ISA相关的**. 这部分代码位于`nemu/src/isa/$ISA/inst.c`. 关于指令执行的详细说明需要涉及很多细节, 目前你无需关心, 我们将会在PA2中进行说明.
+
+**何时退出指令的循环？**
+
+- 达到要求的循环次数.
+
+- 客户程序执行了nemu_trap指令. 这是一条虚构的特殊指令, 它是为了在NEMU中让客户程序指示执行的结束而加入的, NEMU在ISA手册中选择了一些用于调试的指令, 并将nemu_trap的特殊含义赋予它们.
+
+  -  例如在riscv32的手册中, NEMU选择了ebreak指令来充当nemu_trap. 为了表示客户程序是否成功结束, nemu_trap指令还会接收一个表示结束状态的参数. 当客户程序执行了这条指令之后, NEMU将会根据这个结束状态参数来设置NEMU的结束状态, 并根据不同的状态输出不同的结束信息, 主要包括
+
+    - `HIT GOOD TRAP` - 客户程序正确地结束执行
+
+    - `HIT BAD TRAP` - 客户程序错误地结束执行
+
+    - `ABORT` - 客户程序意外终止, 并未结束执行
+
+> 怎么读代码？
+
+有没有工具能够帮你模拟这个巨大的状态机呢? 这时我们在PA0里面提到的一个工具就派上用场了, 它就是GDB. 在GDB中, 我们可以通过单步执行的方式让程序一次执行一条指令, 相当于让状态机一次只前进一步, 这样我们就可以观察程序任意时刻的状态了! 而且状态机前进的轨迹就是程序执行的真实顺序, 于是你就可以一边运行程序一边理解程序的行为了. 这对于一些指针相关的代码有着不错的效果, 尤其是函数指针, 因为你从静态代码上很可能看不出来程序运行的时候这个指针会指向哪个函数.
+
+GDB还自带一个叫TUI的简单界面. 在一个高度较高的窗口中运行GDB后, 输入`layout split`就可以切换到TUI, 这样你就可以同时从源代码和指令的角度来观察程序的行为了. 不过为了看到源代码, 你还需要在编译NEMU时添加GDB调试信息, 具体操作见下面的提示框. 如果你想了解TUI的更多内容, STFW.
+
+为了帮助你更高效地RTFSC, 你最好通过RTFM和STFW多认识GDB的一些命令和操作, 比如:
+
+- 单步执行进入你感兴趣的函数
+- 单步执行跳过你不感兴趣的函数(例如库函数)
+- 运行到函数末尾
+- 打印变量或寄存器的值
+- 扫描内存
+- 查看调用栈
+- 设置断点
+- 设置监视点
+
+ **为NEMU编译时添加GDB调试信息**
+
+menuconfig已经为大家准备好相应选项了, 你只需要打开它:
+
+```
+Build Options
+  [*] Enable debug information
+```
+
+然后清除编译结果并重新编译即可. 尝试阅读相关代码, 理解开启上述menuconfig选项后会导致编译NEMU时的选项产生什么变化.
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230406194300166.png" alt="image-20230406194300166" style="zoom:50%;" />
+
+- ggdb3指的是debug的level为3级，会输出一些额外的信息
+- Og指的是优化debug体验，会减少一些优化级别，以加快编译
+
+## 基础设施: 简易调试器

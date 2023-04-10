@@ -1177,4 +1177,93 @@ Query q = Query("fiery") & Query("bird") & Query("wind");
 ```
 
 - 我们会定义一个接口类Query，隐藏整个继承体系。它将保存一个Query_base指针，该指针绑定到Query_base的派生类对象上。eval用于求查询的结果，rep用于生成查询的string版本
+- 用户通过Query对象的操作间接地创建并处理Query_base对象
+  - &运算符生成一个绑定到新的AndQuery对象上的query对象
+  - |运算符生成一个绑定到新的OrQuery对象上的query对象
+  - ~运算符生成一个绑定到新的NotQuery对象上的query对象
+
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230410093806189.png" alt="image-20230410093806189" style="zoom:50%;" />
+
+##### 类工作机理
+
+- 构建代表用户查询的对象是该应用程序的核心
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230410095901447.png" alt="image-20230410095901447" style="zoom:50%;" />
+
+#### 代码实现
+
+**Query_base类**
+
+```c++
+class Query_base{
+    friend class Query;
+protected:
+    using line_no = TextQuery::line_no;
+    virual ~Query_base() = default;
+private:
+    virtual QueryResult eval(const TextQuery&) const = 0;
+    virtual std::string rep() const = 0;
+}
+```
+
+- 我们不希望用户或是派生直接使用querybase，所以没有public成员
+
+**Query类**
+
+```c++
+class Query{
+    friend Query operator~(const Query &);
+    friend Query operator|(const Query &, const Query &);
+    friend Query operator&(const Query &, const Query &);
+public:
+    Query(const std::string &);
+    QueryResult eval(const TextQuery &t) const{
+        return q->eval(t);
+    }
+    std::string rep(const){return q->rep();}
+private:
+    Query(std::shared_ptr<Query_base> query): q(query) { }
+    std::shared_ptr<Query_base> q;
+}
+```
+
+**Query的输出运算符**
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230410102453883.png" alt="image-20230410102453883" style="zoom:50%;" />
+
+**WordQuery类**
+
+```c++
+class WordQuery: public Query_base{
+    friend class Query;
+    WordQuery(const std::string &s): query_word(s){}
+    QueryResult eval(const TextQuery &t) const
+    {return t.query(query_word);}
+    std::string rep() const {return query_word;}
+    std::string query_word;
+}
+```
+
+```c++
+inline
+Query::Query(const std::string &s): q(new WordQuery(s)){}
+```
+
+**NotQuery类**
+
+```c++
+class NotQuery: public Query_base{
+    friend Query operator~(const Query &);
+    NotQuery(const Query &q): query(q){}
+    QueryResult eval(const TextQuery &) const;
+    std::string rep() const {return "~(" + query.rep() + ")";}
+    Query query;
+}
+inline Query operator~(const Query &operand){
+    return std::shared_ptr<Query_base>(new NotQuery(operand));
+}
+// 隐式使用接受一个shared_ptr<Query_base>的Query构造函数
+
+```
 

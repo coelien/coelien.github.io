@@ -2676,8 +2676,8 @@ int p;
 int C(int a, int b){
     int res = 1;
     for(int i=1,j=a;i<=b;i++,j--){
-        res = res*j % p;
-        res = res *qmi(i,p-2) % p;
+        res = (LL)res*j % p;
+        res = (LL)res *qmi(i,p-2) % p;
     }
     return res;
 }
@@ -3412,7 +3412,7 @@ void maxlenII(){
     for(int i=1;i<=n;i++){
         int pos = find_pos(0,qLen,nums[i]);
         q[pos+1] = nums[i];
-        if(pos+1>qLen) = qLen = pos + 1;
+        if(pos+1>qLen)  qLen = pos + 1;
     }
     cout<<qLen<<endl;
 }
