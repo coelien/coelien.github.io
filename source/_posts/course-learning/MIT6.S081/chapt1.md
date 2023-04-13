@@ -289,4 +289,41 @@ close(fd);
 mknod("/console", 1, 1);
 ```
 
-- file itself is code a inode, it has many names called links. 
+- file itself is code a **inode**, it has many names called **links**. 
+- each **link** consist of an **entry** in a directory
+- the **entry** contains a **file name** and a reference to an **inode**
+- the **inode** holds **metadata** about a file, including: 
+  - its type(file, directory or device)
+  - length
+  - location on  disk
+  - number of links
+- `fstat`can retrieves info from the **inode** that a file descriptor refers to:
+
+```c
+#define T_DIR 1 // Directory
+#define T_FILE 2 // File
+#define T_DEVICE 3 // Device
+struct stat {
+    int dev; // File system’s disk device
+    uint ino; // Inode number
+    short type; // Type of file
+    short nlink; // Number of links to file
+    uint64 size; // Size of file in bytes
+};
+```
+
+- `link` system call : creates another file system name referring to the same **inode**  
+
+```c
+open("a", O_CREATE|O_WRONLY);
+link("a", "b");
+```
+
+- `unlink` system all: removes a name from the file system  
+
+```c
+fd = open("/tmp/xyz", O_CREATE|O_RDWR);
+unlink("/tmp/xyz");
+// create a temporary inode with no name that will be cleaned up when the process closes fd or exits.
+```
+
