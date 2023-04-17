@@ -3,8 +3,8 @@ Thumbs.db
 *.json
 *.log
 node_modules/
-public/
 themes/
+public/
 .deploy*/
 .github/
 .idea/
