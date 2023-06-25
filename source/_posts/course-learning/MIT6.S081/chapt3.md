@@ -35,7 +35,7 @@ Isolate different process's address spaces and to multiplex them onto a single p
 - 如果翻译地址时有任何页表项不存在的话，分页硬件会抛出一个页错误异常，由内核来解决
 - 通常情况下，大部分虚拟地址是没有映射的，这时候三级结构可以有效减少内存占用。
 - 但是这种方式潜在的缺陷是，CPU需要从内存读入三次PTEs来进行转译
-- 幸运的是，我们可以使用缓存页表的方式（TLB）来访存次数
+- 幸运的是，我们可以使用缓存页表的方式（TLB）来减少访存次数
 
 ### PTE状态bits
 
@@ -58,13 +58,17 @@ notes:
 
 ## 内核地址空间
 
-每个进程，有一张页表描述了进程的用户地址空间，还有一个单独的页表描述内核地址空间
+- 每个进程，有一张页表描述了进程的用户地址空间。
+
+- 系统有一个单独的页表描述内核地址空间
 
 ### 内核内存布局(kernel memory layout)
 
 <img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230526151103105.png" alt="image-20230526151103105" style="zoom:50%;" />
 
 - kernel gets at RAM and memory mapped device registers using **"direct mapping"**
+
+- Direct mapping simplifies kernel code that reads or writes physical memory  
 
 - kernel virtual address that aren't direct-mapped:
   - trampoline page

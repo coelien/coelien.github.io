@@ -7,7 +7,6 @@ tags:
 categories:
 - courses
 - Operating System
-- Concurrent Programming
 ---
 
 # MIT6.s081 lab2记录：编写系统调用
