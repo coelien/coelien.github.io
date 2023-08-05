@@ -17,30 +17,6 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>linux笔记： Makefile基础</title>
-    <link href="http://example.com/2023/08/05/unix-program/linux_foundations_notes/Makefile%E5%9F%BA%E7%A1%80/"/>
-    <id>http://example.com/2023/08/05/unix-program/linux_foundations_notes/Makefile%E5%9F%BA%E7%A1%80/</id>
-    <published>2023-08-05T03:14:26.389Z</published>
-    <updated>2023-08-05T03:14:26.389Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Makefile基础"><a href="#Makefile基础" class="headerlink" title="Makefile基础"></a>Makefile基础</h1><h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><ul><li>成百上千个源文件，按照类型，功能，模块分别放到若干个目录中，Makefile文件定义了一系列的规则来指定哪些文件需要先编译，哪些文件需要后编译</li><li>自动化编译，一旦写好就可以整个工程完全自动编译</li></ul><h2 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h2><ul><li><p><strong>规则</strong>：</p><ul><li><p>目标 …：依赖 …</p><p>tab    命令</p><p>​        …</p></li><li><p>目标：最终要生成的文件</p></li><li><p>依赖：生成目标所需要的文件或是目标</p></li><li><p>命令：通过执行命令对依赖操作生成目标（需添加tab缩进）</p></li></ul></li><li><p>可以有多个规则，一般来说其他规则都是<strong>为了第一个规则服务的</strong></p></li><li><p>命令在执行之前，会先<strong>检查依赖</strong>：</p><ul><li>若依赖存在，直接执行命令；</li><li>若不存在，看之后的规则能否生成当前规则所需的依赖，若能即正常执行；若不能则报错</li></ul></li><li><p><strong>检测更新</strong>，在执行规则中的命令时，会比较目标和依赖文件的时间，<strong>不做不必要的工作</strong></p><ul><li>若依赖的时间比目标的时间晚，则会重新生成目录；</li><li>否则不需要更新，即对应规则中的命令不执行；</li></ul></li></ul><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207121604695.png" alt="image-20220712160431625" style="zoom:50%;"><ul><li>一般来说，写的越详细，效率越高（检测更新）：</li></ul><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207121607583.png" alt="image-20220712160746521" style="zoom:50%;"><ul><li><p>但是上面的写得特别繁琐，可以用变量改进</p></li><li><p>变量：</p><ul><li>自定义变量</li><li>预定义变量<ul><li>CC：C编译器的名称</li><li>$@：目标的完整名称</li><li>$&lt;：所有的依赖文件名称</li><li>$^：第一个依赖文件名称</li></ul></li><li>获取变量值：$(变量名)</li></ul></li><li><p>模式匹配：</p></li></ul><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207121620059.png" alt="image-20220712162046026" style="zoom:50%;"><ul><li><p>函数：</p><ul><li><p>$(wildcard PATTERN…)</p><p>功能：获取指定目录下指定类型的文件列表</p><p>实例：<code>$(wildcard *.c ./sub/*.c)</code></p></li><li><p>$(patsubst <pattern> , <replacement>,<text>)</text></replacement></pattern></p><p>功能：进行字符串替换</p><p>实例：<code>$(patsubstr %.c ,%.o, x.c bar.c)</code></p></li></ul></li><li><p>clean规则：</p><ul><li>make clean</li><li>伪目标：.PHONY:clean 不真实地生成clean目标文件因此一定会执行</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Makefile基础&quot;&gt;&lt;a href=&quot;#Makefile基础&quot; class=&quot;headerlink&quot; title=&quot;Makefile基础&quot;&gt;&lt;/a&gt;Makefile基础&lt;/h1&gt;&lt;h2 id=&quot;思想&quot;&gt;&lt;a href=&quot;#思想&quot; class=&quot;headerli</summary>
-      
-    
-    
-    
-    <category term="linux" scheme="http://example.com/categories/linux/"/>
-    
-    
-    <category term="makefile" scheme="http://example.com/tags/makefile/"/>
-    
-  </entry>
-  
-  <entry>
     <title>linux笔记：静态库和动态库浅析</title>
     <link href="http://example.com/2023/08/05/unix-program/linux_foundations_notes/Linux%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/"/>
     <id>http://example.com/2023/08/05/unix-program/linux_foundations_notes/Linux%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/</id>
@@ -67,6 +43,30 @@
   </entry>
   
   <entry>
+    <title>linux笔记： Makefile基础</title>
+    <link href="http://example.com/2023/08/05/unix-program/linux_foundations_notes/Makefile%E5%9F%BA%E7%A1%80/"/>
+    <id>http://example.com/2023/08/05/unix-program/linux_foundations_notes/Makefile%E5%9F%BA%E7%A1%80/</id>
+    <published>2023-08-05T03:14:26.389Z</published>
+    <updated>2023-08-05T03:14:26.389Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Makefile基础"><a href="#Makefile基础" class="headerlink" title="Makefile基础"></a>Makefile基础</h1><h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><ul><li>成百上千个源文件，按照类型，功能，模块分别放到若干个目录中，Makefile文件定义了一系列的规则来指定哪些文件需要先编译，哪些文件需要后编译</li><li>自动化编译，一旦写好就可以整个工程完全自动编译</li></ul><h2 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h2><ul><li><p><strong>规则</strong>：</p><ul><li><p>目标 …：依赖 …</p><p>tab    命令</p><p>​        …</p></li><li><p>目标：最终要生成的文件</p></li><li><p>依赖：生成目标所需要的文件或是目标</p></li><li><p>命令：通过执行命令对依赖操作生成目标（需添加tab缩进）</p></li></ul></li><li><p>可以有多个规则，一般来说其他规则都是<strong>为了第一个规则服务的</strong></p></li><li><p>命令在执行之前，会先<strong>检查依赖</strong>：</p><ul><li>若依赖存在，直接执行命令；</li><li>若不存在，看之后的规则能否生成当前规则所需的依赖，若能即正常执行；若不能则报错</li></ul></li><li><p><strong>检测更新</strong>，在执行规则中的命令时，会比较目标和依赖文件的时间，<strong>不做不必要的工作</strong></p><ul><li>若依赖的时间比目标的时间晚，则会重新生成目录；</li><li>否则不需要更新，即对应规则中的命令不执行；</li></ul></li></ul><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207121604695.png" alt="image-20220712160431625" style="zoom:50%;"><ul><li>一般来说，写的越详细，效率越高（检测更新）：</li></ul><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207121607583.png" alt="image-20220712160746521" style="zoom:50%;"><ul><li><p>但是上面的写得特别繁琐，可以用变量改进</p></li><li><p>变量：</p><ul><li>自定义变量</li><li>预定义变量<ul><li>CC：C编译器的名称</li><li>$@：目标的完整名称</li><li>$&lt;：所有的依赖文件名称</li><li>$^：第一个依赖文件名称</li></ul></li><li>获取变量值：$(变量名)</li></ul></li><li><p>模式匹配：</p></li></ul><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207121620059.png" alt="image-20220712162046026" style="zoom:50%;"><ul><li><p>函数：</p><ul><li><p>$(wildcard PATTERN…)</p><p>功能：获取指定目录下指定类型的文件列表</p><p>实例：<code>$(wildcard *.c ./sub/*.c)</code></p></li><li><p>$(patsubst <pattern> , <replacement>,<text>)</text></replacement></pattern></p><p>功能：进行字符串替换</p><p>实例：<code>$(patsubstr %.c ,%.o, x.c bar.c)</code></p></li></ul></li><li><p>clean规则：</p><ul><li>make clean</li><li>伪目标：.PHONY:clean 不真实地生成clean目标文件因此一定会执行</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Makefile基础&quot;&gt;&lt;a href=&quot;#Makefile基础&quot; class=&quot;headerlink&quot; title=&quot;Makefile基础&quot;&gt;&lt;/a&gt;Makefile基础&lt;/h1&gt;&lt;h2 id=&quot;思想&quot;&gt;&lt;a href=&quot;#思想&quot; class=&quot;headerli</summary>
+      
+    
+    
+    
+    <category term="linux" scheme="http://example.com/categories/linux/"/>
+    
+    
+    <category term="makefile" scheme="http://example.com/tags/makefile/"/>
+    
+  </entry>
+  
+  <entry>
     <title></title>
     <link href="http://example.com/2023/08/05/unix-program/apue_notes/chapt1_unix%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <id>http://example.com/2023/08/05/unix-program/apue_notes/chapt1_unix%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
@@ -83,6 +83,33 @@
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>跨域问题解决</title>
+    <link href="http://example.com/2023/08/05/projects/nlp%20project/%E8%B7%A8%E5%9F%9F/"/>
+    <id>http://example.com/2023/08/05/projects/nlp%20project/%E8%B7%A8%E5%9F%9F/</id>
+    <published>2023-08-05T03:14:26.388Z</published>
+    <updated>2023-08-05T03:14:26.388Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul><li>为什么会出现跨域</li></ul><p>同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互：即两个页面具有相同的协议（protocol），主机（host）和端口号（port）</p><ul><li>跨域案例<br>当一个请求url的协议、域名、端口三者之间任意一个与当前页面url不同即为跨域</li></ul><table><thead><tr><th>当前页面url</th><th>被请求页面url</th><th>是否跨域</th><th>原因</th></tr></thead><tbody><tr><td><a class="link" href="http://www.lluozh.com/">http://www.lluozh.com/<i class="fas fa-external-link-alt"></i></a></td><td><a class="link" href="http://www.lluozh.com/index.html">http://www.lluozh.com/index.html<i class="fas fa-external-link-alt"></i></a></td><td>否</td><td>同源(协议、域名、端口号相同)</td></tr></tbody></table><ul><li>客户端发起的这个<code>OPTIONS</code>可以说是一个<code>"预请求"</code>，用于探测后续真正需要发起的跨域<code>POST</code>请求对于服务器来说是否是安全可接受的，因为跨域提交数据对于服务器来说可能存在很大的安全问题</li><li>请求头<code>Access-Control-Request-Method</code>用于提醒服务器在接下来的请求中将会使用什么样的方法来发起请求</li><li><code>Access-Control-Allow-Method</code>和<code>Access-Control-Allow-Origin</code>分别告知客户端，服务器允许客户端用于跨域的方法和域名</li></ul><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul><li>下载flask-cors包</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;跨域&quot;&gt;&lt;a href=&quot;#跨域&quot; class=&quot;headerlink&quot; title=&quot;跨域&quot;&gt;&lt;/a&gt;跨域&lt;/h1&gt;&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;ul&gt;
+&lt;</summary>
+      
+    
+    
+    
+    <category term="nlp项目" scheme="http://example.com/categories/nlp%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="跨域" scheme="http://example.com/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+    <category term="flask" scheme="http://example.com/tags/flask/"/>
     
   </entry>
   
@@ -111,33 +138,6 @@
     <category term="time-transformer" scheme="http://example.com/tags/time-transformer/"/>
     
     <category term="AI-EARTH" scheme="http://example.com/tags/AI-EARTH/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>跨域问题解决</title>
-    <link href="http://example.com/2023/08/05/projects/nlp%20project/%E8%B7%A8%E5%9F%9F/"/>
-    <id>http://example.com/2023/08/05/projects/nlp%20project/%E8%B7%A8%E5%9F%9F/</id>
-    <published>2023-08-05T03:14:26.388Z</published>
-    <updated>2023-08-05T03:14:26.388Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul><li>为什么会出现跨域</li></ul><p>同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互：即两个页面具有相同的协议（protocol），主机（host）和端口号（port）</p><ul><li>跨域案例<br>当一个请求url的协议、域名、端口三者之间任意一个与当前页面url不同即为跨域</li></ul><table><thead><tr><th>当前页面url</th><th>被请求页面url</th><th>是否跨域</th><th>原因</th></tr></thead><tbody><tr><td><a class="link" href="http://www.lluozh.com/">http://www.lluozh.com/<i class="fas fa-external-link-alt"></i></a></td><td><a class="link" href="http://www.lluozh.com/index.html">http://www.lluozh.com/index.html<i class="fas fa-external-link-alt"></i></a></td><td>否</td><td>同源(协议、域名、端口号相同)</td></tr></tbody></table><ul><li>客户端发起的这个<code>OPTIONS</code>可以说是一个<code>"预请求"</code>，用于探测后续真正需要发起的跨域<code>POST</code>请求对于服务器来说是否是安全可接受的，因为跨域提交数据对于服务器来说可能存在很大的安全问题</li><li>请求头<code>Access-Control-Request-Method</code>用于提醒服务器在接下来的请求中将会使用什么样的方法来发起请求</li><li><code>Access-Control-Allow-Method</code>和<code>Access-Control-Allow-Origin</code>分别告知客户端，服务器允许客户端用于跨域的方法和域名</li></ul><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul><li>下载flask-cors包</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;跨域&quot;&gt;&lt;a href=&quot;#跨域&quot; class=&quot;headerlink&quot; title=&quot;跨域&quot;&gt;&lt;/a&gt;跨域&lt;/h1&gt;&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;ul&gt;
-&lt;</summary>
-      
-    
-    
-    
-    <category term="nlp项目" scheme="http://example.com/categories/nlp%E9%A1%B9%E7%9B%AE/"/>
-    
-    
-    <category term="跨域" scheme="http://example.com/tags/%E8%B7%A8%E5%9F%9F/"/>
-    
-    <category term="flask" scheme="http://example.com/tags/flask/"/>
     
   </entry>
   
@@ -196,6 +196,32 @@
   </entry>
   
   <entry>
+    <title>setuptools入门</title>
+    <link href="http://example.com/2023/08/05/projects/kinetics%20project/setuptools/"/>
+    <id>http://example.com/2023/08/05/projects/kinetics%20project/setuptools/</id>
+    <published>2023-08-05T03:14:26.388Z</published>
+    <updated>2023-08-05T03:14:26.388Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="setuptools-Quickstart"><a href="#setuptools-Quickstart" class="headerlink" title="setuptools Quickstart"></a><code>setuptools</code> Quickstart</h1><h2 id="basics"><a href="#basics" class="headerlink" title="basics"></a>basics</h2><ol><li>声明使用setuptools 来打包项目</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># pyproject.toml</span><br><span class="line">[build-system]</span><br><span class="line">requires = ["setuptools"]</span><br><span class="line">build-backend = "setuptools.build_meta"</span><br></pre></td></tr></table></figure><ol start="2"><li>通过配置文件setup.py来 specify 包信息</li></ol><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'mypackage'</span>,</span><br><span class="line">    version=<span class="string">'0.0.1'</span>,</span><br><span class="line">    packages=[<span class="string">'mypackage'</span>],</span><br><span class="line">    install_requires=[</span><br><span class="line">        <span class="string">'requests'</span>,</span><br><span class="line">        <span class="string">'importlib-metadata; python_version == "3.8"'</span>,</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="3"><li>需要一个构建器builder</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># pip install build</span><br><span class="line">python -m build</span><br></pre></td></tr></table></figure><h2 id="extensions"><a href="#extensions" class="headerlink" title="extensions"></a>extensions</h2><ol><li>自动包发现</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from setuptools import find_packages  # or find_namespace_packages</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    # ...</span><br><span class="line">    packages=find_packages(</span><br><span class="line">        where='.',</span><br><span class="line">        include=['mypackage*'],  # ["*"] by default</span><br><span class="line">        exclude=['mypackage.tests'],  # empty by default</span><br><span class="line">    ),</span><br><span class="line">    # ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="2"><li>依赖管理</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setup(</span><br><span class="line">    # ...</span><br><span class="line">    install_requires=["docutils", "requests &lt;= 0.4"],</span><br><span class="line">    # ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="3"><li>开发者模式</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --editable .</span><br></pre></td></tr></table></figure><h2 id="experiments"><a href="#experiments" class="headerlink" title="experiments"></a>experiments</h2><blockquote><p>遵循教程，实验打包流程：<a class="link" href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">https://packaging.python.org/en/latest/tutorials/packaging-projects/<i class="fas fa-external-link-alt"></i></a></p></blockquote><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141406193.png" alt="image-20220414140619160"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;setuptools-Quickstart&quot;&gt;&lt;a href=&quot;#setuptools-Quickstart&quot; class=&quot;headerlink&quot; title=&quot;setuptools Quickstart&quot;&gt;&lt;/a&gt;&lt;code&gt;setuptools&lt;/code&gt;</summary>
+      
+    
+    
+    
+    <category term="kinetics项目" scheme="http://example.com/categories/kinetics%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="环境配置" scheme="http://example.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    <category term="setuptools" scheme="http://example.com/tags/setuptools/"/>
+    
+  </entry>
+  
+  <entry>
     <title>docker内配置facebook pyslowfast环境</title>
     <link href="http://example.com/2023/08/05/projects/kinetics%20project/installation%20of%20slowfast/"/>
     <id>http://example.com/2023/08/05/projects/kinetics%20project/installation%20of%20slowfast/</id>
@@ -226,28 +252,22 @@
   </entry>
   
   <entry>
-    <title>setuptools入门</title>
-    <link href="http://example.com/2023/08/05/projects/kinetics%20project/setuptools/"/>
-    <id>http://example.com/2023/08/05/projects/kinetics%20project/setuptools/</id>
-    <published>2023-08-05T03:14:26.388Z</published>
-    <updated>2023-08-05T03:14:26.388Z</updated>
+    <title></title>
+    <link href="http://example.com/2023/08/05/projects/huawei%20project/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BB%BF%E7%9C%9F%E6%B5%8B%E8%AF%95%E8%B0%83%E7%A0%94/"/>
+    <id>http://example.com/2023/08/05/projects/huawei%20project/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BB%BF%E7%9C%9F%E6%B5%8B%E8%AF%95%E8%B0%83%E7%A0%94/</id>
+    <published>2023-08-05T03:14:26.387Z</published>
+    <updated>2023-08-05T03:14:26.387Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="setuptools-Quickstart"><a href="#setuptools-Quickstart" class="headerlink" title="setuptools Quickstart"></a><code>setuptools</code> Quickstart</h1><h2 id="basics"><a href="#basics" class="headerlink" title="basics"></a>basics</h2><ol><li>声明使用setuptools 来打包项目</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># pyproject.toml</span><br><span class="line">[build-system]</span><br><span class="line">requires = ["setuptools"]</span><br><span class="line">build-backend = "setuptools.build_meta"</span><br></pre></td></tr></table></figure><ol start="2"><li>通过配置文件setup.py来 specify 包信息</li></ol><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'mypackage'</span>,</span><br><span class="line">    version=<span class="string">'0.0.1'</span>,</span><br><span class="line">    packages=[<span class="string">'mypackage'</span>],</span><br><span class="line">    install_requires=[</span><br><span class="line">        <span class="string">'requests'</span>,</span><br><span class="line">        <span class="string">'importlib-metadata; python_version == "3.8"'</span>,</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="3"><li>需要一个构建器builder</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># pip install build</span><br><span class="line">python -m build</span><br></pre></td></tr></table></figure><h2 id="extensions"><a href="#extensions" class="headerlink" title="extensions"></a>extensions</h2><ol><li>自动包发现</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from setuptools import find_packages  # or find_namespace_packages</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    # ...</span><br><span class="line">    packages=find_packages(</span><br><span class="line">        where='.',</span><br><span class="line">        include=['mypackage*'],  # ["*"] by default</span><br><span class="line">        exclude=['mypackage.tests'],  # empty by default</span><br><span class="line">    ),</span><br><span class="line">    # ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="2"><li>依赖管理</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setup(</span><br><span class="line">    # ...</span><br><span class="line">    install_requires=["docutils", "requests &lt;= 0.4"],</span><br><span class="line">    # ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ol start="3"><li>开发者模式</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --editable .</span><br></pre></td></tr></table></figure><h2 id="experiments"><a href="#experiments" class="headerlink" title="experiments"></a>experiments</h2><blockquote><p>遵循教程，实验打包流程：<a class="link" href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">https://packaging.python.org/en/latest/tutorials/packaging-projects/<i class="fas fa-external-link-alt"></i></a></p></blockquote><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202204141406193.png" alt="image-20220414140619160"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="自动驾驶仿真测试系统调研"><a href="#自动驾驶仿真测试系统调研" class="headerlink" title="自动驾驶仿真测试系统调研"></a>自动驾驶仿真测试系统调研</h1><h2 id="调研方法"><a href="#调研方法" class="headerlink" title="调研方法"></a>调研方法</h2><p>我们采取了阅读自动驾驶相关论文、github开源项目搜索、官网搜索等方式，对目前市面上用于研究或商业目的的自动驾驶仿真系统进行了调研。以下是我们的调研结果：</p><h2 id="自动驾驶主要结构"><a href="#自动驾驶主要结构" class="headerlink" title="自动驾驶主要结构"></a>自动驾驶主要结构</h2><p>我们首先调研了自动驾驶仿真工具的整体功能模块结构，如下图所示：</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207200936739.jpeg" alt="car.jpg" style="zoom:50%;"><p>如图，自动驾驶仿真系统的主要结构包括：GUI主控，感知，决策和控制四个部分。GUI主控是展示自动驾驶算法的用户界面和仿真场景，在上面我们可以直观地检验我们所设计的算法的效果。感知是视觉算法的主阵地，通过车道线检测、标识牌检测、障碍物检测、车辆目标检测算法，我们可以估计目标与自动驾驶车辆的距离并进行决策。雷达和GPS也是进行决策的辅助信息。在决策模块，我们将通过感知得到的相关距离等数据进行利用以对未来的路径规划进行决策。控制模块根据得到的决策对车辆进行控制，以改变车辆行为。</p><p>目前市面上用于工程商业目的的自动驾驶仿真系统包括：用于车辆动力学的 CarSim、用于复杂车辆模型和交通场景的 PanoSim、用于高级驾驶辅助系统（ADAS）的 PreScan。例如PanoSim支持自动驾驶感知/决策/规划/控制算法开发。它构建的交通场景具有一定的真实性与复杂性，适合我们在之上进行算法的开发。</p><p>我们对项目从两个角度进行了调研：github上的开源代码和仿真平台商业软件</p><h2 id="github开源代码"><a href="#github开源代码" class="headerlink" title="github开源代码"></a>github开源代码</h2><ul><li><p>unity</p><blockquote><p>效果未知，因为星数极少</p></blockquote><ul><li>自动驾驶场景的Unity仿真：<a class="link" href="https://github.com/CokerPad/auto-driving-Unity">链接<i class="fas fa-external-link-alt"></i></a></li><li>AutoDriveSimulator：<a class="link" href="https://github.com/HumorLogic/AutoDriveSimulator">链接<i class="fas fa-external-link-alt"></i></a></li></ul></li><li><p>c++</p><blockquote><p>效果未知，因为星数极少</p></blockquote><ul><li>自动驾驶模拟仿真实现：<a class="link" href="https://github.com/AGANCPP/AutonomousDriving">链接<i class="fas fa-external-link-alt"></i></a>，程序主要模块如上图所示</li></ul></li><li><p><strong>python</strong></p><blockquote><p>项目可以正常演示，较合适，但需要申请仿真服务器API接口的使用权限，下面有介绍</p></blockquote><ul><li>将算法与仿真平台相结合的开源项目：<a class="link" href="https://github.com/NEUAutonomousDriving408/CIVCAutonomousDriving">链接<i class="fas fa-external-link-alt"></i></a>，运行示意图如下：</li></ul></li></ul><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207200950488.png" alt="image-20220720095032346"></p><h2 id="仿真平台（不开源，需要申请使用）"><a href="#仿真平台（不开源，需要申请使用）" class="headerlink" title="仿真平台（不开源，需要申请使用）"></a>仿真平台（不开源，需要申请使用）</h2><ul><li>AD Chauffeur：<a class="link" href="https://www.adchauffeur.cn/">官网<i class="fas fa-external-link-alt"></i></a><ul><li>申请得到用户名和密码：</li></ul></li></ul><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207200958119.png" style="zoom:50%;"><ul><li>panosim：<a class="link" href="http://www.panosim.com/index.jsp">官网<i class="fas fa-external-link-alt"></i></a></li></ul><h2 id="调研结果"><a href="#调研结果" class="headerlink" title="调研结果"></a>调研结果</h2><p>推荐使用第三种方案，即<strong>python + 仿真平台API</strong></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;setuptools-Quickstart&quot;&gt;&lt;a href=&quot;#setuptools-Quickstart&quot; class=&quot;headerlink&quot; title=&quot;setuptools Quickstart&quot;&gt;&lt;/a&gt;&lt;code&gt;setuptools&lt;/code&gt;</summary>
+    <summary type="html">&lt;h1 id=&quot;自动驾驶仿真测试系统调研&quot;&gt;&lt;a href=&quot;#自动驾驶仿真测试系统调研&quot; class=&quot;headerlink&quot; title=&quot;自动驾驶仿真测试系统调研&quot;&gt;&lt;/a&gt;自动驾驶仿真测试系统调研&lt;/h1&gt;&lt;h2 id=&quot;调研方法&quot;&gt;&lt;a href=&quot;#调研方法&quot; cla</summary>
       
     
     
     
-    <category term="kinetics项目" scheme="http://example.com/categories/kinetics%E9%A1%B9%E7%9B%AE/"/>
-    
-    
-    <category term="环境配置" scheme="http://example.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
-    
-    <category term="setuptools" scheme="http://example.com/tags/setuptools/"/>
     
   </entry>
   
@@ -318,26 +338,6 @@
   
   <entry>
     <title></title>
-    <link href="http://example.com/2023/08/05/projects/huawei%20project/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BB%BF%E7%9C%9F%E6%B5%8B%E8%AF%95%E8%B0%83%E7%A0%94/"/>
-    <id>http://example.com/2023/08/05/projects/huawei%20project/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BB%BF%E7%9C%9F%E6%B5%8B%E8%AF%95%E8%B0%83%E7%A0%94/</id>
-    <published>2023-08-05T03:14:26.387Z</published>
-    <updated>2023-08-05T03:14:26.387Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="自动驾驶仿真测试系统调研"><a href="#自动驾驶仿真测试系统调研" class="headerlink" title="自动驾驶仿真测试系统调研"></a>自动驾驶仿真测试系统调研</h1><h2 id="调研方法"><a href="#调研方法" class="headerlink" title="调研方法"></a>调研方法</h2><p>我们采取了阅读自动驾驶相关论文、github开源项目搜索、官网搜索等方式，对目前市面上用于研究或商业目的的自动驾驶仿真系统进行了调研。以下是我们的调研结果：</p><h2 id="自动驾驶主要结构"><a href="#自动驾驶主要结构" class="headerlink" title="自动驾驶主要结构"></a>自动驾驶主要结构</h2><p>我们首先调研了自动驾驶仿真工具的整体功能模块结构，如下图所示：</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207200936739.jpeg" alt="car.jpg" style="zoom:50%;"><p>如图，自动驾驶仿真系统的主要结构包括：GUI主控，感知，决策和控制四个部分。GUI主控是展示自动驾驶算法的用户界面和仿真场景，在上面我们可以直观地检验我们所设计的算法的效果。感知是视觉算法的主阵地，通过车道线检测、标识牌检测、障碍物检测、车辆目标检测算法，我们可以估计目标与自动驾驶车辆的距离并进行决策。雷达和GPS也是进行决策的辅助信息。在决策模块，我们将通过感知得到的相关距离等数据进行利用以对未来的路径规划进行决策。控制模块根据得到的决策对车辆进行控制，以改变车辆行为。</p><p>目前市面上用于工程商业目的的自动驾驶仿真系统包括：用于车辆动力学的 CarSim、用于复杂车辆模型和交通场景的 PanoSim、用于高级驾驶辅助系统（ADAS）的 PreScan。例如PanoSim支持自动驾驶感知/决策/规划/控制算法开发。它构建的交通场景具有一定的真实性与复杂性，适合我们在之上进行算法的开发。</p><p>我们对项目从两个角度进行了调研：github上的开源代码和仿真平台商业软件</p><h2 id="github开源代码"><a href="#github开源代码" class="headerlink" title="github开源代码"></a>github开源代码</h2><ul><li><p>unity</p><blockquote><p>效果未知，因为星数极少</p></blockquote><ul><li>自动驾驶场景的Unity仿真：<a class="link" href="https://github.com/CokerPad/auto-driving-Unity">链接<i class="fas fa-external-link-alt"></i></a></li><li>AutoDriveSimulator：<a class="link" href="https://github.com/HumorLogic/AutoDriveSimulator">链接<i class="fas fa-external-link-alt"></i></a></li></ul></li><li><p>c++</p><blockquote><p>效果未知，因为星数极少</p></blockquote><ul><li>自动驾驶模拟仿真实现：<a class="link" href="https://github.com/AGANCPP/AutonomousDriving">链接<i class="fas fa-external-link-alt"></i></a>，程序主要模块如上图所示</li></ul></li><li><p><strong>python</strong></p><blockquote><p>项目可以正常演示，较合适，但需要申请仿真服务器API接口的使用权限，下面有介绍</p></blockquote><ul><li>将算法与仿真平台相结合的开源项目：<a class="link" href="https://github.com/NEUAutonomousDriving408/CIVCAutonomousDriving">链接<i class="fas fa-external-link-alt"></i></a>，运行示意图如下：</li></ul></li></ul><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207200950488.png" alt="image-20220720095032346"></p><h2 id="仿真平台（不开源，需要申请使用）"><a href="#仿真平台（不开源，需要申请使用）" class="headerlink" title="仿真平台（不开源，需要申请使用）"></a>仿真平台（不开源，需要申请使用）</h2><ul><li>AD Chauffeur：<a class="link" href="https://www.adchauffeur.cn/">官网<i class="fas fa-external-link-alt"></i></a><ul><li>申请得到用户名和密码：</li></ul></li></ul><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207200958119.png" style="zoom:50%;"><ul><li>panosim：<a class="link" href="http://www.panosim.com/index.jsp">官网<i class="fas fa-external-link-alt"></i></a></li></ul><h2 id="调研结果"><a href="#调研结果" class="headerlink" title="调研结果"></a>调研结果</h2><p>推荐使用第三种方案，即<strong>python + 仿真平台API</strong></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;自动驾驶仿真测试系统调研&quot;&gt;&lt;a href=&quot;#自动驾驶仿真测试系统调研&quot; class=&quot;headerlink&quot; title=&quot;自动驾驶仿真测试系统调研&quot;&gt;&lt;/a&gt;自动驾驶仿真测试系统调研&lt;/h1&gt;&lt;h2 id=&quot;调研方法&quot;&gt;&lt;a href=&quot;#调研方法&quot; cla</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://example.com/2023/08/05/projects/huawei%20project/%E4%BA%92%E8%81%94%E7%BD%91+%E4%BA%A7%E4%B8%9A%E8%B5%9B%E9%81%93%E5%8D%8E%E4%B8%BA%E5%91%BD%E9%A2%98%E5%88%86%E5%B7%A5/"/>
     <id>http://example.com/2023/08/05/projects/huawei%20project/%E4%BA%92%E8%81%94%E7%BD%91+%E4%BA%A7%E4%B8%9A%E8%B5%9B%E9%81%93%E5%8D%8E%E4%B8%BA%E5%91%BD%E9%A2%98%E5%88%86%E5%B7%A5/</id>
     <published>2023-08-05T03:14:26.385Z</published>
@@ -363,7 +363,7 @@
     <published>2023-08-05T03:14:26.385Z</published>
     <updated>2023-08-05T03:14:26.387Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="pytorch-模型迁移复盘1"><a href="#pytorch-模型迁移复盘1" class="headerlink" title="pytorch 模型迁移复盘1"></a>pytorch 模型迁移复盘1</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="VPN连接"><a href="#VPN连接" class="headerlink" title="VPN连接"></a>VPN连接</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>连接华为提供的服务器需要vpn，在连vpn时遇到了一些问题：</p><ul><li>IP访问地址未设置正确</li></ul><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png" alt="img"></p><ul><li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li></ul><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png" alt="img"></p><h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png" alt="image-20220508193544091" style="zoom:67%;"><p>解决方法：</p><p>直接从gpu环境上scp一份解压好的上去</p><p><code>scp -r imagenet root@192.168.88.155:/opt/npu</code></p><blockquote><p><strong>Linux scp命令</strong>用于在Linux下进行远程拷贝文件的命令，和它类似的命令有<a class="link" href="https://www.coonote.com/linux/linux-cmd-cp.html">cp<i class="fas fa-external-link-alt"></i></a>，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，<a class="link" href="https://www.coonote.com/linux/linux-cmd-rsync.html">rsync<i class="fas fa-external-link-alt"></i></a>就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p></blockquote><blockquote><p>从本地服务器传到另一台服务器的docker容器而无需密码</p><p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link" href="mailto:&#x72;&#111;&#x6f;&#x74;&#x40;&#50;&#48;&#50;&#46;&#49;&#49;&#55;&#46;&#50;&#x31;&#x2e;&#x39;&#51;">root@202.117.21.93<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p></blockquote><h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote><p>目前该问题已解决</p></blockquote><p>因为我用的代码是pytorch1.7, 其中有一些新的接口1.5不支持，因此在NPU的torch1.5环境上需要修改API使之能跑通。主要修改点是torch.cuda.amp.autocast这个接口，将torch原生的amp接口改成apex的amp接口。</p><h3 id="NPU环境不太好改"><a href="#NPU环境不太好改" class="headerlink" title="NPU环境不太好改"></a>NPU环境不太好改</h3><blockquote><p>目前环境未出现问题</p></blockquote><p>需要直接在裸机上跑，不能使用conda，因此想改变环境不太容易，目前的环境启动方法为：’’source /home/gp/test_op/setenv.sh’’。该文件的主要内容是设置一些NPU相关的环境变量。</p><h3 id="GPU训练僵化"><a href="#GPU训练僵化" class="headerlink" title="GPU训练僵化"></a>GPU训练僵化</h3><blockquote><p>目前，该问题未解决</p></blockquote><p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p><p>如下是发现的问题：</p><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png" alt="img"></p><ul><li><p>从日志可以发现损失变成了nan导致训练直接结束</p></li><li><p>一开始以为是Loss scale过大导致loss为nan，实则发现，loss scale是在获得损失值并判断它是否为nan之后，也就是模型采用的loss函数导致了其为nan,和混合精度没有关系，目前还在想办法解决这个问题</p></li></ul><h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png" alt="image-20220508201747487" style="zoom:67%;"><p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p><ul><li>目前的修改方法主要有两种，将usenpu作为参数传给对应方法的默认参数，从而取代原先的import</li><li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li></ul><p>采用第一种方法可以完美解决问题</p><h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png" alt="image-20220509152351457" style="zoom: 50%;">]]></content>
+    <content type="html"><![CDATA[<h1 id="pytorch-模型迁移复盘1"><a href="#pytorch-模型迁移复盘1" class="headerlink" title="pytorch 模型迁移复盘1"></a>pytorch 模型迁移复盘1</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="VPN连接"><a href="#VPN连接" class="headerlink" title="VPN连接"></a>VPN连接</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>连接华为提供的服务器需要vpn，在连vpn时遇到了一些问题：</p><ul><li>IP访问地址未设置正确</li></ul><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081923830.png" alt="img"></p><ul><li>需启用隧道验证功能和IPSEC安全协议，通过预设身份验证字来连接</li></ul><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081926297.png" alt="img"></p><h3 id="数据集大小"><a href="#数据集大小" class="headerlink" title="数据集大小"></a>数据集大小</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>因为数据集较大，imagenet有近140G，直接下载会较慢，通过OBS链接进行下载会快很多。下载后对数据集解压会出现硬盘存储空间不足的问题：</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081935125.png" alt="image-20220508193544091" style="zoom:67%;"><p>解决方法：</p><p>直接从gpu环境上scp一份解压好的上去</p><p><code>scp -r imagenet root@192.168.88.155:/opt/npu</code></p><blockquote><p><strong>Linux scp命令</strong>用于在Linux下进行远程拷贝文件的命令，和它类似的命令有<a class="link" href="https://www.coonote.com/linux/linux-cmd-cp.html">cp<i class="fas fa-external-link-alt"></i></a>，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，<a class="link" href="https://www.coonote.com/linux/linux-cmd-rsync.html">rsync<i class="fas fa-external-link-alt"></i></a>就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p></blockquote><blockquote><p>从本地服务器传到另一台服务器的docker容器而无需密码</p><p>nohup scp -i /home/lyc/.ssh/id_rsa -P 10035 -r ImageNet2012/train/ <a class="link" href="mailto:&#114;&#x6f;&#x6f;&#x74;&#x40;&#50;&#x30;&#50;&#x2e;&#x31;&#49;&#55;&#46;&#50;&#49;&#x2e;&#x39;&#x33;">root@202.117.21.93<i class="fas fa-external-link-alt"></i></a>:/home/workspace/dataset/imagenet &gt; transfer_imagenet_to docker 2&gt;&amp;1 &amp;</p></blockquote><h3 id="代码版本不匹配"><a href="#代码版本不匹配" class="headerlink" title="代码版本不匹配"></a>代码版本不匹配</h3><blockquote><p>目前该问题已解决</p></blockquote><p>因为我用的代码是pytorch1.7, 其中有一些新的接口1.5不支持，因此在NPU的torch1.5环境上需要修改API使之能跑通。主要修改点是torch.cuda.amp.autocast这个接口，将torch原生的amp接口改成apex的amp接口。</p><h3 id="NPU环境不太好改"><a href="#NPU环境不太好改" class="headerlink" title="NPU环境不太好改"></a>NPU环境不太好改</h3><blockquote><p>目前环境未出现问题</p></blockquote><p>需要直接在裸机上跑，不能使用conda，因此想改变环境不太容易，目前的环境启动方法为：’’source /home/gp/test_op/setenv.sh’’。该文件的主要内容是设置一些NPU相关的环境变量。</p><h3 id="GPU训练僵化"><a href="#GPU训练僵化" class="headerlink" title="GPU训练僵化"></a>GPU训练僵化</h3><blockquote><p>目前，该问题未解决</p></blockquote><p>因为是多进程训练，当只有主进程输出的时候若其他进程意外退出，会导致整个程序僵死，而且其他进程出现了什么问题难以获知。因此可以将设置改为所有卡都进行输出，这样哪个卡报错从日志就可以获知。</p><p>如下是发现的问题：</p><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205081956604.png" alt="img"></p><ul><li><p>从日志可以发现损失变成了nan导致训练直接结束</p></li><li><p>一开始以为是Loss scale过大导致loss为nan，实则发现，loss scale是在获得损失值并判断它是否为nan之后，也就是模型采用的loss函数导致了其为nan,和混合精度没有关系，目前还在想办法解决这个问题</p></li></ul><h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>首先，因为想迁移到NPU的同时兼容GPU，所有在获得参数后将其保存在了主程序的函数（useNpu）中，并在之后用到cuda的地方进行判断，看从main.py中引入的useNpu是否为True，如果为真就使用适配NPU的API，否则不变。但是这样改了之后出现了循环依赖:</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205082017527.png" alt="image-20220508201747487" style="zoom:67%;"><p>原因是main中引用了datasets中的build_dataset函数，通过层层import，最终又引用回了main文件，所以又需要再次引用datasets中的build_dataset函数，因此导致了循环依赖。</p><ul><li>目前的修改方法主要有两种，将usenpu作为参数传给对应方法的默认参数，从而取代原先的import</li><li>去掉兼容GPU的功能，这样改兼容性差，不是很合理</li></ul><p>采用第一种方法可以完美解决问题</p><h3 id="unicode编码错误"><a href="#unicode编码错误" class="headerlink" title="unicode编码错误"></a>unicode编码错误</h3><blockquote><p>目前，该问题已解决</p></blockquote><p>当把循环依赖改好了后，出现了UnicodeDecodeError，我怀疑是我在注释里用了中文所以导致出现了问题，但是utf-8是支持中文的而且gpu跑就没有这个问题，所以有点困惑。因为之前是在服务器上改的，没有语法错误提示，我拉到本地IDE中同步一下看看代码有没有问题。</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205091523594.png" alt="image-20220509152351457" style="zoom: 50%;">]]></content>
     
     
       
@@ -460,26 +460,6 @@
   </entry>
   
   <entry>
-    <title></title>
-    <link href="http://example.com/2023/08/05/projects/basketball%20project/%E6%95%B0%E6%8D%AE%E9%9B%86%E8%A6%81%E6%B1%82/"/>
-    <id>http://example.com/2023/08/05/projects/basketball%20project/%E6%95%B0%E6%8D%AE%E9%9B%86%E8%A6%81%E6%B1%82/</id>
-    <published>2023-08-05T03:14:26.384Z</published>
-    <updated>2023-08-05T03:14:26.384Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="数据集要求"><a href="#数据集要求" class="headerlink" title="数据集要求"></a>数据集要求</h1><h2 id="球员跟踪算法"><a href="#球员跟踪算法" class="headerlink" title="球员跟踪算法"></a>球员跟踪算法</h2><blockquote><p>数据集参考Market-1501</p></blockquote><img src="https://zheng-lab.cecs.anu.edu.au/Project/dataset.jpg" alt="img" style="zoom:50%;"><ul><li>需要1501个个体（ID）：训练集750，测试集751</li><li>指标map</li></ul><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230606194126482.png" alt="image-20230606194126482"></p><ul><li>总计标注32668 个bboxes</li><li>总计有6个摄像头对各个个体进行拍摄，需要保证每个标注个体至少被两个摄像头捕获（为了跨摄像机搜索）</li><li>需要提供2798张干扰图片：对准确率有负面影响的图片</li><li>需要提供3819张垃圾图片：对准确率没有影响的图片</li><li>query图片：3368张</li></ul><p>具体参考链接：</p><ul><li><a class="link" href="https://github.com/Wanggcong/Spatial-Temporal-Re-identification">参考1<i class="fas fa-external-link-alt"></i></a></li><li><a class="link" href="https://openaccess.thecvf.com/content_iccv_2015/papers/Zheng_Scalable_Person_Re-Identification_ICCV_2015_paper.pdf">参考2<i class="fas fa-external-link-alt"></i></a></li></ul><p>数据集格式参考：</p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230606195815919.png" alt="image-20230606195815919" style="zoom:50%;"><h2 id="行为识别"><a href="#行为识别" class="headerlink" title="行为识别"></a>行为识别</h2><blockquote><p>参考Kinetics 数据集</p></blockquote><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230606200551349.png" alt="image-20230606200551349" style="zoom:50%;"><ul><li>总计标注13个类别</li><li>每个类别标注400个剪辑片段，训练集：250，验证集：150，测试集：100</li><li>每个剪辑片段60张图片</li></ul><p>数据集参考链接：</p><ul><li><a class="link" href="https://www.deepmind.com/open-source/kinetics">参考1<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;数据集要求&quot;&gt;&lt;a href=&quot;#数据集要求&quot; class=&quot;headerlink&quot; title=&quot;数据集要求&quot;&gt;&lt;/a&gt;数据集要求&lt;/h1&gt;&lt;h2 id=&quot;球员跟踪算法&quot;&gt;&lt;a href=&quot;#球员跟踪算法&quot; class=&quot;headerlink&quot; title=&quot;球</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>混合精度训练初探</title>
     <link href="http://example.com/2023/08/05/projects/huawei%20project/apex/"/>
     <id>http://example.com/2023/08/05/projects/huawei%20project/apex/</id>
@@ -502,6 +482,32 @@
     <category term="混合精度" scheme="http://example.com/tags/%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6/"/>
     
     <category term="amp" scheme="http://example.com/tags/amp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pytorch多进程训练</title>
+    <link href="http://example.com/2023/08/05/projects/huawei%20project/distributed/"/>
+    <id>http://example.com/2023/08/05/projects/huawei%20project/distributed/</id>
+    <published>2023-08-05T03:14:26.384Z</published>
+    <updated>2023-08-05T03:14:26.385Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="pytorch多进程训练"><a href="#pytorch多进程训练" class="headerlink" title="pytorch多进程训练"></a>pytorch多进程训练</h1><h2 id="一-基础知识"><a href="#一-基础知识" class="headerlink" title="一. 基础知识"></a>一. 基础知识</h2><ul><li>group：进程组，默认情况下只有一个组，多进程中一个group有多个world</li><li>world：全局进程个数</li><li>rank：表示进程号，用于进程间通信（值越低，优先级越高）</li><li>local-rank：进程内GPU编号</li></ul><h2 id="二-开启分布式模式"><a href="#二-开启分布式模式" class="headerlink" title="二. 开启分布式模式"></a>二. 开启分布式模式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_distributed_mode</span>(<span class="params">args</span>):</span></span><br><span class="line">    <span class="comment"># 函数里的每一行代码都会在每个进程上单独执行</span></span><br><span class="line">    log = [] <span class="comment"># 记录环境信息</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">'RANK'</span> <span class="keyword">in</span> os.environ <span class="keyword">and</span> <span class="string">'WORLD_SIZE'</span> <span class="keyword">in</span> os.environ:</span><br><span class="line">        args.rank = <span class="built_in">int</span>(os.environ[<span class="string">"RANK"</span>])</span><br><span class="line">        args.world_size = <span class="built_in">int</span>(os.environ[<span class="string">'WORLD_SIZE'</span>])</span><br><span class="line">        args.gpu = <span class="built_in">int</span>(os.environ[<span class="string">'LOCAL_RANK'</span>])</span><br><span class="line">        log.extend([args.rank,args.world_size,args.gpu])</span><br><span class="line">    <span class="keyword">elif</span> <span class="string">'SLURM_PROCID'</span> <span class="keyword">in</span> os.environ:</span><br><span class="line">        args.rank = <span class="built_in">int</span>(os.environ[<span class="string">'SLURM_PROCID'</span>])</span><br><span class="line">        args.gpu = args.rank % torch.cuda.device_count()</span><br><span class="line">        log.extend([args.rank,args.gpu])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'Not using distributed mode'</span>)</span><br><span class="line">        args.distributed = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"args.gpu:<span class="subst">{args.gpu}</span>"</span>)</span><br><span class="line">    args.distributed = <span class="literal">True</span></span><br><span class="line">    <span class="comment"># 打印环境信息</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"environment info: <span class="subst">{log}</span>"</span>)</span><br><span class="line"></span><br><span class="line">    torch.cuda.set_device(args.gpu)</span><br><span class="line">    args.dist_backend = <span class="string">'nccl'</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'| distributed init (rank {}): {}'</span>.<span class="built_in">format</span>(</span><br><span class="line">        args.rank, args.dist_url), flush=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 分布式初始化</span></span><br><span class="line">    torch.distributed.init_process_group(backend=args.dist_backend, init_method=args.dist_url,</span><br><span class="line">                                         world_size=args.world_size, rank=args.rank)</span><br><span class="line">    <span class="comment"># 同步所有进程</span></span><br><span class="line">    torch.distributed.barrier()</span><br><span class="line">    setup_for_distributed(args.rank == <span class="number">0</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;pytorch多进程训练&quot;&gt;&lt;a href=&quot;#pytorch多进程训练&quot; class=&quot;headerlink&quot; title=&quot;pytorch多进程训练&quot;&gt;&lt;/a&gt;pytorch多进程训练&lt;/h1&gt;&lt;h2 id=&quot;一-基础知识&quot;&gt;&lt;a href=&quot;#一-基础知识&quot;</summary>
+      
+    
+    
+    
+    <category term="华为项目" scheme="http://example.com/categories/%E5%8D%8E%E4%B8%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="分布式训练" scheme="http://example.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/"/>
+    
+    <category term="distributed" scheme="http://example.com/tags/distributed/"/>
     
   </entry>
   

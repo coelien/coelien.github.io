@@ -285,23 +285,18 @@ mjx-container[display="true"] + br {
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2023/08/05/coding-solution/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%92%8C%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">
-                        coding笔记： 树状数组和线段树
+                    <a href="/2023/08/05/coding-solution/%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        coding笔记：典型数据结构之数组模拟浅析
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
-                        树状数组和线段树
+                        典型数据结构之数组模拟浅析
+这里默认已经对基本的数据结构有所了解，因此重点在于数组模拟练习与总结。对于算法题而讲，使用数据模拟的好处不言而喻（速度快），是STL外的一大解题利器。
 
-树状数组 核心应用：动态快速地求前缀和 O(logn)
 
-单点修改：在某个位置上加上一个数（修改这个数）
-区间查询：求某一个前缀和
-区间修改：配合差分思想转换为已知问题
-单点修改：配合差分思想转换为已知问题
-
-思考：为什么不直接使...
+变量和代码解释都写在了注释里，可以方便之后的回顾。p.s. 为了方...
                     
                 </div>
 
@@ -328,12 +323,12 @@ mjx-container[display="true"] + br {
                     
                         <li>
                             
-                            <a href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">树状数组</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/">线段树</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F/">数组模拟</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -341,7 +336,7 @@ mjx-container[display="true"] + br {
         
     </div>
 
-    <a href="/2023/08/05/coding-solution/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%92%8C%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2023/08/05/coding-solution/%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -644,6 +639,140 @@ KMP算法在各种参考书中均有讲解，但均较为复杂，且不易于�
                 
 
                 <h3 class="home-article-title">
+                    <a href="/2023/08/05/coding-solution/c++%20primer_std/">
+                        C++标准库
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        C++标准库动态内存动态分配的对象的生存期与它们在哪里创建是无关的，只有当显式地被释放时，这些对象才会被销毁。
+静态内存
+用来保存局部地static对象、类static数据成员、以及定义在任何函数之外地变量。
+栈内存
+栈内存用来保存定义在函数内的非s...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Aug 05 2023 11:14:26 GMT+0800">2023-08-05</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Books/">Books</a>&nbsp;
+                        </li>
+                    
+                    
+                        <li>
+                            &gt; 
+                            <a href="/categories/Books/C-primer/">C++ primer</a>&nbsp;
+                        </li>
+                    
+                    
+                        <li>
+                            &gt; 
+                            <a href="/categories/Books/C-primer/C-%E6%A0%87%E5%87%86%E5%BA%93/">C++ 标准库</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/C/">C++</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/std/">std</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/08/05/coding-solution/c++%20primer_std/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2023/08/05/coding-solution/highaccuracy/">
+                        coding笔记：高精度加减乘除
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        高精度算数主要思想
+如何存储大数？使用数组（vector）
+
+怎么存储？低位在前，高位在后
+之所以这样是因为进位容易，不需要将数组整体向后移动一位
+
+模拟人工算数流程
+
+
+加法12345678910111213vector&lt;int&gt; hi...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Aug 05 2023 11:14:26 GMT+0800">2023-08-05</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/coding/">coding</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/">高精度</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/08/05/coding-solution/highaccuracy/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
                     <a href="/2023/08/05/coding-solution/code_forces_01/">
                         如何阅读问题并得到可行解
                     </a>
@@ -758,149 +887,6 @@ KMP算法在各种参考书中均有讲解，但均较为复杂，且不易于�
     </div>
 
     <a href="/2023/08/05/coding-solution/code_forces_02/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/08/05/coding-solution/c++%20primer_std/">
-                        C++标准库
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        C++标准库动态内存动态分配的对象的生存期与它们在哪里创建是无关的，只有当显式地被释放时，这些对象才会被销毁。
-静态内存
-用来保存局部地static对象、类static数据成员、以及定义在任何函数之外地变量。
-栈内存
-栈内存用来保存定义在函数内的非s...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Aug 05 2023 11:14:26 GMT+0800">2023-08-05</span></span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Books/">Books</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/Books/C-primer/">C++ primer</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/Books/C-primer/C-%E6%A0%87%E5%87%86%E5%BA%93/">C++ 标准库</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/C/">C++</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/std/">std</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/08/05/coding-solution/c++%20primer_std/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/08/05/coding-solution/dfs&bfs/">
-                        coding笔记： 问题空间搜索浅析
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        问题空间搜索DFS
-执着的算法
-
-
-思想
-会尽可能往深了搜，搜不到了就回溯，每一次回溯完之后判断当前是不是所有的路径均已遍历，若均已遍历，再进行回溯，否则搜索未遍历的路径
-
-两个重要概念
-
-回溯
-注意恢复现场
-
-剪枝
-最优性剪枝：当前的路径判断一定不...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Aug 05 2023 11:14:26 GMT+0800">2023-08-05</span></span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/coding/">coding</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/dfs/">dfs</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/bfs/">bfs</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/08/05/coding-solution/dfs&bfs/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
