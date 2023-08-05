@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            CS61A笔记 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">CS61A笔记</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/courses/">courses</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/courses/python/">python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/CS61A/">CS61A</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/python/">python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>601 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="lecture-01-Course-About"><a href="#lecture-01-Course-About" class="headerlink" title="lecture 01 Course About"></a>lecture 01 Course About</h2><ul>
+<li><p><strong>managing complexity</strong></p>
+<ul>
+<li><strong>tool</strong>:  <strong>mastering abstraction</strong></li>
+<li><strong>abstraction</strong> is giving sth a name and talking about it without worrying about details</li>
+<li><strong>tool</strong>: <strong>Programming paradigms</strong>: about how to organize programs</li>
+</ul>
+</li>
+<li><p>try a personal project if you have time</p>
+</li>
+</ul>
+<h2 id="lecture-02-Functions"><a href="#lecture-02-Functions" class="headerlink" title="lecture 02 Functions"></a>lecture 02 Functions</h2><p><strong>术语</strong></p>
+<ul>
+<li><strong>domain</strong>: the set of all inputs</li>
+<li><strong>range</strong>: the set of all outputs</li>
+<li><strong>behavior</strong>: relationship between input and output</li>
+</ul>
+<p><strong>expression evaluate</strong></p>
+<ul>
+<li>all expressions can use function call notation</li>
+<li>evaluate procedure</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211211016112.png" alt="image-20221121101625004" style="zoom:50%;">
+
+<ul>
+<li>上图称为表达式树。add(2,mul(4,6))称为操作数子表达式；其结果称为子表达式的值，同时它也是mul的第一个参数</li>
+<li>赋值是抽象（abstraction）的最简单的一种方法：把名字绑定到值上</li>
+<li>函数定义是抽象的一种更强大的手段：把名字绑定到表达式上</li>
+</ul>
+<p><strong>Environment Diagrams</strong></p>
+<ul>
+<li>environment 是 memory， 它可以跟踪名称和值之间的对应关系。</li>
+<li>所有的表达式都是在environment的情境下计算的。</li>
+<li>envrionment是frames的序列</li>
+<li>它可以是全局frame，也可以是局部frame，后面跟着全局frame</li>
+</ul>
+<p>可视化解释器的执行过程：</p>
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211220932880.png" alt="image-20221122093230773"></p>
+<p> <strong>函数是如何执行的？</strong></p>
+<ol>
+<li>add a local frame, forming a new environment</li>
+<li>bind the params to its arguments in that frame</li>
+<li>execute the body of the function in that new environment</li>
+</ol>
+<p><strong>名称的值是如何查找的?</strong></p>
+<p>当前环境下，在最早的frame中找到的名称所对应的值。如在函数中，我们会先在local frame中查找名字，如果没找到，再去全局frame中查找。</p>
+<p><strong>why does it work?</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> operator <span class="keyword">import</span> mul</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span>(<span class="params">square</span>):</span></span><br><span class="line">    <span class="keyword">return</span> mul(square,square);</span><br></pre></td></tr></table></figure>
+
+<p>函数sqaure在全局frame中，参数square在局部frame中，互不干扰。</p>
+<h2 id="lecture-03-Control"><a href="#lecture-03-Control" class="headerlink" title="lecture 03 Control"></a>lecture 03 Control</h2><p><strong>print &amp; None</strong></p>
+<ul>
+<li>what happens when evalutate <code>print(print(1),print(2))</code>?</li>
+</ul>
+<p>answer:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">None None</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>use the expression tree: </li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211231004418.png" alt="image-20221123100442206" style="zoom: 33%;">
+
+<p><strong>What is None?</strong></p>
+<ul>
+<li><p>None 表示没有任何东西被返回</p>
+</li>
+<li><p>None is not displayed by the interpreter as the value of an expression</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211230959970.png" alt="image-20221123095907807" style="zoom:50%;">
+
+<p>纯函数&amp;非纯函数</p>
+<ul>
+<li>纯函数：单纯地返回值</li>
+<li>非纯函数：有些side effects。例如 print，它返回None，但同时会输出值</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211231002073.png" alt="image-20221123100253921" style="zoom:50%;">
+
+<p><strong>Multiple Environments in One Diagram</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211231012417.png" alt="image-20221123101239319" style="zoom:50%;">
+
+<ul>
+<li>As you can see, there are three environments as the program executes.</li>
+<li>失去了环境，名称将不再有意义。名称在不同的环境中有着不同的含义</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211231018239.png" alt="image-20221123101836137" style="zoom:50%;">
+
+
+
+<h2 id="lecture-04-High-Order-Functions"><a href="#lecture-04-High-Order-Functions" class="headerlink" title="lecture 04 High Order Functions"></a>lecture 04 High Order Functions</h2><p><strong>A guide to design functions</strong></p>
+<ul>
+<li>Give each function <strong>exactly one job</strong></li>
+<li><strong>Don’t repeat yourself</strong>. Implement a process just once</li>
+<li>Define functions <strong>generally</strong> (share implementation)</li>
+</ul>
+<p><strong>Generalizing patterns with arguments</strong></p>
+<p><strong>Generalizing Over Computational Processes</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211251047021.png" alt="image-20221125104712978" style="zoom:50%;">
+
+<ul>
+<li>all summing from 1 to 5</li>
+<li>how to generalize?</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202211251052689.png" alt="image-20221125105207602" style="zoom: 50%;">
+
+<ul>
+<li>term is a formal parameter which will be bound to a function</li>
+<li>so the summation is a <strong>high order function</strong> that take another function as an argument</li>
+</ul>
+<p><strong>Functions as return values</strong></p>
+<ul>
+<li>function can be manipulated as values in programming</li>
+<li>high order function<ul>
+<li>take another function as an argument</li>
+<li>return a function</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：CS61A笔记</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/course-learning/CS-61A/note01/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/CS61A/">#CS61A</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/python/">#python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/course-learning/MIT-Missing-Semester/note01-shell/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT课程笔记： Notes on Missing semester 01</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/course-learning/MIT-Missing-Semester/note02-vim/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT课程笔记： Notes on Missing semester 02</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#lecture-01-Course-About"><span class="nav-number">1.</span> <span class="nav-text">lecture 01 Course About</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lecture-02-Functions"><span class="nav-number">2.</span> <span class="nav-text">lecture 02 Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lecture-03-Control"><span class="nav-number">3.</span> <span class="nav-text">lecture 03 Control</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lecture-04-High-Order-Functions"><span class="nav-number">4.</span> <span class="nav-text">lecture 04 High Order Functions</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

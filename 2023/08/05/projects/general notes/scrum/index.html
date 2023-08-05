@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            scrum软件过程基础浅析 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">scrum软件过程基础浅析</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B/">软件过程</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/scrum/">scrum</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%95%8F%E6%8D%B7/">敏捷</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>4 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="scrum软件过程基础浅析"><a href="#scrum软件过程基础浅析" class="headerlink" title="scrum软件过程基础浅析"></a>scrum软件过程基础浅析</h1><blockquote>
+<p>就软件过程框架本身而言，scrum比较好理解，是一种迭代、循序渐进的开发方法，也明白这个框架充分重视了人作为开发主体的重要作用，即不是以文档驱动，而是故事点（代码任务或者说可演示的功能）驱动开发。但就实际而言，这个框架可能不太适合中国软件开发的“行情”，实际效果有待验证。</p>
+</blockquote>
+<h2 id="scrum简介"><a href="#scrum简介" class="headerlink" title="scrum简介"></a>scrum简介</h2><p>Scrum是一个轻量级的敏捷开发框架，是一个<strong>增量的、迭代的</strong>开发过程。其核心准则就是<strong>自我管理</strong>和<strong>迭代开发</strong>，可以最大化生产率。</p>
+<p><strong>Scrum特点</strong></p>
+<ol>
+<li>持续的设计、开发、集成和测试</li>
+<li>跨职能的团队成员</li>
+<li>Sprint期间不允许需求变更</li>
+<li>时间盒技术：<strong>迭代周期的期限是固定的</strong>，<strong>不延长迭代的时间</strong></li>
+<li>严格定义的开发节奏</li>
+</ol>
+<p><strong>Scrum好处</strong></p>
+<p>Scrum能让每个参与者都对自己所做的工作以及自己做出的贡献感到骄傲，并让他们发挥到最佳水平。</p>
+<p><strong>Scrum与XP的关系</strong></p>
+<p>Scrum注重的是<strong>管理和组织</strong>实践，而XP关注的是实际的<strong>编程实践</strong>，两者相互兼容且相互补充，如<strong>结对编程、测试驱动开发、持续集成</strong>等XP的最佳实践仍然可以在Scrum中使用。</p>
+<h2 id="scrum目标"><a href="#scrum目标" class="headerlink" title="scrum目标"></a>scrum目标</h2><p>通过<strong>高透明性</strong>、<strong>检验</strong>和<strong>适应性</strong>来管理复杂性、不可预测性和变化。</p>
+<h2 id="scrum框架"><a href="#scrum框架" class="headerlink" title="scrum框架"></a>scrum框架</h2><blockquote>
+<p>p.s. 354很好记</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206101002797.png" alt="image-20220610100246694" style="zoom:50%;">
+
+<h3 id="scrum的3个角色"><a href="#scrum的3个角色" class="headerlink" title="scrum的3个角色"></a>scrum的3个角色</h3><p><strong>scrum master</strong></p>
+<p>做为团队和外部的接口，解决团队开发中的障碍,保证各个角色及职责的良好协作，保证开发过程按计划进行，组织会议，并更新燃尽图</p>
+<p><strong>product owner</strong></p>
+<p>负责提出和维护产品Backlog</p>
+<p><strong>scrum team</strong></p>
+<p>SCRUM团队负责在每个Sprint中将产品Backlog中的条目转化成为潜在可交付的功能增量。自组织，跨职能，一般5-9个人</p>
+<h3 id="scrum的5个仪式"><a href="#scrum的5个仪式" class="headerlink" title="scrum的5个仪式"></a>scrum的5个仪式</h3><p><strong>发布计划会议</strong></p>
+<blockquote>
+<p>只是确立大致交付日期和成本，之后每次迭代开始前均需要依据项目进展情况重新进行调整</p>
+</blockquote>
+<ul>
+<li><p>确立项目整体发布目标和预期结果</p>
+</li>
+<li><p>确定产品Backlog条目、重大风险和发布所包含的全部特性和功能</p>
+</li>
+<li><p>敏捷工作量估算：规模计量单位使用<strong>故事点</strong>，是一个相对值（区别于传统的人天估算）</p>
+<ul>
+<li>计算团队速度：一个迭代中团队完成的故事点总数</li>
+<li>计算迭代周期数：所有故事总的故事点数/团队速度</li>
+<li>计算项目成本：每个迭代的成本 * 迭代周期数</li>
+</ul>
+</li>
+<li><p>根据工作量估算确立大致交付日期和费用</p>
+</li>
+</ul>
+<p><strong>Sprint计划会议</strong></p>
+<ul>
+<li><p>确定做什么</p>
+<p>介绍最高优先级的产品Backlog条目；<strong>选择产品Backlog条目</strong>，确定Sprint目标</p>
+<ul>
+<li>选多少：Sprint计划完成故事点数 = 团队速度 * 120%（120原则）</li>
+<li>选什么：新用户故事占70%，bugs和技术债务占30%（70/30原则）</li>
+</ul>
+</li>
+<li><p>确定怎么做</p>
+<p>团队成员将产品Backlog<strong>分解</strong>为多个1天以内可以完成的任务，细分的任务构成Sprint Backlog</p>
+</li>
+</ul>
+<p><strong>每日站会</strong></p>
+<blockquote>
+<p>这个图看起来挺有意思的，精准展现了每日站会，所以贴上。从中也可以看出，敏捷团队的规模只是5-6人左右（还有程序员真的是聪明绝顶（bushi）），中间红衣服的人最有可能是scrum master，纯属猜测。</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206101025172.png" alt="image-20220610102500003" style="zoom:50%;">
+
+<p>由scrum master主持，每个开发成员会被问三个问题：</p>
+<ul>
+<li>昨天做了什么？</li>
+<li>今天打算做什么？</li>
+<li>工作中遇到了哪些问题？</li>
+</ul>
+<p>前两个问题的目的是维护任务状态，哪些已完成，哪些未完成。但注意，每日站会<strong>不是进度汇报</strong>，而是Scrum成员互相的承诺；<strong>不是系统设计讨论</strong>，遇到的问题应会后解决；会议还应注意时间和效率（10-15分钟），确保 <strong>“鸡” 的角色</strong>不允许在会议上发言过长。</p>
+<blockquote>
+<p>“鸡的角色”，描述得有点形象，有可能暗示只说不做，不了解任务实现难度，滔滔不绝的人。下面的图emmm很直观</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206101038559.png" alt="image-20220610103840515" style="zoom:50%;">
+
+<p><strong>Sprint评审会议</strong></p>
+<ul>
+<li>团队按Sprint Backlog中的条目，为产品负责人或是用户逐个地介绍结果、演示新功能。演示不是验收，目的是收集反馈</li>
+<li>如果产品负责人或客户想改变功能或对功能有新的想法，则添加新条目到产品Backlog中</li>
+<li>将还没能解决的问题加入到问题Backlog列表</li>
+</ul>
+<p><strong>Sprint回顾会议</strong></p>
+<blockquote>
+<p><strong>通过总结以往的实践经验来提高团队生产力</strong></p>
+</blockquote>
+<ul>
+<li><p>以头脑风暴的方式Review Sprint过程和结果，发现和列举存在的问题</p>
+</li>
+<li><p>参会人员投票决定需要在下个Sprint中解决的1-3个问题， 探讨解决方案，确定实践方式</p>
+</li>
+<li><p><strong>回顾是团队的定期自我审视</strong>（p.s. 审视这个词很妙）</p>
+</li>
+</ul>
+<h3 id="scrum的4个工件"><a href="#scrum的4个工件" class="headerlink" title="scrum的4个工件"></a>scrum的4个工件</h3><p><strong>产品 Backlog</strong></p>
+<p><strong>SprintBacklog</strong></p>
+<p><strong>Sprint 燃尽图</strong></p>
+<p><strong>发布燃尽图</strong></p>
+<h2 id="scrum工作流总结"><a href="#scrum工作流总结" class="headerlink" title="scrum工作流总结"></a>scrum工作流总结</h2><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206101049881.png" alt="image-20220610104910789" style="zoom:50%;">
+
+<ul>
+<li><p>前期</p>
+<p>产品负责人整理业务需求，形成Product Backlog库</p>
+</li>
+<li><p>执行</p>
+<ul>
+<li>以Sprint为单位迭代式地完成Sprint Backlog</li>
+<li>每个Sprint以Sprint Planning开始，通过每日例会跟踪进度和issue</li>
+<li>Sprint结束时进行评审，交付可运行的产品</li>
+</ul>
+</li>
+<li><p>后期</p>
+<ul>
+<li>每个Sprint完成后，通过Sprint回顾发现问题和改进点</li>
+<li>制定下个Sprint要引入的新的实践</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：scrum软件过程基础浅析</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/projects/general notes/scrum/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/scrum/">#scrum</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%95%8F%E6%8D%B7/">#敏捷</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/projects/general%20notes/pa1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">PA1项目心得记录</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/projects/basketball%20project/%E6%95%B0%E6%8D%AE%E9%9B%86%E8%A6%81%E6%B1%82/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#scrum%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B%E5%9F%BA%E7%A1%80%E6%B5%85%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">scrum软件过程基础浅析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#scrum%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">scrum简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrum%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.</span> <span class="nav-text">scrum目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrum%E6%A1%86%E6%9E%B6"><span class="nav-number">1.3.</span> <span class="nav-text">scrum框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrum%E7%9A%843%E4%B8%AA%E8%A7%92%E8%89%B2"><span class="nav-number">1.3.1.</span> <span class="nav-text">scrum的3个角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrum%E7%9A%845%E4%B8%AA%E4%BB%AA%E5%BC%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">scrum的5个仪式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrum%E7%9A%844%E4%B8%AA%E5%B7%A5%E4%BB%B6"><span class="nav-number">1.3.3.</span> <span class="nav-text">scrum的4个工件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrum%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">scrum工作流总结</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

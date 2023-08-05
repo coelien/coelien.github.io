@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation"></span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>4 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="互联网＋项目"><a href="#互联网＋项目" class="headerlink" title="互联网＋项目"></a>互联网＋项目</h1><h2 id="项目内容介绍—我们要做的是什么"><a href="#项目内容介绍—我们要做的是什么" class="headerlink" title="项目内容介绍—我们要做的是什么"></a>项目内容介绍—我们要做的是什么</h2><blockquote>
+<p>应通俗易懂，避免大量专业术语的使用</p>
+</blockquote>
+<p>包括：背景，行业诉求，项目方案，技术创新及突破点，与行业竞品的对比的差异点与技术壁垒，落地效果+落地场景，取得的成果(有数据支撑)</p>
+<h3 id="命题解读"><a href="#命题解读" class="headerlink" title="命题解读"></a>命题解读</h3><p>我们的命题是”基于昇腾算力及CANN的创新媒体处理应用“。其中媒体指的是交通场景下的道路视频，通过对交通视频进行处理，我们可以将其应用于自动驾驶仿真系统。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207191653094.png" alt="image-20220719165336946" style="zoom:50%;">
+
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ol>
+<li>自动驾驶汽车目前存在很多事故，影响严重</li>
+<li>究其原因是技术存在壁垒，难以突破</li>
+<li>我们的研究可以用于<strong>自动驾驶离线测试</strong>或者<strong>高级辅助驾驶系统</strong>：我们基于市面上常见的仿真系统，将源码进行修改，并将我们的<strong>核心算法</strong>嵌入其中</li>
+</ol>
+<h3 id="行业诉求"><a href="#行业诉求" class="headerlink" title="行业诉求"></a>行业诉求</h3><blockquote>
+<p>我们通过行业调研得知</p>
+</blockquote>
+<p><strong>安全性</strong>：感知前方车辆的制动行为和换道行为对于预测潜在的危险事件具有重要意义。</p>
+<p>而我们研究的<strong>车辆行为识别</strong>和<strong>车辆轨迹预测</strong>可以<strong>辅助路径规划和运动决策</strong>，可以有效确保自动驾驶的安全性。</p>
+<h4 id="车辆行为识别"><a href="#车辆行为识别" class="headerlink" title="车辆行为识别"></a>车辆行为识别</h4><p>在构建安全可靠的自动驾驶系统和高级辅助驾驶系统时，为了分析交通场景的动态演变并<strong>做出合理的决策</strong>，需要自动感知车辆周围其他车辆的<strong>驾驶行为</strong>。而预测驾驶行为这一点目前依然是相当有挑战性的，若能提出一个高效的算法，提高预测精度，对于自动驾驶系统的稳定性和安全性都有较大提升。例如，感知前方车辆的制动行为和换道行为对于预测潜在的危险事件具有重要意义。</p>
+<h4 id="车辆轨迹预测"><a href="#车辆轨迹预测" class="headerlink" title="车辆轨迹预测"></a>车辆轨迹预测</h4><p>为了确保安全，仅仅关注感知、规划和控制是不够的。<strong>高速、准确的轨迹预测</strong>对于后续的控制决策和确保自动驾驶的安全性非常重要。车辆的轨迹预测功能根据过去行驶的轨迹和周边环境如：静态交通设施和动态行驶的车辆、行走的行人等信息，预测视频中车辆未来的轨迹。这有助于构建范围更大、更为全面的智能交通系统。</p>
+<h3 id="目前该领域存在的问题"><a href="#目前该领域存在的问题" class="headerlink" title="目前该领域存在的问题"></a>目前该领域存在的问题</h3><blockquote>
+<p>这两大部分论文里都有，可以参考</p>
+</blockquote>
+<h4 id="车辆行为识别-1"><a href="#车辆行为识别-1" class="headerlink" title="车辆行为识别"></a>车辆行为识别</h4><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207191720085.png" alt="image-20220719172010016" style="zoom:50%;">
+
+<h4 id="车辆轨迹预测-1"><a href="#车辆轨迹预测-1" class="headerlink" title="车辆轨迹预测"></a>车辆轨迹预测</h4><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202207191720938.png" alt="image-20220719172054877" style="zoom:50%;">
+
+<h3 id="项目方案"><a href="#项目方案" class="headerlink" title="项目方案"></a>项目方案</h3><blockquote>
+<p>高级辅助驾驶系统</p>
+</blockquote>
+<ol>
+<li>项目调研：简述调研流程</li>
+<li>项目计划：开发高级辅助驾驶系统的项目计划</li>
+<li>项目实施：简要介绍我们的算法如何嵌入辅助驾驶系统</li>
+<li>项目落地：期待的落地效果+落地场景</li>
+</ol>
+<h3 id="技术创新及突破点"><a href="#技术创新及突破点" class="headerlink" title="技术创新及突破点"></a>技术创新及突破点</h3><p>针对上述调研的存在的问题，我们提出了对应的改进</p>
+<ol>
+<li>复杂场景下车辆与行人轨迹预测：改进社会池化模块</li>
+<li>复杂场景下车辆与行人轨迹预测：对行人朝向的方位角进行建模</li>
+<li>基于3DCNN的车辆行为识别：使用多流输入，并在网络中进行深度融合</li>
+<li>基于3DCNN的车辆行为识别：提出三维感受野增强模块</li>
+<li>基于3DCNN的车辆行为识别：提出通道注意力特征融合模块</li>
+</ol>
+<h3 id="行业竞品的对比"><a href="#行业竞品的对比" class="headerlink" title="行业竞品的对比"></a>行业竞品的对比</h3><p><strong>用于汽车工业商业目的的模拟软件</strong></p>
+<p>用于车辆动力学的 CarSim、用于复杂车辆模型和交通场景的 PanoSim、用于高级驾驶辅助系统（ADAS）的 PreScan。</p>
+<h2 id="如何制作PPT"><a href="#如何制作PPT" class="headerlink" title="如何制作PPT"></a>如何制作PPT</h2><p><strong>我的想法</strong></p>
+<p>我们PPT第一遍做最好不要套模板，定下主色调之后，我们PPT的主要内容是图片和文字，我们先把这个做好。</p>
+<p><strong>PPT制作要点</strong></p>
+<ul>
+<li><p>材料准备：<strong>精炼</strong>，优势点，突破点突出，要把更多的时间<strong>投入加分项</strong>的介绍</p>
+</li>
+<li><p>评分规则：突出长处，弱化短处，但不要有缺失：商业分析，教育维度</p>
+</li>
+<li><p>更多思考：技术，行业，商业，社会</p>
+</li>
+</ul>
+<h2 id="任务分工"><a href="#任务分工" class="headerlink" title="任务分工"></a>任务分工</h2><p>每个人的任务都分成两部分：包括文档撰写＋PPT制作。下面以任务点的形式领取任务：    </p>
+<p>阶段性：</p>
+<ul>
+<li>初版日期：7/19~7/22</li>
+</ul>
+<p>分工：</p>
+<ul>
+<li><p>团队维度【张】</p>
+</li>
+<li><p>命题解读【田】<a class="link" target="_blank" rel="noopener" href="https://cy.ncss.cn/mtcontest/detail?id=8a80808d81197da0018119acfaad04dc">链接<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p><strong>背景及意义</strong>：政策，自动驾驶，事故【张】</p>
+</li>
+<li><p><strong>行业诉求</strong>【田】调研，安全性和实时性</p>
+</li>
+<li><p>目前该领域存在的问题：论文中已有【崔】</p>
+</li>
+<li><p>项目方案</p>
+<ul>
+<li><strong>调研</strong>：调研自动驾驶离线测试或者高级辅助驾驶系统【贺】<ul>
+<li>目前提到的这些模拟软件在github上是否开源，或者有没有做类似东西的</li>
+<li>…</li>
+</ul>
+</li>
+<li>计划<em>【】</em></li>
+<li>实施<em>【】【】</em>论文实验，融合：用了哪些框架（项目整体架构：前后端分离）</li>
+<li><strong>落地</strong>【崔】落地效果+落地场景（简单设想）</li>
+</ul>
+</li>
+<li><p>技术创新及突破点【贺】</p>
+</li>
+<li><p><strong>商业分析</strong>：我们的软件/系统怎么可以赚钱【许】【吴】【余】（具体这块儿我不太懂，可以参考b站往年互联网+比赛视频，<a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1z3411E7yX">链接<i class="fas fa-external-link-alt"></i></a>）</p>
+<ul>
+<li>行业竞品的对比</li>
+<li>优势分析</li>
+<li>风险分析</li>
+<li>市场营销</li>
+</ul>
+</li>
+<li><p><strong>教育维度</strong>【崔】</p>
+<ul>
+<li>项目符合将专业知识与产业实际问题有效结合，并转化为商业价值或社会价值</li>
+<li>充分体现团队解决复杂问题的综合能力和高级思维，体现项目成长对团队成员创新创业精神</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/projects/huawei project/互联网+产业赛道华为命题分工/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/projects/huawei%20project/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E4%BB%BF%E7%9C%9F%E6%B5%8B%E8%AF%95%E8%B0%83%E7%A0%94/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/projects/huawei%20project/%E5%8D%8E%E4%B8%BA%E9%A1%B9%E7%9B%AE%EF%BC%9A%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%A4%8D%E7%9B%98/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%EF%BC%8B%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">互联网＋项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%86%85%E5%AE%B9%E4%BB%8B%E7%BB%8D%E2%80%94%E6%88%91%E4%BB%AC%E8%A6%81%E5%81%9A%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text">项目内容介绍—我们要做的是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E9%A2%98%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">命题解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%9A%E8%AF%89%E6%B1%82"><span class="nav-number">1.1.3.</span> <span class="nav-text">行业诉求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%A6%E8%BE%86%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">车辆行为识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%A6%E8%BE%86%E8%BD%A8%E8%BF%B9%E9%A2%84%E6%B5%8B"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">车辆轨迹预测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E8%AF%A5%E9%A2%86%E5%9F%9F%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.4.</span> <span class="nav-text">目前该领域存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%A6%E8%BE%86%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB-1"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">车辆行为识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%A6%E8%BE%86%E8%BD%A8%E8%BF%B9%E9%A2%84%E6%B5%8B-1"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">车辆轨迹预测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%96%B9%E6%A1%88"><span class="nav-number">1.1.5.</span> <span class="nav-text">项目方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E5%88%9B%E6%96%B0%E5%8F%8A%E7%AA%81%E7%A0%B4%E7%82%B9"><span class="nav-number">1.1.6.</span> <span class="nav-text">技术创新及突破点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%9A%E7%AB%9E%E5%93%81%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.1.7.</span> <span class="nav-text">行业竞品的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%B6%E4%BD%9CPPT"><span class="nav-number">1.2.</span> <span class="nav-text">如何制作PPT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%88%86%E5%B7%A5"><span class="nav-number">1.3.</span> <span class="nav-text">任务分工</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

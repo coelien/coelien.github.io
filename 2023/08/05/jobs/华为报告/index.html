@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            华为开发者峰会报告提纲 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">华为开发者峰会报告提纲</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%8D%8E%E4%B8%BA/">华为</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%8A%A5%E5%91%8A/">报告</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>602 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="华为开发者峰会报告提纲"><a href="#华为开发者峰会报告提纲" class="headerlink" title="华为开发者峰会报告提纲"></a>华为开发者峰会报告提纲</h1><h2 id="个人介绍"><a href="#个人介绍" class="headerlink" title="个人介绍"></a>个人介绍</h2><p>（2-3页，1分钟左右）</p>
+<ul>
+<li><p>学校，专业背景</p>
+</li>
+<li><p>获得奖项（与华为相关的提一下）</p>
+</li>
+<li><p>参与过的的华为项目，智能基座课程，昇腾方向线上课程，昇腾微认证等（先列一张汇总表，之后会详细讲述）</p>
+</li>
+</ul>
+<h2 id="初次认识昇腾AI—学习”西交-华为“智能基座课程"><a href="#初次认识昇腾AI—学习”西交-华为“智能基座课程" class="headerlink" title="初次认识昇腾AI—学习”西交-华为“智能基座课程"></a>初次认识昇腾AI—学习”西交-华为“智能基座课程</h2><p>（3页，2分钟左右）</p>
+<blockquote>
+<p>在人工智能原理课中，学习昇腾AI的相关知识</p>
+</blockquote>
+<ul>
+<li>学习昇腾AI诞生的背景<ul>
+<li>AI政策指引：AI核心软硬件成为国家重点战略布局</li>
+<li>硬核科技”受国外制约</li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418192652531.png" alt="image-20230418192652531" style="zoom: 33%;">
+
+<ul>
+<li>在课程中<strong>全面学习</strong>了华为昇腾<strong>全栈软硬件平台</strong><ul>
+<li>AI芯片体系架构: NPU</li>
+<li>AI算子开发语言: CANN</li>
+<li>人工智能编程框架：MindSpore</li>
+</ul>
+</li>
+<li>为什么使用昇腾AI？<strong>逐渐流行</strong>：华为公司研发和力推的MindSpore在学界使用比例逐年增加</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418192632549.png" alt="image-20230418192632549" style="zoom: 50%;">
+
+<h2 id="深入了解昇腾AI—基于Atlas-200I-DK-A2开发板的智能交通应用"><a href="#深入了解昇腾AI—基于Atlas-200I-DK-A2开发板的智能交通应用" class="headerlink" title="深入了解昇腾AI—基于Atlas 200I DK A2开发板的智能交通应用"></a>深入了解昇腾AI—基于Atlas 200I DK A2开发板的智能交通应用</h2><p>（4页，3分钟左右）</p>
+<ul>
+<li><p>项目背景和目标</p>
+<p>自动驾驶面临着许多挑战；语义分割技术对自动驾驶的作用；探究如何在华为Atlas 200I DK A2开发板上部署一种高效的交通场景下的语义分割模型，以实现对交通场景的快速、准确的感知和理解。</p>
+</li>
+<li><p>开发板及语义分割模型介绍</p>
+</li>
+<li><p>om模型转换及脚本编写</p>
+</li>
+<li><p>成果评估</p>
+</li>
+</ul>
+<h2 id="实际探索昇腾AI—基于Atlas-910服务器的Tensorflow-amp-Pytorch模型迁移"><a href="#实际探索昇腾AI—基于Atlas-910服务器的Tensorflow-amp-Pytorch模型迁移" class="headerlink" title="实际探索昇腾AI—基于Atlas 910服务器的Tensorflow&Pytorch模型迁移"></a>实际探索昇腾AI—基于Atlas 910服务器的Tensorflow&amp;Pytorch模型迁移</h2><p>（4页，4分钟左右）</p>
+<ul>
+<li><p>项目背景，交付要求</p>
+<p>在NPU芯片上训练开源模型（Twins和BSRN），对标原论文在英伟达GPU上的性能和精度</p>
+</li>
+<li><p>模型迁移流程</p>
+</li>
+<li><p>迁移中遇到的问题及解决方法</p>
+</li>
+<li><p>性能优化及调优工具使用</p>
+</li>
+</ul>
+<h2 id="产业应用昇腾AI—基于昇腾算力及CANN的高级辅助驾驶"><a href="#产业应用昇腾AI—基于昇腾算力及CANN的高级辅助驾驶" class="headerlink" title="产业应用昇腾AI—基于昇腾算力及CANN的高级辅助驾驶"></a>产业应用昇腾AI—基于昇腾算力及CANN的高级辅助驾驶</h2><p>（16页，10分钟左右，选取比赛PPT中的关键内容）</p>
+<ul>
+<li>命题分析</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418200601283.png" alt="image-20230418200601283" style="zoom: 33%;">
+
+<ul>
+<li>指标要求</li>
+<li>为什么使用CANN</li>
+<li>行业背景</li>
+<li>研究基础1</li>
+<li>研究基础2</li>
+<li>整体解决方案</li>
+<li>核心技术1</li>
+<li>核心技术2</li>
+<li>方案效果</li>
+<li>华为验收测试</li>
+<li>华为专家评价</li>
+<li>指导老师</li>
+<li>专家顾问</li>
+<li>社会效益</li>
+<li>教育维度</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：华为开发者峰会报告提纲</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/jobs/华为报告/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%8D%8E%E4%B8%BA/">#华为</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%8A%A5%E5%91%8A/">#报告</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/paper-reading/paper_reading_006/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">论文阅读笔记：“From Goals, Waypoints &amp; Paths To Long Term Human Trajectory Forecasting(ICCV 2021)”</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/jobs/%E5%8D%8E%E4%B8%BA%E6%8A%A5%E5%91%8A2%E8%AE%B2%E7%A8%BF/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">西交智能基座报告讲稿</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8E%E4%B8%BA%E5%BC%80%E5%8F%91%E8%80%85%E5%B3%B0%E4%BC%9A%E6%8A%A5%E5%91%8A%E6%8F%90%E7%BA%B2"><span class="nav-number">1.</span> <span class="nav-text">华为开发者峰会报告提纲</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">个人介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E6%AC%A1%E8%AE%A4%E8%AF%86%E6%98%87%E8%85%BEAI%E2%80%94%E5%AD%A6%E4%B9%A0%E2%80%9D%E8%A5%BF%E4%BA%A4-%E5%8D%8E%E4%B8%BA%E2%80%9C%E6%99%BA%E8%83%BD%E5%9F%BA%E5%BA%A7%E8%AF%BE%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">初次认识昇腾AI—学习”西交-华为“智能基座课程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3%E6%98%87%E8%85%BEAI%E2%80%94%E5%9F%BA%E4%BA%8EAtlas-200I-DK-A2%E5%BC%80%E5%8F%91%E6%9D%BF%E7%9A%84%E6%99%BA%E8%83%BD%E4%BA%A4%E9%80%9A%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">深入了解昇腾AI—基于Atlas 200I DK A2开发板的智能交通应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%8E%A2%E7%B4%A2%E6%98%87%E8%85%BEAI%E2%80%94%E5%9F%BA%E4%BA%8EAtlas-910%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84Tensorflow-amp-Pytorch%E6%A8%A1%E5%9E%8B%E8%BF%81%E7%A7%BB"><span class="nav-number">1.4.</span> <span class="nav-text">实际探索昇腾AI—基于Atlas 910服务器的Tensorflow&amp;Pytorch模型迁移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A7%E4%B8%9A%E5%BA%94%E7%94%A8%E6%98%87%E8%85%BEAI%E2%80%94%E5%9F%BA%E4%BA%8E%E6%98%87%E8%85%BE%E7%AE%97%E5%8A%9B%E5%8F%8ACANN%E7%9A%84%E9%AB%98%E7%BA%A7%E8%BE%85%E5%8A%A9%E9%A9%BE%E9%A9%B6"><span class="nav-number">1.5.</span> <span class="nav-text">产业应用昇腾AI—基于昇腾算力及CANN的高级辅助驾驶</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            CS106L笔记：STL |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">CS106L笔记：STL</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/courses/">courses</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/courses/c/">c++</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/C/">C++</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CS106L/">CS106L</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>7 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="C-Learning-Roadmap"><a href="#C-Learning-Roadmap" class="headerlink" title="C++ Learning Roadmap"></a>C++ Learning Roadmap</h1><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303010901484.png" alt="image-20230301090101345" style="zoom:50%;">
+
+<h1 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h1><h2 id="overview-of-STL"><a href="#overview-of-STL" class="headerlink" title="overview of STL"></a>overview of STL</h2><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302221106498.png" alt="image-20230222110624393" style="zoom:50%;">
+
+<h2 id="why-use-c-for-development"><a href="#why-use-c-for-development" class="headerlink" title="why use c++ for development?"></a>why use c++ for development?</h2><ul>
+<li>community</li>
+<li>developing or evolving</li>
+<li>open source (unlike Java , which is owned by Oracle, so you can use c++ for business need.)</li>
+<li>super extensible (boost library like c++ STL plus plus)</li>
+</ul>
+<h2 id="Containers-Adaptors"><a href="#Containers-Adaptors" class="headerlink" title="Containers Adaptors"></a>Containers Adaptors</h2><ul>
+<li>stack &amp; queue</li>
+</ul>
+<p><strong>Adapt vector and deque containers to suit this particular need</strong>.</p>
+<ul>
+<li>why not just user a vector/deque?</li>
+</ul>
+<p>Express ideas and intent directly in code. And compartmentalize messy constructs.</p>
+<h2 id="Associative-Containers"><a href="#Associative-Containers" class="headerlink" title="Associative Containers"></a>Associative Containers</h2><ul>
+<li><p>have no idea of sequence </p>
+</li>
+<li><p>Data is accessed using the key instead of indexes.</p>
+</li>
+<li><p>includes:</p>
+<ul>
+<li>std::map&lt;T1,T2&gt;：associate one key type of data with other value type of data</li>
+<li>std::set<t></t></li>
+<li>std::unordered_map&lt;T1,T2&gt;</li>
+<li>std::unordered_set<t></t></li>
+</ul>
+</li>
+<li><p>map &amp; set are based on ordering property of keys(needs to be comparable)</p>
+</li>
+<li><p>when to use map/set , when to use unordered ones?</p>
+</li>
+</ul>
+<p>map/set: iterate through <strong>a range of elements</strong></p>
+<p>unordered: <strong>access individual elements</strong> by key</p>
+<ul>
+<li>How do we iterate over associative containers?</li>
+</ul>
+<p>use <strong>Iterators</strong></p>
+<h2 id="Multimaps"><a href="#Multimaps" class="headerlink" title="Multimaps"></a>Multimaps</h2><ul>
+<li>Maps store unique keys</li>
+<li>sometimes we want the map to have the same key pointing different values</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">multimap&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; myMMap;</span><br><span class="line">myMMap.<span class="built_in">insert</span>(<span class="built_in">make_pair</span>(<span class="number">3</span>,<span class="number">3</span>));</span><br><span class="line">myMMap.<span class="built_in">insert</span>({<span class="number">3</span>,<span class="number">12</span>});</span><br><span class="line">cout&lt;&lt;myMMap.<span class="built_in">count</span>(<span class="number">3</span>)&lt;&lt;endl; <span class="comment">// prints 2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Iterators"><a href="#Iterators" class="headerlink" title="Iterators"></a>Iterators</h2><ul>
+<li><p>why iterator is powerful?</p>
+<ul>
+<li>many scenarios require looking at elements, regardless of what type of container is storing those elements.</li>
+<li>go through sequence in a standardized way( use the exact same code to perform a logical action, regardless of the data structure, independent of the container)</li>
+</ul>
+</li>
+<li><p>philosophy in Iterators</p>
+<ul>
+<li>let us view a non-linear collection in a linear manner(iterate one by one without visiting twice)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Map-Iterators"><a href="#Map-Iterators" class="headerlink" title="Map Iterators"></a>Map Iterators</h2><ul>
+<li>the iterator of map&lt;string, int&gt; points to a std::pair</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302241043837.png" alt="image-20230224104257692" style="zoom:50%;">
+
+<p><code>auto time = std::make_pair(1,45);</code></p>
+<ul>
+<li>find vs. count</li>
+</ul>
+<p>count is just a call to the find. So find is faster</p>
+<h2 id="Iterator-types"><a href="#Iterator-types" class="headerlink" title="Iterator types"></a>Iterator types</h2><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302241112715.png" alt="image-20230224111208654" style="zoom:50%;">
+
+<p>the one on the right is more powerful than the left one.</p>
+<h1 id="Templates"><a href="#Templates" class="headerlink" title="Templates"></a>Templates</h1><h2 id="Why-use-template-functions-generic-functions"><a href="#Why-use-template-functions-generic-functions" class="headerlink" title="Why use template functions(generic functions)?"></a>Why use template functions(generic functions)?</h2><ul>
+<li>They are such a powerful tool that could solve a bunch of similar problems.</li>
+</ul>
+<p><strong>what if there are multiple potential templates functions?</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303031055828.png" alt="image-20230303105544750" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303031056493.png" alt="image-20230303105613382" style="zoom:50%;">
+
+<h2 id="Concept-Lifting"><a href="#Concept-Lifting" class="headerlink" title="Concept Lifting"></a>Concept Lifting</h2><ul>
+<li>Question the assumptions you place on the parameters whether they are really necessary?</li>
+<li>Can you solve a more general problems by relaxing the constraints?</li>
+</ul>
+<blockquote>
+<p>An amazing example:</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303011004199.png" alt="image-20230301100400139" style="zoom:50%;">
+
+<h2 id="Implicit-interfaces"><a href="#Implicit-interfaces" class="headerlink" title="Implicit interfaces"></a>Implicit interfaces</h2><ul>
+<li>a template function defines an implicit interface that each template parameter must satisfy</li>
+</ul>
+<h2 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h2><ul>
+<li>A predicate, evaluate at compile time, that is a part of the interface</li>
+</ul>
+<h2 id="predicate-谓语"><a href="#predicate-谓语" class="headerlink" title="predicate(谓语)"></a>predicate(谓语)</h2><p>predicate is a function which takes in some numbers of arguments and returns a boolean</p>
+<ul>
+<li><p>unary predicate: one argument</p>
+</li>
+<li><p>binary predicate: two arguments</p>
+</li>
+</ul>
+<p>more generic version of countOccurences:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> InputIterator, <span class="keyword">typename</span> UniaryPredicate&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">countOccurences</span><span class="params">(InputIterator begin, InputIterator end, UniaryPredicate predicate)</span></span>{</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> iter = begin; iter!=end; ++iter)</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">predicate</span>(*iter)) ++count;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>what if we want predicate to be more flexible? </p>
+</li>
+<li><p>pre c++11 solution:</p>
+<p><strong>use classses</strong>, of course,we have to override operators.</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303031008082.png" alt="image-20230303100838940" style="zoom:50%;">
+
+<ul>
+<li><p>c++11 solution:</p>
+<p><strong>use lambda</strong>, it’s an <strong>object</strong> but acts like a function, because it generate the class and create an instance of it.</p>
+<p><strong>you can use auto in parameters to templatize the lambda</strong></p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">int</span> limit = <span class="built_in">getInteger</span>(<span class="string">"minimum for A?"</span>);</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; grades = <span class="built_in">readStudenGrades</span>();</span><br><span class="line">    <span class="keyword">auto</span> func = [limit](<span class="keyword">auto</span> val){<span class="keyword">return</span> val&gt;=limit;};</span><br><span class="line">    <span class="built_in">countOccurences</span>(grades.<span class="built_in">begin</span>(),grades.<span class="built_in">end</span>(),func);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>you can also capture by reference, only capture the variables you need</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set&lt;string&gt; teas{<span class="string">"black"</span>,<span class="string">"green"</span>,<span class="string">"oolong"</span>};</span><br><span class="line">string banned = <span class="string">"boba"</span>;</span><br><span class="line"><span class="keyword">auto</span> likedByAvery = [&amp;teas, banned](<span class="keyword">auto</span> type){</span><br><span class="line">    <span class="keyword">return</span> teas.<span class="built_in">count</span>(type) &amp;&amp; type!=banned;</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+
+<h2 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h2><h3 id="Why-use-algorithms"><a href="#Why-use-algorithms" class="headerlink" title="Why use algorithms?"></a>Why use algorithms?</h3><ul>
+<li>Abstractions</li>
+<li>Generic</li>
+<li>Correct</li>
+<li>Heavily optimized</li>
+</ul>
+<h3 id="std-sort"><a href="#std-sort" class="headerlink" title="std::sort"></a>std::sort</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> compareRating = [] (<span class="keyword">const</span> Course&amp; c1, <span class="keyword">const</span> Course&amp; c2){</span><br><span class="line">    <span class="keyword">return</span> c1.rating &lt; c2.rating;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">std::<span class="built_in">sort</span>(courses.<span class="built_in">begin</span>(),courses.<span class="built_in">end</span>(),compareRating);</span><br><span class="line"></span><br><span class="line">std::<span class="built_in">copy</span>(courses.<span class="built_in">begin</span>(),courses.<span class="built_in">end</span>(),std::ostream_iterator&lt;Course&gt;(std::cout),<span class="string">"\n"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="std-nth-element"><a href="#std-nth-element" class="headerlink" title="std::nth_element"></a>std::nth_element</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> m = v.<span class="built_in">begin</span>() + v.<span class="built_in">size</span>()/<span class="number">2</span>;</span><br><span class="line">std::<span class="built_in">nth_element</span>(v.<span class="built_in">begin</span>(), m, v.<span class="built_in">end</span>());</span><br><span class="line">std::cout &lt;&lt; <span class="string">"\nThe median is "</span> &lt;&lt; v[v.<span class="built_in">size</span>()/<span class="number">2</span>] &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"></span><br><span class="line">std::<span class="built_in">nth_element</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">begin</span>()+<span class="number">1</span>, v.<span class="built_in">end</span>(), std::greater{});</span><br><span class="line">std::cout &lt;&lt; <span class="string">"\nThe second largest element is "</span> &lt;&lt; v[<span class="number">1</span>] &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">std::cout &lt;&lt; <span class="string">"The largest element is "</span> &lt;&lt; v[<span class="number">0</span>] &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"><span class="built_in">printVec</span>(v);</span><br></pre></td></tr></table></figure>
+
+<h3 id="std-stable-partition"><a href="#std-stable-partition" class="headerlink" title="std::stable_partition"></a>std::stable_partition</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303081108267.png" alt="image-20230308110804100" style="zoom:50%;">
+
+<ul>
+<li>return: Iterator to the first element of the second group</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> isDep = [](<span class="keyword">auto</span> element){</span><br><span class="line">    <span class="keyword">return</span> element.name.<span class="built_in">size</span>() &gt; <span class="number">2</span> &amp;&amp; element.name.<span class="built_in">substr</span>(<span class="number">0</span>,<span class="number">2</span>)==<span class="string">"CS"</span>;</span><br><span class="line">};</span><br><span class="line">std::<span class="built_in">stable_partition</span>(courses.<span class="built_in">begin</span>(), courses.<span class="built_in">end</span>(),isDep);</span><br><span class="line">std::<span class="built_in">copy</span>(courses.<span class="built_in">begin</span>(),courses.<span class="built_in">end</span>(),std::ostream_iterator&lt;Course&gt;(std::cout),<span class="string">"\n"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="std-copy-if"><a href="#std-copy-if" class="headerlink" title="std::copy_if"></a>std::copy_if</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;numeric&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="function">std::vector&lt;<span class="keyword">int</span>&gt; <span class="title">from_vector</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    std::<span class="built_in">iota</span>(from_vector.<span class="built_in">begin</span>(), from_vector.<span class="built_in">end</span>(), <span class="number">0</span>);</span><br><span class="line"> </span><br><span class="line">    std::vector&lt;<span class="keyword">int</span>&gt; to_vector;</span><br><span class="line">    std::<span class="built_in">copy</span>(from_vector.<span class="built_in">begin</span>(), from_vector.<span class="built_in">end</span>(),</span><br><span class="line">              std::<span class="built_in">back_inserter</span>(to_vector));</span><br><span class="line"><span class="comment">// or, alternatively,</span></span><br><span class="line"><span class="comment">//  std::vector&lt;int&gt; to_vector(from_vector.size());</span></span><br><span class="line"><span class="comment">//  std::copy(from_vector.begin(), from_vector.end(), to_vector.begin());</span></span><br><span class="line"><span class="comment">// either way is equivalent to</span></span><br><span class="line"><span class="comment">//  std::vector&lt;int&gt; to_vector = from_vector;</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">"to_vector contains: "</span>;</span><br><span class="line"> </span><br><span class="line">    std::<span class="built_in">copy</span>(to_vector.<span class="built_in">begin</span>(), to_vector.<span class="built_in">end</span>(),</span><br><span class="line">              std::ostream_iterator&lt;<span class="keyword">int</span>&gt;(std::cout, <span class="string">" "</span>));</span><br><span class="line">    std::cout &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"> </span><br><span class="line">    std::cout &lt;&lt; <span class="string">"odd numbers in to_vector are: "</span>;</span><br><span class="line"> </span><br><span class="line">    std::<span class="built_in">copy_if</span>(to_vector.<span class="built_in">begin</span>(), to_vector.<span class="built_in">end</span>(),</span><br><span class="line">                 std::ostream_iterator&lt;<span class="keyword">int</span>&gt;(std::cout, <span class="string">" "</span>),</span><br><span class="line">                 [](<span class="keyword">int</span> x) { <span class="keyword">return</span> x % <span class="number">2</span> != <span class="number">0</span>; });</span><br><span class="line">    std::cout &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"> </span><br><span class="line">    std::cout &lt;&lt; <span class="string">"to_vector contains these multiples of 3: "</span>;</span><br><span class="line"> </span><br><span class="line">    to_vector.<span class="built_in">clear</span>();</span><br><span class="line">    std::<span class="built_in">copy_if</span>(from_vector.<span class="built_in">begin</span>(), from_vector.<span class="built_in">end</span>(),</span><br><span class="line">                 std::<span class="built_in">back_inserter</span>(to_vector),</span><br><span class="line">                 [](<span class="keyword">int</span> x) { <span class="keyword">return</span> x % <span class="number">3</span> == <span class="number">0</span>; });</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x : to_vector)</span><br><span class="line">        std::cout &lt;&lt; x &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>上面两例copy_if的最后一个参数使用了Iterator Adaptor</p>
+<ul>
+<li>back_inserter</li>
+<li>ostream_iterator<int></int></li>
+</ul>
+<h3 id="std-remove-if"><a href="#std-remove-if" class="headerlink" title="std::remove_if"></a>std::remove_if</h3><ul>
+<li>remove can change the content, but does not change the size of the container(because it is not a member of std::vector)</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303081233485.png" alt="image-20230308123326380" style="zoom:50%;">
+
+<ul>
+<li><strong>erase-remove idiom</strong>:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v.<span class="built_in">erase</span>(std::<span class="built_in">remove_if</span>(v.<span class="built_in">begin</span>(),v.<span class="built_in">end</span>(),pred),v.<span class="built_in">end</span>());</span><br></pre></td></tr></table></figure>
+
+<h3 id="std-find"><a href="#std-find" class="headerlink" title="std::find"></a>std::find</h3><h2 id="Wrapping-Up-The-STL"><a href="#Wrapping-Up-The-STL" class="headerlink" title="Wrapping Up The STL"></a>Wrapping Up The STL</h2><h3 id="Abstraction-in-the-STL"><a href="#Abstraction-in-the-STL" class="headerlink" title="Abstraction in the STL"></a>Abstraction in the STL</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303110946513.png" alt="image-20230311094615384" style="zoom:33%;">
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">str_tolower</span><span class="params">(std::string s)</span> </span>{</span><br><span class="line">    std::<span class="built_in">transform</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>(), s.<span class="built_in">begin</span>(), </span><br><span class="line">                <span class="comment">// static_cast&lt;int(*)(int)&gt;(std::tolower)         // wrong</span></span><br><span class="line">                <span class="comment">// [](int c){ return std::tolower(c); }           // wrong</span></span><br><span class="line">                <span class="comment">// [](char c){ return std::tolower(c); }          // wrong</span></span><br><span class="line">                   [](<span class="keyword">unsigned</span> <span class="keyword">char</span> c){ <span class="keyword">return</span> std::<span class="built_in">tolower</span>(c); } <span class="comment">// correct</span></span><br><span class="line">                  );</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>fileToString: get the file into a string </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">fileToString</span><span class="params">(ifstream&amp; file)</span></span>{</span><br><span class="line">    string ret=<span class="string">""</span>;</span><br><span class="line">    string line;</span><br><span class="line">    <span class="keyword">while</span>(std::<span class="built_in">getline</span>(file,line)){</span><br><span class="line">        std::<span class="built_in">transform</span>(line.<span class="built_in">begin</span>(),line.<span class="built_in">end</span>(), line.<span class="built_in">begin</span>(),[](<span class="keyword">unsigned</span> <span class="keyword">char</span> c){<span class="keyword">return</span> std::<span class="built_in">tolower</span>(c);});</span><br><span class="line">        ret += (line + <span class="string">" "</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>countOccurrences: find the number of the word that appears in a text</p>
+<ul>
+<li>why can’t we use std::count()?</li>
+</ul>
+<p>cause, iterator in string actually points to a character, which can only count character</p>
+<ul>
+<li>use std::search() instead</li>
+</ul>
+<p> Searches for the first occurrence of the sequence of elements <code>[s_first, s_last)</code> in the range <code>[first, last)</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">countOccurrences</span><span class="params">()</span></span>{</span><br><span class="line">    string toFind = <span class="string">" "</span>+ word+<span class="string">" "</span>;</span><br><span class="line">    <span class="comment">// &lt;regex&gt;</span></span><br><span class="line">    <span class="keyword">auto</span> curr = text.<span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">auto</span> end = text.<span class="built_in">end</span>();</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(curr!=end){</span><br><span class="line">        <span class="keyword">auto</span> found = std::<span class="built_in">search</span>(curr,end,toFind.<span class="built_in">begin</span>(),toFind.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">if</span>(found == end) <span class="keyword">break</span>;</span><br><span class="line">        ++count;</span><br><span class="line">        curr = found + word.<span class="built_in">size</span>();</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dotProduct</span><span class="params">(<span class="keyword">const</span> vector&lt;<span class="keyword">int</span>&gt;&amp; vec1,<span class="keyword">const</span> vector&lt;<span class="keyword">int</span>&gt;&amp; vec2)</span></span>{</span><br><span class="line">    std::<span class="built_in">inner_product</span>(vec1.<span class="built_in">begin</span>(),vec1.<span class="built_in">end</span>(),vec2.<span class="built_in">begin</span>(),<span class="number">0</span>);  </span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mag</span><span class="params">(<span class="keyword">const</span> vector&lt;<span class="keyword">int</span>&gt;&amp; vec)</span></span>{</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">sqrt</span>(<span class="built_in">dotProduct</span>(vec,vec));</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：CS106L笔记：STL</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/course-learning/CS-106L/STL/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/C/">#C++</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/CS106L/">#CS106L</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/course-learning/MIT6.S081/lab2/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT6.s081 lab2记录：编写系统调用</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/course-learning/CS-106L/Template_Metaprogramming/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">CS106L笔记：Template Metaprogramming</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Learning-Roadmap"><span class="nav-number">1.</span> <span class="nav-text">C++ Learning Roadmap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STL"><span class="nav-number">2.</span> <span class="nav-text">STL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#overview-of-STL"><span class="nav-number">2.1.</span> <span class="nav-text">overview of STL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#why-use-c-for-development"><span class="nav-number">2.2.</span> <span class="nav-text">why use c++ for development?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Containers-Adaptors"><span class="nav-number">2.3.</span> <span class="nav-text">Containers Adaptors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Associative-Containers"><span class="nav-number">2.4.</span> <span class="nav-text">Associative Containers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multimaps"><span class="nav-number">2.5.</span> <span class="nav-text">Multimaps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterators"><span class="nav-number">2.6.</span> <span class="nav-text">Iterators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map-Iterators"><span class="nav-number">2.7.</span> <span class="nav-text">Map Iterators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator-types"><span class="nav-number">2.8.</span> <span class="nav-text">Iterator types</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Templates"><span class="nav-number">3.</span> <span class="nav-text">Templates</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-use-template-functions-generic-functions"><span class="nav-number">3.1.</span> <span class="nav-text">Why use template functions(generic functions)?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Concept-Lifting"><span class="nav-number">3.2.</span> <span class="nav-text">Concept Lifting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implicit-interfaces"><span class="nav-number">3.3.</span> <span class="nav-text">Implicit interfaces</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Concept"><span class="nav-number">3.4.</span> <span class="nav-text">Concept</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#predicate-%E8%B0%93%E8%AF%AD"><span class="nav-number">3.5.</span> <span class="nav-text">predicate(谓语)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithms"><span class="nav-number">3.6.</span> <span class="nav-text">Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-use-algorithms"><span class="nav-number">3.6.1.</span> <span class="nav-text">Why use algorithms?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-sort"><span class="nav-number">3.6.2.</span> <span class="nav-text">std::sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-nth-element"><span class="nav-number">3.6.3.</span> <span class="nav-text">std::nth_element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-stable-partition"><span class="nav-number">3.6.4.</span> <span class="nav-text">std::stable_partition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-copy-if"><span class="nav-number">3.6.5.</span> <span class="nav-text">std::copy_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-remove-if"><span class="nav-number">3.6.6.</span> <span class="nav-text">std::remove_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-find"><span class="nav-number">3.6.7.</span> <span class="nav-text">std::find</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wrapping-Up-The-STL"><span class="nav-number">3.7.</span> <span class="nav-text">Wrapping Up The STL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstraction-in-the-STL"><span class="nav-number">3.7.1.</span> <span class="nav-text">Abstraction in the STL</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

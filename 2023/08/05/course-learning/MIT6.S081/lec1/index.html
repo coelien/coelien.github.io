@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            MIT6.S081笔记：lecture 1 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">MIT6.S081笔记：lecture 1</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/courses/">courses</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/courses/Operating-System/">Operating System</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/MIT6-S081/">MIT6.S081</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/OS/">OS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>913 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>5 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="MIT6-S081笔记：lecture-1"><a href="#MIT6-S081笔记：lecture-1" class="headerlink" title="MIT6.S081笔记：lecture 1"></a>MIT6.S081笔记：lecture 1</h1><blockquote>
+<p>care about what is going on under the hook</p>
+<p>like infrastructure</p>
+<p>care about high performance</p>
+</blockquote>
+<h2 id="Course-Goals"><a href="#Course-Goals" class="headerlink" title="Course Goals"></a>Course Goals</h2><ul>
+<li>OS design and implementation</li>
+<li>Hands-on experience <strong>extending a small os</strong></li>
+<li>Hands-on experience <strong>writing systems software</strong></li>
+</ul>
+<h2 id="OS-Purposes"><a href="#OS-Purposes" class="headerlink" title="OS Purposes"></a>OS Purposes</h2><ul>
+<li><strong>ABSTRACTION</strong> of the hardware for convenience and portability</li>
+<li><strong>MULTIPLEX</strong> the hardware among many applications</li>
+<li><strong>ISOLATION</strong></li>
+<li><strong>SHARING</strong> among cooperating applications</li>
+<li><strong>SECURITY</strong>(PERMISSION)</li>
+<li><strong>PERFORMANCE</strong></li>
+<li>RANGE of <strong>USES</strong></li>
+</ul>
+<h2 id="OS-ORGANIZATION"><a href="#OS-ORGANIZATION" class="headerlink" title="OS ORGANIZATION"></a>OS ORGANIZATION</h2><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303310940238.png" alt="image-20230331094036040" style="zoom:50%;">
+
+<ul>
+<li>user app: vi, gcc, DB, &amp;c</li>
+<li>kernel services</li>
+<li>hardware</li>
+</ul>
+<p>we care a lot about the <strong>interfaces and internal kernel structure</strong></p>
+<h2 id="What-services-does-an-O-S-kernel-typically-provide"><a href="#What-services-does-an-O-S-kernel-typically-provide" class="headerlink" title="What services does an O/S kernel typically provide?"></a>What services does an O/S kernel typically provide?</h2><ul>
+<li>process</li>
+<li>memory allocation</li>
+<li>file contents</li>
+<li>file names, directories</li>
+<li>access control(securities)</li>
+<li>many others: users, IPC, network, time, terminals</li>
+</ul>
+<h2 id="What’s-the-kernel-interface"><a href="#What’s-the-kernel-interface" class="headerlink" title="What’s the kernel interface?"></a>What’s the kernel interface?</h2><ul>
+<li>“System calls”</li>
+<li>like open()</li>
+<li>write()</li>
+<li>fork()</li>
+</ul>
+<h2 id="Why-is-O-S-design-implementation-hard-and-interesting"><a href="#Why-is-O-S-design-implementation-hard-and-interesting" class="headerlink" title="Why is O/S design+implementation hard and interesting?"></a>Why is O/S design+implementation hard and interesting?</h2><ul>
+<li>unforgiving environment: hard to debug</li>
+<li>many design tensions:<ul>
+<li>efficient vs abstract/portable/general-purpose</li>
+<li>powerful vs simple interfaces</li>
+<li>flexible vs secure</li>
+</ul>
+</li>
+<li>features interact: <code>fd = open(); fork()</code></li>
+<li>uses are varied: laptops, smart-phones, cloud, virtual machine, embedded</li>
+<li>evolving hardware: NVRAM, multi-core, fast networks</li>
+</ul>
+<h2 id="API-for-the-Kernel"><a href="#API-for-the-Kernel" class="headerlink" title="API for the Kernel"></a>API for the Kernel</h2><ul>
+<li>fd = open(“out”,1)</li>
+<li>write(fd,”hellp\n”,6)</li>
+<li>pid = fork();</li>
+</ul>
+<p>system calls are special because they jump into the kernel</p>
+<blockquote>
+<p>Why studying operating system both challenging and interresting?</p>
+</blockquote>
+<ul>
+<li><p>unforgiving</p>
+</li>
+<li><p>tensions</p>
+<ul>
+<li>efficient - abstract interfaces</li>
+<li>powerful os services - simple interfaces</li>
+<li>flexible - secure</li>
+</ul>
+</li>
+<li><p>interact</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fd = open()</span><br><span class="line">pid = fork()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Class-structure"><a href="#Class-structure" class="headerlink" title="Class structure"></a>Class structure</h2><ul>
+<li><p>Online course information:<br><a class="link" target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.S081/">https://pdos.csail.mit.edu/6.S081/<i class="fas fa-external-link-alt"></i></a> – schedule, assignments, labs<br>Piazza – announcements, discussion, lab help</p>
+</li>
+<li><p>Lectures</p>
+<ul>
+<li>O/S ideas</li>
+<li>case study of xv6, a small O/S, via code and xv6 book</li>
+<li>lab background</li>
+<li>O/S papers</li>
+<li>submit a question about each reading, before lecture.</li>
+</ul>
+</li>
+<li><p>Labs:<br>The point: hands-on experience<br>Mostly one week each.<br>Three kinds:<br>  Systems programming (due next week…)<br>  O/S primitives, e.g. thread switching.<br>  O/S kernel extensions to xv6, e.g. network.<br>Use piazza to ask/answer lab questions.<br>Discussion is great, but please do not look at others’ solutions!</p>
+</li>
+<li><p>Grading:<br>70% labs, based on tests (the same tests you run).<br>20% lab check-off meetings: we’ll ask you about randomly-selected labs.<br>10% home-work and class/piazza discussion.<br>No exams, no quizzes.<br>Note that most of the grade is from labs. Start them early!</p>
+</li>
+</ul>
+<h2 id="Introduction-to-UNIX-system-calls"><a href="#Introduction-to-UNIX-system-calls" class="headerlink" title="Introduction to UNIX system calls"></a>Introduction to UNIX system calls</h2><ul>
+<li>what happens when a program calls a system call like open()?</li>
+</ul>
+<p>looks like a function call, but it’s actually a <strong>special instruction</strong><br>hardware <strong>saves</strong> some user registers<br>hardware <strong>increases privilege level</strong><br>hardware <strong>jumps to a known “entry point”</strong> in the kernel<br>now <strong>running C code</strong> in the kernel<br>kernel calls <strong>system call implementation</strong><br>  open() looks up name in file system<br>  it might wait for the disk<br>  it updates kernel data structures (cache, FD table)<br><strong>restore</strong> user registers<br><strong>reduce privilege level</strong><br><strong>jump back to calling point in the program</strong>, which resumes<br>we’ll see more detail later in the course</p>
+<h3 id="fork-c"><a href="#fork-c" class="headerlink" title="fork.c"></a>fork.c</h3><blockquote>
+<p>the shell create a new process for each time you type</p>
+</blockquote>
+<ul>
+<li><p>the fork() system call create a new process</p>
+</li>
+<li><p>the kernel makes a copy of the calling process</p>
+<ul>
+<li><p>instructions,</p>
+</li>
+<li><p>data,</p>
+</li>
+<li><p>registers,</p>
+</li>
+<li><p>file descriptors,</p>
+</li>
+<li><p>current directory</p>
+</li>
+<li><p>“parent” and “child” processes</p>
+<p>only difference: <strong>fork() returns a pid in parent, 0 in child</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>How can  we run program in that process?</p>
+</blockquote>
+<h3 id="exec-c"><a href="#exec-c" class="headerlink" title="exec.c"></a>exec.c</h3><ul>
+<li><strong>replace</strong> calling process with an executable file</li>
+<li>discards instruction and data memory</li>
+<li>loads instructions and memory from the file</li>
+<li><strong>preserves file descriptors</strong></li>
+</ul>
+<h3 id="forkexec-c"><a href="#forkexec-c" class="headerlink" title="forkexec.c"></a>forkexec.c</h3><blockquote>
+<p><strong>a common UNIX idiom</strong></p>
+</blockquote>
+<ul>
+<li>fork() a child process</li>
+<li>exec() a command in the child</li>
+<li>parent wait()s for child to finish</li>
+</ul>
+<p>the shell does <strong>fork/exec/wait</strong> for every command you type</p>
+<p><strong>to run in the background</strong> – &amp; – the shell skips the wait()</p>
+<blockquote>
+<p>some convention</p>
+</blockquote>
+<ul>
+<li>exit(status)-&gt;wait(&amp;status)</li>
+<li>0 = success, 1=command enountered an error</li>
+<li><strong>note:</strong> the fork() copies, but exec() discards the copied memory. this may seem wasteful, you’ll transparently eliminate the copy in the “copy-on-write” lab</li>
+</ul>
+<h3 id="redirect-c"><a href="#redirect-c" class="headerlink" title="redirect.c"></a>redirect.c</h3><blockquote>
+<p>redirect the output of a command</p>
+</blockquote>
+<p>what does the shell do for this?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo hello &gt; out</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>fork</li>
+<li>change FD 1 in child</li>
+<li>exec echo</li>
+</ul>
+<p><strong>note:</strong> open() always chooses lowest unused FD; 1 due to close(1).</p>
+<p>fork, FDs, and exec interact nicely to implement <strong>I/O redirection</strong></p>
+<p><strong>only sh</strong> has to know about I/O redirection, not each program</p>
+<h3 id="pipe1-c"><a href="#pipe1-c" class="headerlink" title="pipe1.c"></a>pipe1.c</h3><blockquote>
+<p>communicate through a pipe</p>
+</blockquote>
+<p>how does the shell implement?</p>
+<ul>
+<li>an FD can refer to a “pipe”, as well as a file</li>
+<li>the pipe() system call creates two FDs<ul>
+<li>read from the first FD</li>
+<li>write to the second FD</li>
+</ul>
+</li>
+<li>the kernel maintains a buffer for each pipe[u/k diagram]<ul>
+<li>write() appends to the buffer</li>
+<li>read() waits until there is data</li>
+</ul>
+</li>
+</ul>
+<h3 id="pipe2-c"><a href="#pipe2-c" class="headerlink" title="pipe2.c"></a>pipe2.c</h3><blockquote>
+<p>communicate between processes</p>
+</blockquote>
+<p>pipes combine well with fork() to implement ls | grep x</p>
+<ul>
+<li>shell creates a pipe</li>
+<li>then fork twice</li>
+<li>then connects ls ‘s FD 1 to pipe’s write FD</li>
+<li>connects grep’s FD 0 to the pipe</li>
+</ul>
+<h2 id="Asking-about-design-decisions"><a href="#Asking-about-design-decisions" class="headerlink" title="Asking about design decisions"></a>Asking about design decisions</h2><ul>
+<li><p>why these I/O and process abstractions? why not something else?</p>
+</li>
+<li><p>why provide a file system? why not let programs use the disk their own way?</p>
+</li>
+<li><p>why FDs? why not pass a filename to write()?</p>
+</li>
+<li><p>Why are files streams of bytes, not disk blocks or formatted records?</p>
+</li>
+<li><p>why not combine fork and exec?</p>
+<ul>
+<li>separate fork-then-exec give child a chance to change FDs before exec</li>
+</ul>
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>We’ve looked at UNIX’s I/O, file system, and process abstractions.</li>
+<li>The interfaces are simple – just integers and I/O buffers.</li>
+<li>The abstractions combine well, e.g. for I/O redirection.</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：MIT6.S081笔记：lecture 1</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/course-learning/MIT6.S081/lec1/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/MIT6-S081/">#MIT6.S081</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/OS/">#OS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/course-learning/MIT6.S081/lec5/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT6.S081笔记：lecture 5</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/course-learning/MIT6.S081/lec2/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT6.S081笔记：lecture 2 introduce to C</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MIT6-S081%E7%AC%94%E8%AE%B0%EF%BC%9Alecture-1"><span class="nav-number">1.</span> <span class="nav-text">MIT6.S081笔记：lecture 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Course-Goals"><span class="nav-number">1.1.</span> <span class="nav-text">Course Goals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-Purposes"><span class="nav-number">1.2.</span> <span class="nav-text">OS Purposes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-ORGANIZATION"><span class="nav-number">1.3.</span> <span class="nav-text">OS ORGANIZATION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-services-does-an-O-S-kernel-typically-provide"><span class="nav-number">1.4.</span> <span class="nav-text">What services does an O&#x2F;S kernel typically provide?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What%E2%80%99s-the-kernel-interface"><span class="nav-number">1.5.</span> <span class="nav-text">What’s the kernel interface?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-is-O-S-design-implementation-hard-and-interesting"><span class="nav-number">1.6.</span> <span class="nav-text">Why is O&#x2F;S design+implementation hard and interesting?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API-for-the-Kernel"><span class="nav-number">1.7.</span> <span class="nav-text">API for the Kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class-structure"><span class="nav-number">1.8.</span> <span class="nav-text">Class structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction-to-UNIX-system-calls"><span class="nav-number">1.9.</span> <span class="nav-text">Introduction to UNIX system calls</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-c"><span class="nav-number">1.9.1.</span> <span class="nav-text">fork.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec-c"><span class="nav-number">1.9.2.</span> <span class="nav-text">exec.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forkexec-c"><span class="nav-number">1.9.3.</span> <span class="nav-text">forkexec.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redirect-c"><span class="nav-number">1.9.4.</span> <span class="nav-text">redirect.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipe1-c"><span class="nav-number">1.9.5.</span> <span class="nav-text">pipe1.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipe2-c"><span class="nav-number">1.9.6.</span> <span class="nav-text">pipe2.c</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Asking-about-design-decisions"><span class="nav-number">1.10.</span> <span class="nav-text">Asking about design decisions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.11.</span> <span class="nav-text">Summary</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

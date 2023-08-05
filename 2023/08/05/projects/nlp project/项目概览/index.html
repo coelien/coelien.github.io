@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            基于知识图谱的开放域问答系统 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">基于知识图谱的开放域问答系统</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/nlp%E9%A1%B9%E7%9B%AE/">nlp项目</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">知识图谱</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/">问答系统</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>5 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="基于知识图谱的开放域问答系统"><a href="#基于知识图谱的开放域问答系统" class="headerlink" title="基于知识图谱的开放域问答系统"></a>基于知识图谱的开放域问答系统</h1><h2 id="一-项目总体介绍"><a href="#一-项目总体介绍" class="headerlink" title="一. 项目总体介绍"></a>一. 项目总体介绍</h2><h3 id="1-任务目标"><a href="#1-任务目标" class="headerlink" title="1. 任务目标"></a>1. 任务目标</h3><p><strong>开放域问答系统：</strong></p>
+<p>使用大量不同主题的文档来回答问题，是自然语言处理（NLP）、信息检索（IR）和相关领域长期研究的主题。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205061136170.png" alt="image-20220506113613101" style="zoom:50%;">
+
+<p><strong>知识图谱：</strong></p>
+<p>知识图谱（Knowledge Graph），是结构化的语义知识库，用于以符号形式描述物理世界中的概念及其相互关系。其基本组成单位是“实体-关系-实体”三元组，以及实体及其相关属性-值对，实体间通过关系相互联结，构成网状的知识结构。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205061138448.png" alt="image-20220506113858423" style="zoom:50%;">
+
+<h3 id="2-模型整体设计及流程"><a href="#2-模型整体设计及流程" class="headerlink" title="2. 模型整体设计及流程"></a>2. 模型整体设计及流程</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031723438.png" alt="image-20220503172309406" style="zoom:50%;">
+
+<p>具体流程如下：</p>
+<ul>
+<li>使用NER模型从问题中抽取实体并将其送入知识库进行匹配，找出所有可能的候选关系。</li>
+<li>使用相似度模型计算所有候选关系与问题实体的相似度，找到可能性最大的候选关系。</li>
+<li>使用该候选关系在知识图谱中查找，找到最终答案。</li>
+</ul>
+<h2 id="二-模型介绍"><a href="#二-模型介绍" class="headerlink" title="二. 模型介绍"></a>二. 模型介绍</h2><h3 id="1-命名实体识别（NER）"><a href="#1-命名实体识别（NER）" class="headerlink" title="1. 命名实体识别（NER）"></a>1. 命名实体识别（NER）</h3><p>命名实体识别( NER )是<a class="link" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Information_extraction">信息提取<i class="fas fa-external-link-alt"></i></a>、问答系统、句法分析、机器翻译等众多NLP任务的重要基础工具，旨在将<a class="link" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Unstructured_data">非结构化文本<i class="fas fa-external-link-alt"></i></a>中提到的<a class="link" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Named_entity">命名实体<i class="fas fa-external-link-alt"></i></a>定位并分类为预定义的类别，例如人姓名、组织、地点、<a class="link" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Medical_classification">医疗代码<i class="fas fa-external-link-alt"></i></a>、时间表达、数量、货币价值、百分比等。</p>
+<p><strong>BIO标注法</strong></p>
+<p>将每个元素标注为“B-X”、“I-X”或者“O”。其中，“B-X”表示此元素所在的片段属于X类型并且此元素在此片段的开头，“I-X”表示此元素所在的片段属于X类型并且此元素在此片段的中间位置，“O”表示不属于任何类型，如下图所示：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031725389.png" alt="image-20220503172543360" style="zoom: 80%;">
+
+<p><strong>NER模型结构</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031726967.png" alt="image-20220503172634938" style="zoom: 80%;">
+
+<p>上图展示的NER模型使用Bert+BiLSTM+CRF的结构，首先使用Bert对输入的句子进行embedding,然后将这些向量输入BILSTM提取句子信息，最后输入CRF测算不同标注序列的概率，最后选取概率最大的序列作为最终结果。具体流程如下图所示。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031727724.png" alt="image-20220503172702670" style="zoom:67%;">
+
+<h3 id="2-相似度计算（SIM）"><a href="#2-相似度计算（SIM）" class="headerlink" title="2. 相似度计算（SIM）"></a>2. 相似度计算（SIM）</h3><p><strong>模型设计</strong></p>
+<ul>
+<li><p>KGQA子任务(关系识别)</p>
+<p>确定哪个关系必须被逻辑形式的特定部分使用是一项关键任务。类似于实体链接，我们需要学习映射自然语言表达到知识图谱，在该任务中是针对关系映射。</p>
+</li>
+<li><p>阶段目标</p>
+<p>获得问题与知识三元组&lt;头实体，关系，尾实体&gt; 中相对应的关系。</p>
+</li>
+<li><p>上游任务</p>
+<p>获得通过NER阶段识别到的头实体。</p>
+</li>
+<li><p>下游任务</p>
+<p>通过头实体与SIM计算得到的关系检索尾实体（答案）。</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031731183.png" alt="image-20220503173133145" style="zoom: 80%;">
+
+
+
+<p><strong>流程实现</strong></p>
+<ol>
+<li><p>根据识别到的实体，通过es接口找到可能的候选关系的列表</p>
+</li>
+<li><p>训练相似度模型进行关系预测：输入为问句和候选关系的拼接，输出为两者相似度</p>
+</li>
+<li><p>获得问句和候选关系的相似度，以最高相似度的关系作为结果用于下游任务</p>
+</li>
+</ol>
+<h2 id="三-数据集介绍"><a href="#三-数据集介绍" class="headerlink" title="三. 数据集介绍"></a>三. 数据集介绍</h2><p><strong>知识库</strong></p>
+<p>知识库来源于百科类数据，由百科类搜索页面的事实性三元组构成。格式为&lt;头实体，关系，尾实体&gt;</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031739828.png" alt="image-20220503173921792" style="zoom:67%;">
+
+<table>
+<thead>
+<tr>
+<th><strong>实体数量</strong></th>
+<th><strong>关系数量</strong></th>
+<th>高频关系(&gt;100)</th>
+<th><strong>三元组数量</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3121457</td>
+<td>245838</td>
+<td>3833</td>
+<td>20559652</td>
+</tr>
+</tbody></table>
+<p><strong>问答数据集</strong></p>
+<p>问答数据集为json格式，每行为一条问答对。问题是one-hop问题，即答案为知识库中的一条三元组。数据格式如下，其中id为问答对索引，quetion为问题，answer为答案，来自知识库，以’ ||| ‘分割。</p>
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031741753.png" alt="image-20220503174113714"></p>
+<table>
+<thead>
+<tr>
+<th><strong>Corpus</strong></th>
+<th><strong>Train</strong></th>
+<th><strong>Dev</strong></th>
+<th><strong>Test Public</strong></th>
+<th><strong>Test Private</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Num Samples</td>
+<td>18k</td>
+<td>2k</td>
+<td>2k</td>
+<td>3k</td>
+</tr>
+<tr>
+<td>Num Relations</td>
+<td>2164</td>
+<td>1258</td>
+<td>1260</td>
+<td>423</td>
+</tr>
+</tbody></table>
+<h2 id="四-项目设计与体验优化"><a href="#四-项目设计与体验优化" class="headerlink" title="四. 项目设计与体验优化"></a>四. 项目设计与体验优化</h2><h3 id="1-项目设计前端"><a href="#1-项目设计前端" class="headerlink" title="1. 项目设计前端"></a>1. 项目设计前端</h3><p>项目采用前端采用uni-app框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序、快应用等多个平台。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031743369.png" alt="image-20220503174331338" style="zoom: 80%;">
+
+<h3 id="2-项目设计后端"><a href="#2-项目设计后端" class="headerlink" title="2. 项目设计后端"></a>2. 项目设计后端</h3><p>项目后端采用flask框架，搭建简便快速，较其他同类型框架更为灵活、轻便、安全且容易上手；flask社区活跃，基于flask的应用插件及其丰富，足够满足后端需求，同时它也具有很好的扩展性。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031744361.png" alt="image-20220503174458340" style="zoom:67%;">
+
+<h3 id="3-体验优化"><a href="#3-体验优化" class="headerlink" title="3. 体验优化"></a>3. 体验优化</h3><p><strong>意图识别</strong></p>
+<p>普通的问答系统难以满足日益增长的用户需求，如果是知识库中不存在的问题或是用户的意图不够明确的话，问答系统都难以给出我们期望的回复，因此实现一个可以能够理解我们在问什么的，并能根据我们的询问以不同的方式来回复的聊天机器人是很必要的。目前的话，该项目采用的svm分类器，对预先可能的结果进行分类。作为训练数据目前主要有三类，如打招呼，百科信息询问，普通聊天。若分类为信息询问，则接入我们的问答接口，如果是普通聊天，则接入我们的聊天机器人接口。因为是手动构想用户可能的输入作为训练数据，所有难免效果不好，未来我们打算采用RASA这一更加强大的框架作为我们的意图分类器。</p>
+<p><strong>聊天室</strong></p>
+<p>设计聊天室的功能，是有多方面因素推动的，而非冗余的扩展。</p>
+<ol>
+<li><p>首先的目的是分不同的群组，每个群组有特定支持的机器人，即该机器人是用该领域的语料训练的，并且表现较好。</p>
+</li>
+<li><p>二是收集特定领域的语料数据，有利于机器人把握句子的语义，持续有新的训练数据补充来对模型进行更新，有利于模型的迭代优化。</p>
+</li>
+</ol>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202205031811717.png" alt="image-20220503181147667" style="zoom: 50%;">
+
+<h2 id="五-个人工作总结"><a href="#五-个人工作总结" class="headerlink" title="五. 个人工作总结"></a>五. 个人工作总结</h2><blockquote>
+<p>后端模型代码基于<a class="link" target="_blank" rel="noopener" href="https://github.com/CLUEbenchmark/KgCLUE">该仓库<i class="fas fa-external-link-alt"></i></a>进行修改</p>
+</blockquote>
+<ul>
+<li><p>NER和SIM模型解耦（提取出推理部分，去掉了冗余wrapper）</p>
+</li>
+<li><p>Flask服务器搭建及与前端交互的代码（socketio）编写加调试</p>
+</li>
+<li><p>前端Uniapp聊天室编写及与后端交互的代码编写加调试</p>
+</li>
+<li><p>将该项目开源到<a class="link" target="_blank" rel="noopener" href="https://gitee.com/sixwalter/KgCLUE">gitee仓库<i class="fas fa-external-link-alt"></i></a>并进行维护</p>
+</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：基于知识图谱的开放域问答系统</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/projects/nlp project/项目概览/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">#知识图谱</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/">#问答系统</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/projects/nlp%20project/%E8%B7%A8%E5%9F%9F/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">跨域问题解决</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/projects/kinetics%20project/docker%20for%20pytrorch/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">使用docker配置深度学习环境</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%9A%84%E5%BC%80%E6%94%BE%E5%9F%9F%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">基于知识图谱的开放域问答系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E9%A1%B9%E7%9B%AE%E6%80%BB%E4%BD%93%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">一. 项目总体介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%BB%E5%8A%A1%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 任务目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%A8%A1%E5%9E%8B%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1%E5%8F%8A%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 模型整体设计及流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.</span> <span class="nav-text">二. 模型介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB%EF%BC%88NER%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 命名实体识别（NER）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%9B%B8%E4%BC%BC%E5%BA%A6%E8%AE%A1%E7%AE%97%EF%BC%88SIM%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 相似度计算（SIM）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.3.</span> <span class="nav-text">三. 数据集介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1%E4%B8%8E%E4%BD%93%E9%AA%8C%E4%BC%98%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text">四. 项目设计与体验优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1%E5%89%8D%E7%AB%AF"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 项目设计前端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1%E5%90%8E%E7%AB%AF"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 项目设计后端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BD%93%E9%AA%8C%E4%BC%98%E5%8C%96"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. 体验优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E4%B8%AA%E4%BA%BA%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">五. 个人工作总结</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

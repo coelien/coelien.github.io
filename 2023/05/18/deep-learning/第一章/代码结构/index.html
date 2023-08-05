@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            代码解构 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">代码解构</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-05-18 00:00:00</span>
+        <span class="mobile">2023-05-18 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%A7%91%E7%A0%94%E5%AE%9E%E9%AA%8C/">科研实验</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%A7%91%E7%A0%94%E5%AE%9E%E9%AA%8C/%E7%BE%A4%E4%BD%93%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">群体行为识别</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Group-Activity-Recognition/">Group Activity Recognition</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Experiment/">Experiment</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>11 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Baseline代码解构"><a href="#Baseline代码解构" class="headerlink" title="Baseline代码解构"></a>Baseline代码解构</h1><h2 id="数据读取及预处理"><a href="#数据读取及预处理" class="headerlink" title="数据读取及预处理"></a>数据读取及预处理</h2><blockquote>
+<p>我个人觉得这里的数据处理是比较精妙的，可以把同样的思想应用到RGB输入里</p>
+</blockquote>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><ul>
+<li>得到从群体类别到id的映射</li>
+<li>群体行为类别权重</li>
+<li>个体行为类别权重</li>
+<li>所有的个体行为类别标签</li>
+<li>所有群体行为标签</li>
+<li>所有个体行为标签</li>
+<li>所有的clip的关键点数据的文件路径</li>
+<li>所有的（video,clip）元组</li>
+<li>球轨迹</li>
+<li>边界框</li>
+</ul>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>store the dict {(video,clip) : group action id} in <code>annotations_thisdatasetdir</code></li>
+<li>store all the current split’s joint data paths in <code>clip_joints_path</code></li>
+<li>get current split’s video, clip into <code>clips</code></li>
+<li>get correspond group labels in <code>annotations</code> </li>
+<li>get correspond person labels in <code>person_actions_all</code> </li>
+<li>count the number of clips</li>
+</ol>
+<h3 id="数据增强："><a href="#数据增强：" class="headerlink" title="数据增强："></a>数据增强：</h3><ul>
+<li>保存一个副本作为真实数据，每次用真实数据去增强数据集</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只有训练才需要进行增强</span></span><br><span class="line"><span class="comment"># if horizontal flip augmentation and is training</span></span><br><span class="line">      <span class="keyword">if</span> self.args.horizontal_flip_augment <span class="keyword">and</span> self.split == <span class="string">'train'</span>:</span><br><span class="line">          <span class="comment"># 不需要增强的为0，需要的mask为1</span></span><br><span class="line">          self.horizontal_flip_mask = <span class="built_in">list</span>(np.zeros(<span class="built_in">len</span>(self.annotations))) + <span class="built_in">list</span>(np.ones(true_data_size))</span><br><span class="line">          self.annotations += true_annotations</span><br><span class="line">          self.annotations_each_person += true_annotations_each_person</span><br><span class="line">          self.clip_joints_paths += true_clip_joints_paths</span><br><span class="line">          self.clips += true_clips</span><br><span class="line">          <span class="keyword">if</span> self.args.ball_trajectory_use:</span><br><span class="line">              self.clip_ball_paths += true_clip_ball_paths</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置随机数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.args.horizontal_flip_augment <span class="keyword">and</span> self.split == <span class="string">'train'</span>:</span><br><span class="line">            <span class="comment"># 这里因为flip所以群体标签需要调整</span></span><br><span class="line">        	self.classidx_horizontal_flip_augment = {</span><br><span class="line">                <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="number">1</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="number">2</span>: <span class="number">3</span>,</span><br><span class="line">                <span class="number">3</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="number">4</span>: <span class="number">5</span>,</span><br><span class="line">                <span class="number">5</span>: <span class="number">4</span>,</span><br><span class="line">                <span class="number">6</span>: <span class="number">7</span>,</span><br><span class="line">                <span class="number">7</span>: <span class="number">6</span></span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> self.args.horizontal_flip_augment_purturb:</span><br><span class="line">                self.horizontal_flip_augment_joint_randomness = <span class="built_in">dict</span>()</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据分析："><a href="#数据分析：" class="headerlink" title="数据分析："></a>数据分析：</h3><ul>
+<li>我们需要对关键点数据进行统计分析。如果没有统计结果文件的话，我们需要得到以下信息：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">joint_xcoords = []</span><br><span class="line">joint_ycoords = []</span><br><span class="line">joint_dxcoords = []</span><br><span class="line">joint_dycoords = [] </span><br></pre></td></tr></table></figure>
+
+<p>注意，这里统计分析的步骤需要包含增强数据</p>
+<p>对于每一个clip joint，我们先将它读到 joint_raw</p>
+<ul>
+<li>其次我们需要采样T帧：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frames = <span class="built_in">sorted</span>(joint_raw.keys())[self.args.frame_start_idx:self.args.frame_end_idx+<span class="number">1</span>:self.args.frame_sampling]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果存在数据增强的话，如果需要有扰动，需要提前初始化</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.args.horizontal_flip_augment:</span><br><span class="line">                        <span class="keyword">if</span> index &lt; <span class="built_in">len</span>(self.horizontal_flip_mask):</span><br><span class="line">                            <span class="keyword">if</span> self.horizontal_flip_mask[index]:</span><br><span class="line">                                <span class="keyword">if</span> self.args.horizontal_flip_augment_purturb:</span><br><span class="line">                                    self.horizontal_flip_augment_joint_randomness[index] = defaultdict()</span><br><span class="line">                                    <span class="comment"># ONLY CHANGE THE CHOSEN FRAMES JOINT INFO</span></span><br><span class="line">                                    joint_raw = self.horizontal_flip_augment_joint(</span><br><span class="line">                                        joint_raw, frames, </span><br><span class="line">                                        add_purturbation=<span class="literal">True</span>, randomness_set=<span class="literal">False</span>, index=index)</span><br><span class="line">                                <span class="keyword">else</span>:</span><br><span class="line">                                    joint_raw = self.horizontal_flip_augment_joint(joint_raw, frames)</span><br><span class="line">                                    </span><br><span class="line">                                <span class="keyword">if</span> self.args.ball_trajectory_use:</span><br><span class="line">                                    ball_trajectory_data = self.horizontal_flip_ball_trajectory(ball_trajectory_data)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>还有个比较特殊的dropout增强：这里仅需设置随机性即可</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># To compute statistics, no need to consider the random agent dropout augmentation,</span></span><br><span class="line"><span class="comment"># but we can set the randomness here.          </span></span><br><span class="line"><span class="comment"># if random agent dropout augmentation and is training</span></span><br><span class="line">                    <span class="keyword">if</span> self.args.agent_dropout_augment:</span><br><span class="line">                        <span class="keyword">if</span> index &lt; <span class="built_in">len</span>(self.agent_dropout_mask):</span><br><span class="line">                            <span class="keyword">if</span> self.agent_dropout_mask[index]:</span><br><span class="line">                                chosen_frame = random.choice(frames)</span><br><span class="line">                                chosen_person = random.choice(<span class="built_in">range</span>(self.args.N))</span><br><span class="line">                                self.agent_dropout_augment_randomness[index] = (chosen_frame, chosen_person)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>因为姿态估计是存在错误的，所以需要对不合理的进行修改：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">joints_sanity_fix() <span class="comment"># 函数</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>之后就可以去更新上面的坐标了：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新joints list</span></span><br><span class="line">                    <span class="keyword">for</span> tidx, frame <span class="keyword">in</span> <span class="built_in">enumerate</span>(frames):</span><br><span class="line">                        joint_xcoords.extend(joint_raw[frame][:,:,<span class="number">0</span>].flatten().tolist())</span><br><span class="line">                        joint_ycoords.extend(joint_raw[frame][:,:,<span class="number">1</span>].flatten().tolist())</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> tidx != <span class="number">0</span>:</span><br><span class="line">                            pre_frame = frames[tidx-<span class="number">1</span>]</span><br><span class="line">                            joint_dxcoords.extend((joint_raw[frame][:,:,<span class="number">0</span>]-joint_raw[pre_frame][:,:,<span class="number">0</span>]).flatten().tolist())</span><br><span class="line">                            joint_dycoords.extend((joint_raw[frame][:,:,<span class="number">1</span>]-joint_raw[pre_frame][:,:,<span class="number">1</span>]).flatten().tolist())</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            joint_dxcoords.extend((np.zeros((self.args.N, self.args.J))).flatten().tolist())</span><br><span class="line">                            joint_dycoords.extend((np.zeros((self.args.N, self.args.J))).flatten().tolist())</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>有了上面这些，我们就可以去计算平均值和标准差了：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">joint_xcoords_mean, joint_xcoords_std = np.mean(joint_xcoords), np.std(joint_xcoords)</span><br><span class="line">               joint_ycoords_mean, joint_ycoords_std = np.mean(joint_ycoords), np.std(joint_ycoords)</span><br><span class="line">               joint_dxcoords_mean, joint_dxcoords_std = np.mean(joint_dxcoords), np.std(joint_dxcoords)</span><br><span class="line">               joint_dycoords_mean, joint_dycoords_std = np.mean(joint_dycoords), np.std(joint_dycoords) </span><br><span class="line"></span><br><span class="line">               self.stats = {</span><br><span class="line">                   <span class="string">'joint_xcoords_mean'</span>: joint_xcoords_mean, <span class="string">'joint_xcoords_std'</span>: joint_xcoords_std,</span><br><span class="line">                   <span class="string">'joint_ycoords_mean'</span>: joint_ycoords_mean, <span class="string">'joint_ycoords_std'</span>: joint_ycoords_std,</span><br><span class="line">                   <span class="string">'joint_dxcoords_mean'</span>: joint_dxcoords_mean, <span class="string">'joint_dxcoords_std'</span>: joint_dxcoords_std,</span><br><span class="line">                   <span class="string">'joint_dycoords_mean'</span>: joint_dycoords_mean, <span class="string">'joint_dycoords_std'</span>: joint_dycoords_std</span><br><span class="line">               }</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>计算完成后需要保存统计数据：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 保存统计数据</span></span><br><span class="line">                <span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(<span class="string">'datasets'</span>, self.args.dataset_name, self.args.joints_folder_name, <span class="string">'stats_train.pickle'</span>), <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">                    pickle.dump(self.stats, f)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果有扰动的话还需要保存下来：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.args.horizontal_flip_augment <span class="keyword">and</span> self.args.horizontal_flip_augment_purturb:</span><br><span class="line">                    <span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(<span class="string">'datasets'</span>, self.args.dataset_name, self.args.joints_folder_name, </span><br><span class="line">                                           <span class="string">'horizontal_flip_augment_joint_randomness.pickle'</span>), <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">                        pickle.dump(self.horizontal_flip_augment_joint_randomness, f)</span><br><span class="line">                        </span><br></pre></td></tr></table></figure>
+
+<h3 id="数据获取："><a href="#数据获取：" class="headerlink" title="数据获取："></a>数据获取：</h3><ul>
+<li>得到person_labels:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">person_labels = torch.LongTensor(person_labels[frames[<span class="number">0</span>]].squeeze())  </span><br><span class="line"><span class="comment"># person action remains to be the same across all frames </span></span><br><span class="line"><span class="comment"># person_labels: (N, )</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用数据增强：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if vertical move augmentation and is training</span></span><br><span class="line">        <span class="keyword">if</span> self.args.vertical_move_augment <span class="keyword">and</span> self.split == <span class="string">'train'</span>:</span><br><span class="line">            <span class="keyword">if</span> index &lt; <span class="built_in">len</span>(self.vertical_mask):</span><br><span class="line">                <span class="keyword">if</span> self.vertical_mask[index]:</span><br><span class="line">                    <span class="keyword">if</span> self.args.ball_trajectory_use:</span><br><span class="line">                        <span class="keyword">if</span> self.args.vertical_move_augment_purturb:</span><br><span class="line">                            joint_raw, ball_trajectory_data = self.vertical_move_augment_joint(</span><br><span class="line">                                joint_raw, frames, add_purturbation=<span class="literal">True</span>, </span><br><span class="line">                                randomness_set=<span class="literal">True</span>, index=index, </span><br><span class="line">                                ball_trajectory=ball_trajectory_data)</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            joint_raw, ball_trajectory_data = self.vertical_move_augment_joint(</span><br><span class="line">                                joint_raw, frames, ball_trajectory=ball_trajectory_data) </span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">if</span> self.args.vertical_move_augment_purturb:</span><br><span class="line">                            joint_raw = self.vertical_move_augment_joint(</span><br><span class="line">                                joint_raw, frames, add_purturbation=<span class="literal">True</span>, </span><br><span class="line">                                randomness_set=<span class="literal">True</span>, index=index)</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            joint_raw = self.vertical_move_augment_joint(joint_raw, frames)  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>并进行合法性检查</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230518113142402.png" alt="image-20230518113142402" style="zoom:50%;">
+
+<ul>
+<li>获得4种类型的joint features并将它们进行连接：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">joint_feats = torch.cat((torch.Tensor(np.array(joint_feats_basic)), </span><br><span class="line">                             torch.Tensor(np.array(joint_feats_metrics)).permute(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">3</span>), </span><br><span class="line">                             torch.Tensor(np.array(joint_feats_advanced)), </span><br><span class="line">                             torch.Tensor(np.array(joint_coords_all))), dim=-<span class="number">1</span>)  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>joint_coords_all  目的是为了图像坐标嵌入</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">joint_coords_all = []  <span class="comment"># (N, J, T, 2) </span></span><br><span class="line">         <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(self.args.N):</span><br><span class="line">             joint_coords_n = []</span><br><span class="line"></span><br><span class="line">             <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(self.args.J):</span><br><span class="line">                 joint_coords_j = []</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span> tidx, frame <span class="keyword">in</span> <span class="built_in">enumerate</span>(frames):</span><br><span class="line">                     joint_x, joint_y, joint_type = joint_raw[frame][n,j,:]</span><br><span class="line">                     </span><br><span class="line">                     joint_x = <span class="built_in">min</span>(joint_x, self.args.image_w-<span class="number">1</span>)</span><br><span class="line">                     joint_y = <span class="built_in">min</span>(joint_y, self.args.image_h-<span class="number">1</span>)</span><br><span class="line">                     joint_x = <span class="built_in">max</span>(<span class="number">0</span>, joint_x)</span><br><span class="line">                     joint_y = <span class="built_in">max</span>(<span class="number">0</span>, joint_y)</span><br><span class="line"></span><br><span class="line">                     joint_coords = []</span><br><span class="line">                     joint_coords.append(joint_x)  <span class="comment"># width axis </span></span><br><span class="line">                     joint_coords.append(joint_y)  <span class="comment"># height axis</span></span><br><span class="line">                         </span><br><span class="line">                     joint_coords_j.append(joint_coords)</span><br><span class="line">                 joint_coords_n.append(joint_coords_j)   </span><br><span class="line">             joint_coords_all.append(joint_coords_n)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>joint_feats_basic 对关键点坐标进行标准化</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">joint_feats_basic = []  <span class="comment"># (N, J, T, d_0_v1) </span></span><br><span class="line">      <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(self.args.N):</span><br><span class="line">          joint_feats_n = []</span><br><span class="line">          <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(self.args.J):</span><br><span class="line">              joint_feats_j = []</span><br><span class="line">              <span class="keyword">for</span> tidx, frame <span class="keyword">in</span> <span class="built_in">enumerate</span>(frames):</span><br><span class="line">                  joint_x, joint_y, joint_type = joint_raw[frame][n,j,:]</span><br><span class="line"></span><br><span class="line">                  joint_feat = []</span><br><span class="line"></span><br><span class="line">                  joint_feat.append((joint_x-self.stats[<span class="string">'joint_xcoords_mean'</span>])/self.stats[<span class="string">'joint_xcoords_std'</span>])</span><br><span class="line">                  joint_feat.append((joint_y-self.stats[<span class="string">'joint_ycoords_mean'</span>])/self.stats[<span class="string">'joint_ycoords_std'</span>])</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">if</span> tidx != <span class="number">0</span>:</span><br><span class="line">                      pre_frame = frames[tidx-<span class="number">1</span>] </span><br><span class="line">                      pre_joint_x, pre_joint_y, pre_joint_type = joint_raw[pre_frame][n,j,:]</span><br><span class="line">                      joint_dx, joint_dy = joint_x - pre_joint_x, joint_y - pre_joint_y </span><br><span class="line">                  <span class="keyword">else</span>:</span><br><span class="line">                      joint_dx, joint_dy = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"></span><br><span class="line">                  joint_feat.append((joint_dx-self.stats[<span class="string">'joint_dxcoords_mean'</span>])/self.stats[<span class="string">'joint_dxcoords_std'</span>])</span><br><span class="line">                  joint_feat.append((joint_dy-self.stats[<span class="string">'joint_dycoords_mean'</span>])/self.stats[<span class="string">'joint_dycoords_std'</span>])</span><br><span class="line">                  joint_feats_j.append(joint_feat)</span><br><span class="line">              joint_feats_n.append(joint_feats_j)</span><br><span class="line">          joint_feats_basic.append(joint_feats_n)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>joint_feats_advanced 对关键点信息进归一化</p>
+</li>
+<li><p>joint_feats_metrics</p>
+</li>
+<li><p>接下来，如果当前正在训练，并且使用dropout增强的话：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">		<span class="comment"># if random agent dropout augmentation and is training                </span></span><br><span class="line">        <span class="keyword">if</span> self.args.agent_dropout_augment <span class="keyword">and</span> self.split == <span class="string">'train'</span>:</span><br><span class="line">            <span class="keyword">if</span> index &lt; <span class="built_in">len</span>(self.agent_dropout_mask):</span><br><span class="line">                <span class="keyword">if</span> self.agent_dropout_mask[index]:</span><br><span class="line">                    joint_feats = self.agent_dropout_augment_joint(</span><br><span class="line">                            joint_feats, frames, index=index, J=self.args.J)</span><br><span class="line">                    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">agent_dropout_augment_joint</span>(<span class="params">self, joint_feats, frames, index=<span class="number">0</span>, J=<span class="number">17</span></span>):</span></span><br><span class="line">        <span class="comment"># joint_feats: (N, J, T, d)</span></span><br><span class="line">        chosen_frame = self.agent_dropout_augment_randomness[index][<span class="number">0</span>] </span><br><span class="line">        chosen_person = self.agent_dropout_augment_randomness[index][<span class="number">1</span>] </span><br><span class="line">        feature_dim = joint_feats.shape[<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">        joint_feats[chosen_person, :, frames.index(chosen_frame), :] = torch.zeros(J, feature_dim)</span><br><span class="line">        <span class="keyword">return</span> joint_feats</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后，返回数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> joint_feats, label, video, clip, person_labels<span class="comment">#, ball_feats</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="模型处理模块"><a href="#模型处理模块" class="headerlink" title="模型处理模块"></a>模型处理模块</h2><ul>
+<li>获得所有需要的维度信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">B = joint_feats_thisbatch.size(<span class="number">0</span>)</span><br><span class="line">      N = joint_feats_thisbatch.size(<span class="number">1</span>)</span><br><span class="line">      J = joint_feats_thisbatch.size(<span class="number">2</span>)</span><br><span class="line">      T = joint_feats_thisbatch.size(<span class="number">3</span>)</span><br><span class="line">      </span><br><span class="line">      d = self.args.TNT_hidden_dim</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先进行图像坐标位置编码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># image coords positional encoding</span></span><br><span class="line">      image_coords = joint_feats_thisbatch[:,:,:,:,-<span class="number">2</span>:].to(torch.int64).cuda() <span class="comment"># B,N,J,T,2</span></span><br><span class="line">      coords_h = np.linspace(<span class="number">0</span>, <span class="number">1</span>, self.args.image_h, endpoint=<span class="literal">False</span>)</span><br><span class="line">      coords_w = np.linspace(<span class="number">0</span>, <span class="number">1</span>, self.args.image_w, endpoint=<span class="literal">False</span>)</span><br><span class="line">      xy_grid = np.stack(np.meshgrid(coords_w, coords_h), -<span class="number">1</span>)</span><br><span class="line">      xy_grid = torch.tensor(xy_grid).unsqueeze(<span class="number">0</span>).permute(<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>).<span class="built_in">float</span>().contiguous().to(device)</span><br><span class="line">      image_coords_learned =  self.image_embed_layer(xy_grid).squeeze(<span class="number">0</span>).permute(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>) <span class="comment"># h,w,2*embed_dim,</span></span><br><span class="line">      image_coords_embeded = image_coords_learned[image_coords[:,:,:,:,<span class="number">1</span>], image_coords[:,:,:,:,<span class="number">0</span>]]</span><br><span class="line">      <span class="comment"># (B, N, J, T, d_0)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其次进行时间位置编码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># time positional encoding</span></span><br><span class="line">      time_ids = torch.arange(<span class="number">1</span>, T+<span class="number">1</span>, device=device).repeat(B, N, J, <span class="number">1</span>)</span><br><span class="line">      time_seq = self.time_embed_layer(time_ids) </span><br><span class="line">      <span class="comment"># (B, N, J, T, d_0)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再进行关键点类型嵌入编码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># joint classes embedding learning as tokens/nodes</span></span><br><span class="line">      joint_class_ids = joint_feats_thisbatch[:,:,:,:,-<span class="number">1</span>]  <span class="comment"># note that the last dim is the joint class id by default</span></span><br><span class="line">      joint_classes_embeded = self.joint_class_embed_layer(joint_class_ids.<span class="built_in">type</span>(torch.LongTensor).cuda()) <span class="comment"># (B, N, J, T, d_0)</span></span><br><span class="line">      </span><br><span class="line">      x = joint_classes_embeded.transpose(<span class="number">2</span>, <span class="number">3</span>).flatten(<span class="number">0</span>, <span class="number">1</span>).flatten(<span class="number">0</span>, <span class="number">1</span>)  <span class="comment"># x: (B*N*T, J, d_0)</span></span><br><span class="line">      <span class="built_in">input</span> = (x, self.adj.repeat(B*N*T, <span class="number">1</span>, <span class="number">1</span>).cuda())  <span class="comment"># adj: # (B*N*T, J, J)</span></span><br><span class="line">      joint_classes_encode = self.joint_class_gcn_layers(<span class="built_in">input</span>)[<span class="number">0</span>] <span class="comment"># output</span></span><br><span class="line">      joint_classes_encode = joint_classes_encode.view(B, N, T, J, -<span class="number">1</span>).transpose(<span class="number">2</span>, <span class="number">3</span>)  <span class="comment"># (B, N, J, T, d_0)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后将这些进行拼接得到编码后的关键点信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">joint_feats_composite_encoded = torch.cat(</span><br><span class="line">            [joint_feats_thisbatch, time_seq, image_coords_embeded, joint_classes_encode], </span><br><span class="line">            dim=-<span class="number">1</span>) </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>之后进行投影：注意，这里时间维度已经没有了</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PROJECTIONS</span></span><br><span class="line">      <span class="comment"># joint track projection</span></span><br><span class="line">      joint_track_feats_thisbatch_proj = self.joint_track_projection_layer(</span><br><span class="line">          joint_feats_composite_encoded.flatten(<span class="number">3</span>, <span class="number">4</span>).flatten(<span class="number">0</span>, <span class="number">1</span>).flatten(<span class="number">0</span>, <span class="number">1</span>)  <span class="comment"># (B*N*J, T*d_0)</span></span><br><span class="line">      ).view(B, N*J, -<span class="number">1</span>)</span><br><span class="line">      <span class="comment"># (B, N*J, d)</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment"># person track projection</span></span><br><span class="line">      person_track_feats_thisbatch_proj = self.person_track_projection_layer(</span><br><span class="line">          joint_feats_for_person_thisbatch.flatten(<span class="number">0</span>, <span class="number">1</span>).contiguous().view(B*N, -<span class="number">1</span>)</span><br><span class="line">      ).view(B, N, -<span class="number">1</span>)</span><br><span class="line">      <span class="comment"># (B, N, d)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里还有两个track， interaction track &amp; group track，思想是类似的</li>
+<li>接下来将各个track输入到TNT网络中进行处理：</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230518142940111.png" alt="image-20230518142940111" style="zoom:50%;">
+
+<ul>
+<li>TNT的主干是TNT_block:</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230518143303080.png" alt="image-20230518143303080" style="zoom:50%;">
+
+<ul>
+<li>下面是我的流程图，整体处理还是比较好理解的：</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/961ff5f4440f252388d4d9457d866d9.jpg" alt="961ff5f4440f252388d4d9457d866d9" style="zoom:50%;">
+
+<h2 id="损失函数计算"><a href="#损失函数计算" class="headerlink" title="损失函数计算"></a>损失函数计算</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># outputs is a list of list</span></span><br><span class="line"><span class="comment"># len(outputs) is the numbr of TNT layers</span></span><br><span class="line"><span class="comment"># each inner list is [CLS_f, CLS_m, CLS_c, output_CLS, output_fine, output_middle, output_coarse, output_group]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="预测群体logits："><a href="#预测群体logits：" class="headerlink" title="预测群体logits："></a>预测群体logits：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">pred_logits = []</span><br><span class="line">      <span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">range</span>(self.args.TNT_n_layers):</span><br><span class="line">          </span><br><span class="line">          fine_cls = outputs[l][<span class="number">0</span>].transpose(<span class="number">0</span>, <span class="number">1</span>).squeeze(<span class="number">1</span>)  <span class="comment"># (B, d)</span></span><br><span class="line">          middle_cls = outputs[l][<span class="number">1</span>].transpose(<span class="number">0</span>, <span class="number">1</span>).squeeze(<span class="number">1</span>)  <span class="comment"># (B, d)</span></span><br><span class="line">          coarse_cls = outputs[l][<span class="number">2</span>].transpose(<span class="number">0</span>, <span class="number">1</span>).squeeze(<span class="number">1</span>)  <span class="comment"># (B, d)</span></span><br><span class="line">          group_cls = outputs[l][<span class="number">3</span>].transpose(<span class="number">0</span>, <span class="number">1</span>).squeeze(<span class="number">1</span>)  <span class="comment"># (B, d)</span></span><br><span class="line">          </span><br><span class="line">          pred_logit_f = self.classifier(fine_cls)</span><br><span class="line">          pred_logit_m = self.classifier(middle_cls)</span><br><span class="line">          pred_logit_c = self.classifier(coarse_cls)</span><br><span class="line">          pred_logit_g = self.classifier(group_cls)</span><br><span class="line">          </span><br><span class="line">          pred_logits.append([pred_logit_f, pred_logit_m, pred_logit_c, pred_logit_g])</span><br></pre></td></tr></table></figure>
+
+<h3 id="计算scores："><a href="#计算scores：" class="headerlink" title="计算scores："></a>计算scores：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fine_cls, middle_cls, coarse_cls, group_cls are from the last layer</span></span><br><span class="line">      fine_cls_normed = nn.functional.normalize(fine_cls, dim=<span class="number">1</span>, p=<span class="number">2</span>)</span><br><span class="line">      middle_cls_normed = nn.functional.normalize(middle_cls, dim=<span class="number">1</span>, p=<span class="number">2</span>)</span><br><span class="line">      coarse_cls_normed = nn.functional.normalize(coarse_cls, dim=<span class="number">1</span>, p=<span class="number">2</span>)</span><br><span class="line">      group_cls_normed = nn.functional.normalize(group_cls, dim=<span class="number">1</span>, p=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">      scores_f = self.prototypes(fine_cls_normed)</span><br><span class="line">      scores_m = self.prototypes(middle_cls_normed)</span><br><span class="line">      scores_c = self.prototypes(coarse_cls_normed)</span><br><span class="line">      scores_g = self.prototypes(group_cls_normed)</span><br><span class="line">      scores = [scores_f, scores_m, scores_c, scores_g]</span><br></pre></td></tr></table></figure>
+
+<h3 id="预测个体logits："><a href="#预测个体logits：" class="headerlink" title="预测个体logits："></a>预测个体logits：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pred_logits_person = []</span><br><span class="line">      <span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">range</span>(self.args.TNT_n_layers):</span><br><span class="line">          person_feats = outputs[l][<span class="number">5</span>].transpose(<span class="number">0</span>, <span class="number">1</span>).flatten(<span class="number">0</span>,<span class="number">1</span>)  <span class="comment"># (BxN, d)</span></span><br><span class="line">          pred_logit_person = self.person_classifier(person_feats)  </span><br><span class="line">          pred_logits_person.append(pred_logit_person)</span><br></pre></td></tr></table></figure>
+
+<h3 id="loss计算："><a href="#loss计算：" class="headerlink" title="loss计算："></a>loss计算：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># model forward pass</span></span><br><span class="line">           pred_logits_thisbatch, pred_logits_person, scores = self.model(</span><br><span class="line">               joint_feats_thisbatch, ball_feats)		</span><br><span class="line">   <span class="comment"># measure accuracy and record loss </span></span><br><span class="line">           targets_thisbatch = targets_thisbatch.to(pred_logits_thisbatch[<span class="number">0</span>][<span class="number">0</span>].device)</span><br><span class="line">           person_labels = person_labels.flatten(<span class="number">0</span>,<span class="number">1</span>).to(pred_logits_thisbatch[<span class="number">0</span>][<span class="number">0</span>].device)</span><br><span class="line">           </span><br><span class="line">           loss_thisbatch, prec1, prec3, prec1_person, prec3_person = self.loss_acc_compute(</span><br><span class="line">               pred_logits_thisbatch, targets_thisbatch, pred_logits_person, person_labels)</span><br><span class="line">            </span><br><span class="line">           loss_thisbatch += contrastive_clustering_loss</span><br></pre></td></tr></table></figure>
+
+<p>这部分loss计算挺难理解的，之后看看原文尝试去修改一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># learning the cluster assignment and computing the loss</span></span><br><span class="line">         scores_f = scores[<span class="number">0</span>]</span><br><span class="line">         scores_m = scores[<span class="number">1</span>]</span><br><span class="line">         scores_c = scores[<span class="number">2</span>]</span><br><span class="line">         scores_g = scores[<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">         <span class="comment"># compute assignments</span></span><br><span class="line">         <span class="keyword">with</span> torch.no_grad(): </span><br><span class="line">             q_f = self.sinkhorn(scores_f, nmb_iters=self.args.sinkhorn_iterations)</span><br><span class="line">             q_m = self.sinkhorn(scores_m, nmb_iters=self.args.sinkhorn_iterations)</span><br><span class="line">             q_c = self.sinkhorn(scores_c, nmb_iters=self.args.sinkhorn_iterations)</span><br><span class="line">             q_g = self.sinkhorn(scores_g, nmb_iters=self.args.sinkhorn_iterations)</span><br><span class="line"></span><br><span class="line">         <span class="comment"># swap prediction problem</span></span><br><span class="line">         p_f = scores_f / self.args.temperature</span><br><span class="line">         p_m = scores_m / self.args.temperature</span><br><span class="line">         p_c = scores_c / self.args.temperature</span><br><span class="line">         p_g = scores_g / self.args.temperature</span><br><span class="line"></span><br><span class="line">         contrastive_clustering_loss = self.args.loss_coe_constrastive_clustering * (</span><br><span class="line">             self.swap_prediction(p_f, p_m, q_f, q_m) + </span><br><span class="line">             self.swap_prediction(p_f, p_c, q_f, q_c) +</span><br><span class="line">             self.swap_prediction(p_f, p_g, q_f, q_g) +</span><br><span class="line">             self.swap_prediction(p_m, p_c, q_m, q_c) +</span><br><span class="line">             self.swap_prediction(p_m, p_g, q_m, q_g) +</span><br><span class="line">             self.swap_prediction(p_c, p_g, q_c, q_g)</span><br><span class="line">         ) / <span class="number">6.0</span>  <span class="comment"># 6 pairs of views</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：代码解构</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-05-18 00:00:00</li>
+        <li>
+            Post link：https://coelien.github.io/2023/05/18/deep-learning/第一章/代码结构/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Group-Activity-Recognition/">#Group Activity Recognition</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Experiment/">#Experiment</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/05/18/deep-learning/%E7%AC%AC%E4%B8%80%E7%AB%A0/%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84-%E6%94%B9/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">代码解构-改</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/05/17/deep-learning/%E7%AC%AC%E4%B8%80%E7%AB%A0/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%955.17/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">实验记录05.17.2023</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Baseline%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">Baseline代码解构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E5%8F%8A%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">数据读取及预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">数据增强：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据分析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%EF%BC%9A"><span class="nav-number">1.1.4.</span> <span class="nav-text">数据获取：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%84%E7%90%86%E6%A8%A1%E5%9D%97"><span class="nav-number">1.2.</span> <span class="nav-text">模型处理模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E8%AE%A1%E7%AE%97"><span class="nav-number">1.3.</span> <span class="nav-text">损失函数计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E7%BE%A4%E4%BD%93logits%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">预测群体logits：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97scores%EF%BC%9A"><span class="nav-number">1.3.2.</span> <span class="nav-text">计算scores：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E4%B8%AA%E4%BD%93logits%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">预测个体logits：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loss%E8%AE%A1%E7%AE%97%EF%BC%9A"><span class="nav-number">1.3.4.</span> <span class="nav-text">loss计算：</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

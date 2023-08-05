@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            MIT6.S081笔记：lecture 2 introduce to C |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">MIT6.S081笔记：lecture 2 introduce to C</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/courses/">courses</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/courses/Operating-System/">Operating System</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/MIT6-S081/">MIT6.S081</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/OS/">OS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>5 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="MIT6-S081笔记：lecture-2-introduce-to-C"><a href="#MIT6-S081笔记：lecture-2-introduce-to-C" class="headerlink" title="MIT6.S081笔记：lecture 2 introduce to C"></a>MIT6.S081笔记：lecture 2 introduce to C</h1><h2 id="Materials-learning"><a href="#Materials-learning" class="headerlink" title="Materials learning"></a>Materials learning</h2><h3 id="What-is-different-about-C-vs-Python"><a href="#What-is-different-about-C-vs-Python" class="headerlink" title="What is different about C? (vs. Python)"></a>What is different about C? (vs. Python)</h3><ul>
+<li><p>C是一个高级汇编语言</p>
+<ul>
+<li>其代码直接对应于机器指令</li>
+<li>python dict相反，会使用很多隐藏于之下的code</li>
+</ul>
+</li>
+<li><p>C是编译而不是解释的</p>
+<ul>
+<li>可以直接在解释器上执行，非常快</li>
+</ul>
+</li>
+<li><p>C是静态类型的</p>
+<ul>
+<li><p>python中，在变量中，类型与变量值相关联：</p>
+<p>每个值存于一个内存区域中，这个区域包含了这个值的类型相关信息</p>
+</li>
+<li><p>C中，类型与变量相关联，并解释为字节值：</p>
+<p>值并不包含任何类型信息，所有信息均存于变量</p>
+</li>
+<li><p>类型错误在编译时被捕获</p>
+</li>
+</ul>
+</li>
+<li><p>C使用手动内存管理，没有垃圾收集机制</p>
+<ul>
+<li>显示的“malloc”和“free”，直接访问内存</li>
+<li>更快，也更容易出现错误</li>
+</ul>
+</li>
+<li><p>C中的Intergers和floats有特定的但不明确的边界</p>
+<ul>
+<li><p>不同的类型在不同的平台有着不同的涵义（同为int可能机器不一样，所表示的范围也就不一样）<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418141816129.png" alt="image-20230418141816129" style="zoom:50%;"></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418141956989.png" alt="image-20230418141956989" style="zoom:50%;"></li>
+</ul>
+</li>
+</ul>
+<h3 id="大端和小端"><a href="#大端和小端" class="headerlink" title="大端和小端"></a>大端和小端</h3><blockquote>
+<p>怎样在内存中表示：number like 0x12345678 (= 305419896) ？</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418142542936.png" alt="image-20230418142542936" style="zoom:50%;">
+
+<ul>
+<li>RISC-V platform is little-endian  </li>
+</ul>
+<h3 id="C中的内存类型"><a href="#C中的内存类型" class="headerlink" title="C中的内存类型"></a>C中的内存类型</h3><ul>
+<li><p>堆内存</p>
+<p><strong>动态</strong>内存，需要显示分配（未初始化过的）</p>
+</li>
+<li><p>静态内存</p>
+<ul>
+<li>在任何函数之外定义的变量，以及通过<strong>static声明</strong>的变量</li>
+<li>只有<strong>单个</strong>的拷贝，被存储在了一个<strong>预先定义且不会改变</strong>的内存地址</li>
+<li>初始化为0</li>
+</ul>
+</li>
+<li><p>栈内存</p>
+<ul>
+<li>函数中的局部变量</li>
+<li>未初始化</li>
+</ul>
+</li>
+</ul>
+<h3 id="Key-topic-in-C-：内存安全"><a href="#Key-topic-in-C-：内存安全" class="headerlink" title="Key topic in C ：内存安全"></a>Key topic in C ：内存安全</h3><ul>
+<li>use after free</li>
+<li>double free</li>
+<li>uninitialize memory</li>
+<li>buffer overflow</li>
+<li>memory leak</li>
+<li>type confusion</li>
+</ul>
+<h3 id="Key-topic-in-C：指针"><a href="#Key-topic-in-C：指针" class="headerlink" title="Key topic in C：指针"></a>Key topic in C：指针</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418144504866.png" alt="image-20230418144504866" style="zoom:50%;">
+
+<ul>
+<li>指针本质上是int，它表示的是变量所在的内存地址</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418144704947.png" alt="image-20230418144704947" style="zoom:50%;">
+
+<ul>
+<li>不同类型的指针如上图</li>
+<li>指针的大小<ul>
+<li>与特定平台相关</li>
+<li>RISC-V使用64bit指针（与long大小相同）</li>
+<li>This means, in 6.S081, we can cast a pointer to a long, but not to an int.  </li>
+</ul>
+</li>
+</ul>
+<h3 id="C中的数组"><a href="#C中的数组" class="headerlink" title="C中的数组"></a>C中的数组</h3><ul>
+<li>固定大小</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418145811951.png" alt="image-20230418145811951" style="zoom:50%;">
+
+<ul>
+<li>在内存中连续存储：</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230418145342202.png" alt="image-20230418145342202" style="zoom:50%;">
+
+<h3 id="定义-v-s-声明"><a href="#定义-v-s-声明" class="headerlink" title="定义 v.s. 声明"></a>定义 v.s. 声明</h3><ul>
+<li><p>C中的声明是必须的，C需要其类以及类型签名</p>
+<ul>
+<li>If it hasn’t seen a declaration yet, it <strong>won’t know the correct types</strong> to use.  </li>
+</ul>
+</li>
+<li><p>定义在代码中只能出现一次</p>
+</li>
+<li><p>通常情况下，会把声明放在单独的头文件里</p>
+</li>
+</ul>
+<h3 id="定义静态函数和变量"><a href="#定义静态函数和变量" class="headerlink" title="定义静态函数和变量"></a>定义静态函数和变量</h3><ul>
+<li>如果一个函数在两个文件中出现，他们会发生冲突。</li>
+<li>为了避免冲突，可以使用static关键字</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">function_2</span><span class="params">(<span class="keyword">int</span> xyz)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">function_2</span><span class="params">(<span class="keyword">int</span> xyz)</span> </span>{</span><br><span class="line">	<span class="built_in">printf</span>(“%d\n”, xyz);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上面的函数只可以在当前定义的文件中使用</li>
+<li>也可以在局部变量上声明static关键字：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add_cumulative_numbers</span><span class="params">(<span class="keyword">int</span> increase)</span> </span>{</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> total_sum = <span class="number">0</span>;</span><br><span class="line">    total_sum += increase;</span><br><span class="line">    <span class="keyword">return</span> total_sum;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在调用的初次会被初始化为0，并且会保存其值</p>
+</li>
+<li><p>作为函数指针：</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">my_function_1</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">my_function_2</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pointer_example</span><span class="params">(<span class="keyword">int</span> variant)</span> </span>{</span><br><span class="line">    <span class="keyword">void</span> (*local)(<span class="keyword">int</span>);</span><br><span class="line">    <span class="keyword">if</span> (variant == <span class="number">1</span>) {</span><br><span class="line">    	local = my_function_1;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">    	local = my_function_2;</span><br><span class="line">    }</span><br><span class="line">    local(<span class="number">100</span>); <span class="comment">// call function via variable</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h3 id="C中的字符串"><a href="#C中的字符串" class="headerlink" title="C中的字符串"></a>C中的字符串</h3><ul>
+<li>尾字符为<code>'\0' = (0x00)</code>。注意，其值为0</li>
+<li>计算字符串的长度：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">strlen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">//可通过判定是否为终结字符来判断是否结束</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; str[i] != <span class="number">0</span>; i++) {}</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h3 id="类型定义"><a href="#类型定义" class="headerlink" title="类型定义"></a>类型定义</h3><ul>
+<li>类型别名：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// from kernel/types.h:</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> uint8;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span> uint16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> uint32;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> uint64;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方便使用+更加清楚</li>
+<li>跨平台：If we ever port xv6 to another platform where the sizes don’t match up like this, we can <strong>just change the one file that defines these typedefs</strong>, and the rest of the code will update to match!  </li>
+</ul>
+<h3 id="头文件和源文件"><a href="#头文件和源文件" class="headerlink" title="头文件和源文件"></a>头文件和源文件</h3><ul>
+<li>头文件包含用来共享的声明</li>
+<li>源文件包含不同代码的定义，如：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// kernel/spinlock.h: declarations describing the spinlock interface</span></span><br><span class="line"><span class="comment">// kernel/spinlock.c: actual definitions of spinlock code</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="C预处理器"><a href="#C预处理器" class="headerlink" title="C预处理器"></a>C预处理器</h3><ul>
+<li>常见预处理指令：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> “spinlock.h” <span class="comment">// -&gt; Incorporate the contents of spinlock.h here</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NPROC 64 <span class="comment">// -&gt; Replace all instances of ‘NPROC’ with ‘64’</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TWICE(x) ((x)*2)</span></span><br><span class="line"><span class="comment">//-&gt; Replace all instance of ‘TWICE(x)’ with ‘((x) * 2)’ … for any expression ‘x</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DEBUG <span class="comment">// only if DEBUG was defined by #define</span></span></span><br><span class="line">	<span class="built_in">printf</span>(“some debug message: %d”, my_value);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">	<span class="comment">// do something else instead of printing</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> VAR <span class="comment">// if VAR wasn’t defined by #define</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> EXPR <span class="comment">// if EXPR evaluates to true</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Include-Guard"><a href="#Include-Guard" class="headerlink" title="Include Guard"></a>Include Guard</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// at the start of the something.h file</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SOMETHING_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SOMETHING_H</span></span><br><span class="line"><span class="comment">// ... the normal contents go here ...</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* SOMETHING_H */</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常见内存函数"><a href="#常见内存函数" class="headerlink" title="常见内存函数"></a>常见内存函数</h3><ul>
+<li>malloc(n):  返回分配内存的首地址</li>
+<li>free(ptr)</li>
+<li>memset(ptr,v,n)：set every byte from ptr[0] to ptr[n-1] to v</li>
+<li>memmove(dst, src, n): copies src[0]…src[n-1] to dst[0]…dst[n-1]  </li>
+<li>memcpy(dst, src, n):  (Discouraged! Prefer memmove.)  </li>
+</ul>
+<h3 id="常见字符串操作函数"><a href="#常见字符串操作函数" class="headerlink" title="常见字符串操作函数"></a>常见字符串操作函数</h3><ul>
+<li>strlen(str)</li>
+<li>strcmp(a,b)</li>
+<li>strcpy(dst, src)</li>
+</ul>
+<p><strong>一定要记住NULL终结符</strong></p>
+<h3 id="Unions"><a href="#Unions" class="headerlink" title="Unions"></a>Unions</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">my_union</span> {</span></span><br><span class="line">    <span class="keyword">float</span> x;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>only safely use a single field of a union at a time  </li>
+<li>You won’t need these much.   </li>
+</ul>
+<h3 id="C位操作"><a href="#C位操作" class="headerlink" title="C位操作"></a>C位操作</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> my_int;</span><br><span class="line"><span class="comment">// Set the Nth bit of an integer:</span></span><br><span class="line">my_int |= <span class="number">1</span> &lt;&lt; N;</span><br><span class="line"><span class="comment">// Clear the Nth bit of an integer</span></span><br><span class="line">my_int &amp;= ~(<span class="number">1</span> &lt;&lt; N);</span><br><span class="line"><span class="comment">// Check if any bits in MASK are set</span></span><br><span class="line"><span class="keyword">if</span> (my_int &amp; MASK) { <span class="comment">/* ... */</span> }</span><br><span class="line"><span class="comment">// Check if all bits in MASK are set</span></span><br><span class="line"><span class="keyword">if</span> ((my_int &amp; MASK) == MASK) { <span class="comment">/* ... */</span> }</span><br><span class="line"><span class="comment">// Check if integer is a power of two</span></span><br><span class="line"><span class="keyword">if</span> (my_int &amp;&amp; !(my_int &amp; (my_int - <span class="number">1</span>))) { <span class="comment">/* ... */</span> }</span><br></pre></td></tr></table></figure>
+
+<h3 id="Finally-a-pointer-challenge"><a href="#Finally-a-pointer-challenge" class="headerlink" title="Finally: a pointer challenge"></a>Finally: a pointer challenge</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Source: The Ksplice Pointer Challenge - <span class="function">Oracle Linux Blog</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> x[<span class="number">5</span>]; <span class="comment">// x is at 0x7fffdfbf7f00</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, x); <span class="comment">// -&gt; 0x7fffdfbf7f00</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, x+<span class="number">1</span>); <span class="comment">// -&gt; 0x7fffdfbf7f04</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, &amp;x); <span class="comment">// -&gt; 0x7fffdfbf7f00</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, &amp;x+<span class="number">1</span>); <span class="comment">// -&gt; 0x7fffdfbf7f14</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h2 id="Exercise-testing"><a href="#Exercise-testing" class="headerlink" title="Exercise testing"></a>Exercise testing</h2>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：MIT6.S081笔记：lecture 2 introduce to C</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/course-learning/MIT6.S081/lec2/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/MIT6-S081/">#MIT6.S081</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/OS/">#OS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/course-learning/MIT6.S081/lec1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT6.S081笔记：lecture 1</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/course-learning/MIT6.S081/lec3/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT6.S081笔记：lecture 3</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MIT6-S081%E7%AC%94%E8%AE%B0%EF%BC%9Alecture-2-introduce-to-C"><span class="nav-number">1.</span> <span class="nav-text">MIT6.S081笔记：lecture 2 introduce to C</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Materials-learning"><span class="nav-number">1.1.</span> <span class="nav-text">Materials learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-different-about-C-vs-Python"><span class="nav-number">1.1.1.</span> <span class="nav-text">What is different about C? (vs. Python)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E7%AB%AF%E5%92%8C%E5%B0%8F%E7%AB%AF"><span class="nav-number">1.1.2.</span> <span class="nav-text">大端和小端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.3.</span> <span class="nav-text">C中的内存类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-topic-in-C-%EF%BC%9A%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8"><span class="nav-number">1.1.4.</span> <span class="nav-text">Key topic in C ：内存安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-topic-in-C%EF%BC%9A%E6%8C%87%E9%92%88"><span class="nav-number">1.1.5.</span> <span class="nav-text">Key topic in C：指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.6.</span> <span class="nav-text">C中的数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-v-s-%E5%A3%B0%E6%98%8E"><span class="nav-number">1.1.7.</span> <span class="nav-text">定义 v.s. 声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0%E5%92%8C%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.8.</span> <span class="nav-text">定义静态函数和变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.1.9.</span> <span class="nav-text">C中的字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.10.</span> <span class="nav-text">类型定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E5%92%8C%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.11.</span> <span class="nav-text">头文件和源文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">1.1.12.</span> <span class="nav-text">C预处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Include-Guard"><span class="nav-number">1.1.13.</span> <span class="nav-text">Include Guard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%86%85%E5%AD%98%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.14.</span> <span class="nav-text">常见内存函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.15.</span> <span class="nav-text">常见字符串操作函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unions"><span class="nav-number">1.1.16.</span> <span class="nav-text">Unions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C%E4%BD%8D%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.17.</span> <span class="nav-text">C位操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Finally-a-pointer-challenge"><span class="nav-number">1.1.18.</span> <span class="nav-text">Finally: a pointer challenge</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-testing"><span class="nav-number">1.2.</span> <span class="nav-text">Exercise testing</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

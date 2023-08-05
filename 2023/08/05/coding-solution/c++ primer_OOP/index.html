@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            C++ 面向对象 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">C++ 面向对象</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Books/">Books</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/Books/C-primer/">C++ primer</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/Books/C-primer/C-OOP/">C++ OOP</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/C/">C++</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>7.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>29 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="C-面向对象"><a href="#C-面向对象" class="headerlink" title="C++ 面向对象"></a>C++ 面向对象</h1><h2 id="拷贝控制"><a href="#拷贝控制" class="headerlink" title="拷贝控制"></a>拷贝控制</h2><blockquote>
+<p>类可以在创建此类型对象时做什么，类在控制该类型对象拷贝、赋值、移动或销毁时做什么。类通过一些特殊的成员函数进行这些<strong>拷贝控制</strong>操作：拷贝构造函数、移动构造函数、拷贝赋值运算符、移动赋值运算符以及析构函数。</p>
+</blockquote>
+<ul>
+<li><strong>难点</strong>是首先认识到<strong>什么时候</strong>需要定义这些操作</li>
+</ul>
+<h3 id="拷贝、控制和销毁"><a href="#拷贝、控制和销毁" class="headerlink" title="拷贝、控制和销毁"></a>拷贝、控制和销毁</h3><h4 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>{</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="built_in">Foo</span>();</span><br><span class="line">    	<span class="built_in">Foo</span>(<span class="keyword">const</span> Foo&amp;);<span class="comment">// 第一个参数是自身类型的引用，其他参数（如果有的话）都有默认值</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p><strong>拷贝初始化</strong></p>
+<ul>
+<li><p>通常使用拷贝构造函数完成（有时也会使用移动构造函数）</p>
+</li>
+<li><p><strong>发生在</strong>：</p>
+<ul>
+<li><code>string s2 = "9-999999-999-99";</code>或<code>string nines = string(100,'9');</code></li>
+<li>将一个对象作为实参传递给非引用类型的形参</li>
+<li>从一个返回类型为非引用类型的函数返回一个对象</li>
+<li>用{}初始化一个数组中的元素，或一个聚合类的成员</li>
+<li>某些类类型会对它们所分配的对象使用拷贝初始化：初始化标准库容器或是调用其insert、push成员</li>
+</ul>
+</li>
+<li><p>由此可以看出拷贝构造函数是极其有用的</p>
+</li>
+</ul>
+<blockquote>
+<p>为什么拷贝构造函数自己的参数必须是引用类型?</p>
+</blockquote>
+<ul>
+<li><p>因为如果是非引用类型，我们必须拷贝它的实参，所以又必须调用拷贝构造函数，如此循环</p>
+</li>
+<li><p>拷贝初始化的限制：初始值要求使用一个explicit的构造函数来进行类型转换时，就只能直接使用，而不能隐式使用</p>
+</li>
+</ul>
+<h4 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>{</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	Foo&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Foo&amp;);<span class="comment">// （标准库）通常要求返回一个指向其左侧运算对象的引用</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>若一个未定义自己的拷贝赋值运算符，编译器会为他生成一个合成拷贝赋值运算符：</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303150946599.png" alt="image-20230315094635505" style="zoom:50%;">
+
+<h4 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h4><ul>
+<li><p>析构函数释放对象所使用的资源并销毁对象的非static数据成员</p>
+</li>
+<li><p>没有返回值，也不接受参数</p>
+</li>
+<li><p>销毁类类型的成员需要成员执行自己的析构函数，销毁内置类型不需要做什么</p>
+</li>
+<li><p>什么时候会调用析构函数？</p>
+<ul>
+<li>变量离开其作用域时被销毁</li>
+<li>对象被销毁时，其成员被销毁</li>
+<li>容器被销毁时，其元素被销毁</li>
+<li>对于动态分配的对象，当对它的指针应用delete运算符时被销毁</li>
+</ul>
+</li>
+<li><p>析构函数函数体自身并不直接销毁成员，是在隐含的析构阶段被销毁的</p>
+</li>
+</ul>
+<h4 id="三-五法则"><a href="#三-五法则" class="headerlink" title="三/五法则"></a>三/五法则</h4><ul>
+<li><strong>需要析构函数的类也需要拷贝与赋值操作</strong></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HasPtr <span class="title">p</span><span class="params">(<span class="string">"somevalue"</span>)</span></span>;</span><br><span class="line"><span class="built_in">f</span>(p);</span><br><span class="line"><span class="function">HasPtr <span class="title">q</span><span class="params">(p)</span></span>; <span class="comment">//p和q的ps成员均指向无效内存！</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HasPtr::~<span class="built_in">HasPtr</span>(){ <span class="keyword">delete</span> ps;}</span><br><span class="line"></span><br><span class="line"><span class="function">HasPtr <span class="title">f</span><span class="params">(HasPtr&amp; hp)</span></span>{</span><br><span class="line">    HasPtr ret = hp;</span><br><span class="line">    <span class="keyword">return</span> ret; <span class="comment">// ret被销毁 导致hp的指针成为野指针</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>需要拷贝操作的类也需要赋值操作，反之亦然</strong></li>
+</ul>
+<p>例如一个类为每个对象分配一个唯一的序号，需要自定义拷贝赋值运算符来避免将序号赋予目的对象；</p>
+<h4 id="使用-default"><a href="#使用-default" class="headerlink" title="使用=default"></a>使用=default</h4><ul>
+<li>显式地要求编译器生成合成的版本</li>
+</ul>
+<h4 id="阻止拷贝"><a href="#阻止拷贝" class="headerlink" title="阻止拷贝"></a>阻止拷贝</h4><ul>
+<li>例如，iostream类阻止了拷贝，以避免多个对象写入或读取相同的IO缓冲。</li>
+</ul>
+<p><strong>定义删除的函数</strong></p>
+<ul>
+<li>虽然声明了它们，但不能以任何方式使用它们</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NoCopy</span>{</span></span><br><span class="line">    <span class="built_in">NoCopy</span>()=<span class="keyword">default</span>;</span><br><span class="line">    <span class="built_in">NoCopy</span>(<span class="keyword">const</span> NoCopy&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    NoCopy &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> NoCopy&amp;)=<span class="keyword">delete</span>;</span><br><span class="line">    ~<span class="built_in">NoCopy</span>() = <span class="keyword">default</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们<strong>尽量不要删除析构成员</strong>，若删除可以动态分配这种类型的对象（<strong>但不能释放这些对象</strong>）</li>
+</ul>
+<p><strong>合成的拷贝控制成员可能是删除的</strong></p>
+<ul>
+<li><p>如果一个类有数据成员不能默认构造、拷贝、复制或销毁，则对应的成员函数将被定义为删除的</p>
+</li>
+<li><p>如果具有<strong>引用成员</strong>或是<strong>无法默认构造的const成员</strong>的类，编译器不会为其合成默认构造函数</p>
+</li>
+<li><p>如果一个类有<strong>const成员</strong>，则它不能使用<strong>合成的拷贝赋值运算符</strong></p>
+</li>
+<li><p>对于有<strong>引用成员</strong>的类，将新值赋值给引用成员，改变的是所引用对象的值，而不是引用本身，不会与右侧运算对象指向相同的对象，不能使用<strong>合成的拷贝赋值运算符</strong></p>
+</li>
+</ul>
+<h3 id="拷贝控制与资源管理"><a href="#拷贝控制与资源管理" class="headerlink" title="拷贝控制与资源管理"></a>拷贝控制与资源管理</h3><blockquote>
+<p><strong>管理类外资源的类必须定义拷贝控制成员</strong></p>
+</blockquote>
+<ul>
+<li><p>首先确定此类型对象的拷贝语义</p>
+<ul>
+<li><p>类的行为像一个值</p>
+<p>它应该有自己的状态，拷贝副本与原对象是完全独立的</p>
+</li>
+<li><p>类的行为像一个指针</p>
+<p><strong>共享状态</strong>，副本和原对象使用相同的底层数据</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="行为像值的类"><a href="#行为像值的类" class="headerlink" title="行为像值的类"></a>行为像值的类</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HasPtr</span>{</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">HasPtr</span>(<span class="keyword">const</span> std::string &amp;s = std::<span class="built_in">string</span>()):<span class="built_in">ps</span>(<span class="keyword">new</span> std::<span class="built_in">string</span>(s)),<span class="built_in">i</span>(<span class="number">0</span>){}</span><br><span class="line">    <span class="built_in">HasPtr</span>(<span class="keyword">const</span> HasPtr&amp;p):</span><br><span class="line">        <span class="built_in">ps</span>(<span class="keyword">new</span> std::<span class="built_in">string</span>(*(p.ps))),<span class="built_in">i</span>(p.i) {}</span><br><span class="line">    HasPtr&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> HasPtr&amp;);</span><br><span class="line">    ~<span class="built_in">Hasptr</span>() {<span class="keyword">delete</span> ps;}</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::string *ps;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p><strong>类值拷贝赋值运算符</strong></p>
+<ul>
+<li>通常<strong>组合了析构和拷贝构造</strong>函数的操作</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HasPtr::HasPtr&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> HasPtr&amp; p){</span><br><span class="line">    <span class="keyword">auto</span> newp = <span class="keyword">new</span> std::<span class="built_in">string</span>(*(p.ps));</span><br><span class="line">    <span class="keyword">delete</span> ps;</span><br><span class="line">    ps = newp;</span><br><span class="line">    i = p.i;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>之所以先拷贝，再delete是为了保证：将一个<strong>对象赋予它自身</strong>时，赋值运算符需要正确工作</li>
+</ul>
+<h4 id="行为像指针的类"><a href="#行为像指针的类" class="headerlink" title="行为像指针的类"></a>行为像指针的类</h4><ul>
+<li>使用shared_ptr来管理类的资源（该类负责记录有多少用户共享它所指向的对象以及释放资源）</li>
+<li>有时，我们希望直接管理资源：<ul>
+<li>使用<strong>引用计数</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>引用计数</strong></p>
+<ul>
+<li>除了初始化对象外，每个构造函数还有创建一个引用计数，用来记录目前有多少对象正在与当前正在创建的对象共享状态</li>
+<li>拷贝构造函数不分配新的计数器，而是拷贝给定对象的数据成员，包括计数器，并进行递增操作。</li>
+<li>析构函数递减计数器，若变为0，析构函数释放状态</li>
+<li>拷贝赋值运算符，递增右侧对象的计数器，递减左侧对象的计算器，如果左侧计数器为0，意味着必须销毁状态</li>
+</ul>
+<blockquote>
+<p><strong>在哪里存放引用计数？</strong></p>
+</blockquote>
+<ul>
+<li>将计数器保存在动态内存中</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HasPtr</span>{</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">HasPtr</span>(<span class="keyword">const</span> std::string&amp; s = std::<span class="built_in">string</span>()):</span><br><span class="line">    		<span class="built_in">ps</span>(<span class="keyword">new</span> std::<span class="built_in">string</span>(s)), <span class="built_in">i</span>(<span class="number">0</span>), <span class="built_in">use</span>(<span class="keyword">new</span> std::<span class="built_in">size_t</span>(<span class="number">1</span>)){}</span><br><span class="line">    <span class="built_in">HasPtr</span>(<span class="keyword">const</span> HasPtr&amp; p):<span class="built_in">ps</span>(p.ps),<span class="built_in">i</span>(p.i),<span class="built_in">use</span>(p.use){ ++*use;}</span><br><span class="line">    HasPtr&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> HasPtr&amp;);</span><br><span class="line">    ~<span class="built_in">HasPtr</span>();</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::string * ps;</span><br><span class="line">    std::<span class="keyword">size_t</span> * use; <span class="comment">//记录有多少个对象共享*ps的成员</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>析构函数不能无条件地delete ps</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HasPtr::~<span class="built_in">HasPtr</span>(){</span><br><span class="line">    <span class="keyword">if</span>(--*use == <span class="number">0</span>){</span><br><span class="line">        <span class="keyword">delete</span> ps;</span><br><span class="line">        <span class="keyword">delete</span> use;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋值运算符必须处理自赋值</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HasPtr&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> HasPtr&amp; rhs){</span><br><span class="line">    ++*rhs.use;</span><br><span class="line">    <span class="keyword">if</span>(--*use == <span class="number">0</span>){</span><br><span class="line">        <span class="keyword">delete</span> ps;</span><br><span class="line">        <span class="keyword">delete</span> use;</span><br><span class="line">    }</span><br><span class="line">    ps = rhs.ps;</span><br><span class="line">    use = rhs.use;</span><br><span class="line">    i = rhs.i;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h3 id="交换操作"><a href="#交换操作" class="headerlink" title="交换操作"></a>交换操作</h3><blockquote>
+<p>对于分配了资源的类，swap可能会是一种重要的优化手段</p>
+</blockquote>
+<ul>
+<li>一般我们交换两个类值HasPtr的代码可能如下：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HasPtr temp = v1;</span><br><span class="line">v1 = v2;</span><br><span class="line">v2 = temp;</span><br></pre></td></tr></table></figure>
+
+<p>这种赋值实现的交换存在多次动态内存分配</p>
+<ul>
+<li>我们更希望swap交换指针，而不是分配新副本：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string *temp = v1.ps;</span><br><span class="line">v1.ps = v2.ps;</span><br><span class="line">v2.ps = temp;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写自己的swap函数来重载默认行为：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HasPtr</span>{</span></span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(HasPtr&amp;, HasPtr&amp;)</span></span>;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(HasPtr&amp; lhs, HasPtr&amp; rhs)</span></span>{</span><br><span class="line">    <span class="keyword">using</span> std::swap;</span><br><span class="line">    <span class="built_in">swap</span>(lhs.ps,rhs.ps);</span><br><span class="line">    <span class="built_in">swap</span>(lhs.i, rhs.i);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在赋值运算符中使用swap</li>
+</ul>
+<blockquote>
+<p>拷贝和交换技术</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HasPtr&amp; HasPtr::<span class="keyword">operator</span>=(HasPtr rhs){</span><br><span class="line">    <span class="built_in">swap</span>(*<span class="keyword">this</span>, rhs);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>自动是异常安全的，且能处理自赋值</p>
+<h3 id="动态内存管理类"><a href="#动态内存管理类" class="headerlink" title="动态内存管理类"></a>动态内存管理类</h3><blockquote>
+<p>设计简化版的vector</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrVec</span>{</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">StrVec</span>():<span class="built_in">elements</span>(<span class="literal">nullptr</span>),<span class="built_in">first_free</span>(<span class="literal">nullptr</span>),<span class="built_in">cap</span>(<span class="literal">nullptr</span>){}</span><br><span class="line">    <span class="built_in">StrVec</span>(<span class="keyword">const</span> StrVec&amp;);</span><br><span class="line">    StrVec &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> StrVec&amp;);</span><br><span class="line">    ~<span class="built_in">StrVec</span>();</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> std::string&amp;)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">size_t</span> <span class="title">size</span><span class="params">()</span> <span class="keyword">const</span></span>{<span class="keyword">return</span> first_free - elements;}</span><br><span class="line">    <span class="function"><span class="keyword">size_t</span> <span class="title">capacity</span><span class="params">()</span> <span class="keyword">const</span></span>{<span class="keyword">return</span> cap-elementes;}</span><br><span class="line">    <span class="function">std::string *<span class="title">begin</span><span class="params">()</span> <span class="keyword">const</span></span>{<span class="keyword">return</span> elements;}</span><br><span class="line">    <span class="function">std::string *<span class="title">end</span><span class="params">()</span> <span class="keyword">const</span></span>{<span class="keyword">return</span> first_free;}</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Static std::allocator&lt;std::string&gt; alloc;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">chk_n_alloc</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">size</span>()==<span class="built_in">capacity</span>()) <span class="built_in">reallocate</span>();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function">std::pair&lt;std::string*, std::string*&gt; <span class="title">alloc_n_copy</span><span class="params">(<span class="keyword">const</span> std::string*, <span class="keyword">const</span> std::string*)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">free</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reallocate</span><span class="params">()</span></span>;</span><br><span class="line">    std::string *elements;</span><br><span class="line">    std::string *first_free;</span><br><span class="line">    std::string *cap;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">StrVec::push_back</span><span class="params">(<span class="keyword">const</span> string &amp;s)</span></span>{</span><br><span class="line">    <span class="built_in">chk_n_alloc</span>();</span><br><span class="line">    <span class="comment">// 在first_free指向的元素中构造s的副本</span></span><br><span class="line">    alloc.<span class="built_in">construct</span>(first_free++,s);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>用allocator分配内存时，必须记得内存是未构造的（<strong>原始内存</strong>）；</li>
+</ul>
+<p><strong>alloc_n_copy成员</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::pair&lt;std::string*, std::string*&gt;</span></span><br><span class="line"><span class="function"><span class="title">StrVec::alloc_n_copy</span><span class="params">(<span class="keyword">const</span> std::string* b, <span class="keyword">const</span> std::string* e)</span></span>{</span><br><span class="line">    <span class="keyword">auto</span> data = alloc.<span class="built_in">allocate</span>(e-b);</span><br><span class="line">    <span class="keyword">return</span> {data, <span class="built_in">uninitialized_copy</span>(b,e,data)};</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>pair.first：指向分配的内存的开始位置</li>
+<li>pair.second：指向最后一个构造元素之后的位置</li>
+</ul>
+<p><strong>free成员</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">StrVec::free</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">if</span>(elements){</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p = first_free;p!=elements;){</span><br><span class="line">            alloc.<span class="built_in">destroy</span>(--p);</span><br><span class="line">        }</span><br><span class="line">        alloc.<span class="built_in">deallocate</span>(elements, cap-elements);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p><strong>拷贝控制成员</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">StrVec::<span class="built_in">StrVec</span>(<span class="keyword">const</span> StrVec &amp;s){</span><br><span class="line">    <span class="keyword">auto</span> newdata = <span class="built_in">alloc_n_copy</span>(s.<span class="built_in">begin</span>(),s.<span class="built_in">end</span>());</span><br><span class="line">    elements = newdata.first;</span><br><span class="line">    first_free = cap = newdata.second;</span><br><span class="line">}</span><br><span class="line">StrVec::~<span class="built_in">StrVec</span>(){ <span class="built_in">free</span>(); }</span><br><span class="line"></span><br><span class="line">StrVec&amp; StrVec::<span class="keyword">operator</span>=(<span class="keyword">const</span> StrVec &amp; rhs){</span><br><span class="line">    <span class="keyword">auto</span> newdata = <span class="built_in">alloc_n_copy</span>(rhs.<span class="built_in">begin</span>(),rhs.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">free</span>();</span><br><span class="line">    elements = newdata.first;</span><br><span class="line">    first_free = cap = newdata.second;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p><strong>移动构造函数和std::move</strong></p>
+<ul>
+<li>将资源从给定对象<strong>移动</strong>，而不是拷贝到正在创建的对象</li>
+</ul>
+<p><strong>reallocate成员</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">StrVec::reallocate</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">auto</span> newcapacity = <span class="built_in">size</span>() ? <span class="number">2</span>*<span class="built_in">size</span>():<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">auto</span> newdata = alloc.<span class="built_in">allocate</span>(newcapacity);</span><br><span class="line">    <span class="keyword">auto</span> dest = newdata;</span><br><span class="line">    <span class="keyword">auto</span> elem = elements;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">size_t</span> i=<span class="number">0</span>; i!=<span class="built_in">size</span>(); ++i)</span><br><span class="line">        alloc.<span class="built_in">construct</span>(dest++,std::<span class="built_in">move</span>(*elem++));</span><br><span class="line">    <span class="built_in">free</span>();</span><br><span class="line">    elements = newdata;</span><br><span class="line">    first_free = dest;</span><br><span class="line">    cap = elements+newcapacity;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象移动"><a href="#对象移动" class="headerlink" title="对象移动"></a>对象移动</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303171106998.png" alt="image-20230317110632904" style="zoom:50%;">
+
+<blockquote>
+<p>进行不必要的拷贝代价很高，所以引入了移动的概念</p>
+</blockquote>
+<h4 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h4><ul>
+<li>必须绑定到右值的引用（窃取状态）</li>
+<li>不能将一个右值绑定到左值上</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;&amp;rr = i; <span class="comment">//wrong!</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>左值持久，右值短暂</li>
+</ul>
+<p>右值只能绑定到临时对象：要么将要被销毁，要么该对象没有其他用户</p>
+<p><strong>使用右值的代码可以地接管所引用对象的资源</strong></p>
+<h4 id="标准库move函数"><a href="#标准库move函数" class="headerlink" title="标准库move函数"></a>标准库move函数</h4><ul>
+<li>可以显式地将一个左值转换为对应的右值引用类型</li>
+<li>通过move来获得绑定到左值上的右值引用</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> &amp;&amp;rr3 = std::<span class="built_in">move</span>(rr1);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们可以销毁一个移后源原对象，也可以赋予他新值，但不能使用其值</li>
+</ul>
+<h4 id="移动构造函数和移动赋值运算符"><a href="#移动构造函数和移动赋值运算符" class="headerlink" title="移动构造函数和移动赋值运算符"></a>移动构造函数和移动赋值运算符</h4><ul>
+<li>必须记得<strong>将原对象的资源置为NULL</strong>，否则析构时会释放掉我们刚刚移动的内存</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StrVec::<span class="built_in">StrVec</span>(StrVec &amp;&amp;s) <span class="keyword">noexcept</span>:<span class="built_in">elements</span>(s.elements),<span class="built_in">first_free</span>(s.first_free),<span class="built_in">cap</span>(s.cap){</span><br><span class="line">    s.elements = s.first_free = s.cap = <span class="literal">nullptr</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>移动操作窃取而不分配任何资源，所以通常不会抛出任何异常</li>
+<li>必须<strong>显式告诉标准库</strong>我们的移动构造函数可以安全地使用：<strong>noexcept</strong></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">StrVec&amp; StrVec::<span class="keyword">operator</span>=(StrVec &amp;&amp; rhs) <span class="keyword">noexcept</span>{</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span> != &amp;rhs){ <span class="comment">// 处理自赋值</span></span><br><span class="line">        <span class="built_in">free</span>();</span><br><span class="line">        elements = rhs.elements;</span><br><span class="line">        first_free = rhs.first_free;</span><br><span class="line">        cap = rhs.cap;</span><br><span class="line">        rhs.elements = rhs.first_free = rhs.cap = <span class="literal">nullptr</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>移后源对象必须可析构，用户不能对其值进行任何假设</p>
+</blockquote>
+<p><strong>合成的移动操作</strong></p>
+<p>定义了一个<strong>移动构造函数的类也必须定义自己的拷贝操作</strong>，否则这些成员默认地被定义为删除的</p>
+<p><strong>移动右值，拷贝左值</strong></p>
+<p>当既有移动构造又有拷贝构造时，编译器使用函数匹配规则来确定使用哪个：</p>
+<ul>
+<li><p>不能隐式的将右值引用绑定到一个左值</p>
+</li>
+<li><p>but we could bind <strong>const lvalue reference</strong> to rvalue</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span>&amp; ptr3 = ptr + <span class="number">5</span>; <span class="comment">// correct! const save us a lot!</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>如果没有移动构造函数，右值也会被拷贝</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303210935927.png" alt="image-20230321093547824" style="zoom:50%;">
+
+<ul>
+<li>因为我们可以将Foo&amp;&amp;转换为一个const Foo&amp;，所以可以使用拷贝构造函数</li>
+</ul>
+<p><strong>拷贝并交换赋值运算符</strong></p>
+<blockquote>
+<p>拷贝并交换挺有意思的</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HasPtr::<span class="built_in">HasPtr</span>(HasPtr &amp;&amp;p) <span class="keyword">noexcept</span>: <span class="built_in">ps</span>(p.ps), <span class="built_in">i</span>(p.i){</span><br><span class="line">    p.ps = <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line">HasPtr&amp; HasPtr::<span class="keyword">operator</span>=(HasPtr rhs){</span><br><span class="line">    <span class="built_in">swap</span>(*<span class="keyword">this</span>, rhs);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这时，如果右侧运算对象是一个右值引用，会调用移动构造函数</li>
+<li>这时，如果右侧运算对象是一个左值，会调用拷贝构造函数</li>
+<li>swap会交换两个运算对象的状态</li>
+</ul>
+<p><strong>RULE of FIVE：所有的五个拷贝控制成员应该被看作一个整体</strong></p>
+<p><strong>移动迭代器</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">StrVec::reallocate</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">auto</span> newcapacity = <span class="built_in">size</span>() ? <span class="number">2</span>*<span class="built_in">size</span>():<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">auto</span> newdata = alloc.<span class="built_in">allocate</span>(newcapacity);</span><br><span class="line">    <span class="keyword">auto</span> dest = newdata;</span><br><span class="line">    <span class="keyword">auto</span> elem = elements;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">size_t</span> i=<span class="number">0</span>; i!=<span class="built_in">size</span>(); ++i)</span><br><span class="line">        alloc.<span class="built_in">construct</span>(dest++,std::<span class="built_in">move</span>(*elem++));</span><br><span class="line">    <span class="built_in">free</span>();</span><br><span class="line">    elements = newdata;</span><br><span class="line">    first_free = dest;</span><br><span class="line">    cap = elements+newcapacity;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用<code>uninitialized_copy</code>来构造新分配的内存比循环更简单。</p>
+</li>
+<li><p>移动迭代器会解引用出右值引用：</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">StrVec::reallocate</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">auto</span> newcapacity = <span class="built_in">size</span>() ? <span class="number">2</span>*<span class="built_in">size</span>():<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">auto</span> newdata = alloc.<span class="built_in">allocate</span>(newcapacity);</span><br><span class="line">    <span class="keyword">auto</span> last = <span class="built_in">uninitialized_copy</span>(<span class="built_in">make_move_iterator</span>(<span class="built_in">begin</span>()),</span><br><span class="line">                                  <span class="built_in">make_move_iterator</span>(<span class="built_in">end</span>()),</span><br><span class="line">                                  newdata);</span><br><span class="line">    <span class="built_in">free</span>();</span><br><span class="line">    elements = newdata;</span><br><span class="line">    first_free = last;</span><br><span class="line">    cap = elements+newcapacity;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：不要随意使用移动操作，只有当你确信需要且是安全的，才可以使用std::move</strong></p>
+<h4 id="在成员函数中使用右值引用"><a href="#在成员函数中使用右值引用" class="headerlink" title="在成员函数中使用右值引用"></a>在成员函数中使用右值引用</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> X&amp;)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(X&amp;&amp;)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211009103.png" alt="image-20230321100923070" style="zoom:50%;">
+
+<p><strong>引用限定符</strong></p>
+<blockquote>
+<p>阻止向右值进行赋值，强制左侧运算对象是一个作值</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> Foo&amp;) &amp;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以用来区分重载版本</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211016115.png" alt="image-20230321101631053" style="zoom:50%;">
+
+<ul>
+<li>编译器会通过对象的左值右值属性来确定使用哪个版本</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211018070.png" alt="image-20230321101818016" style="zoom:50%;">
+
+<h2 id="重载运算与类型转换"><a href="#重载运算与类型转换" class="headerlink" title="重载运算与类型转换"></a>重载运算与类型转换</h2><blockquote>
+<p>为什么要重载运算？</p>
+</blockquote>
+<p>使得程序更易于编写和阅读，不用的话，冗长而不清晰，示例如下：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211024716.png" alt="image-20230321102423667" style="zoom:50%;">
+
+<blockquote>
+<p>可以被重载的运算符</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211027262.png" alt="image-20230321102720203" style="zoom:50%;">
+
+<ul>
+<li>尽量使用与内置类型一致的含义（返回值也要兼容），首先应该考虑这个类提供哪些操作<ul>
+<li>执行IO操作</li>
+<li>检测相等性</li>
+<li>包含内在的单序比较</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>何时选择为成员，何时为非成员？</p>
+</blockquote>
+<ul>
+<li>=，【】，（），-&gt;必须是成员</li>
+<li>改变对象状态的运算符或者与给定类型密切相关的运算符，如递增递减，通常为成员</li>
+<li>具有对称性的运算符，如算数，相等性，关系，位运算通常是普通的非成员函数</li>
+</ul>
+<h3 id="输入输出运算符"><a href="#输入输出运算符" class="headerlink" title="输入输出运算符"></a>输入输出运算符</h3><h4 id="重载输出运算符"><a href="#重载输出运算符" class="headerlink" title="重载输出运算符"></a>重载输出运算符</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;os, <span class="keyword">const</span> Sales_data &amp;item){</span><br><span class="line">    os &lt;&lt; item.<span class="built_in">isbn</span>()&lt;&lt; <span class="string">" "</span>...</span><br><span class="line">    <span class="keyword">return</span> os;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>输出运算符尽量减少格式化操作：使得用户 有权控制输出的细节</li>
+<li>必须是非成员函数，而且一般被声明为友元</li>
+</ul>
+<h4 id="重载输入运算符"><a href="#重载输入运算符" class="headerlink" title="重载输入运算符"></a>重载输入运算符</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">istream &amp;<span class="keyword">operator</span>&gt;&gt;(istream &amp;is, Sales_data &amp;item){</span><br><span class="line">    <span class="keyword">double</span> price;</span><br><span class="line">    is&gt;&gt; item.bookNo &gt;&gt; items.units_sold &gt;&gt; price;</span><br><span class="line">    <span class="keyword">if</span>(is) <span class="comment">// 检测输入是否成功</span></span><br><span class="line">        item.revenue = item.units_sold * price;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        item = <span class="built_in">Sales_data</span>();</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>输入运算符必须处理输入可能失败的情况</p>
+</li>
+<li><p>当发生读取操作错误时，输入运算符应该负责从错误中恢复</p>
+</li>
+</ul>
+<h3 id="算数和关系运算符"><a href="#算数和关系运算符" class="headerlink" title="算数和关系运算符"></a>算数和关系运算符</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211058698.png" alt="image-20230321105856648" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211059174.png" alt="image-20230321105912135" style="zoom:50%;">
+
+<h4 id="相等运算符"><a href="#相等运算符" class="headerlink" title="相等运算符"></a>相等运算符</h4><ul>
+<li>若有判等操作，应该定义</li>
+<li>更容易使用标准库和算法</li>
+<li>相等运算符和不等运算符中的一个应该把工作委托给另一个</li>
+</ul>
+<h4 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h4><ul>
+<li>第三种赋值运算符：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;string&gt; v;</span><br><span class="line">v = {<span class="string">"a"</span>,<span class="string">"an"</span>,<span class="string">"the"</span>};</span><br><span class="line"></span><br><span class="line">StrVec &amp;StrVec::<span class="keyword">operator</span>=(std::initializer_list&lt;std::string&gt;){</span><br><span class="line">    <span class="keyword">auto</span> data = <span class="built_in">alloc_n_copy</span>(il.begin, il.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">free</span>();</span><br><span class="line">    elements = data.first;</span><br><span class="line">    first_free =data.second;</span><br><span class="line">    <span class="keyword">return</span> * <span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h4 id="下标运算符"><a href="#下标运算符" class="headerlink" title="下标运算符"></a>下标运算符</h4><p>通常会定义两个版本：</p>
+<ul>
+<li>返回普通引用</li>
+<li>返回常量引用</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrVec</span>{</span></span><br><span class="line">    std::string&amp; <span class="keyword">operator</span>[](std::<span class="keyword">size_t</span> n){</span><br><span class="line">        <span class="keyword">return</span> elements[n];</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">const</span> std::string&amp; <span class="keyword">operator</span>[](std::<span class="keyword">size_t</span> n) <span class="keyword">const</span>{</span><br><span class="line">        <span class="keyword">return</span> elements[n];</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+
+<h2 id="面向对象程序设计"><a href="#面向对象程序设计" class="headerlink" title="面向对象程序设计"></a>面向对象程序设计</h2><blockquote>
+<p>基于三个基本概念：<strong>数据抽象、继承和动态绑定</strong></p>
+</blockquote>
+<p><strong>为什么要使用继承和动态绑定？</strong></p>
+<ul>
+<li>可以更容易地定义与其他类相似但不完全相同的新类</li>
+<li>再用这些彼此相似的类进行编程时，可以一定程度上忽略它们的区别，以统一的方式使用它们的对象</li>
+</ul>
+<p><strong>一个适合OOP好的例子</strong></p>
+<ul>
+<li>书店中不同书籍的定价策略可能不同。</li>
+<li>打折、原价、超过数量打折、前多少打折</li>
+</ul>
+<h3 id="基类和派生类"><a href="#基类和派生类" class="headerlink" title="基类和派生类"></a>基类和派生类</h3><p><strong>虚函数</strong></p>
+<ul>
+<li>基类希望它的派生类自定义适合自身的版本</li>
+<li>派生类必须对虚函数进行声明，可以显式注明它将使用哪个成员改写基类的虚函数：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">net_price</span><span class="params">(std::<span class="keyword">size_t</span>)</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>动态绑定</strong></p>
+<ul>
+<li>能使用同一段代码分别处理Quote和Bulk_quote的对象</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211246271.png" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211244440.png" alt="image-20230321124417398" style="zoom:50%;">
+
+<ul>
+<li>根据实际传入item的对象类型决定执行net_price的哪个版本</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303211247139.png" alt="image-20230321124742086" style="zoom:50%;">
+
+<p><strong>访问控制</strong></p>
+<p>派生类能访问基类的共有成员、保护成员， 但不能访问私有成员</p>
+<p><strong>派生类到基类的类型转换</strong></p>
+<p>可以将基类的指针或引用绑定到派生类对象中的基类部分：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303240916493.png" alt="image-20230324091627401" style="zoom:50%;">
+
+<ul>
+<li>如图，Bulk有两个子对象。</li>
+</ul>
+<p><strong>派生类的声明</strong></p>
+<ul>
+<li>包含类名，但不包含它的派生列表</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bulk_quote</span>;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>派生类构造函数</strong></p>
+<ul>
+<li>派生类必须使用基类的构造函数来初始化它的基类部分</li>
+<li>首先初始化基类的部分，然后按照声明的顺序依次初始化派生类的成员</li>
+</ul>
+<p><strong>遵循基类的接口</strong></p>
+<ul>
+<li>每个类负责定义各自的接口</li>
+<li>派生类不要直接初始化基类的成员</li>
+</ul>
+<p><strong>静态成员的继承</strong></p>
+<ul>
+<li>整个继承体系只存在该成员的唯一定义</li>
+</ul>
+<h4 id="类型转换和继承"><a href="#类型转换和继承" class="headerlink" title="类型转换和继承"></a>类型转换和继承</h4><p><strong>静态类型与动态类型</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Bult_quote bulk;</span><br><span class="line">Quote&amp; item = bulk;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Quote&amp; 为静态类型</li>
+<li>Bulk_quote为动态类型</li>
+<li>引用或指针的<strong>静态类型和动态类型不同</strong>正是<strong>c++支持多态性的根本</strong>所在</li>
+</ul>
+<p><strong>不能将基类隐式转换为派生类</strong></p>
+<p>但是如果确定是安全的，可以用static_cast来强制转换（不推荐）</p>
+<p><strong>在对象之间不存在类型转换</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303240949207.png" alt="image-20230324094920171" style="zoom:50%;">
+
+<ul>
+<li>bulk的Bulk_quote部分被切掉了</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303240951550.png" style="zoom:50%;">
+
+<h3 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h3><ul>
+<li>对非虚函数的调用在编译时进行绑定，通过对象进行的函数调用也在编译时绑定</li>
+<li>当且仅当通过<strong>指针或引用调用虚函数</strong>时，才会在运行时解析该调用。</li>
+</ul>
+<p><strong>override和final说明符</strong></p>
+<p>c++11中可以使用override说明符来说明派生类中的虚函数。</p>
+<ul>
+<li>使得意图更加明确</li>
+<li>让编译器为我们发现一些错误</li>
+</ul>
+<p>若定义为final，任何尝试覆盖该函数的操作都将引发错误</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241017859.png" alt="image-20230324101740819" style="zoom:50%;">
+
+<p><strong>回避虚函数的机制</strong></p>
+<ul>
+<li>通常当一个派生类的虚函数调用它覆盖的基类的虚函数版本时会需要回避</li>
+<li>否则会导致无限递归（被解析为对自身的调用）</li>
+</ul>
+<h3 id="抽象基类"><a href="#抽象基类" class="headerlink" title="抽象基类"></a>抽象基类</h3><p>含有纯虚函数的类是抽象基类：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Disc_quote</span>:</span> <span class="keyword">public</span> Quote{</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Disc_quote</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="built_in">Disc_quote</span>(<span class="keyword">const</span> std::string&amp; book, <span class="keyword">double</span> price,</span><br><span class="line">               std::<span class="keyword">size_t</span> qty, <span class="keyword">double</span> disc):</span><br><span class="line">    			<span class="built_in">Quote</span>(book, price),</span><br><span class="line">    			<span class="built_in">quantity</span>(qty),<span class="built_in">discount</span>(disc){}</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">net_price</span><span class="params">(std::<span class="keyword">size_t</span>)</span> <span class="keyword">const</span> </span>= <span class="number">0</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    std::<span class="keyword">size_t</span> quantity = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">double</span> discount =<span class="number">0.0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>我们不能直接创建一个抽象基类的对象</p>
+</li>
+<li><p>加入Disc_quote是重构的典型示例</p>
+</li>
+</ul>
+<h3 id="访问控制与继承"><a href="#访问控制与继承" class="headerlink" title="访问控制与继承"></a>访问控制与继承</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241037154.png" alt="image-20230324103755097" style="zoom:50%;">
+
+<p><strong>派生访问说明符</strong>目的是控制派生类用户对于基类成员的访问权限</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Priv_Derv</span>:</span> <span class="keyword">private</span> Base{</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>意思是说base的所有成员对于派生类的用户来说都是不可访问的</p>
+</li>
+<li><p>派生类内对基类成员的访问权限只与基类中的访问说明符有关</p>
+</li>
+<li><p>但是派生类的派生类会受到派生访问说明符的影响：</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Derived_from_Private</span>:</span> <span class="keyword">public</span> Priv_Derv{</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">use_base</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="comment">// ERROR! 因为Base::prot_mem在Priv_Derv中是private的</span></span><br><span class="line">        <span class="keyword">return</span> prot_mem;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p><strong>派生类向基类转换的可访问性</strong></p>
+<ul>
+<li>只用公有继承，用户代码才可以使用派生类到基类的转换</li>
+<li>无论什么继承，D的成员函数都可以使用派生类到基类的转换</li>
+<li>公有和受保护的继承，D的派生类的成员和友元可以使用派生类到基类的转换</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241101435.png" alt="image-20230324110145368" style="zoom:50%;">
+
+<p><strong>友元与继承</strong></p>
+<ul>
+<li>友元关系不能继承也不能传递</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241103659.png" alt="image-20230324110341606" style="zoom:50%;">
+
+<ul>
+<li>尽管看起来有点奇怪，但f3是正确的：如果Base对象内嵌在其派生类对象中也是OK的</li>
+</ul>
+<p><strong>可以改变个别成员的可访问性</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241108456.png" alt="image-20230324110827417" style="zoom:50%;">
+
+<ul>
+<li>通过using声明，我们可以将该类的直接或间接基类中的任何<strong>可访问成员</strong>标记出来</li>
+</ul>
+<p><strong>默认的继承保护级别</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241111651.png" alt="image-20230324111113574" style="zoom:50%;">
+
+<ul>
+<li>唯一差别是默认成员访问说明符和默认派生访问说明符</li>
+<li>struct默认public继承</li>
+<li>class默认private继承</li>
+</ul>
+<h3 id="继承中的类作用域"><a href="#继承中的类作用域" class="headerlink" title="继承中的类作用域"></a>继承中的类作用域</h3><ul>
+<li>派生类的作用域位于基类作用域之内（有意思的是派生类和基类的定义相互分离）</li>
+<li>名字解析过程：</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303280921555.png" alt="image-20230328092136445" style="zoom:50%;">
+
+<ul>
+<li>我们能使用哪些类型仍然是静态类型决定的</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Bulk_quote bulk;</span><br><span class="line">Bulk_quote *bulkp = &amp;bulk;</span><br><span class="line">Quote *itemP = &amp;bulk;</span><br><span class="line">bulkP-&gt;<span class="built_in">discount_policy</span>();<span class="comment">// right</span></span><br><span class="line">itemP-&gt;<span class="built_in">discount_policy</span>();<span class="comment">// wrong!</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>尽管在bulk中确实含有一个discount_policy成员，但是该成员对于itemP确实不可见的。因为Quote不包含该成员，所以无法通过Quote的引用或指针调用它</p>
+</li>
+<li><p>在内层作用域重新定义外层的名字可以隐藏同名的基类成员，使用<code>Base::mem</code>可以使用被隐藏的成员</p>
+</li>
+</ul>
+<blockquote>
+<p>名字查找先于类型检查</p>
+</blockquote>
+<ul>
+<li>声明在内层作用域的函数不用重载声明在外层作用域的函数，如果同名，会隐藏该基类成员</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303280940875.png" alt="image-20230328094019823" style="zoom:50%;">
+
+<ul>
+<li>因为解析的时候会先进行名字查找，而派生类已经定义了，所以查找会终止</li>
+</ul>
+<blockquote>
+<p>虚函数与作用域</p>
+</blockquote>
+<ul>
+<li><p>如果基类与派生类虚函数接受的实参不同，是无法通过基类的引用或是指针调用派生类的虚函数的</p>
+</li>
+<li><p>非虚函数不会进行动态绑定，实际调用的函数版本由指针的静态类型决定</p>
+</li>
+</ul>
+<blockquote>
+<p>覆盖重载的函数</p>
+</blockquote>
+<ul>
+<li><p>如果派生类希望所有的重载版本对他都是可见的，那么它就需要覆盖所有版本或者一个都不覆盖</p>
+</li>
+<li><p>为重载的成员提供一条using语句指定名字即可，这样就无需覆盖基类中的每一个重载版本了，对派生类没有重新定义的重载版本的访问实际上是using声明点的访问。</p>
+</li>
+</ul>
+<h3 id="构造函数与拷贝控制"><a href="#构造函数与拷贝控制" class="headerlink" title="构造函数与拷贝控制"></a>构造函数与拷贝控制</h3><h4 id="虚析构函数"><a href="#虚析构函数" class="headerlink" title="虚析构函数"></a>虚析构函数</h4><ul>
+<li>动态分配继承体系中的对象，应该将析构函数定义为虚函数</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Quote</span>{</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Quote</span>()=<span class="keyword">default</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>析构函数的虚属性会被继承，所以只要析构函数是虚函数，就能确保我们delete指针时，运行正确的析构版本</li>
+</ul>
+<h4 id="合成拷贝控制与继承"><a href="#合成拷贝控制与继承" class="headerlink" title="合成拷贝控制与继承"></a>合成拷贝控制与继承</h4><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303281020279.png" alt="image-20230328102056242" style="zoom: 50%;">
+
+<ul>
+<li>如果基类中的默认构造、拷贝构造、拷贝赋值或析构是删除的，则派生类中对应的成员将是被删除的</li>
+<li>如果我们需要执行移动操作，应该首先在基类中去定义</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303281029501.png" alt="image-20230328102916450" style="zoom:50%;">
+
+<h4 id="派生类的拷贝控制成员"><a href="#派生类的拷贝控制成员" class="headerlink" title="派生类的拷贝控制成员"></a>派生类的拷贝控制成员</h4><ul>
+<li>当派生类定义了拷贝或是移动操作时，该操作负责拷贝或移动包括基类部分成员在内的所有对象</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303281036738.png" alt="image-20230328103615694" style="zoom:50%;">
+
+<ul>
+<li>派生类赋值运算符：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Base::operator=(const Base&amp;)</span></span><br><span class="line">D &amp;D::<span class="keyword">operator</span>=(<span class="keyword">const</span> D&amp;rhs){</span><br><span class="line">    Base::<span class="keyword">operator</span>=(rhs);</span><br><span class="line">    <span class="comment">//assign values to sub classes</span></span><br><span class="line">    <span class="comment">//set-assignment and resourse deletion need to be taken care of</span></span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>派生类析构函数：只需要销毁派生类自己分配的资源</li>
+<li>在构造函数和析构函数中调用虚函数：如果这么做了，则我们应该执行与构造函数或析构函数所属类型相对应的虚函数版本。</li>
+</ul>
+<h4 id="继承的构造函数"><a href="#继承的构造函数" class="headerlink" title="继承的构造函数"></a>继承的构造函数</h4><ul>
+<li>c++11新标准中，构造函数是可以继承的</li>
+<li>一个类只继承其直接基类的构造函数</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bulk_quote</span>:</span> <span class="keyword">public</span> Disc_quote{</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> Disc_quote::Disc_quote; <span class="comment">//继承Disc_quote的构造函数</span></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">net_price</span><span class="params">(std::<span class="keyword">size_t</span>)</span> <span class="keyword">const</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>作用于构造函数时，using语句令编译器产生代码。对基类的每一个构造函数，编译器都生成一个对应的派生类构造函数。形如： <code>derived(params):base(args){}</code></li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303281107716.png" alt="image-20230328110726658" style="zoom:50%;">
+
+<ul>
+<li>定义在派生类中的构造函数会替换继承而来的构造函数</li>
+</ul>
+<h3 id="容器与继承"><a href="#容器与继承" class="headerlink" title="容器与继承"></a>容器与继承</h3><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303281114443.png" alt="image-20230328111451396"></p>
+<blockquote>
+<p>在容器中放置（智能）指针而非对象</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303281116769.png" alt="image-20230328111610724" style="zoom:50%;">
+
+<ul>
+<li>在第二个push_back中，传入的是Bulk_quote类型的智能指针。c++会把派生类的智能指针转换为基类指针（自动转换）</li>
+</ul>
+<h4 id="编写Basket类"><a href="#编写Basket类" class="headerlink" title="编写Basket类"></a>编写Basket类</h4><ul>
+<li>对应C++面向对象编程来说，我们无法直接使用对象进行面向对象编程，而是必须使用引用和指针（有点好笑）</li>
+<li>经常定义一些辅助类来处理这种复杂情况（涉及指针）</li>
+</ul>
+<blockquote>
+<p>回顾下之前的类定义：</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303300934026.png" alt="image-20230330093412895" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303300935816.png" alt="image-20230330093546762" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303300936504.png" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303300945304.png" alt="image-20230330094503268" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303300943004.png" alt="image-20230330094336961" style="zoom:50%;">
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Basket</span>{</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add_item</span><span class="params">(<span class="keyword">const</span> std::shared_ptr&lt;Quote&gt; &amp;sale)</span></span>{</span><br><span class="line">        items.<span class="built_in">insert</span>(sale);</span><br><span class="line">    }</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">total_receipt</span><span class="params">(std::ostream&amp;)</span> <span class="keyword">const</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> std::shared_ptr&lt;Quote&gt; &amp;lhs,</span></span></span><br><span class="line"><span class="params"><span class="function">                        <span class="keyword">const</span> std::shared_ptr&lt;Quote&gt; &amp;rhs)</span></span>{</span><br><span class="line">        <span class="keyword">return</span> lhs-&gt;<span class="built_in">isbn</span>()&lt;rhs-&gt;<span class="built_in">isbn</span>();</span><br><span class="line">    }</span><br><span class="line">    std::multiset&lt;std::shared_ptr&lt;Quote&gt;, <span class="keyword">decltype</span>(compare)*&gt; items{compare};</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>multiset保存多个报价，按照compare成员排序</p>
+</li>
+<li><p>total_receipt将购物篮中的内容逐项打印成清单，并返回购物篮中所有物品的总价格</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">Basket::total_receipt</span><span class="params">(std::ostream&amp; os)</span> <span class="keyword">const</span></span>{</span><br><span class="line">	<span class="keyword">double</span> sum = <span class="number">0.0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> iter = items.<span class="built_in">cbegin</span>(); iter!=items.<span class="built_in">cend</span>(); iter = items.<span class="built_in">upper_bound</span>(*iter)){</span><br><span class="line">        sum += <span class="built_in">print_total</span>(os, **iter, items.<span class="built_in">count</span>(*iter));</span><br><span class="line">    }</span><br><span class="line">    os&lt;&lt;<span class="string">"Total Sale: "</span>&lt;&lt;sum&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>upper_bound可以令我们跳过与当前关键字相同的所有元素，他返回一个迭代器，指向所有与iter相等的元素中最后一个元素的下一个位置</li>
+<li>print_total调用了虚函数，其结果依赖于**iter的动态类型</li>
+</ul>
+<h4 id="隐藏指针"><a href="#隐藏指针" class="headerlink" title="隐藏指针"></a>隐藏指针</h4><p>目前Basket的用户依然必须处理动态内存：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Basket bsk;</span><br><span class="line">bsk.<span class="built_in">add_item</span>(make_shared&lt;Quote&gt;(<span class="string">"123"</span>,<span class="number">45</span>));</span><br><span class="line">bsk.<span class="built_in">add_item</span>(make_shared&lt;Bulk_quote&gt;(<span class="string">"345"</span>,<span class="number">45</span>,<span class="number">3</span>,<span class="number">.15</span>));</span><br></pre></td></tr></table></figure>
+
+<p>下一步修改add_item，让Basket进行内存分配：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_item</span><span class="params">(<span class="keyword">const</span> Quote&amp; sale)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_item</span><span class="params">(Quote&amp;&amp; sale)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>但是问题是，add_item不知道要分配的类型，所以如下的分配是有误的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Quote</span>(sale)</span><br></pre></td></tr></table></figure>
+
+<p>如果sale实际指向的是Bulk_quote对象，那么该对象将被迫切掉一部分</p>
+<h4 id="模拟虚拷贝"><a href="#模拟虚拷贝" class="headerlink" title="模拟虚拷贝"></a>模拟虚拷贝</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Quote</span>{</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Quote* <span class="title">clone</span><span class="params">()</span> <span class="keyword">const</span> &amp; </span>{<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Quote</span>(*<span class="keyword">this</span>);}</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Quote* <span class="title">clone</span><span class="params">()</span> &amp;&amp; </span>{<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Quote</span>(std::<span class="built_in">move</span>(*<span class="keyword">this</span>));}</span><br><span class="line">    <span class="comment">// other is same</span></span><br><span class="line">};</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bulk_quote</span>:</span> <span class="keyword">public</span> Quote{</span><br><span class="line">    <span class="function">Bulk_quote* <span class="title">clone</span><span class="params">()</span> <span class="keyword">const</span> &amp;</span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Bulk_quote</span>(*<span class="keyword">this</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="function">Bulk_quote* <span class="title">clone</span><span class="params">()</span> &amp;&amp; </span>{<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Bulk_quote</span>(std::<span class="built_in">move</span>(*<span class="keyword">this</span>));}</span><br><span class="line">};</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Basket</span>{</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add_item</span><span class="params">(<span class="keyword">const</span> Quote&amp; sale)</span></span>{</span><br><span class="line">        items.<span class="built_in">insert</span>(std::shared_ptr&lt;Quote&gt;(sale.<span class="built_in">clone</span>()));</span><br><span class="line">    }</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add_item</span><span class="params">(Quote&amp;&amp; sale)</span></span>{</span><br><span class="line">        items.<span class="built_in">insert</span>(std::shared_ptr&lt;Quote&gt;(std::<span class="built_in">move</span>(sale).<span class="built_in">clone</span>()));</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>尽管sale类型是右值引用类型，但是sale本身是个左值，因此用move把一个右值引用绑定到sale上</li>
+</ul>
+<h3 id="文本查询程序再探"><a href="#文本查询程序再探" class="headerlink" title="文本查询程序再探"></a>文本查询程序再探</h3><h4 id="初始版本"><a href="#初始版本" class="headerlink" title="初始版本"></a>初始版本</h4><h5 id="实现需求"><a href="#实现需求" class="headerlink" title="实现需求"></a>实现需求</h5><p>在一个给定文件中查询单词，查询结果是单词在文件中出现次数及其所在行的列表：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301027005.png" alt="image-20230330102719957" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301028676.png" alt="image-20230330102829595" style="zoom:50%;">
+
+<h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><p>从定义一个保存输入文件的类开始：TestQuery</p>
+<p>vector用来保存输入文件的文本</p>
+<p>map用来关联每个单词和它出现的行号set</p>
+<p>这个类里有个执行查询的操作：查找map，检查给定的单词是否出现，涉及这个函数的难点是应该返回什么内容，我们需要知道它出现了多少次，行号，以及每行的文本。</p>
+<p>返回这些内容的最简单的方法是定义另一个类：QueryResult来保存查询结构，该类有一个print函数，完成结果打印工作。</p>
+<h5 id="先编写使用这个程序的类："><a href="#先编写使用这个程序的类：" class="headerlink" title="先编写使用这个程序的类："></a>先编写使用这个程序的类：</h5><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301039217.png" alt="image-20230330103922151" style="zoom:50%;">
+
+<h5 id="文本查询程序类的定义"><a href="#文本查询程序类的定义" class="headerlink" title="文本查询程序类的定义"></a>文本查询程序类的定义</h5><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301040493.png" alt="image-20230330104004432" style="zoom:50%;">
+
+<ul>
+<li>QueryResult需要共享保存输入文件的vector和保存单词关联的行号set</li>
+</ul>
+<h5 id="TextQuery构造函数"><a href="#TextQuery构造函数" class="headerlink" title="TextQuery构造函数"></a>TextQuery构造函数</h5><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301045353.png" alt="image-20230330104521275" style="zoom:50%;">
+
+<ul>
+<li>调用reset更新lines引用的shared_ptr，并使其指向这个新分配的set</li>
+</ul>
+<h5 id="QueryResult类"><a href="#QueryResult类" class="headerlink" title="QueryResult类"></a>QueryResult类</h5><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301049869.png" alt="image-20230330104935805" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301053315.png" alt="image-20230330105327272" style="zoom: 50%;">
+
+<h5 id="query函数"><a href="#query函数" class="headerlink" title="query函数"></a>query函数</h5><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301054253.png" alt="image-20230330105418192" style="zoom:50%;">
+
+<ul>
+<li>使用find而不是下标可以避免将单词添加到wm中</li>
+</ul>
+<h5 id="打印结果"><a href="#打印结果" class="headerlink" title="打印结果"></a>打印结果</h5><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301057509.png" alt="image-20230330105742449" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301057899.png" alt="image-20230330105753866" style="zoom:50%;">
+
+<h4 id="优化版本"><a href="#优化版本" class="headerlink" title="优化版本"></a>优化版本</h4><h5 id="实现功能"><a href="#实现功能" class="headerlink" title="实现功能"></a>实现功能</h5><ul>
+<li><p>单词查询：得到匹配某个给定string 的所有行</p>
+</li>
+<li><p>逻辑非查询：得到不匹配查询条件的所有行</p>
+</li>
+<li><p>逻辑或查询：返回匹配两个条件中任意一个的行</p>
+</li>
+<li><p>逻辑与查询：返回全部匹配两个条件的行</p>
+</li>
+<li><p>同时可混合使用：如<code>fiery &amp; bird | wind</code></p>
+</li>
+</ul>
+<h5 id="面向对象解决方案"><a href="#面向对象解决方案" class="headerlink" title="面向对象解决方案"></a>面向对象解决方案</h5><p>将不同查询建模成相互独立的类：</p>
+<ul>
+<li>WordQuery</li>
+<li>NotQuery</li>
+<li>OrQuery</li>
+<li>AndQuery</li>
+</ul>
+<p>它们共享一个公共基类</p>
+<p>它们只包含两个操作：</p>
+<ul>
+<li>eval：接受一个TextQuery并返回一个QueryResult</li>
+<li>rep：返回基础查询的string表示形式</li>
+</ul>
+<h5 id="抽象基类-1"><a href="#抽象基类-1" class="headerlink" title="抽象基类"></a>抽象基类</h5><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301116825.png" alt="image-20230330111622770" style="zoom:50%;">
+
+<h5 id="将层次关系隐藏于接口类中"><a href="#将层次关系隐藏于接口类中" class="headerlink" title="将层次关系隐藏于接口类中"></a>将层次关系隐藏于接口类中</h5><ul>
+<li>首先必须建立查询命令，可以使用如下代码，来实现之前描述的复合查询：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Query q = <span class="built_in">Query</span>(<span class="string">"fiery"</span>) &amp; <span class="built_in">Query</span>(<span class="string">"bird"</span>) &amp; <span class="built_in">Query</span>(<span class="string">"wind"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们会定义一个接口类Query，隐藏整个继承体系。它将保存一个Query_base指针，该指针绑定到Query_base的派生类对象上。eval用于求查询的结果，rep用于生成查询的string版本</li>
+<li>用户通过Query对象的操作间接地创建并处理Query_base对象<ul>
+<li>&amp;运算符生成一个绑定到新的AndQuery对象上的query对象</li>
+<li>|运算符生成一个绑定到新的OrQuery对象上的query对象</li>
+<li>~运算符生成一个绑定到新的NotQuery对象上的query对象</li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230410093806189.png" alt="image-20230410093806189" style="zoom:50%;">
+
+<h5 id="类工作机理"><a href="#类工作机理" class="headerlink" title="类工作机理"></a>类工作机理</h5><ul>
+<li>构建代表用户查询的对象是该应用程序的核心</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230410095901447.png" alt="image-20230410095901447" style="zoom:50%;">
+
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p><strong>Query_base类</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Query_base</span>{</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Query</span>;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">using</span> line_no = TextQuery::line_no;</span><br><span class="line">    virual ~<span class="built_in">Query_base</span>() = <span class="keyword">default</span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> QueryResult <span class="title">eval</span><span class="params">(<span class="keyword">const</span> TextQuery&amp;)</span> <span class="keyword">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> std::string <span class="title">rep</span><span class="params">()</span> <span class="keyword">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们不希望用户或是派生直接使用querybase，所以没有public成员</li>
+</ul>
+<p><strong>Query类</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Query</span>{</span></span><br><span class="line">    <span class="keyword">friend</span> Query <span class="keyword">operator</span>~(<span class="keyword">const</span> Query &amp;);</span><br><span class="line">    <span class="keyword">friend</span> Query <span class="keyword">operator</span>|(<span class="keyword">const</span> Query &amp;, <span class="keyword">const</span> Query &amp;);</span><br><span class="line">    <span class="keyword">friend</span> Query <span class="keyword">operator</span>&amp;(<span class="keyword">const</span> Query &amp;, <span class="keyword">const</span> Query &amp;);</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Query</span>(<span class="keyword">const</span> std::string &amp;);</span><br><span class="line">    <span class="function">QueryResult <span class="title">eval</span><span class="params">(<span class="keyword">const</span> TextQuery &amp;t)</span> <span class="keyword">const</span></span>{</span><br><span class="line">        <span class="keyword">return</span> q-&gt;<span class="built_in">eval</span>(t);</span><br><span class="line">    }</span><br><span class="line">    <span class="function">std::string <span class="title">rep</span><span class="params">(<span class="keyword">const</span>)</span></span>{<span class="keyword">return</span> q-&gt;<span class="built_in">rep</span>();}</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Query</span>(std::shared_ptr&lt;Query_base&gt; query): <span class="built_in">q</span>(query) { }</span><br><span class="line">    std::shared_ptr&lt;Query_base&gt; q;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p><strong>Query的输出运算符</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230410102453883.png" alt="image-20230410102453883" style="zoom:50%;">
+
+<p><strong>WordQuery类</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WordQuery</span>:</span> <span class="keyword">public</span> Query_base{</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Query</span>;</span></span><br><span class="line">    <span class="built_in">WordQuery</span>(<span class="keyword">const</span> std::string &amp;s): <span class="built_in">query_word</span>(s){}</span><br><span class="line">    <span class="function">QueryResult <span class="title">eval</span><span class="params">(<span class="keyword">const</span> TextQuery &amp;t)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>{<span class="keyword">return</span> t.<span class="built_in">query</span>(query_word);}</span><br><span class="line">    <span class="function">std::string <span class="title">rep</span><span class="params">()</span> <span class="keyword">const</span> </span>{<span class="keyword">return</span> query_word;}</span><br><span class="line">    std::string query_word;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span></span></span><br><span class="line"><span class="function"><span class="title">Query::Query</span><span class="params">(<span class="keyword">const</span> std::string &amp;s)</span>: q(new WordQuery(s)){</span>}</span><br></pre></td></tr></table></figure>
+
+<p><strong>NotQuery类</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NotQuery</span>:</span> <span class="keyword">public</span> Query_base{</span><br><span class="line">    <span class="keyword">friend</span> Query <span class="keyword">operator</span>~(<span class="keyword">const</span> Query &amp;);</span><br><span class="line">    <span class="built_in">NotQuery</span>(<span class="keyword">const</span> Query &amp;q): <span class="built_in">query</span>(q){}</span><br><span class="line">    <span class="function">QueryResult <span class="title">eval</span><span class="params">(<span class="keyword">const</span> TextQuery &amp;)</span> <span class="keyword">const</span></span>;</span><br><span class="line">    <span class="function">std::string <span class="title">rep</span><span class="params">()</span> <span class="keyword">const</span> </span>{<span class="keyword">return</span> <span class="string">"~("</span> + query.<span class="built_in">rep</span>() + <span class="string">")"</span>;}</span><br><span class="line">    Query query;</span><br><span class="line">}</span><br><span class="line"><span class="keyword">inline</span> Query <span class="keyword">operator</span>~(<span class="keyword">const</span> Query &amp;operand){</span><br><span class="line">    <span class="keyword">return</span> std::shared_ptr&lt;Query_base&gt;(<span class="keyword">new</span> <span class="built_in">NotQuery</span>(operand));</span><br><span class="line">}</span><br><span class="line"><span class="comment">// 隐式使用接受一个shared_ptr&lt;Query_base&gt;的Query构造函数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：C++ 面向对象</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/coding-solution/c++ primer_OOP/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/C/">#C++</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/coding-solution/c++%20primer_basic/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">C++基础</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/coding-solution/binarysearch/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">coding笔记：二分算法</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">C++ 面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E6%8E%A7%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">拷贝控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E3%80%81%E6%8E%A7%E5%88%B6%E5%92%8C%E9%94%80%E6%AF%81"><span class="nav-number">1.1.1.</span> <span class="nav-text">拷贝、控制和销毁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">拷贝构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">拷贝赋值运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">析构函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89-%E4%BA%94%E6%B3%95%E5%88%99"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">三&#x2F;五法则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-default"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">使用&#x3D;default</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E6%AD%A2%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">阻止拷贝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.2.</span> <span class="nav-text">拷贝控制与资源管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%83%8F%E5%80%BC%E7%9A%84%E7%B1%BB"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">行为像值的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%83%8F%E6%8C%87%E9%92%88%E7%9A%84%E7%B1%BB"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">行为像指针的类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.3.</span> <span class="nav-text">交换操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%B1%BB"><span class="nav-number">1.1.4.</span> <span class="nav-text">动态内存管理类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%A7%BB%E5%8A%A8"><span class="nav-number">1.1.5.</span> <span class="nav-text">对象移动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">右值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%BA%93move%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">标准库move函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E7%A7%BB%E5%8A%A8%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.1.5.3.</span> <span class="nav-text">移动构造函数和移动赋值运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="nav-number">1.1.5.4.</span> <span class="nav-text">在成员函数中使用右值引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E4%B8%8E%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.2.</span> <span class="nav-text">重载运算与类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.1.</span> <span class="nav-text">输入输出运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E8%BE%93%E5%87%BA%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">重载输出运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E8%BE%93%E5%85%A5%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">重载输入运算符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E5%92%8C%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.2.</span> <span class="nav-text">算数和关系运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E7%AD%89%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">相等运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">赋值运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E6%A0%87%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">下标运算符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.3.</span> <span class="nav-text">面向对象程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%B1%BB%E5%92%8C%E6%B4%BE%E7%94%9F%E7%B1%BB"><span class="nav-number">1.3.1.</span> <span class="nav-text">基类和派生类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%92%8C%E7%BB%A7%E6%89%BF"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">类型转换和继承</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%9F%BA%E7%B1%BB"><span class="nav-number">1.3.3.</span> <span class="nav-text">抽象基类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E4%B8%8E%E7%BB%A7%E6%89%BF"><span class="nav-number">1.3.4.</span> <span class="nav-text">访问控制与继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E4%B8%AD%E7%9A%84%E7%B1%BB%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">1.3.5.</span> <span class="nav-text">继承中的类作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8B%B7%E8%B4%9D%E6%8E%A7%E5%88%B6"><span class="nav-number">1.3.6.</span> <span class="nav-text">构造函数与拷贝控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">虚析构函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%88%E6%88%90%E6%8B%B7%E8%B4%9D%E6%8E%A7%E5%88%B6%E4%B8%8E%E7%BB%A7%E6%89%BF"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">合成拷贝控制与继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B4%BE%E7%94%9F%E7%B1%BB%E7%9A%84%E6%8B%B7%E8%B4%9D%E6%8E%A7%E5%88%B6%E6%88%90%E5%91%98"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">派生类的拷贝控制成员</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.6.4.</span> <span class="nav-text">继承的构造函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E4%B8%8E%E7%BB%A7%E6%89%BF"><span class="nav-number">1.3.7.</span> <span class="nav-text">容器与继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99Basket%E7%B1%BB"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">编写Basket类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%90%E8%97%8F%E6%8C%87%E9%92%88"><span class="nav-number">1.3.7.2.</span> <span class="nav-text">隐藏指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E8%99%9A%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.3.7.3.</span> <span class="nav-text">模拟虚拷贝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%9F%A5%E8%AF%A2%E7%A8%8B%E5%BA%8F%E5%86%8D%E6%8E%A2"><span class="nav-number">1.3.8.</span> <span class="nav-text">文本查询程序再探</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.8.1.</span> <span class="nav-text">初始版本</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E9%9C%80%E6%B1%82"><span class="nav-number">1.3.8.1.1.</span> <span class="nav-text">实现需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.8.1.2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E7%BC%96%E5%86%99%E4%BD%BF%E7%94%A8%E8%BF%99%E4%B8%AA%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.3.8.1.3.</span> <span class="nav-text">先编写使用这个程序的类：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%9F%A5%E8%AF%A2%E7%A8%8B%E5%BA%8F%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.8.1.4.</span> <span class="nav-text">文本查询程序类的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TextQuery%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.8.1.5.</span> <span class="nav-text">TextQuery构造函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#QueryResult%E7%B1%BB"><span class="nav-number">1.3.8.1.6.</span> <span class="nav-text">QueryResult类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#query%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.8.1.7.</span> <span class="nav-text">query函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.8.1.8.</span> <span class="nav-text">打印结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.8.2.</span> <span class="nav-text">优化版本</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.8.2.1.</span> <span class="nav-text">实现功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.3.8.2.2.</span> <span class="nav-text">面向对象解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%9F%BA%E7%B1%BB-1"><span class="nav-number">1.3.8.2.3.</span> <span class="nav-text">抽象基类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E5%B1%82%E6%AC%A1%E5%85%B3%E7%B3%BB%E9%9A%90%E8%97%8F%E4%BA%8E%E6%8E%A5%E5%8F%A3%E7%B1%BB%E4%B8%AD"><span class="nav-number">1.3.8.2.4.</span> <span class="nav-text">将层次关系隐藏于接口类中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E5%B7%A5%E4%BD%9C%E6%9C%BA%E7%90%86"><span class="nav-number">1.3.8.2.5.</span> <span class="nav-text">类工作机理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.8.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

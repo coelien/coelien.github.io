@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            PA1项目心得记录 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">PA1项目心得记录</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/ics2022/">ics2022</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/ics2022/pa%E4%BD%9C%E4%B8%9A/">pa作业</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/PA/">PA</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ics2022/">ics2022</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>5.9k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>24 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="PA1-notes"><a href="#PA1-notes" class="headerlink" title="PA1 notes"></a>PA1 notes</h1><h2 id="Some-preparations"><a href="#Some-preparations" class="headerlink" title="Some preparations"></a>Some preparations</h2><blockquote>
+<p>How to get all things done remotely?</p>
+</blockquote>
+<p>Because I have my linux server in my bedroom, which is far away for me to run graphic UI applications in my work place. (Obviously, commands through shell are fine).</p>
+<p>So I STFW and found that mobaXterm actually support x11 forwarding, which can show the GNOME desktop. I made some configuration to realize it:</p>
+<ul>
+<li>change the remote environment to <strong>Gnome desktop</strong>:</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241703801.png" alt="image-20230324170347757" style="zoom: 50%;">
+
+<ul>
+<li><p>Edit <strong>/etc/ssh/ssh_config</strong> to have the following settings</p>
+<ul>
+<li><p>ForwardAgent yes</p>
+</li>
+<li><p>ForwardX11 yes</p>
+</li>
+<li><p>ForwardX11Trusted yes</p>
+</li>
+</ul>
+</li>
+<li><p>Edit <strong>/etc/ssh/sshd_config</strong> to have the following setting</p>
+<ul>
+<li>X11Forwarding yes</li>
+</ul>
+</li>
+<li><p>set xdmcp on gdm3</p>
+<ul>
+<li>vim /etc/gdm3/custom.conf</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241705304.png" alt="img"></p>
+<ul>
+<li><p>apt install gnome-tweaks</p>
+</li>
+<li><p>reboot. (all things done!)</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241722650.png" alt="image-20230324172253275" style="zoom:50%;">
+
+<blockquote>
+<p>multi thread compiling v.s. single thread compiling</p>
+</blockquote>
+<p>single thread:</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241725857.png" alt="image-20230324172506827" style="zoom:50%;">
+
+<p>16 threads:</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303241726633.png" alt="image-20230324172657610" style="zoom:50%;">
+
+<blockquote>
+<p>if we don’t change any file, object files should be the same, so there is no need compiling again!</p>
+</blockquote>
+<p>By using ccache the compiler time is longer, which is confusing</p>
+<img src="C:/Users/sixwa/AppData/Roaming/Typora/typora-user-images/image-20230327203333113.png" alt="image-20230327203333113" style="zoom: 67%;">
+
+<img src="C:/Users/sixwa/AppData/Roaming/Typora/typora-user-images/image-20230327203613713.png" alt="image-20230327203613713" style="zoom: 67%;">
+
+<blockquote>
+<p>How does can Super Mario runs on the linux machine?</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303301937919.png" alt="image-20230330193733878" style="zoom:50%;">
+
+<ul>
+<li>for super mario, it can’t figure out it runs on the real Red White devices or runs on the simulated “Red White devices”</li>
+</ul>
+<h3 id="NEMU"><a href="#NEMU" class="headerlink" title="NEMU"></a>NEMU</h3><blockquote>
+<p>What is NEMU?</p>
+</blockquote>
+<ul>
+<li><p>NEMU is a simulated computer system. Physical computer’s essential functions is implemented by programs in NEMU.</p>
+</li>
+<li><p>在NEMU中, 每一个硬件部件都由一个程序相关的数据对象来模拟, 例如变量, 数组, 结构体等;</p>
+</li>
+<li><p>对这些硬件部件的操作则通过对相应数据对象的操作来模拟</p>
+</li>
+</ul>
+<h3 id="ISA"><a href="#ISA" class="headerlink" title="ISA"></a>ISA</h3><blockquote>
+<p>Firstly… you need to choose ISA</p>
+</blockquote>
+<p>ISA is <strong>instruction set architecture</strong>, also called computer architecture, is an <strong>abstraction model</strong> of computer</p>
+<p>A device that execute instructions described by that ISA such as a CPU, is called an <strong>implementation</strong>.</p>
+<p>ISA defines supported <strong>instructions</strong>, <strong>data types</strong>, <strong>registers,</strong> the hardware supporting for managing main memory, <strong>fundamental features</strong>(such as memory consistency, addressing modes, virtual memory), and <strong>the input/output model</strong></p>
+<p>因此, ISA的本质就是类似这样的规范. 所以ISA的存在形式既不是硬件电路, 也不是软件代码, 而是一本<strong>规范手册</strong>.</p>
+<p>和螺钉螺母的生产过程类似, 计算机硬件是按照ISA规范手册构造出来的, 而程序也是按照ISA规范手册编写(或生成)出来的</p>
+<h3 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h3><p>至于ISA规范里面都有哪些内容, 我们应该如何<strong>构造一个符合规范的计算机</strong>, <strong>程序应该如何遵守这些规范</strong>来在计算机上运行 is our goal.</p>
+<h2 id="Chapter-of-Creating-the-World"><a href="#Chapter-of-Creating-the-World" class="headerlink" title="Chapter of Creating the World"></a>Chapter of Creating the World</h2><ul>
+<li><p>storage(存储器): we need some place to store our program</p>
+</li>
+<li><p>CPU: we need someone to calculate(compute) CPU是负责处理数据的核心电路单元</p>
+<p> 同时<strong>天下也没有免费的午餐</strong>, 存储器的<strong>大容量</strong>也是需要<strong>付出相应的代价的, 那就是速度慢</strong>, 这是先驱也无法违背的材料特性规律</p>
+<ul>
+<li>如果每完成一次累加都需要把它写回存储器, 然后又把它从存储器中读出来继续加, 这样就太不方便了.先驱为CPU创造了<strong>寄存器</strong>, 可以让CPU把正在处理中的数据暂时存放在其中.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>如果没有寄存器, 计算机还可以工作吗?</p>
+</blockquote>
+<ul>
+<li><p>to let the CPU become the <strong>most loyal servant</strong>, pioneer designs “<strong>instructions</strong>“, to tell CPU to do what kind of operation to data</p>
+<blockquote>
+<p>能否让程序来<strong>自动控制</strong>计算机的执行?</p>
+</blockquote>
+</li>
+<li><p>先驱和CPU作了一个简单的约定: 当执行完一条指令之后, 就<strong>继续执行</strong>下一条指令. </p>
+</li>
+<li><p>但CPU怎么知道现在执行到哪一条指令呢? 为此, 先驱为CPU创造了一个<strong>特殊的计数器, 叫”程序计数器”</strong></p>
+</li>
+</ul>
+<p>从此以后, 计算机就只需要做一件事情:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) {</span><br><span class="line">  从PC指示的存储器位置取出指令;</span><br><span class="line">  执行指令;</span><br><span class="line">  更新PC;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>一个<strong>足够简单的计算机</strong>:  我们只要将一段指令序列放置在存储器中, 然后让PC指向第一条指令, 计算机就会自动执行这一段指令序列, 永不停止</p>
+<p>一个最简单的真实计算机需要满足哪些条件:</p>
+<ul>
+<li><strong>结构上</strong>, TRM有存储器, 有PC, 有寄存器, 有加法器</li>
+<li><strong>工作方式上</strong>, TRM不断地重复以下过程: 从PC指示的存储器位置取出指令, 执行指令, 然后更新PC</li>
+</ul>
+<blockquote>
+<p>计算机是个状态机</p>
+</blockquote>
+<p>既然计算机是一个<strong>数组逻辑电路,</strong> 那么我们可以把计算机划分成两部分, 一部分由所有<strong>时序逻辑部件</strong>(存储器, 计数器, 寄存器)构成, 另一部分则是剩余的<strong>组合逻辑部件(<strong>如加法器等). 这样以后, 我们就可以从状态机模型的视角来理解计算机的工作过程了: 在每个时钟周期到来的时候, 计算机</strong>根据当前时序逻辑部件的状态</strong>, 在组合逻辑部件的作用下, <strong>计算出并转移到下一时钟周期的新状态</strong>.</p>
+<blockquote>
+<p>程序是一个状态机</p>
+</blockquote>
+<p>程序是指令的集合。那么<strong>指令在状态机的模型里面是什么呢</strong>？</p>
+<p>所以在状态机模型里面, 指令可以看成是<strong>计算机进行一次状态转移的输入激励</strong>.</p>
+<p>假设某个计算机有4个8位的寄存器, 一个4位PC, 以及一段16字节的内存(也就是存储器)</p>
+<p>那么这个计算机可以表示比特总数为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span>*<span class="number">8</span> + <span class="number">4</span> + <span class="number">16</span>*<span class="number">8</span> = <span class="number">164</span></span><br></pre></td></tr></table></figure>
+
+<p>因此这个计算机总共可以有<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex" xmlns="http://www.w3.org/2000/svg" width="14.295ex" height="2.099ex" role="img" focusable="false" viewBox="0 -846 6318.5 928"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(1165.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msup" transform="translate(2221.6,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,363) scale(0.707)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g><g data-mml-node="mo" transform="translate(3619,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msup" transform="translate(4674.8,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z" transform="translate(500,0)"></path><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(1000,0)"></path></g></g></g></g></g></svg></mjx-container>种不同的状态</p>
+<p>假设这个在这个计算机中, 所有指令的行为都是确定的, 那么给定<code>N</code>个状态中的任意一个, 其转移之后的新状态也是唯一确定的.</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303302042331.png" style="zoom:50%;">
+
+<blockquote>
+<p>通过状态机的视角来解释**”程序在计算机上运行”的本质**</p>
+</blockquote>
+<p>给定一个程序, 把它放到计算机的内存中, 就相当于在状态数量为<code>N</code>的状态转移图中指定了一个初始状态, 程序运行的过程就是从这个初始状态开始, 每执行完一条指令, 就会进行一次确定的状态转移. 也就是说, 程序也可以看成一个状态机! 这个状态机是上文提到的<strong>大状态机(状态数量为<code>N</code>)的子集</strong>.</p>
+<p>例如：1+2+…+100</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PC: instruction    | // label: statement</span></span><br><span class="line"><span class="number">0</span>: mov  r1, <span class="number">0</span>         |  pc0: r1 = <span class="number">0</span>;</span><br><span class="line"><span class="number">1</span>: mov  r2, <span class="number">0</span>         |  pc1: r2 = <span class="number">0</span>;</span><br><span class="line"><span class="number">2</span>: addi r2, r2, <span class="number">1</span>     |  pc2: r2 = r2 + <span class="number">1</span>;</span><br><span class="line"><span class="number">3</span>: add  r1, r1, r2    |  pc3: r1 = r1 + r2;</span><br><span class="line"><span class="number">4</span>: blt  r2, <span class="number">100</span>, <span class="number">2</span>    |  pc4: <span class="keyword">if</span> (r2 &lt; <span class="number">100</span>) <span class="keyword">goto</span> pc2;   <span class="comment">// branch if less than</span></span><br><span class="line"><span class="number">5</span>: jmp <span class="number">5</span>              |  pc5: <span class="keyword">goto</span> pc5;</span><br></pre></td></tr></table></figure>
+
+<p>的状态机转换为：</p>
+<p>(0,x,x) -&gt; (1,0,x)-&gt;(2,0,0)-&gt;(3,0,1)-&gt;(4,1,1)-&gt;(2,1,1)-&gt;(3,1,2)-&gt;(4,3,2)-&gt;….-&gt;(2,4851,98)-&gt;(3,4851,99)-&gt;(4,4950,99)-&gt;(2,4950,99)-&gt;(3,4950,100)-&gt;(4,5050,100)-&gt;(5,5050,100)-&gt;….</p>
+<ul>
+<li>以代码(或指令序列)为表现形式的<strong>静态视角</strong><ul>
+<li>描述精简</li>
+<li>分支, 循环和函数调用的组合使得我们可以通过少量代码实现出很复杂的功能. </li>
+<li>但这也可能会使得我们对程序行为的理解造成困难</li>
+</ul>
+</li>
+<li>以状态机的状态转移为运行效果的<strong>动态视角</strong><ul>
+<li>直接刻画了”程序在计算机上运行”的本质</li>
+<li>但对于程序的局部行为, 尤其是从静态视角来看难以理解的行为, 状态机视角可以让我们清楚地了解相应的细节.</li>
+</ul>
+</li>
+</ul>
+<p> 因为在PA中你需要不断地和代码打交道. 如果你不能从<strong>微观视角理解某些关键代码的行为</strong>, 你也无法从<strong>宏观视角完全弄清楚程序究竟是如何运行的</strong>.</p>
+<h2 id="RTFSC"><a href="#RTFSC" class="headerlink" title="RTFSC"></a>RTFSC</h2><p>在NEMU中模拟的计算机称为”<strong>客户(guest)计算机</strong>“, 在NEMU中运行的程序称为”<strong>客户程序</strong>“.</p>
+<h3 id="框架代码初探"><a href="#框架代码初探" class="headerlink" title="框架代码初探"></a>框架代码初探</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ics2022</span><br><span class="line">├── abstract-machine   # 抽象计算机</span><br><span class="line">├── am-kernels         # 基于抽象计算机开发的应用程序</span><br><span class="line">├── fceux-am           # 红白机模拟器</span><br><span class="line">├── init.sh            # 初始化脚本</span><br><span class="line">├── Makefile           # 用于工程打包提交</span><br><span class="line">├── nemu               # NEMU</span><br><span class="line">└── README.md</span><br></pre></td></tr></table></figure>
+
+<h4 id="NEMU的四个主要模块"><a href="#NEMU的四个主要模块" class="headerlink" title="NEMU的四个主要模块"></a>NEMU的四个主要模块</h4><ul>
+<li>monitor</li>
+<li>CPU</li>
+<li>memory</li>
+<li>device</li>
+</ul>
+<p><strong>Monitor模块</strong></p>
+<blockquote>
+<p>监控客户计算机的运行状态而引入的</p>
+</blockquote>
+<ul>
+<li>负责与GNU/Linux进行交互（读入客户程序）</li>
+<li>有调试器的功能</li>
+</ul>
+<p>如果没有monitor，对NEMU的调试将极为困难</p>
+<h4 id="NEMU源文件组织"><a href="#NEMU源文件组织" class="headerlink" title="NEMU源文件组织"></a>NEMU源文件组织</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">nemu</span><br><span class="line">├── configs                    # 预先提供的一些配置文件</span><br><span class="line">├── include                    # 存放全局使用的头文件</span><br><span class="line">│   ├── common.h               # 公用的头文件</span><br><span class="line">│   ├── config                 # 配置系统生成的头文件, 用于维护配置选项更新的时间戳</span><br><span class="line">│   ├── cpu</span><br><span class="line">│   │   ├── cpu.h</span><br><span class="line">│   │   ├── decode.h           # 译码相关</span><br><span class="line">│   │   ├── difftest.h</span><br><span class="line">│   │   └── ifetch.h           # 取指相关</span><br><span class="line">│   ├── debug.h                # 一些方便调试用的宏</span><br><span class="line">│   ├── device                 # 设备相关</span><br><span class="line">│   ├── difftest-def.h</span><br><span class="line">│   ├── generated</span><br><span class="line">│   │   └── autoconf.h         # 配置系统生成的头文件, 用于根据配置信息定义相关的宏</span><br><span class="line">│   ├── isa.h                  # ISA相关</span><br><span class="line">│   ├── macro.h                # 一些方便的宏定义</span><br><span class="line">│   ├── memory                 # 访问内存相关</span><br><span class="line">│   └── utils.h</span><br><span class="line">├── Kconfig                    # 配置信息管理的规则</span><br><span class="line">├── Makefile                   # Makefile构建脚本</span><br><span class="line">├── README.md</span><br><span class="line">├── resource                   # 一些辅助资源</span><br><span class="line">├── scripts                    # Makefile构建脚本</span><br><span class="line">│   ├── build.mk</span><br><span class="line">│   ├── config.mk</span><br><span class="line">│   ├── git.mk                 # git版本控制相关</span><br><span class="line">│   └── native.mk</span><br><span class="line">├── src                        # 源文件</span><br><span class="line">│   ├── cpu</span><br><span class="line">│   │   └── cpu-exec.c         # 指令执行的主循环</span><br><span class="line">│   ├── device                 # 设备相关</span><br><span class="line">│   ├── engine</span><br><span class="line">│   │   └── interpreter        # 解释器的实现</span><br><span class="line">│   ├── filelist.mk</span><br><span class="line">│   ├── isa                    # ISA相关的实现</span><br><span class="line">│   │   ├── mips32</span><br><span class="line">│   │   ├── riscv32</span><br><span class="line">│   │   ├── riscv64</span><br><span class="line">│   │   └── x86</span><br><span class="line">│   ├── memory                 # 内存访问的实现</span><br><span class="line">│   ├── monitor</span><br><span class="line">│   │   ├── monitor.c</span><br><span class="line">│   │   └── sdb                # 简易调试器</span><br><span class="line">│   │       ├── expr.c         # 表达式求值的实现</span><br><span class="line">│   │       ├── sdb.c          # 简易调试器的命令处理</span><br><span class="line">│   │       └── watchpoint.c   # 监视点的实现</span><br><span class="line">│   ├── nemu-main.c            # 你知道的...</span><br><span class="line">│   └── utils                  # 一些公共的功能</span><br><span class="line">│       ├── log.c              # 日志文件相关</span><br><span class="line">│       ├── rand.c</span><br><span class="line">│       ├── state.c</span><br><span class="line">│       └── timer.c</span><br><span class="line">└── tools                      # 一些工具</span><br><span class="line">    ├── fixdep                 # 依赖修复, 配合配置系统进行使用</span><br><span class="line">    ├── gen-expr</span><br><span class="line">    ├── kconfig                # 配置系统</span><br><span class="line">    ├── kvm-diff</span><br><span class="line">    ├── qemu-diff</span><br><span class="line">    └── spike-diff</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>为了支持不同的ISA, 框架代码把NEMU分成两部分: ISA无关的基本框架和ISA相关的具体实现。NEMU把ISA相关的代码专门放在<code>nemu/src/isa/</code>目录下, 并通过<code>nemu/include/isa.h</code>提供ISA相关API的声明. 这样以后, <code>nemu/src/isa/</code><strong>之外</strong>的其它代码就展示了<strong>NEMU的基本框架</strong>. </p>
+</li>
+<li><p>体现<strong>抽象的思想</strong>: 框架代码将ISA之间的差异<strong>抽象成API</strong>, 基本框架会调用这些API, 从而无需关心ISA的具体细节. 如果你将来打算选择一个不同的ISA来进行二周目的攻略, 你就能明显体会到抽象的好处了: <strong>基本框架的代码完全不用修改</strong>!</p>
+</li>
+<li><p>NEMU ISA相关说明文档：<a class="link" target="_blank" rel="noopener" href="https://nju-projectn.github.io/ics-pa-gitbook/ics2022/nemu-isa-api.html">这里<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+</ul>
+<h3 id="配置系统和项目构建"><a href="#配置系统和项目构建" class="headerlink" title="配置系统和项目构建"></a>配置系统和项目构建</h3><h4 id="配置系统kconfig"><a href="#配置系统kconfig" class="headerlink" title="配置系统kconfig"></a>配置系统kconfig</h4><blockquote>
+<p>为什么要使用配置系统？</p>
+</blockquote>
+<p>可配置选项的数量可能会非常多, 而且配置选项之间可能会存在关联。比如打开配置选项A之后, 配置选项B就必须是某个值. 直接让开发者去管理这些配置选项是很容易出错的, 比如修改选项A之后, 可能会忘记修改和选项A有关联的选项B. 配置系统的出现则是为了解决这个问题.</p>
+<p>NEMU中的配置系统位于<code>nemu/tools/kconfig</code></p>
+<p>kconfig定义了一套简单的语言, 开发者可以使用这套语言来编写”配置描述文件”.</p>
+<p> 在”配置描述文件”中, 开发者可以描述:</p>
+<ul>
+<li>配置选项的属性, 包括类型, 默认值等</li>
+<li>不同配置选项之间的关系</li>
+<li>配置选项的层次关系</li>
+</ul>
+<p>当你键入<code>make menuconfig</code>的时候, 背后其实发生了如下事件:</p>
+<ul>
+<li><p>检查<code>nemu/tools/kconfig/build/mconf</code>程序是否存在, 若不存在, 则编译并生成<code>mconf</code></p>
+</li>
+<li><p>检查<code>nemu/tools/kconfig/build/conf</code>程序是否存在, 若不存在, 则编译并生成<code>conf</code></p>
+</li>
+<li><p>运行命令<code>mconf nemu/Kconfig</code>, 此时<code>mconf</code>将会解析<code>nemu/Kconfig</code>中的描述, 以菜单树的形式展示各种配置选项, 供开发者进行选择</p>
+</li>
+<li><p>退出菜单时, <code>mconf</code>会把开发者选择的结果记录到<code>nemu/.config</code>文件中</p>
+</li>
+<li><p>运行命令<code>conf --syncconfig nemu/Kconfig</code>, 此时<code>conf</code>将会解析<code>nemu/Kconfig</code>中的描述, 并读取选择结果<code>nemu/.config</code>, 结合两者来生成如下文件:</p>
+<ul>
+<li>可以被包含到C代码中的宏定义(<code>nemu/include/generated/autoconf.h</code>)</li>
+<li>可以被包含到Makefile中的变量定义(<code>nemu/include/config/auto.conf</code>)</li>
+<li>可以被包含到Makefile中的, 和”配置描述文件”相关的依赖规则(<code>nemu/include/config/auto.conf.cmd</code>), 为了阅读代码, 我们可以不必关心它</li>
+<li>通过时间戳来维护配置选项变化的目录树<code>nemu/include/config/</code>, 它会配合另一个工具<code>nemu/tools/fixdep</code>来使用, 用于在更新配置选项后节省不必要的文件编译, 为了阅读代码, 我们可以不必关心它。</li>
+</ul>
+</li>
+</ul>
+<p>所以, 目前我们只需要关心配置系统生成的如下文件:</p>
+<ul>
+<li><code>nemu/include/generated/autoconf.h</code>, 阅读C代码时使用</li>
+<li><code>nemu/include/config/auto.conf</code>, 阅读Makefile时使用</li>
+</ul>
+<h4 id="项目构建和Makefile"><a href="#项目构建和Makefile" class="headerlink" title="项目构建和Makefile"></a>项目构建和Makefile</h4><p><strong>与配置系统进行关联</strong></p>
+<p>通过包含<code>nemu/include/config/auto.conf</code>, 与kconfig生成的变量进行关联. 因此在通过menuconfig更新配置选项后, Makefile的行为可能也会有所变化.</p>
+<p><strong>文件列表</strong></p>
+<p>通过filelist决定最终参与编译的源文件，它们会根据menuconfig的配置对如下4个变量进行维护:</p>
+<ul>
+<li><code>SRCS-y</code> - 参与编译的源文件的候选集合</li>
+<li><code>SRCS-BLACKLIST-y</code> - 不参与编译的源文件的黑名单集合</li>
+<li><code>DIRS-y</code> - 参与编译的目录集合, 该目录下的所有文件都会被加入到<code>SRCS-y</code>中</li>
+<li><code>DIRS-BLACKLIST-y</code> - 不参与编译的目录集合, 该目录下的所有文件都会被加入到<code>SRCS-BLACKLIST-y</code>中</li>
+</ul>
+<p>Makefile会包含项目中的所有<code>filelist.mk</code>文件, 对上述4个变量的追加定义进行汇总, 最终会过滤出在<code>SRCS-y</code>中但不在<code>SRCS-BLACKLIST-y</code>中的源文件, 来作为最终<strong>参与编译的源文件的集合</strong>.</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Include all filelist.mk to merge file lists</span></span><br><span class="line">FILELIST_MK = <span class="variable">$(<span class="built_in">shell</span> find ./src -name "filelist.mk")</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(FILELIST_MK)</span></span><br><span class="line"><span class="comment"># Filter out directories and files in blacklist to obtain the final set of source files</span></span><br><span class="line">DIRS-BLACKLIST-y += $(DIRS-BLACKLIST)</span><br><span class="line">SRCS-BLACKLIST-y += $(SRCS-BLACKLIST) <span class="variable">$(<span class="built_in">shell</span> find $(DIRS-BLACKLIST-y)</span> -name <span class="string">"*.c"</span>)</span><br><span class="line">SRCS-y += <span class="variable">$(<span class="built_in">shell</span> find $(DIRS-y)</span> -name <span class="string">"*.c"</span>)</span><br><span class="line">SRCS = <span class="variable">$(<span class="built_in">filter</span>-out $(SRCS-BLACKLIST-y)</span>,$(SRCS-y))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>上述4个变量还可以与menuconfig的配置结果中的布尔选项进行关联, 例如<code>DIRS-BLACKLIST-$(CONFIG_TARGET_AM) += src/monitor/sdb</code>, 当我们在menuconfig中选择了<code>TARGET_AM</code>相关的布尔选项时, kconfig最终会在<code>nemu/include/config/auto.conf</code>中生成形如<code>CONFIG_TARGET_AM=y</code>的代码, 对变量进行展开后将会得到<code>DIRS-BLACKLIST-y += src/monitor/sdb</code>; 当我们在menuconfig中未选择<code>TARGET_AM</code>相关的布尔选项时, kconfig将会生成形如<code>CONFIG_TARGET_AM=n</code>的代码, 或者未对<code>CONFIG_TARGET_AM</code>进行定义, 此时将会得到<code>DIRS-BLACKLIST-n += src/monitor/sdb</code>, 或者<code>DIRS-BLACKLIST- += src/monitor/sdb</code>, 这两种情况都不会影响<code>DIRS-BLACKLIST-y</code>的值, 从而实现了如下效果:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在menuconfig中选中TARGET_AM时, nemu/src/monitor/sdb目录下的所有文件都不会参与编译.</span><br></pre></td></tr></table></figure>
+
+<p><strong>编译和链接</strong></p>
+<p>Makefile的编译规则在<code>nemu/scripts/build.mk</code>中定义:</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Compilation patterns</span></span><br><span class="line"><span class="variable">$(OBJ_DIR)</span>/%.o: %.c</span><br><span class="line">	@echo + CC <span class="variable">$&lt;</span></span><br><span class="line">	@mkdir -p <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$@</span>)</span></span><br><span class="line">	@<span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> -c -o <span class="variable">$@</span> <span class="variable">$&lt;</span></span><br><span class="line">	<span class="variable">$(<span class="built_in">call</span> call_fixdep, $(@:.o=.d)</span>, <span class="variable">$@</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable">$(OBJ_DIR)</span>/%.o: %.cc</span><br><span class="line">	@echo + CXX <span class="variable">$&lt;</span></span><br><span class="line">	@mkdir -p <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$@</span>)</span></span><br><span class="line">	@<span class="variable">$(CXX)</span> <span class="variable">$(CFLAGS)</span> <span class="variable">$(CXXFLAGS)</span> -c -o <span class="variable">$@</span> <span class="variable">$&lt;</span></span><br><span class="line">	<span class="variable">$(<span class="built_in">call</span> call_fixdep, $(@:.o=.d)</span>, <span class="variable">$@</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Makefile 中的 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="2.389ex" height="2.034ex" role="img" focusable="false" viewBox="0 -705 1056 899"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="40" d="M56 347Q56 429 86 498T164 612T270 680T386 705Q522 705 622 603T722 349Q722 126 608 126Q541 126 513 176Q512 177 512 179T510 182L509 183Q508 183 503 177T487 163T464 146T429 132T385 126Q311 126 251 186T190 347Q190 448 251 508T385 568Q426 568 460 548T509 511T531 479H555Q580 479 582 478Q586 477 587 468Q588 454 588 338V260Q588 200 593 182T619 163Q641 163 655 178T674 223T680 273T682 325V330Q682 426 647 500Q611 569 544 618T388 668Q271 668 184 577T96 347Q96 216 180 121T396 26Q421 26 446 28T493 34T535 43T573 52T605 63T629 72T647 80T657 84H716Q722 78 722 74Q722 65 675 45T547 7T392 -11Q255 -11 156 90T56 347ZM274 347Q274 266 308 214T390 162Q420 162 449 182T498 235L504 245V449L498 459Q453 532 387 532Q347 532 311 483T274 347Z"></path></g></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g></g></g></svg></mjx-container>^, <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="2.389ex" height="1.661ex" role="img" focusable="false" viewBox="0 -540 1056 734"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="3C" d="M694 -11T694 -19T688 -33T678 -40Q671 -40 524 29T234 166L90 235Q83 240 83 250Q83 261 91 266Q664 540 678 540Q681 540 687 534T694 519T687 505Q686 504 417 376L151 250L417 124Q686 -4 687 -5Q694 -11 694 -19Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g></g></g></svg></mjx-container>? 符號</p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$@</span>  表示目標文件</span><br><span class="line"><span class="variable">$^</span>  表示所有的依賴文件</span><br><span class="line"><span class="variable">$&lt;</span>  表示第一個依賴文件</span><br><span class="line"><span class="variable">$?</span>  表示比目標還要新的依賴文件列表</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>call_fixdep 调用用于生成更合理的依赖关系</li>
+</ul>
+<p>链接命令：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(BINARY)</span>: <span class="variable">$(OBJS)</span> <span class="variable">$(ARCHIVES)</span></span><br><span class="line">	@echo + LD <span class="variable">$@</span></span><br><span class="line">	@<span class="variable">$(LD)</span> -o <span class="variable">$@</span> <span class="variable">$(OBJS)</span> <span class="variable">$(LDFLAGS)</span> <span class="variable">$(ARCHIVES)</span> <span class="variable">$(LIBS)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="准备第一个客户程序"><a href="#准备第一个客户程序" class="headerlink" title="准备第一个客户程序"></a>准备第一个客户程序</h3><blockquote>
+<p>NEMU is a process that execute guest process</p>
+</blockquote>
+<p>We need to read guest process into our computer, monitor is responsible for this part.</p>
+<p>When NEMU is starting, it will first call init_monitor() to do some initialization work.(在<code>nemu/src/monitor/monitor.c</code>中定义) </p>
+<blockquote>
+<p>kconfig generates 宏</p>
+</blockquote>
+<p>kconfig will define some CONFIG_xxx in ‘nemu/include/generated/autoconf.h’ according to the configuration we made in <code>kconfig</code>.</p>
+<p>we can also test these defines using <strong>conditional compiling</strong>. For example, if <code>CONFIG_DEVICE</code> is not defined, device related code will not be compiled.</p>
+<p>To write more compact code, we define a lot of test in <code>nemu/inlcude/generated/autoconf.h</code>:<code>IFDEF(CONFIG_DEVICE, init_device());</code> 而<code>MUXDEF(CONFIG_TRACE, "ON", "OFF")</code>则表示, 如果定义了<code>CONFIG_TRACE</code>, 则预处理结果为<code>"ON"</code>(<code>"OFF"</code>在预处理后会消失), 否则预处理结果为<code>"OFF"</code>.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_monitor</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>{</span><br><span class="line">  <span class="comment">/* Perform some global initialization. */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Parse arguments. */</span></span><br><span class="line">  <span class="built_in">parse_args</span>(argc, argv);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Set random seed. */</span></span><br><span class="line">  <span class="built_in">init_rand</span>();j</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Open the log file. */</span></span><br><span class="line">  <span class="built_in">init_log</span>(log_file);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Initialize memory. */</span></span><br><span class="line">  <span class="built_in">init_mem</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Initialize devices. */</span></span><br><span class="line">  <span class="built_in">IFDEF</span>(CONFIG_DEVICE, <span class="built_in">init_device</span>());</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Perform ISA dependent initialization. */</span></span><br><span class="line">  <span class="built_in">init_isa</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Load the image to memory. This will overwrite the built-in image. */</span></span><br><span class="line">  <span class="keyword">long</span> img_size = <span class="built_in">load_img</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Initialize differential testing. */</span></span><br><span class="line">  <span class="built_in">init_difftest</span>(diff_so_file, img_size, difftest_port);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Initialize the simple debugger. */</span></span><br><span class="line">  <span class="built_in">init_sdb</span>();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">IFDEF</span>(CONFIG_ITRACE, <span class="built_in">init_disasm</span>(</span><br><span class="line">    <span class="built_in">MUXDEF</span>(CONFIG_ISA_x86,     <span class="string">"i686"</span>,</span><br><span class="line">    <span class="built_in">MUXDEF</span>(CONFIG_ISA_mips32,  <span class="string">"mipsel"</span>,</span><br><span class="line">    <span class="built_in">MUXDEF</span>(CONFIG_ISA_riscv32, <span class="string">"riscv32"</span>,</span><br><span class="line">    <span class="built_in">MUXDEF</span>(CONFIG_ISA_riscv64, <span class="string">"riscv64"</span>, <span class="string">"bad"</span>)))) <span class="string">"-pc-linux-gnu"</span></span><br><span class="line">  ));</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Display welcome message. */</span></span><br><span class="line">  <span class="built_in">welcome</span>();</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>We can see that in the i<code>nit_monitor()</code>, all lines are  functions. And in <code>parse_args()</code>:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">parse_args</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>{</span><br><span class="line">  <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">option</span> <span class="title">table</span>[] =</span> {</span><br><span class="line">    {<span class="string">"batch"</span>    , no_argument      , <span class="literal">NULL</span>, <span class="string">'b'</span>},</span><br><span class="line">    {<span class="string">"log"</span>      , required_argument, <span class="literal">NULL</span>, <span class="string">'l'</span>},</span><br><span class="line">    {<span class="string">"diff"</span>     , required_argument, <span class="literal">NULL</span>, <span class="string">'d'</span>},</span><br><span class="line">    {<span class="string">"port"</span>     , required_argument, <span class="literal">NULL</span>, <span class="string">'p'</span>},</span><br><span class="line">    {<span class="string">"help"</span>     , no_argument      , <span class="literal">NULL</span>, <span class="string">'h'</span>},</span><br><span class="line">    {<span class="number">0</span>          , <span class="number">0</span>                , <span class="literal">NULL</span>,  <span class="number">0</span> },</span><br><span class="line">  };</span><br><span class="line">  <span class="keyword">int</span> o;</span><br><span class="line">  <span class="keyword">while</span> ( (o = getopt_long(argc, argv, <span class="string">"-bhl:d:p:"</span>, table, <span class="literal">NULL</span>)) != <span class="number">-1</span>) {</span><br><span class="line">    <span class="keyword">switch</span> (o) {</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'b'</span>: sdb_set_batch_mode(); <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'p'</span>: <span class="built_in">sscanf</span>(optarg, <span class="string">"%d"</span>, &amp;difftest_port); <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'l'</span>: log_file = optarg; <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'d'</span>: diff_so_file = optarg; <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>: img_file = optarg; <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage: %s [OPTION...] IMAGE [args]\n\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\t-b,--batch              run with batch mode\n"</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\t-l,--log=FILE           output log to FILE\n"</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n"</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\t-p,--port=PORT          run DiffTest with port PORT\n"</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>some notes about getopt_long()</p>
+</blockquote>
+<ul>
+<li><p>getopt_long() works like getopt() except that it also accept long options :”–”.</p>
+</li>
+<li><p>longopts is a pointer to the first element of an array of struct option:</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">option</span>{</span></span><br><span class="line">    cosnt <span class="keyword">char</span> *name; <span class="comment">// name</span></span><br><span class="line">    <span class="keyword">int</span> has_arg;<span class="comment">// 0: no_argument; 1: required_argument; 2: optional_argument</span></span><br><span class="line">    <span class="keyword">int</span> *flag;<span class="comment">// NULL: getopt_long() return val; otherwise: getopt_long() return 0, flag points to a variable set to val if the option is found.</span></span><br><span class="line">    <span class="keyword">int</span> val; <span class="comment">// the value to return</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>The last element of the array has to be filled with zeros</p>
+<p>接下来monitor会调用<code>init_isa()</code>函数(在<code>nemu/src/isa/$ISA/init.c</code>中定义), 来进行一些ISA相关的初始化工作.</p>
+<h4 id="init-isa-函数的第一项工作：读入客户程序到内存里"><a href="#init-isa-函数的第一项工作：读入客户程序到内存里" class="headerlink" title="init_isa()函数的第一项工作：读入客户程序到内存里"></a><code>init_isa()</code>函数的第一项工作：读入客户程序到内存里</h4><ol>
+<li>客户程序是什么？：程序本身是ISA相关的，因此内置程序放在<code>nemu/src/isa/$ISA/init.c</code>中。</li>
+<li>内存是什么？：一段连续的地址空间，按字节编址（一个内存位置存放一个字节的数据）。 在C语言中我们就很自然地使用一个<code>uint8_t</code>类型的数组来对内存进行模拟。NEMU默认为客户计算机提供128MB的物理内存(见<code>nemu/src/memory/paddr.c</code>中定义的<code>pmem</code>)</li>
+<li>需要将客户程序读入到内存的什么位置？</li>
+</ol>
+<p>约定. 具体地, 我们让monitor直接把客户程序读入到一个固定的内存位置<code>RESET_VECTOR</code>。其值在<code>nemu/include/memory/paddr.h</code>中定义.</p>
+<blockquote>
+<p>BIOS和计算机启动</p>
+</blockquote>
+<p>在真实的计算机系统中, 计算机启动后首先会把控制权交给BIOS, BIOS经过一系列初始化工作之后, 再从磁盘中将有意义的程序读入内存中执行.对这个过程的模拟需要了解很多超出本课程范围的细节, 我们在PA中做了简化: 采取约定的方式让CPU直接从约定的内存位置开始执行.</p>
+<blockquote>
+<p>初探操作系统启动</p>
+</blockquote>
+<p>如何得知操作系统在启动时，做了什么？</p>
+<ul>
+<li>在linux中，<code>sudo dmesg</code>可以输出操作系统的启动日志</li>
+</ul>
+<h4 id="init-isa-函数的第二项工作：是初始化寄存器"><a href="#init-isa-函数的第二项工作：是初始化寄存器" class="headerlink" title="init_isa()函数的第二项工作：是初始化寄存器"></a><code>init_isa()</code>函数的第二项工作：是初始化寄存器</h4><p> 在C语言中我们就很自然地使用相应的结构体来描述CPU的寄存器结构. </p>
+<p>不同ISA的寄存器结构也各不相同, 为此我们把寄存器结构体<code>CPU_state</code>的定义放在<code>nemu/src/isa/$ISA/include/isa-def.h</code>中, 并在<code>nemu/src/cpu/cpu-exec.c</code>中定义一个全局变量<code>cpu</code>.</p>
+<p>初始化寄存器的一个重要工作就是设置<code>cpu.pc</code>的初值, 我们需要将它设置成刚才加载客户程序的内存位置, 这样就可以让CPU从我们约定的内存位置开始执行客户程序了</p>
+<p><strong>物理内存的起始地址</strong></p>
+<p>x86的物理内存是从0开始编址的</p>
+<p>例如mips32和riscv32的物理地址均从<code>0x80000000</code>开始。因此对于上面的两个，其CONFIG_MBASE，将会被定义为：<code>0x80000000</code>，将来CPU访问内存时，我们会将要访问的内存<strong>地址映射</strong>到**<code>pmem</code>中的相应偏移位置**，这是通过<code>nemu/src/memory/paddr.c</code>中的<code>guest_to_host()</code>函数实现的.</p>
+<p>Monitor读入客户程序并对寄存器进行初始化后, 这时内存的布局如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pmem:</span><br><span class="line"></span><br><span class="line">CONFIG_MBASE      RESET_VECTOR</span><br><span class="line">      |                 |</span><br><span class="line">      v                 v</span><br><span class="line">      -----------------------------------------------</span><br><span class="line">      |                 |                  |</span><br><span class="line">      |                 |    guest prog    |</span><br><span class="line">      |                 |                  |</span><br><span class="line">      -----------------------------------------------</span><br><span class="line">                        ^</span><br><span class="line">                        |</span><br><span class="line">                       pc</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行第一个客户程序"><a href="#运行第一个客户程序" class="headerlink" title="运行第一个客户程序"></a>运行第一个客户程序</h3><p>main()函数包含了monitor的初始化，并且会继续调用<code>engine_start</code>函数。代码会进入简易调试器的主循环。</p>
+<p>键入c后，执行主循环<code>cpu_exec</code>， 它又会调用<code>execute()</code>。后者模拟了CPU的工作方式。它又会执行<code>exec_once()</code>：让CPU执行当前PC指向的一条指令，然后更新PC。</p>
+<p><strong>不同的ISA有着不同的指令格式和含义</strong>, 因此<strong>执行指令的代码自然是ISA相关的</strong>. 这部分代码位于<code>nemu/src/isa/$ISA/inst.c</code>. 关于指令执行的详细说明需要涉及很多细节, 目前你无需关心, 我们将会在PA2中进行说明.</p>
+<p><strong>何时退出指令的循环？</strong></p>
+<ul>
+<li><p>达到要求的循环次数.</p>
+</li>
+<li><p>客户程序执行了nemu_trap指令. 这是一条虚构的特殊指令, 它是为了在NEMU中让客户程序指示执行的结束而加入的, NEMU在ISA手册中选择了一些用于调试的指令, 并将nemu_trap的特殊含义赋予它们.</p>
+<ul>
+<li><p> 例如在riscv32的手册中, NEMU选择了ebreak指令来充当nemu_trap. 为了表示客户程序是否成功结束, nemu_trap指令还会接收一个表示结束状态的参数. 当客户程序执行了这条指令之后, NEMU将会根据这个结束状态参数来设置NEMU的结束状态, 并根据不同的状态输出不同的结束信息, 主要包括</p>
+</li>
+<li><p><code>HIT GOOD TRAP</code> - 客户程序正确地结束执行</p>
+</li>
+<li><p><code>HIT BAD TRAP</code> - 客户程序错误地结束执行</p>
+</li>
+<li><p><code>ABORT</code> - 客户程序意外终止, 并未结束执行</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>怎么读代码？</p>
+</blockquote>
+<p>有没有工具能够帮你模拟这个巨大的状态机呢? 这时我们在PA0里面提到的一个工具就派上用场了, 它就是GDB. 在GDB中, 我们可以通过单步执行的方式让程序一次执行一条指令, 相当于让状态机一次只前进一步, 这样我们就可以观察程序任意时刻的状态了! 而且状态机前进的轨迹就是程序执行的真实顺序, 于是你就可以一边运行程序一边理解程序的行为了. 这对于一些指针相关的代码有着不错的效果, 尤其是函数指针, 因为你从静态代码上很可能看不出来程序运行的时候这个指针会指向哪个函数.</p>
+<p>GDB还自带一个叫TUI的简单界面. 在一个高度较高的窗口中运行GDB后, 输入<code>layout split</code>就可以切换到TUI, 这样你就可以同时从源代码和指令的角度来观察程序的行为了. 不过为了看到源代码, 你还需要在编译NEMU时添加GDB调试信息, 具体操作见下面的提示框. 如果你想了解TUI的更多内容, STFW.</p>
+<p>为了帮助你更高效地RTFSC, 你最好通过RTFM和STFW多认识GDB的一些命令和操作, 比如:</p>
+<ul>
+<li>单步执行进入你感兴趣的函数</li>
+<li>单步执行跳过你不感兴趣的函数(例如库函数)</li>
+<li>运行到函数末尾</li>
+<li>打印变量或寄存器的值</li>
+<li>扫描内存</li>
+<li>查看调用栈</li>
+<li>设置断点</li>
+<li>设置监视点</li>
+</ul>
+<p> <strong>为NEMU编译时添加GDB调试信息</strong></p>
+<p>menuconfig已经为大家准备好相应选项了, 你只需要打开它:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Build Options</span><br><span class="line">  [*] Enable debug information</span><br></pre></td></tr></table></figure>
+
+<p>然后清除编译结果并重新编译即可. 尝试阅读相关代码, 理解开启上述menuconfig选项后会导致编译NEMU时的选项产生什么变化.</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230406194300166.png" alt="image-20230406194300166" style="zoom:50%;">
+
+<ul>
+<li>ggdb3指的是debug的level为3级，会输出一些额外的信息</li>
+<li>Og指的是优化debug体验，会减少一些优化级别，以加快编译</li>
+</ul>
+<h2 id="基础设施-简易调试器"><a href="#基础设施-简易调试器" class="headerlink" title="基础设施: 简易调试器"></a>基础设施: 简易调试器</h2>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：PA1项目心得记录</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/projects/general notes/pa1/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/PA/">#PA</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/ics2022/">#ics2022</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/projects/anolis/pa1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">安装和使用龙蜥操作系统</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/projects/general%20notes/scrum/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">scrum软件过程基础浅析</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PA1-notes"><span class="nav-number">1.</span> <span class="nav-text">PA1 notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Some-preparations"><span class="nav-number">1.1.</span> <span class="nav-text">Some preparations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NEMU"><span class="nav-number">1.1.1.</span> <span class="nav-text">NEMU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISA"><span class="nav-number">1.1.2.</span> <span class="nav-text">ISA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goals"><span class="nav-number">1.1.3.</span> <span class="nav-text">Goals</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-of-Creating-the-World"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter of Creating the World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RTFSC"><span class="nav-number">1.3.</span> <span class="nav-text">RTFSC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E4%BB%A3%E7%A0%81%E5%88%9D%E6%8E%A2"><span class="nav-number">1.3.1.</span> <span class="nav-text">框架代码初探</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NEMU%E7%9A%84%E5%9B%9B%E4%B8%AA%E4%B8%BB%E8%A6%81%E6%A8%A1%E5%9D%97"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">NEMU的四个主要模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NEMU%E6%BA%90%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">NEMU源文件组织</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F%E5%92%8C%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA"><span class="nav-number">1.3.2.</span> <span class="nav-text">配置系统和项目构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9Fkconfig"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">配置系统kconfig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%92%8CMakefile"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">项目构建和Makefile</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">准备第一个客户程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#init-isa-%E5%87%BD%E6%95%B0%E7%9A%84%E7%AC%AC%E4%B8%80%E9%A1%B9%E5%B7%A5%E4%BD%9C%EF%BC%9A%E8%AF%BB%E5%85%A5%E5%AE%A2%E6%88%B7%E7%A8%8B%E5%BA%8F%E5%88%B0%E5%86%85%E5%AD%98%E9%87%8C"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">init_isa()函数的第一项工作：读入客户程序到内存里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#init-isa-%E5%87%BD%E6%95%B0%E7%9A%84%E7%AC%AC%E4%BA%8C%E9%A1%B9%E5%B7%A5%E4%BD%9C%EF%BC%9A%E6%98%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">init_isa()函数的第二项工作：是初始化寄存器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.4.</span> <span class="nav-text">运行第一个客户程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD-%E7%AE%80%E6%98%93%E8%B0%83%E8%AF%95%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">基础设施: 简易调试器</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

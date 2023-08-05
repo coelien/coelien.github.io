@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            xv6笔记：chapt1 Operating system interfaces |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">xv6笔记：chapt1 Operating system interfaces</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Books/">Books</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/Books/Operating-System/">Operating System</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/Books/Operating-System/xv6/">xv6</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/MIT6-S081/">MIT6.S081</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/OS/">OS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/xv6/">xv6</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>7 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="xv6笔记：chapt1-Operating-system-interfaces"><a href="#xv6笔记：chapt1-Operating-system-interfaces" class="headerlink" title="xv6笔记：chapt1 Operating system interfaces"></a>xv6笔记：chapt1 Operating system interfaces</h1><h2 id="xv6-the-operating-system"><a href="#xv6-the-operating-system" class="headerlink" title="xv6 - the operating system"></a>xv6 - the operating system</h2><p>xv6 takes the traditional form of a kernel, <strong>a special program that provides services to running programs</strong>. </p>
+<p>Each process has memory containing <strong>instructions, data, and a stack</strong>. the stack organizes the program’s procedure calls.</p>
+<p>When a process needs to invoke a kernel service, it invokes a system call, one of the calls in the operating system’s interface. The system call enters the kernel; the kernel performs the service and returns. Thus a process <strong>alternates</strong> between executing in <strong>user space and kernel space</strong>.  </p>
+<p>The kernel uses the <strong>hardware protection mechanisms</strong> provided by a CPU: each process in the user space <strong>can access only its own memory</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230404125528893.png" alt="image-20230404125528893" style="zoom:50%;">
+
+<p>When a user program invokes <strong>a system call</strong>, the hardware raises the <strong>privilege level</strong> and starts executing a pre-arranged function in the kernel.  </p>
+<p>xv6 provides a subset of system calls that Unix kernel traditionally offer:</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230404125856294.png" alt="image-20230404125856294" style="zoom:50%;">
+
+<h2 id="xv6’s-services"><a href="#xv6’s-services" class="headerlink" title="xv6’s services"></a>xv6’s services</h2><h3 id="shell-no-mystery-about-it"><a href="#shell-no-mystery-about-it" class="headerlink" title="shell - no mystery about it"></a>shell - no mystery about it</h3><ul>
+<li>shell is a user program, not part of the kernel. </li>
+<li>shell illustrates the power of system call interface</li>
+<li>xv6’s shell is a simple implementation of the essence of Unix Bourne shell. </li>
+<li>It’s implementation can be found at(user/sh.c)</li>
+</ul>
+<h3 id="Processes-and-memory"><a href="#Processes-and-memory" class="headerlink" title="Processes and memory"></a>Processes and memory</h3><h4 id="create-the-process"><a href="#create-the-process" class="headerlink" title="create the process"></a>create the process</h4><p><code>int pid = fork();</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span></span></span><br><span class="line"><span class="function"><span class="title">fork1</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">int</span> pid;</span><br><span class="line"></span><br><span class="line">  pid = fork();</span><br><span class="line">  <span class="keyword">if</span>(pid == <span class="number">-1</span>) <span class="comment">// &lt;0 error arise</span></span><br><span class="line">    panic(<span class="string">"fork"</span>);</span><br><span class="line">  <span class="keyword">return</span> pid;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h4 id="exit-the-process"><a href="#exit-the-process" class="headerlink" title="exit the process"></a>exit the process</h4><p><code>exit(0);</code></p>
+<ul>
+<li><strong>exit system call</strong> let the calling process stop executing and to release resources (memory and open files)  </li>
+</ul>
+<h4 id="wait-the-process"><a href="#wait-the-process" class="headerlink" title="wait the process"></a>wait the process</h4><p><code>wait(0);// doesn't care about the exit status of the a child , pass 0</code></p>
+<ul>
+<li><strong>wait system call</strong> return PID of an exited (or killed) child  of current process, and copies the exit status of the child to the address passed to wait  </li>
+<li>If the caller has no children, wait immediately returns -1.  </li>
+</ul>
+<h4 id="exec-new-process"><a href="#exec-new-process" class="headerlink" title="exec new process"></a>exec new process</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> EXEC:</span><br><span class="line">    ecmd = (struct execcmd*)cmd;</span><br><span class="line">    <span class="keyword">if</span>(ecmd-&gt;argv[<span class="number">0</span>] == <span class="number">0</span>)</span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    exec(ecmd-&gt;argv[<span class="number">0</span>], ecmd-&gt;argv);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="number">2</span>, <span class="string">"exec %s failed\n"</span>, ecmd-&gt;argv[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>The exec system</strong> call <strong>replaces</strong> the calling process’s memory with a new memory image loaded from a file stored in the file system.  </p>
+</li>
+<li><p>When exec succeeds, it <strong>does not return</strong> to the calling program  </p>
+</li>
+<li><p><strong>Exec</strong> takes two arguments: the <strong>name of the file</strong> containing the executable and an array of <strong>string arguments</strong>.  </p>
+</li>
+</ul>
+<h3 id="I-O-and-File-descriptors"><a href="#I-O-and-File-descriptors" class="headerlink" title="I/O and File descriptors"></a>I/O and File descriptors</h3><h4 id="File-descriptor"><a href="#File-descriptor" class="headerlink" title="File descriptor"></a>File descriptor</h4><blockquote>
+<p>What is file descriptor?</p>
+</blockquote>
+<ul>
+<li>A small integer representing a <strong>kernel managed object</strong> that a process may read from or write to.</li>
+</ul>
+<blockquote>
+<p>How can we obtain file descriptor?</p>
+</blockquote>
+<ul>
+<li>By opening a <strong>file, directory, device</strong></li>
+<li>By creating a pipe</li>
+<li>By <strong>duplicating</strong> an existing descriptor</li>
+</ul>
+<blockquote>
+<p>What’s the benefit of the file descriptor interface?</p>
+</blockquote>
+<ul>
+<li><strong>Abstracts away</strong> the difference between <strong>files, pipes, devices</strong></li>
+<li>Making them all look like <strong>streams of bytes</strong></li>
+</ul>
+<h4 id="File-descriptors-and-process"><a href="#File-descriptors-and-process" class="headerlink" title="File descriptors and process"></a>File descriptors and process</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ensure that three file descriptors are open.</span></span><br><span class="line">  <span class="keyword">while</span>((fd = open(<span class="string">"console"</span>, O_RDWR)) &gt;= <span class="number">0</span>){</span><br><span class="line">    <span class="keyword">if</span>(fd &gt;= <span class="number">3</span>){</span><br><span class="line">      close(fd);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">  }</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>shell ensures that it always has <strong>three</strong> file descriptors open   </li>
+</ul>
+<h4 id="Read-and-Write-to-Files"><a href="#Read-and-Write-to-Files" class="headerlink" title="Read and Write to Files"></a>Read and Write to Files</h4><p>example : the essence of <code>cat</code>: copies data from its standard input to its standard output  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> buf[<span class="number">512</span>];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">for</span>(;;){</span><br><span class="line">	n = read(<span class="number">0</span>,buf,<span class="keyword">sizeof</span> buf);</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;<span class="number">0</span>){</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="number">2</span>,<span class="string">"read error\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span>(write(<span class="number">1</span>,buf,n)!=n){</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="number">2</span>,<span class="string">"write error\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>**Abstraction: **</p>
+<ul>
+<li>Cat doesn’t know whether it is reading from a file, console, or a pipe.  </li>
+<li>Similarly cat doesn’t know whether it is printing to a console, a file, or whatever.  </li>
+</ul>
+<h4 id="Close-the-file"><a href="#Close-the-file" class="headerlink" title="Close the file"></a>Close the file</h4><ul>
+<li><p>releases a file descriptor  </p>
+</li>
+<li><p>making it free for reuse by a future <code>open</code>, <code>pipe</code>, or <code>dup </code>system call (see below)  </p>
+</li>
+<li><p>A newly allocated file descriptor is always the <strong>lowest-numbered</strong> unused descriptor of the current process</p>
+</li>
+</ul>
+<h4 id="IO-redirection"><a href="#IO-redirection" class="headerlink" title="IO redirection"></a>IO redirection</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">"cat"</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) {</span><br><span class="line">    <span class="built_in">close</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">open</span>(<span class="string">"input.txt"</span>, O_RDONLY);</span><br><span class="line">    <span class="built_in">exec</span>(<span class="string">"cat"</span>, argv);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>fork copies file descriptor table, but share underlying file offset</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) {</span><br><span class="line">    <span class="built_in">write</span>(<span class="number">1</span>, <span class="string">"hello "</span>, <span class="number">6</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">} <span class="keyword">else</span> {</span><br><span class="line">    <span class="built_in">wait</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">write</span>(<span class="number">1</span>, <span class="string">"world\n"</span>, <span class="number">6</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>dup duplicates the existing file descriptor, returning a new one refers to the same underlying object</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fd = dup(<span class="number">1</span>);</span><br><span class="line">write(<span class="number">1</span>, <span class="string">"hello "</span>, <span class="number">6</span>);</span><br><span class="line">write(fd, <span class="string">"world\n"</span>, <span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>what is the meaning of 2&gt;&amp;1?</p>
+</blockquote>
+<ul>
+<li><p>Tells the shell to give command a file descriptor 2 that is a duplicate of descriptor 1.</p>
+</li>
+<li><p>The xv6 shell doesn’t support I/O redirection for the error file descriptor, but now you know how to implement it.  </p>
+</li>
+</ul>
+<h3 id="Pipes"><a href="#Pipes" class="headerlink" title="Pipes"></a>Pipes</h3><blockquote>
+<p>what is pipe?</p>
+</blockquote>
+<ul>
+<li>A pipe is a small kernel buffer exposed to process as a pair of file descriptors, one for reading and one for writing</li>
+<li>Writing data to one end of the pipe makes that data available for reading from the other end of the pipe.   </li>
+<li>provide a way for processes to communicate</li>
+</ul>
+<p>an example:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> p[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">"wc"</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">pipe(p);</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) {</span><br><span class="line">    close(<span class="number">0</span>);</span><br><span class="line">    dup(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">	exec(<span class="string">"/bin/wc"</span>, argv);</span><br><span class="line">} <span class="keyword">else</span> {</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    write(p[<span class="number">1</span>], <span class="string">"hello world\n"</span>, <span class="number">12</span>);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>if no data is available, a read on a pipe waits for either data to be written or for <strong>all file descriptors to be closed</strong>.</p>
+</li>
+<li><p>It’s  important for the child to <strong>close the write end of the pipe</strong> before executing <code>wc</code> above.</p>
+</li>
+<li><p>if one of wc ’s file descriptors referred to the write end of the pipe, wc would <strong>never see end-of-file</strong>  </p>
+</li>
+</ul>
+<blockquote>
+<p>How does xv6 implement <code>grep fork sh.c | wc -l </code>? </p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> PIPE:</span><br><span class="line">    pcmd = (struct pipecmd*)cmd;</span><br><span class="line">    <span class="keyword">if</span>(pipe(p) &lt; <span class="number">0</span>)</span><br><span class="line">      panic(<span class="string">"pipe"</span>);</span><br><span class="line">    <span class="keyword">if</span>(fork1() == <span class="number">0</span>){</span><br><span class="line">      close(<span class="number">1</span>);</span><br><span class="line">      dup(p[<span class="number">1</span>]);</span><br><span class="line">      close(p[<span class="number">0</span>]);</span><br><span class="line">      close(p[<span class="number">1</span>]);</span><br><span class="line">      runcmd(pcmd-&gt;left);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span>(fork1() == <span class="number">0</span>){</span><br><span class="line">      close(<span class="number">0</span>);</span><br><span class="line">      dup(p[<span class="number">0</span>]);</span><br><span class="line">      close(p[<span class="number">0</span>]);</span><br><span class="line">      close(p[<span class="number">1</span>]);</span><br><span class="line">      runcmd(pcmd-&gt;right);</span><br><span class="line">    }</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">	<span class="comment">//wait for both to finish</span></span><br><span class="line">    wait(<span class="number">0</span>);</span><br><span class="line">    wait(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>may create a tree of processes, The leaves of the tree are commands and the interior nodes are processes that wait until the left child and right child complete.</p>
+</li>
+<li><p>use pipes is much more efficient over temporary files:</p>
+<p><code>echo hello world &gt;/tmp/xyz; wc &lt;/tmp/xyz </code></p>
+</li>
+</ul>
+<h3 id="File-System"><a href="#File-System" class="headerlink" title="File System"></a>File System</h3><ul>
+<li><p>The following two code segments open the same file:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chdir</span>(<span class="string">"/a"</span>);</span><br><span class="line"><span class="built_in">chdir</span>(<span class="string">"b"</span>);</span><br><span class="line"><span class="built_in">open</span>(<span class="string">"c"</span>, O_RDONLY);</span><br><span class="line"></span><br><span class="line"><span class="built_in">open</span>(<span class="string">"/a/b/c"</span>, O_RDONLY);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="create-new-files-and-directories"><a href="#create-new-files-and-directories" class="headerlink" title="create new files and directories"></a>create new files and directories</h4><ul>
+<li><code>mkdir</code> creates a new directory</li>
+<li><code>open</code> with the O_CREATE flag creates a new data file</li>
+<li><code>mknod</code> creates a new device file.  </li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span>(<span class="string">"/dir"</span>);</span><br><span class="line">fd = <span class="built_in">open</span>(<span class="string">"/dir/file"</span>, O_CREATE|O_WRONLY);</span><br><span class="line"><span class="built_in">close</span>(fd);</span><br><span class="line"><span class="built_in">mknod</span>(<span class="string">"/console"</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>file itself is code a <strong>inode</strong>, it has many names called <strong>links</strong>. </li>
+<li>each <strong>link</strong> consist of an <strong>entry</strong> in a directory</li>
+<li>the <strong>entry</strong> contains a <strong>file name</strong> and a reference to an <strong>inode</strong></li>
+<li>the <strong>inode</strong> holds <strong>metadata</strong> about a file, including: <ul>
+<li>its type(file, directory or device)</li>
+<li>length</li>
+<li>location on  disk</li>
+<li>number of links</li>
+</ul>
+</li>
+<li><code>fstat</code>can retrieves info from the <strong>inode</strong> that a file descriptor refers to:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DIR 1 <span class="comment">// Directory</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_FILE 2 <span class="comment">// File</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DEVICE 3 <span class="comment">// Device</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span> {</span></span><br><span class="line">    <span class="keyword">int</span> dev; <span class="comment">// File system’s disk device</span></span><br><span class="line">    uint ino; <span class="comment">// Inode number</span></span><br><span class="line">    <span class="keyword">short</span> type; <span class="comment">// Type of file</span></span><br><span class="line">    <span class="keyword">short</span> nlink; <span class="comment">// Number of links to file</span></span><br><span class="line">    uint64 size; <span class="comment">// Size of file in bytes</span></span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>link</code> system call : creates another file system name referring to the same <strong>inode</strong>  </li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open(<span class="string">"a"</span>, O_CREATE|O_WRONLY);</span><br><span class="line">link(<span class="string">"a"</span>, <span class="string">"b"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>unlink</code> system all: removes a name from the file system  </li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fd = open(<span class="string">"/tmp/xyz"</span>, O_CREATE|O_RDWR);</span><br><span class="line">unlink(<span class="string">"/tmp/xyz"</span>);</span><br><span class="line"><span class="comment">// create a temporary inode with no name that will be cleaned up when the process closes fd or exits.</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：xv6笔记：chapt1 Operating system interfaces</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/course-learning/MIT6.S081/chapt1/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/MIT6-S081/">#MIT6.S081</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/OS/">#OS</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/xv6/">#xv6</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/course-learning/MIT-Missing-Semester/note03-data_wrangling/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT课程笔记： Notes on Missing semester 03</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/course-learning/MIT-Missing-Semester/note04/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT课程笔记： Notes on Missing semester 04</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xv6%E7%AC%94%E8%AE%B0%EF%BC%9Achapt1-Operating-system-interfaces"><span class="nav-number">1.</span> <span class="nav-text">xv6笔记：chapt1 Operating system interfaces</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xv6-the-operating-system"><span class="nav-number">1.1.</span> <span class="nav-text">xv6 - the operating system</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xv6%E2%80%99s-services"><span class="nav-number">1.2.</span> <span class="nav-text">xv6’s services</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell-no-mystery-about-it"><span class="nav-number">1.2.1.</span> <span class="nav-text">shell - no mystery about it</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Processes-and-memory"><span class="nav-number">1.2.2.</span> <span class="nav-text">Processes and memory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#create-the-process"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">create the process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exit-the-process"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">exit the process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wait-the-process"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">wait the process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exec-new-process"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">exec new process</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O-and-File-descriptors"><span class="nav-number">1.2.3.</span> <span class="nav-text">I&#x2F;O and File descriptors</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#File-descriptor"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">File descriptor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#File-descriptors-and-process"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">File descriptors and process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Read-and-Write-to-Files"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">Read and Write to Files</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Close-the-file"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">Close the file</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IO-redirection"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">IO redirection</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipes"><span class="nav-number">1.2.4.</span> <span class="nav-text">Pipes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File-System"><span class="nav-number">1.2.5.</span> <span class="nav-text">File System</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#create-new-files-and-directories"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">create new files and directories</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

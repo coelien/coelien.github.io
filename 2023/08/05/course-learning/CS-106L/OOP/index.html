@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            CS106L笔记：OOP |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">CS106L笔记：OOP</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/courses/">courses</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/courses/c/">c++</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/C/">C++</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CS106L/">CS106L</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>7 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Object-Oriented-Programming"><a href="#Object-Oriented-Programming" class="headerlink" title="Object Oriented Programming"></a>Object Oriented Programming</h1><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303140956539.png" alt="image-20230314095605396" style="zoom:50%;">
+
+<h2 id="Fundamentals"><a href="#Fundamentals" class="headerlink" title="Fundamentals"></a>Fundamentals</h2><p><strong>.h vs .cpp</strong></p>
+<ul>
+<li>.h defines public interface API</li>
+<li>.cpp handle all the dirty details</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141002323.png" alt="image-20230314100210163" style="zoom:50%;">
+
+<p><strong>why so may extensions?</strong></p>
+<ul>
+<li><p>header file: .h, .hh, .hpp</p>
+</li>
+<li><p>source file: .cc, .cpp, .cxx, .c++, .C</p>
+</li>
+<li><p>Depends on the compiler</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141007195.png" alt="image-20230314100748047" style="zoom:50%;">
+
+<h2 id="Const"><a href="#Const" class="headerlink" title="Const"></a>Const</h2><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303230937511.png" alt="image-20230323093656327" style="zoom:50%;">
+
+<h3 id="Why-use-CONST"><a href="#Why-use-CONST" class="headerlink" title="Why use CONST?"></a>Why use <strong>CONST</strong>?</h3><p>There is no excuse for ignoring the safety mechanisms provided with a product, and there is particularly no excuse for programmers too lazy to write const-correct code.</p>
+<blockquote>
+<p>same as <strong>Why don’t we use global variables?</strong></p>
+</blockquote>
+<ul>
+<li>“Non-const variables can be <strong>read or modified by any part of the function</strong>“ &lt;**NOT SAFE!!!**&gt;</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141019331.png" alt="image-20230314101927243" style="zoom: 33%;">
+
+<ul>
+<li>if we don’t use const, we <strong>can’t spot the bug easily</strong> in the above code</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141022931.png" alt="image-20230314102259807" style="zoom: 33%;">
+
+<ul>
+<li>if we use const instead of the one above:</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141024534.png" alt="image-20230314102420495" style="zoom:33%;">
+
+<ul>
+<li>we could get errors from the compiler(<strong>compiler time error</strong>):</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141025176.png" alt="image-20230314102522080" style="zoom:50%;">
+
+<ul>
+<li>Besides, const allows us to <strong>reason about</strong> whether a variable will be changed</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141026766.png" alt="image-20230314102658693" style="zoom: 33%;">
+
+<h3 id="const-and-Classes"><a href="#const-and-Classes" class="headerlink" title="const and Classes"></a><strong>const and Classes</strong></h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141037650.png" alt="image-20230314103712508" style="zoom:50%;">
+
+<ul>
+<li>can’t call non-const member function on const object:</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141039891.png" style="zoom: 33%;">
+
+<h3 id="Const-Iterators"><a href="#Const-Iterators" class="headerlink" title="Const Iterators"></a>Const Iterators</h3><ul>
+<li><p>const vector<int>::iterator itr <strong>acts like</strong> int* const  itr</int></p>
+</li>
+<li><p>to make an iterator read-only, define a new const_iterator</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141047618.png" alt="image-20230314104743484" style="zoom: 43%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303141050956.png" alt="image-20230314105022855" style="zoom:50%;">
+
+<h2 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h2><h3 id="Operator-Overloading"><a href="#Operator-Overloading" class="headerlink" title="Operator Overloading"></a>Operator Overloading</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303160923676.png" alt="image-20230316092301560" style="zoom: 33%;">
+
+<blockquote>
+<p>When dealing with <strong>user-defined class</strong>:</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303160926232.png" alt="image-20230316092614143" style="zoom: 33%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303160929617.png" alt="image-20230316092944550" style="zoom:33%;">
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// member</span></span><br><span class="line">vector&lt;string&gt;&amp; vector&lt;string&gt;::<span class="keyword">operator</span>+=(<span class="keyword">const</span> string&amp; s){</span><br><span class="line">    <span class="built_in">push_back</span>(element);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br><span class="line">vec += <span class="string">"hello"</span>;</span><br><span class="line">vec.<span class="keyword">operator</span>+=(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const member</span></span><br><span class="line">StringVector StringVector::<span class="keyword">operator</span>+(<span class="keyword">const</span> StringVector&amp; s) <span class="keyword">const</span>{}</span><br><span class="line"><span class="comment">// non-member</span></span><br><span class="line">StringVector <span class="keyword">operator</span>+(<span class="keyword">const</span> StringVector&amp; s1, <span class="keyword">const</span> StringVector&amp; s2){}</span><br></pre></td></tr></table></figure>
+
+<p><strong>So, implement as Member of Non_Member?</strong></p>
+<ul>
+<li>[], (), -&gt;, = must be implemented as member</li>
+<li>&lt;&lt;, implemented as non-member</li>
+<li>+,&lt; if binary op treats both operands equally, implement as non-member</li>
+<li>+= if binary op doesn’t treat both operands equally( change lhs)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// non-member function</span></span><br><span class="line">std::ostream&amp; <span class="keyword">operator</span>&lt;&lt;(std::ostream&amp; os, <span class="keyword">const</span> Fraction&amp; F){</span><br><span class="line">    os &lt;&lt; f.num&lt;&lt; <span class="string">"/"</span> &lt;&lt; f.denom;</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h3 id="POLA-Principle-of-Least-Astonishment"><a href="#POLA-Principle-of-Least-Astonishment" class="headerlink" title="POLA(Principle of Least Astonishment)"></a>POLA(Principle of Least Astonishment)</h3><blockquote>
+<p>design operators primarily to mimic conventional usage</p>
+</blockquote>
+<ul>
+<li><p><strong>if operator is ambiguous ,  don’t overload that operator</strong></p>
+</li>
+<li><p><strong>use non-member functions for symmetric operators</strong></p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303161020191.png" alt="image-20230316102026110" style="zoom:33%;">
+
+<blockquote>
+<p>The second one doesn’t work if overloaded as member function.</p>
+</blockquote>
+<ul>
+<li><strong>always provide all out of a set of related operators</strong></li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303161022725.png" alt="image-20230316102230667" style="zoom: 33%;">
+
+<blockquote>
+<p>don’t astonish others: if you implement &lt; , you should also implement &gt; etc.</p>
+</blockquote>
+<ul>
+<li><strong>always think about const vs non-const for member functions</strong>:</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303161042328.png" alt="image-20230316104219230" style="zoom:50%;">
+
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303161043742.png" alt="image-20230316104332635"></p>
+<p>Functors (basically lambdas)</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303161027210.png" alt="image-20230316102703125" style="zoom: 50%;">
+
+<p>Advanced Multi-threading Support (C++20)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">awaiter <span class="keyword">operator</span> <span class="title">co_await</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">noexcept</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> awaiter{*<span class="keyword">this</span>};</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h2 id="Special-Member-Functions"><a href="#Special-Member-Functions" class="headerlink" title="Special Member Functions"></a>Special Member Functions</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringVector vec7 = vec4;<span class="comment">// copy constructor</span></span><br><span class="line">vec7 = vec2;<span class="comment">// copy assignment</span></span><br><span class="line"><span class="keyword">return</span> vec7; <span class="comment">// copy constructor</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>when we don’t use default copy constructor?</strong> </p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303161120965.png" alt="image-20230316112057876" style="zoom:50%;">
+
+<p><strong>when we have ownership issues</strong>:</p>
+<ul>
+<li>ownership issues: a member is a handle on a resource outside of the class</li>
+<li>pointers</li>
+<li>mutexes</li>
+<li>filestreams</li>
+</ul>
+<h3 id="Rule-of-Three"><a href="#Rule-of-Three" class="headerlink" title="Rule of Three"></a>Rule of Three</h3><ul>
+<li><strong>if you explicitly define a copy constructor, copy assignment of destructor, you should define all three</strong></li>
+</ul>
+<p>when we need to declare a destructor, we have to take care of the ownership issues, the issues happen to other two.</p>
+<h2 id="Move-Semantics"><a href="#Move-Semantics" class="headerlink" title="Move Semantics"></a>Move Semantics</h2><blockquote>
+<p>emplace_back?</p>
+</blockquote>
+<ul>
+<li>based on the <strong>philosophy</strong>: if you don’t need any copy, don’t do it</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303191420432.png" style="zoom:50%;">
+
+<ul>
+<li>for <strong>larger</strong> <strong>objects</strong></li>
+</ul>
+<h3 id="All-things-have-its-beginning"><a href="#All-things-have-its-beginning" class="headerlink" title="All things have its beginning"></a>All things have its beginning</h3><blockquote>
+<p>What happens when running the following codes?</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">StrVector <span class="title">readNames</span><span class="params">(<span class="keyword">size_t</span> size)</span></span>{</span><br><span class="line">    <span class="function">StrVector <span class="title">names</span><span class="params">(size,<span class="string">"Ito"</span>)</span></span>;</span><br><span class="line">    <span class="keyword">return</span> names;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    StrVector name1 = <span class="built_in">readNames</span>(<span class="number">54321234</span>);</span><br><span class="line">    StrVector name2;</span><br><span class="line">    name2 = <span class="built_in">readNames</span>(<span class="number">54321234</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>you may find it surprising, lots of copy constructor and destructor!</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303191435725.png" alt="image-20230319143511666" style="zoom:50%;">
+
+<ul>
+<li><p>so any optimization?</p>
+</li>
+<li><p><strong>copy elision</strong>, c++17, compiler make the copy only once in the caller function(main)</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303191445093.png" alt="image-20230319144541047" style="zoom: 50%;">
+
+<blockquote>
+<p>still have any further optimization ?</p>
+<p>YES!! The cool thing <strong>move</strong> can save us more time.</p>
+</blockquote>
+<p>in the following code:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name2 = <span class="built_in">readNames</span>(<span class="number">54321234</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>readNames is a temporary value, and will become homeless and will be destroyed, why we need to copy it? There is no need!</li>
+<li>We could <strong>move(steal) the resources</strong> instead!</li>
+</ul>
+<h3 id="lvalue-vs-rvalue"><a href="#lvalue-vs-rvalue" class="headerlink" title="lvalue vs. rvalue"></a>lvalue vs. rvalue</h3><ul>
+<li>lvalue: has a name, can find address</li>
+<li>rvalue: no name, temporary</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v1[<span class="number">1</span>] = <span class="number">4</span>*i; <span class="comment">// v1[1] is a reference to named value "lvalue"</span></span><br><span class="line">v1[<span class="number">2</span>] = *ptr; <span class="comment">// *ptr is a "lvalue" because it points to a named value</span></span><br></pre></td></tr></table></figure>
+
+<p>  <strong>lvalue reference vs. rvalue reference</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>&amp;&amp; v4 = v1+v2; <span class="comment">// save the rvalue, or expands its life time!</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>any changes to v4 will change (v1+v2) temporary object.</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>&amp; ptr3 = &amp;val; <span class="comment">// Wrong! can't bind lvalue reference to rvalue</span></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; val2 = val; <span class="comment">// Wrong! can't bind rvalue reference to lvalue</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>but we could bind const lvalue reference to rvalue</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span>&amp; ptr3 = ptr + <span class="number">5</span>; <span class="comment">// correct! const save us a lot!</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>why it works?</p>
+</blockquote>
+<p>because you are <strong>not changing it</strong> anyway, so it is fine.</p>
+<h3 id="move-constructor-and-assignment"><a href="#move-constructor-and-assignment" class="headerlink" title="move constructor and assignment"></a>move constructor and assignment</h3><blockquote>
+<p>why rvalue are key to move semantics?</p>
+</blockquote>
+<ul>
+<li>lvalue is <strong>NOT disposable</strong>, so you can copy from, but definitely cannot move from.</li>
+<li>rvalue is <strong>disposable</strong>, so you can move from</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// StringVector(StringVector&amp;&amp; other) noexcept;</span></span><br><span class="line"><span class="comment">// StringVector&amp; operator=(StringVector&amp;&amp; rhs) noexcept;</span></span><br><span class="line"></span><br><span class="line">Axess&amp; <span class="keyword">operator</span>=(Axess&amp;&amp; rhs){</span><br><span class="line">    students = std::<span class="built_in">move</span>(rhs.students); <span class="comment">// avoid copy!</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>rhs itself is actually lvalue, so we need to <strong>std::move</strong></li>
+</ul>
+<h3 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h3><blockquote>
+<p>The first very primitive attempt:</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(T&amp; v1, T&amp; v2)</span></span>{</span><br><span class="line">    T temp = v1;</span><br><span class="line">    v1 = v2;</span><br><span class="line">    v2 = temp;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Bad! make three copies, sadly.</li>
+</ul>
+<blockquote>
+<p>with move, second attempt with the knowledge of rvalue reference:</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(T&amp; v1, T&amp; v2)</span></span>{</span><br><span class="line">    T temp = std::<span class="built_in">move</span>(v1);</span><br><span class="line">    v1 = std::<span class="built_in">move</span>(v2);</span><br><span class="line">    v2 = std::<span class="built_in">move</span>(temp);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Cool! We use no copy with move!</li>
+</ul>
+<h3 id="Rule-of-Five"><a href="#Rule-of-Five" class="headerlink" title="Rule of Five"></a>Rule of Five</h3><ul>
+<li>If you declare one, you should declare all of them.(plus move constructor and move assignment)</li>
+</ul>
+<h2 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h2><h3 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> Lecture{</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">(<span class="keyword">const</span> vector&lt;<span class="keyword">int</span>&gt;&amp; v)</span></span>{</span><br><span class="line">        <span class="keyword">int</span> ctr = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i:v){</span><br><span class="line">            <span class="keyword">if</span>(i==<span class="number">1</span>)</span><br><span class="line">                ++ctr;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> ctr;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br><span class="line">cout&lt;&lt;Lecture::<span class="built_in">count</span>(vec)&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><p><strong>interface</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Drink</span>{</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">make</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>cannot be instantiated</li>
+</ul>
+<p><strong>Abstract Classes</strong></p>
+<ul>
+<li><p>cannot be instantiated</p>
+</li>
+<li><p>has at least one pure virtual function</p>
+</li>
+</ul>
+<p><strong>Non-virtual Destructors</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>{</span></span><br><span class="line">    ~<span class="built_in">Base</span>(){}</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived</span>:</span> <span class="keyword">public</span> Base{</span><br><span class="line">    ~<span class="built_in">Derived</span>(){}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">Base *b = <span class="keyword">new</span> <span class="built_in">Derived</span>();</span><br><span class="line"><span class="keyword">delete</span> b; <span class="comment">// Never calls the destructor for derived</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Templetes vs. Derived Classes</strong></p>
+<blockquote>
+<p>When to use each?</p>
+<p><strong>static</strong> vs. <strong>dynamic</strong> polymorphism</p>
+</blockquote>
+<ul>
+<li>Templetes: at complile time generate real codes</li>
+<li>Derived Classes: at run time</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303231129665.png" alt="image-20230323112910581" style="zoom:50%;">
+
+<h2 id="RAII"><a href="#RAII" class="headerlink" title="RAII"></a>RAII</h2><blockquote>
+<p>How many code paths are there ?</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251104958.png" alt="image-20230325110400783" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251109312.png" alt="image-20230325110927161" style="zoom:50%;">
+
+<blockquote>
+<p>Can you guarantee there is no memory leek in the code?</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251111388.png" alt="image-20230325111156256" style="zoom:50%;">
+
+<ul>
+<li>For normal code paths, this code is fine.</li>
+<li>But if there is an exception, we will never reach the <code>delete e</code>.</li>
+</ul>
+<blockquote>
+<p>How to enforce exception safety?</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251127109.png" alt="image-20230325112707980" style="zoom:50%;">
+
+<p><strong>RAII: Resource Acquisition Is Initialization</strong></p>
+<p>(Scope Based Memory Management) (Constructor Acquires, Destructor Releases)(Pointer to Implementation)</p>
+<p><strong>What is RAII?</strong></p>
+<ul>
+<li>all resources should be <strong>acquired</strong> in the <strong>constructor</strong></li>
+<li>all resources should be <strong>released</strong> in the <strong>destructor</strong></li>
+</ul>
+<p>an example: <strong>ifstream satisfies RAII</strong></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251136084.png" alt="image-20230325113657964" style="zoom:50%;">
+
+<ul>
+<li>you should not call close</li>
+</ul>
+<p>another example</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251142706.png" alt="image-20230325114215587" style="zoom:50%;">
+
+<p><strong>fix</strong>:</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251142623.png" alt="image-20230325114229502" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251143604.png" alt="image-20230325114333457" style="zoom:50%;">
+
+<p>besides:</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251147106.png" alt="image-20230325114736038" style="zoom:33%;">
+
+<blockquote>
+<p>Is automatic memory management a good or bad thing?</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251154720.png" alt="image-20230325115402637" style="zoom:50%;">
+
+<h3 id="Unique-Pointer"><a href="#Unique-Pointer" class="headerlink" title="Unique Pointer"></a>Unique Pointer</h3><ul>
+<li>uniquely owns its resource and deletes it when the object is destroyed.</li>
+<li>can’t be copied.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251154195.png" alt="image-20230325115455131" style="zoom: 50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251159944.png" alt="image-20230325115919877" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251200256.png" alt="image-20230325120030213" style="zoom:50%;">
+
+<h3 id="Shared-pointer"><a href="#Shared-pointer" class="headerlink" title="Shared pointer"></a>Shared pointer</h3><ul>
+<li>Resources can be stored by any number of shared_ptrs.</li>
+<li>Delete when none of them point to it</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303251203948.png" alt="image-20230325120328899" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303291012305.png" alt="image-20230329101204208" style="zoom:50%;">
+
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：CS106L笔记：OOP</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/course-learning/CS-106L/OOP/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/C/">#C++</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/CS106L/">#CS106L</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/course-learning/CS-106L/Multi-Threading/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">CS106L笔记：Multi-threading</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/course-learning/CMU-213/213_bits01/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">CSAPP笔记：Bits, Bytes and Integer01</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Object-Oriented-Programming"><span class="nav-number">1.</span> <span class="nav-text">Object Oriented Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fundamentals"><span class="nav-number">1.1.</span> <span class="nav-text">Fundamentals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Const"><span class="nav-number">1.2.</span> <span class="nav-text">Const</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-use-CONST"><span class="nav-number">1.2.1.</span> <span class="nav-text">Why use CONST?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-and-Classes"><span class="nav-number">1.2.2.</span> <span class="nav-text">const and Classes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Const-Iterators"><span class="nav-number">1.2.3.</span> <span class="nav-text">Const Iterators</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Operators"><span class="nav-number">1.3.</span> <span class="nav-text">Operators</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Operator-Overloading"><span class="nav-number">1.3.1.</span> <span class="nav-text">Operator Overloading</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POLA-Principle-of-Least-Astonishment"><span class="nav-number">1.3.2.</span> <span class="nav-text">POLA(Principle of Least Astonishment)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Special-Member-Functions"><span class="nav-number">1.4.</span> <span class="nav-text">Special Member Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Rule-of-Three"><span class="nav-number">1.4.1.</span> <span class="nav-text">Rule of Three</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Move-Semantics"><span class="nav-number">1.5.</span> <span class="nav-text">Move Semantics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#All-things-have-its-beginning"><span class="nav-number">1.5.1.</span> <span class="nav-text">All things have its beginning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lvalue-vs-rvalue"><span class="nav-number">1.5.2.</span> <span class="nav-text">lvalue vs. rvalue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#move-constructor-and-assignment"><span class="nav-number">1.5.3.</span> <span class="nav-text">move constructor and assignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swap"><span class="nav-number">1.5.4.</span> <span class="nav-text">swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rule-of-Five"><span class="nav-number">1.5.5.</span> <span class="nav-text">Rule of Five</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inheritance"><span class="nav-number">1.6.</span> <span class="nav-text">Inheritance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Namespaces"><span class="nav-number">1.6.1.</span> <span class="nav-text">Namespaces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivation"><span class="nav-number">1.6.2.</span> <span class="nav-text">Motivation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RAII"><span class="nav-number">1.7.</span> <span class="nav-text">RAII</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unique-Pointer"><span class="nav-number">1.7.1.</span> <span class="nav-text">Unique Pointer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shared-pointer"><span class="nav-number">1.7.2.</span> <span class="nav-text">Shared pointer</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

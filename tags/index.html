@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            Tags |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class="active"
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="active"
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    
+    <div class="fade-in-down-animation">
+        <div class="tagcloud-container">
+            <div class="tagcloud-content">
+                <a href="/tags/2D-model/" style="font-size: 1.13rem;">2D model</a> <a href="/tags/3D-conv-pooling/" style="font-size: 1rem;">3D conv & pooling</a> <a href="/tags/3D-filters/" style="font-size: 1rem;">3D filters</a> <a href="/tags/3D-model/" style="font-size: 1.2rem;">3D model</a> <a href="/tags/AI-EARTH/" style="font-size: 1rem;">AI-EARTH</a> <a href="/tags/ARG/" style="font-size: 1rem;">ARG</a> <a href="/tags/Activity-Recognition/" style="font-size: 1.4rem;">Activity Recognition</a> <a href="/tags/Anolis/" style="font-size: 1rem;">Anolis</a> <a href="/tags/Anomaly-Detection/" style="font-size: 1rem;">Anomaly Detection</a> <a href="/tags/C/" style="font-size: 1.33rem;">C++</a> <a href="/tags/C3D/" style="font-size: 1rem;">C3D</a> <a href="/tags/CIB/" style="font-size: 1.13rem;">CIB</a> <a href="/tags/CS106L/" style="font-size: 1.2rem;">CS106L</a> <a href="/tags/CS61A/" style="font-size: 1rem;">CS61A</a> <a href="/tags/CSAPP/" style="font-size: 1.2rem;">CSAPP</a> <a href="/tags/CSP/" style="font-size: 1.13rem;">CSP</a> <a href="/tags/CSTT/" style="font-size: 1rem;">CSTT</a> <a href="/tags/DIN/" style="font-size: 1rem;">DIN</a> <a href="/tags/Dynamic-Image/" style="font-size: 1rem;">Dynamic Image</a> <a href="/tags/Dynamic-relation/" style="font-size: 1rem;">Dynamic relation</a> <a href="/tags/Experiment/" style="font-size: 1.47rem;">Experiment</a> <a href="/tags/GAN/" style="font-size: 1rem;">GAN</a> <a href="/tags/GCN/" style="font-size: 1rem;">GCN</a> <a href="/tags/Group-Activity-Recognition/" style="font-size: 1.6rem;">Group Activity Recognition</a> <a href="/tags/Harmony/" style="font-size: 1rem;">Harmony</a> <a href="/tags/I3D/" style="font-size: 1rem;">I3D</a> <a href="/tags/Inverted-Residuals/" style="font-size: 1rem;">Inverted Residuals</a> <a href="/tags/KMP/" style="font-size: 1rem;">KMP</a> <a href="/tags/Kinetics/" style="font-size: 1rem;">Kinetics</a> <a href="/tags/LSTM/" style="font-size: 1.2rem;">LSTM</a> <a href="/tags/Linear-Bottlenecks/" style="font-size: 1rem;">Linear Bottlenecks</a> <a href="/tags/Long-time-range-modeling/" style="font-size: 1rem;">Long time range modeling</a> <a href="/tags/Long-Term/" style="font-size: 1rem;">Long-Term</a> <a href="/tags/MAC-Loss/" style="font-size: 1rem;">MAC-Loss</a> <a href="/tags/MIL/" style="font-size: 1rem;">MIL</a> <a href="/tags/MIT6-S081/" style="font-size: 1.53rem;">MIT6.S081</a> <a href="/tags/MIT%E8%AF%BE%E7%A8%8B/" style="font-size: 1.13rem;">MIT课程</a> <a href="/tags/MoViNets/" style="font-size: 1rem;">MoViNets</a> <a href="/tags/MobileNet/" style="font-size: 1.13rem;">MobileNet</a> <a href="/tags/NAS/" style="font-size: 1.07rem;">NAS</a> <a href="/tags/NL%E5%9D%97/" style="font-size: 1rem;">NL块</a> <a href="/tags/OS/" style="font-size: 1.47rem;">OS</a> <a href="/tags/PA/" style="font-size: 1rem;">PA</a> <a href="/tags/RNN/" style="font-size: 1rem;">RNN</a> <a href="/tags/ResNeXt/" style="font-size: 1rem;">ResNeXt</a> <a href="/tags/SE%E5%9D%97/" style="font-size: 1rem;">SE块</a> <a href="/tags/TLE-Layer/" style="font-size: 1rem;">TLE Layer</a> <a href="/tags/TPN/" style="font-size: 1rem;">TPN</a> <a href="/tags/TSM/" style="font-size: 1rem;">TSM</a> <a href="/tags/TimeSformer/" style="font-size: 1rem;">TimeSformer</a> <a href="/tags/X3D/" style="font-size: 1rem;">X3D</a> <a href="/tags/Y-NET/" style="font-size: 1rem;">Y-NET</a> <a href="/tags/acwing/" style="font-size: 1rem;">acwing</a> <a href="/tags/acwing%E4%BA%8C%E5%88%B7/" style="font-size: 1rem;">acwing二刷</a> <a href="/tags/amp/" style="font-size: 1rem;">amp</a> <a href="/tags/anolis/" style="font-size: 1rem;">anolis</a> <a href="/tags/architecture-design/" style="font-size: 1.27rem;">architecture design</a> <a href="/tags/attention/" style="font-size: 1rem;">attention</a> <a href="/tags/bellmanfold/" style="font-size: 1rem;">bellmanfold</a> <a href="/tags/bfs/" style="font-size: 1rem;">bfs</a> <a href="/tags/code-forces/" style="font-size: 1.07rem;">code_forces</a> <a href="/tags/composer/" style="font-size: 1rem;">composer</a> <a href="/tags/depth-wise-separable-convolution/" style="font-size: 1rem;">depth-wise separable convolution</a> <a href="/tags/dfs/" style="font-size: 1.07rem;">dfs</a> <a href="/tags/distributed/" style="font-size: 1rem;">distributed</a> <a href="/tags/docker/" style="font-size: 1.07rem;">docker</a> <a href="/tags/embedded-vision-application/" style="font-size: 1rem;">embedded vision application</a> <a href="/tags/flask/" style="font-size: 1rem;">flask</a> <a href="/tags/fusion-method/" style="font-size: 1rem;">fusion method</a> <a href="/tags/graph/" style="font-size: 1.07rem;">graph</a> <a href="/tags/grid-generator/" style="font-size: 1rem;">grid generator</a> <a href="/tags/group-convlution/" style="font-size: 1rem;">group convlution</a> <a href="/tags/hierachical-model/" style="font-size: 1.07rem;">hierachical model</a> <a href="/tags/ics2022/" style="font-size: 1rem;">ics2022</a> <a href="/tags/idea/" style="font-size: 1rem;">idea</a> <a href="/tags/input-transformer/" style="font-size: 1rem;">input transformer</a> <a href="/tags/java-web/" style="font-size: 1rem;">java web</a> <a href="/tags/lightning/" style="font-size: 1rem;">lightning</a> <a href="/tags/linux/" style="font-size: 1rem;">linux</a> <a href="/tags/localization-network/" style="font-size: 1rem;">localization network</a> <a href="/tags/makefile/" style="font-size: 1rem;">makefile</a> <a href="/tags/math/" style="font-size: 1.07rem;">math</a> <a href="/tags/nlp/" style="font-size: 1rem;">nlp</a> <a href="/tags/openEuler/" style="font-size: 1rem;">openEuler</a> <a href="/tags/os/" style="font-size: 1rem;">os</a> <a href="/tags/p3d/" style="font-size: 1rem;">p3d</a> <a href="/tags/peer-attention/" style="font-size: 1rem;">peer attention</a> <a href="/tags/pipe/" style="font-size: 1.13rem;">pipe</a> <a href="/tags/pose-branch/" style="font-size: 1rem;">pose branch</a> <a href="/tags/pySlowFast/" style="font-size: 1rem;">pySlowFast</a> <a href="/tags/python/" style="font-size: 1rem;">python</a> <a href="/tags/r-2-1-d/" style="font-size: 1rem;">r(2+1)d</a> <a href="/tags/rank-pooling/" style="font-size: 1rem;">rank pooling</a> <a href="/tags/relation-graph/" style="font-size: 1rem;">relation graph</a> <a href="/tags/relation-reasoning/" style="font-size: 1.07rem;">relation reasoning</a> <a href="/tags/research/" style="font-size: 1rem;">research</a> <a href="/tags/scrum/" style="font-size: 1rem;">scrum</a> <a href="/tags/self-attention/" style="font-size: 1rem;">self attention</a> <a href="/tags/setuptools/" style="font-size: 1rem;">setuptools</a> <a href="/tags/shell/" style="font-size: 1rem;">shell</a>
+            </div>
+        </div>
+    </div>
+
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

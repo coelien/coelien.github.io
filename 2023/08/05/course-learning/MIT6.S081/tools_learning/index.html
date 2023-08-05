@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            MIT6.S081 tips：常用工具 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">MIT6.S081 tips：常用工具</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/courses/">courses</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/courses/Operating-System/">Operating System</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/MIT6-S081/">MIT6.S081</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/OS/">OS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/tools/">tools</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>9 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="MIT6-S081-tips：常用工具"><a href="#MIT6-S081-tips：常用工具" class="headerlink" title="MIT6.S081 tips：常用工具"></a>MIT6.S081 tips：常用工具</h1><blockquote>
+<p>工欲善其事，必先利其器</p>
+</blockquote>
+<h2 id="C-pointers"><a href="#C-pointers" class="headerlink" title="C pointers"></a>C pointers</h2><h3 id="preps"><a href="#preps" class="headerlink" title="preps"></a>preps</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">int</span> *b = <span class="built_in">malloc</span>(<span class="number">16</span>);</span><br><span class="line"><span class="keyword">int</span> *c;</span><br><span class="line"><span class="keyword">int</span> i;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Q1"><a href="#Q1" class="headerlink" title="Q1"></a>Q1</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"1: a = %p, b = %p, c = %p\n"</span>, a, b, c);</span><br></pre></td></tr></table></figure>
+
+<p>answer:</p>
+<ul>
+<li>1: a = 0x7ffdd2edd3f0, b = 0x56411ea742a0, c = 0x7ffdd2edd889</li>
+</ul>
+<h3 id="Q2"><a href="#Q2" class="headerlink" title="Q2"></a>Q2</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">c = a;</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">    a[i] = <span class="number">100</span> + i;</span><br><span class="line">c[<span class="number">0</span>] = <span class="number">200</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"2: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n"</span>,</span><br><span class="line">	   a[<span class="number">0</span>], a[<span class="number">1</span>], a[<span class="number">2</span>], a[<span class="number">3</span>]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>answer:</p>
+<ul>
+<li>2: a[0] = 200, a[1] = 101, a[2] = 102, a[3] = 103</li>
+</ul>
+<h3 id="Q3"><a href="#Q3" class="headerlink" title="Q3"></a>Q3</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c[<span class="number">1</span>] = <span class="number">300</span>;</span><br><span class="line">*(c + <span class="number">2</span>) = <span class="number">301</span>;</span><br><span class="line"><span class="number">3</span>[c] = <span class="number">302</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"3: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n"</span>,</span><br><span class="line">	   a[<span class="number">0</span>], a[<span class="number">1</span>], a[<span class="number">2</span>], a[<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>answer:</p>
+<ul>
+<li>3: a[0] = 200, a[1] = 300, a[2] = 301, a[3] = 302</li>
+</ul>
+<h3 id="Q4"><a href="#Q4" class="headerlink" title="Q4"></a>Q4</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c = c + <span class="number">1</span>;</span><br><span class="line">*c = <span class="number">400</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"4: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n"</span>,</span><br><span class="line">	   a[<span class="number">0</span>], a[<span class="number">1</span>], a[<span class="number">2</span>], a[<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>answer:</p>
+<ul>
+<li>4: a[0] = 200, a[1] = 400, a[2] = 301, a[3] = 302</li>
+</ul>
+<h3 id="Q5"><a href="#Q5" class="headerlink" title="Q5"></a>Q5</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c = (<span class="keyword">int</span> *) ((<span class="keyword">char</span> *) c + <span class="number">1</span>);</span><br><span class="line">*c = <span class="number">500</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"5: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n"</span>,</span><br><span class="line">	   a[<span class="number">0</span>], a[<span class="number">1</span>], a[<span class="number">2</span>], a[<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>answer:</p>
+<ul>
+<li><p>5: a[0] = 200, a[1] = 400, a[2] = 500, a[3] = 302</p>
+<p><strong>wrong</strong>! this answer is much more difficult</p>
+</li>
+<li><p>5: a[0] = 200, a[1] = 128144, a[2] = 256, a[3] = 302</p>
+</li>
+</ul>
+<blockquote>
+<p>why a[1] = 128144, a[2] = 256?  这个题对于不懂大小端以及指针的人来说挺难的</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230421144834654.png" alt="image-20230421144834654" style="zoom:50%;">
+
+<p> 如上图，其实是以大端的方式存储的（方便查看内容），但是其实在该计算机中实际以小端存储：</p>
+<p>（以a[0]-a[2]为例）c8000000 90010000 2d010000…</p>
+<p>c实际上是：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230421145435569.png" alt="image-20230421145435569" style="zoom:50%;">
+
+<p>也就是修改*c，会修改加粗部分的内容c8000000 90<strong>010000 2d</strong>010000…（整体向后偏移1字节，因为char大小为1字节），修改后为：c8000000 90<strong>f4010000 00</strong>010000…，转换为大端表示如下图所示：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230421145024925.png" alt="image-20230421145024925" style="zoom:50%;">
+
+<h3 id="Q6"><a href="#Q6" class="headerlink" title="Q6"></a>Q6</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b = (<span class="keyword">int</span> *) a + <span class="number">1</span>; <span class="comment">// a+4</span></span><br><span class="line">c = (<span class="keyword">int</span> *) ((<span class="keyword">char</span> *) a + <span class="number">1</span>); <span class="comment">// a+1</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"6: a = %p, b = %p, c = %p\n"</span>, a, b, c);</span><br></pre></td></tr></table></figure>
+
+<p>answer:</p>
+<ul>
+<li>6: a = 0x7fffac3d88e0, b = 0x7fffac3d88e4, c = 0x7fffac3d88e1</li>
+</ul>
+<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><p>从有向无环图去理解git的原理： 一个git 仓库永远仅仅只是一个DAG和它的便利贴（branch 可以移动，tag则不行）</p>
+<h3 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h3><p>git 对象存储 仅仅只是 对象的有向无环图， 它们通过SHA-1哈希来压缩和识别</p>
+<h4 id="blob"><a href="#blob" class="headerlink" title="blob"></a>blob</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-storage.1.dot.svg" alt="blob"></p>
+<ul>
+<li>最简单的对象，字节的集合。通常是一个文件，但也可以是一个符号链接或是其他任何东西。</li>
+</ul>
+<h4 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-storage.2.dot.svg" alt="tree"></p>
+<ul>
+<li>目录由tree进行表示。他们指向的是file blobs 或 是其他的trees（子目录）</li>
+</ul>
+<h4 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-storage.3.dot.svg" alt="commit"></p>
+<ul>
+<li>一个commit指向一个代表提交时刻文件状态的tree，它还可以指向0~n个其他的父commits，如果父commits多于一个意味着该commit是merge，没有父commit意味着是初始提交。</li>
+</ul>
+<h4 id="refs"><a href="#refs" class="headerlink" title="refs"></a>refs</h4><blockquote>
+<p>references, heads or branches</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-storage.4.dot.svg" alt="refs"></p>
+<ul>
+<li>refs就像一个节点的便利贴一样，或是书签，表示“我在该节点工作”</li>
+<li>git commit 在有向无环图中加入一个新的节点，并将当前分支的便利贴移动到最新的节点</li>
+<li>HEAD ref比较特殊，因为它实际上指向另一个ref（指向当前正在活跃的branch）</li>
+</ul>
+<h4 id="remote-refs"><a href="#remote-refs" class="headerlink" title="remote refs"></a>remote refs</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-storage.5.dot.svg" alt="remote refs"></p>
+<ul>
+<li>远程ref在不同的namespace下，并由远程服务器控制，git fetch可以更新它们</li>
+</ul>
+<h4 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-storage.6.dot.svg" alt="tag"></p>
+<ul>
+<li>tag既是有向图中的节点，又是一个便利贴，它指向一次提交（不会移动的便利贴）</li>
+</ul>
+<h3 id="History"><a href="#History" class="headerlink" title="History"></a>History</h3><blockquote>
+<p> how to manage history?</p>
+</blockquote>
+<h4 id="simplest-repo"><a href="#simplest-repo" class="headerlink" title="simplest repo"></a>simplest repo</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.1.dot.svg" alt="clone"></p>
+<h4 id="fetch-one-from-remote"><a href="#fetch-one-from-remote" class="headerlink" title="fetch one from remote"></a>fetch one from remote</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.2.dot.svg" alt="fetch"></p>
+<h4 id="git-merge-remote"><a href="#git-merge-remote" class="headerlink" title="git merge remote"></a>git merge remote</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.3.dot.svg" alt="merge"></p>
+<h4 id="git-commit-and-git-fetch-later"><a href="#git-commit-and-git-fetch-later" class="headerlink" title="git commit and git fetch later"></a>git commit and git fetch later</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.4.dot.svg" alt="commit"></p>
+<h4 id="git-merge-remote-1"><a href="#git-merge-remote-1" class="headerlink" title="git merge remote"></a>git merge remote</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.5.dot.svg" alt="merge again"></p>
+<ul>
+<li>wasn’t fast-forward</li>
+<li>a new commit node was create(e)</li>
+</ul>
+<h4 id="a-few-commits-on-both-branches-and-another-merge"><a href="#a-few-commits-on-both-branches-and-another-merge" class="headerlink" title="a few commits on both branches and another merge"></a>a few commits on both branches and another merge</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.6.dot.svg" alt="more commits"></p>
+<ul>
+<li>DAG records exactly what the history of actions taken was</li>
+</ul>
+<h4 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.7.dot.svg" alt="stitching"></p>
+<ul>
+<li>your commit is replaced by another commit with a different parent, and your branch is moved there.</li>
+<li>the d is still here, not removed:</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.8.dot.svg" alt="garbage collect"></p>
+<h4 id="rebase-multiple-commits"><a href="#rebase-multiple-commits" class="headerlink" title="rebase multiple commits"></a>rebase multiple commits</h4><p><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/git-history.9.dot.svg" alt="rebase"></p>
+<h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2><h3 id="为什么用script？"><a href="#为什么用script？" class="headerlink" title="为什么用script？"></a>为什么用script？</h3><p>script是用来记录一个terminal session中发生的所有事情的</p>
+<p>session的所有都可以被回放（replay），但需要timing log file的支持，详见scriptreplay</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230421171106985.png" alt="image-20230421171106985" style="zoom:50%;">
+
+<p>当print语句很多时，我们想要搜索我们<strong>关注</strong>的部分，可以把所有的console输出到一个文件中方便我们查找，别忘了记录完要exit哦</p>
+<h3 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h3><p><code>script [options] [file]</code></p>
+<h3 id="选项："><a href="#选项：" class="headerlink" title="选项："></a>选项：</h3><ul>
+<li>-a：追加输出到文件</li>
+<li>-c：运行命令</li>
+<li>-f：每次写之后刷新输出</li>
+<li>-T: 记录时间信息到文件中</li>
+<li>-I：记录输入到文件</li>
+<li>-O：记录输出到文件</li>
+</ul>
+<h3 id="退出："><a href="#退出：" class="headerlink" title="退出："></a>退出：</h3><h4 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h4><h3 id="展示："><a href="#展示：" class="headerlink" title="展示："></a>展示：</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230421172106753.png" alt="image-20230421172106753" style="zoom:50%;">
+
+<h2 id="addr2line"><a href="#addr2line" class="headerlink" title="addr2line"></a>addr2line</h2><p>当内核出现错误，它会打出一个错误信息，里面包含程序计数器的值。可以使用addr2line将程序指令地址转换为所对应的函数名、以及函数所在的源文件名和行号。</p>
+<p>例如，我们写一个错误程序：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>{</span><br><span class="line">    <span class="keyword">return</span> a/b;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">int</span>  a = <span class="number">3</span>, b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> div = <span class="built_in">divide</span>(a,b);</span><br><span class="line">    std::cout&lt;&lt;div&lt;&lt;std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230426163512052.png" alt="image-20230426163512052" style="zoom:50%;">
+
+<p>查看系统日志的错误信息发现，就是出错时所执行的位置。使用addr2line将程序指令地址进行转换，但是出现了显示<code>？？:</code>的问题</p>
+<p>我试了好久，原来是每次程序运行时其VA（虚拟地址都是不同的），所以需要指定其偏移而不是绝对地址。那么是关于哪一个section的偏移呢？我试验了使用text是有问题的，即得不到正确的错误代码所在的行号：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230427104243095.png" alt="image-20230427104243095" style="zoom:50%;">
+
+<p>实际上错误代码所在行号为5，而不是18；</p>
+<p>为此，我查阅了资料，发现**/proc/id/maps** 对于正确使用addr2line很有帮助。</p>
+<blockquote>
+<p>use  /proc/id/maps to view the virtual address space of a particular process.</p>
+</blockquote>
+<h3 id="Segment-Types"><a href="#Segment-Types" class="headerlink" title="Segment Types"></a>Segment Types</h3><ul>
+<li>Code segments </li>
+<li>Data segments</li>
+<li>Stack segments</li>
+<li>Shared libraries segments</li>
+</ul>
+<h3 id="Segment-Permissions"><a href="#Segment-Permissions" class="headerlink" title="Segment Permissions"></a>Segment Permissions</h3><ul>
+<li><strong>read-only (r)</strong> means that the segment is readable, hence all segments usually have that mode</li>
+<li><strong>read-write (w)</strong> means that the segment is readable and writeable to allow for data modification</li>
+<li><strong>execute (x)</strong> means that the segment contains executable code</li>
+<li><strong>private (p)</strong>, which means that the segment is private, thus only visible from that process</li>
+<li><strong>shared (s)</strong>, which means that multiple (at least 2) processes share that segment</li>
+</ul>
+<h3 id="Understanding-Output"><a href="#Understanding-Output" class="headerlink" title="Understanding Output"></a>Understanding Output</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;address start&gt;-&lt;address end&gt;  &lt;mode&gt;  &lt;offset&gt;   &lt;major id:minor id&gt;   &lt;inode id&gt;   &lt;file path&gt; 559b8c418000-559b8c41a000      r--p    00000000          08:30               1708     /usr/bin/cat</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>address start – address end is the start and end address of that mapping</strong>. Note that <strong>the whole</strong> <strong>output is sorted based on those addresses</strong>, from low to high.</li>
+<li><strong>mode (permissions) specifies which actions are available on this mapping</strong> and if it’s private or shared.</li>
+<li><strong>offset is the start offset in bytes within the file that is mapped</strong>. This <strong>only makes sense for file mappings</strong>. For instance, stack or heap mappings are examples of mappings that aren’t files, and in those cases, the offset is 0. In the above example, the mapping is of the <em>/usr/bin/cat</em> file, and the offset is 0.</li>
+<li><strong>major:minor ids represent the device that the mapped file lives</strong> in the form of a major and minor id. In the above example, 08:30 represents the major and minor id of the hard drive that has the root filesystem. For non-file mappings, this column shows 00:00*.*</li>
+<li><strong>inode id of the mapped file</strong> (again, that’s only valid for file mappings). <a class="link" target="_blank" rel="noopener" href="https://www.baeldung.com/linux/inodes#inodes">Inodes<i class="fas fa-external-link-alt"></i></a> <strong>are data structures that contain the core filesystem-related metadata</strong>. When it comes to non-file mappings, this field is set to 0. In our example, this id is 1708.</li>
+<li>The <strong>file path of the file for that mapping</strong>. In the event that this is not a file mapping, that field is empty.</li>
+</ul>
+<h3 id="Used-in-Code"><a href="#Used-in-Code" class="headerlink" title="Used in Code"></a>Used in Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> buff[<span class="number">64</span>] = {<span class="number">0x00</span>};</span><br><span class="line"><span class="built_in">sprintf</span>(buff, <span class="string">"cat /proc/%d/maps"</span>, <span class="built_in">getpid</span>());</span><br><span class="line"><span class="built_in">system</span>((<span class="keyword">const</span> <span class="keyword">char</span>*) buff);</span><br></pre></td></tr></table></figure>
+
+<h3 id="objdump"><a href="#objdump" class="headerlink" title="objdump"></a>objdump</h3><p>还有一个工具对使用addr2line也很用帮助: <strong>objdump</strong></p>
+<p>用法： <code>objdump -d a.out</code></p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230427112546973.png" alt="image-20230427112546973" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230427112455964.png" alt="image-20230427112455964" style="zoom:50%;">
+
+<p>然后，可以发现 0x11fb终于显示出来正确的错误行数：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230427112648181.png" alt="image-20230427112648181" style="zoom:50%;">
+
+<p>由此我们可以发现，VA对我们使用addr2line找bug作用极小，因为程序是动态加载的，VA是不断变化的，只有偏移是不变的。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230427112836313.png" alt="image-20230427112836313" style="zoom:50%;">
+
+<p>所以，只有找到偏移才对我们使用addr2line有用。由<code>sprintf(buff, "cat /proc/%d/maps", getpid());</code>打印出：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230427125352075.png" alt="image-20230427125352075" style="zoom:50%;">
+
+<p>我们可以看出text段是在（560224121000-560224122000）,它的offset是1000，所以可以找到偏移地址为11fb。最后使用addr2line可以显示出正确行数：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/image-20230427112648181.png" alt="image-20230427112648181" style="zoom:50%;">
+
+<h2 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h2><p><strong>start QEMU  with GDB</strong></p>
+<ul>
+<li>make qemu[-nox]-gdb, then start GDB in a second shell  </li>
+</ul>
+<h3 id="Breakpoints"><a href="#Breakpoints" class="headerlink" title="Breakpoints"></a>Breakpoints</h3><p><code>break &lt;location&gt;</code></p>
+<p>location can be address, or names(mon backtrace , monitor.c:71  )</p>
+<h3 id="Watchpoints"><a href="#Watchpoints" class="headerlink" title="Watchpoints"></a>Watchpoints</h3><p><code>watch &lt;expression&gt;</code></p>
+<p>stop execution whenever the expression’s value change</p>
+<p><code>watch -l &lt;address&gt;</code></p>
+<p>will stop execution whenever the contents of the specified memory address change  </p>
+<p>p.s. what ‘s the difference between ‘<code>wa var and wa -l &amp;var  </code>?</p>
+<p><code>rwatch [-l] &lt;expression&gt; </code></p>
+<p>will stop execution whenever the value of the expression is read  </p>
+<h3 id="Examining"><a href="#Examining" class="headerlink" title="Examining"></a>Examining</h3><p><code>x/x for hexadecimal, x/i for assembly  </code></p>
+<p>x prints the raw contents of memory in whatever format you specify  </p>
+<p><code>print</code></p>
+<p>evaluates a C expression and prints the result  </p>
+<p><code>info registers  </code></p>
+<p>prints the value of every register  </p>
+<p><code>info frame  </code></p>
+<p>prints the current stack frame  </p>
+<p><code>list &lt;location&gt;  </code></p>
+<p>prints the source code of the function at the specified location</p>
+<p><code>backtrace  </code></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：MIT6.S081 tips：常用工具</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/course-learning/MIT6.S081/tools_learning/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/MIT6-S081/">#MIT6.S081</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/OS/">#OS</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/tools/">#tools</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/course-learning/MIT6.S081/research1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">国产开源OS调研浅析：龙蜥，鸿蒙和欧拉</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/course-learning/MIT6.S081/lec5/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MIT6.S081笔记：lecture 5</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MIT6-S081-tips%EF%BC%9A%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">MIT6.S081 tips：常用工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-pointers"><span class="nav-number">1.1.</span> <span class="nav-text">C pointers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#preps"><span class="nav-number">1.1.1.</span> <span class="nav-text">preps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1"><span class="nav-number">1.1.2.</span> <span class="nav-text">Q1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q3"><span class="nav-number">1.1.4.</span> <span class="nav-text">Q3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q4"><span class="nav-number">1.1.5.</span> <span class="nav-text">Q4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q5"><span class="nav-number">1.1.6.</span> <span class="nav-text">Q5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q6"><span class="nav-number">1.1.7.</span> <span class="nav-text">Q6</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git"><span class="nav-number">1.2.</span> <span class="nav-text">git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Storage"><span class="nav-number">1.2.1.</span> <span class="nav-text">Storage</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#blob"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">blob</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tree"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">tree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commit"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#refs"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">refs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#remote-refs"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">remote refs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tag"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">tag</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#History"><span class="nav-number">1.2.2.</span> <span class="nav-text">History</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#simplest-repo"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">simplest repo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fetch-one-from-remote"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">fetch one from remote</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-merge-remote"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">git merge remote</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-commit-and-git-fetch-later"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">git commit and git fetch later</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-merge-remote-1"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">git merge remote</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a-few-commits-on-both-branches-and-another-merge"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">a few commits on both branches and another merge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rebase"><span class="nav-number">1.2.2.7.</span> <span class="nav-text">rebase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rebase-multiple-commits"><span class="nav-number">1.2.2.8.</span> <span class="nav-text">rebase multiple commits</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#script"><span class="nav-number">1.3.</span> <span class="nav-text">script</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8script%EF%BC%9F"><span class="nav-number">1.3.1.</span> <span class="nav-text">为什么用script？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95%EF%BC%9A"><span class="nav-number">1.3.2.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">选项：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA%EF%BC%9A"><span class="nav-number">1.3.4.</span> <span class="nav-text">退出：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exit"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">exit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%95%E7%A4%BA%EF%BC%9A"><span class="nav-number">1.3.5.</span> <span class="nav-text">展示：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#addr2line"><span class="nav-number">1.4.</span> <span class="nav-text">addr2line</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Segment-Types"><span class="nav-number">1.4.1.</span> <span class="nav-text">Segment Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Segment-Permissions"><span class="nav-number">1.4.2.</span> <span class="nav-text">Segment Permissions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Understanding-Output"><span class="nav-number">1.4.3.</span> <span class="nav-text">Understanding Output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Used-in-Code"><span class="nav-number">1.4.4.</span> <span class="nav-text">Used in Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#objdump"><span class="nav-number">1.4.5.</span> <span class="nav-text">objdump</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB"><span class="nav-number">1.5.</span> <span class="nav-text">GDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Breakpoints"><span class="nav-number">1.5.1.</span> <span class="nav-text">Breakpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watchpoints"><span class="nav-number">1.5.2.</span> <span class="nav-text">Watchpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Examining"><span class="nav-number">1.5.3.</span> <span class="nav-text">Examining</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

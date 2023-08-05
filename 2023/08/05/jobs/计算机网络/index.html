@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            计网复习笔记 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">计网复习笔记</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E8%AE%A1%E7%BD%91/">计网</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>7.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>24 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="从键入网址到网页显示，期间发生了什么？"><a href="#从键入网址到网页显示，期间发生了什么？" class="headerlink" title="从键入网址到网页显示，期间发生了什么？"></a>从键入网址到网页显示，期间发生了什么？</h2><h3 id="url-解析"><a href="#url-解析" class="headerlink" title="url 解析"></a>url 解析</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302141936064.png" alt="image-20230214193653021" style="zoom: 50%;">
+
+<h3 id="生成HTTP消息"><a href="#生成HTTP消息" class="headerlink" title="生成HTTP消息"></a>生成HTTP消息</h3><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302141935404.png" alt="HTTP 的消息格式" style="zoom: 33%;">
+
+<h3 id="真实地址查询"><a href="#真实地址查询" class="headerlink" title="真实地址查询"></a>真实地址查询</h3><p><strong>查询服务器域名对应的 IP 地址</strong></p>
+<p>专门保存了 <code>Web</code> 服务器域名与 <code>IP</code> 的对应关系，它就是 <strong><code>DNS</code> 服务器</strong></p>
+<p>域名解析工作流程：</p>
+<ol>
+<li>客户端首先会发出一个 DNS 请求，问 <a class="link" target="_blank" rel="noopener" href="http://www.server.com/">www.server.com<i class="fas fa-external-link-alt"></i></a> 的 IP 是啥，并发给本地 DNS 服务器（也就是客户端的 TCP/IP 设置中填写的 DNS 服务器地址）。</li>
+<li>本地域名服务器收到客户端的请求后，如果缓存里的表格能找到 <a class="link" target="_blank" rel="noopener" href="http://www.server.com,则它直接返回/">www.server.com，则它直接返回<i class="fas fa-external-link-alt"></i></a> IP 地址。如果没有，本地 DNS 会去问它的根域名服务器：“老大， 能告诉我 <a class="link" target="_blank" rel="noopener" href="http://www.server.com/">www.server.com<i class="fas fa-external-link-alt"></i></a> 的 IP 地址吗？” 根域名服务器是最高层次的，它不直接用于域名解析，但能指明一条道路。</li>
+<li>根 DNS 收到来自本地 DNS 的请求后，发现后置是 .com，说：“<a class="link" target="_blank" rel="noopener" href="http://www.server.com/">www.server.com<i class="fas fa-external-link-alt"></i></a> 这个域名归 .com 区域管理”，我给你 .com 顶级域名服务器地址给你，你去问问它吧。”</li>
+<li>本地 DNS 收到顶级域名服务器的地址后，发起请求问“老二， 你能告诉我 <a class="link" target="_blank" rel="noopener" href="http://www.server.com/">www.server.com<i class="fas fa-external-link-alt"></i></a> 的 IP 地址吗？”</li>
+<li>顶级域名服务器说：“我给你负责 <a class="link" target="_blank" rel="noopener" href="http://www.server.com/">www.server.com<i class="fas fa-external-link-alt"></i></a> 区域的权威 DNS 服务器的地址，你去问它应该能问到”。</li>
+<li>本地 DNS 于是转向问权威 DNS 服务器：“老三，<a href="http://www.server.com对应的IP是啥呀？”">www.server.com对应的IP是啥呀？”</a> server.com 的权威 DNS 服务器，它是域名解析结果的原出处。为啥叫权威呢？就是我的域名我做主。</li>
+<li>权威 DNS 服务器查询后将对应的 IP 地址 X.X.X.X 告诉本地 DNS。</li>
+<li>本地 DNS 再将 IP 地址返回客户端，客户端和目标建立连接。</li>
+</ol>
+<p>至此，我们完成了 DNS 的解析过程。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302141939898.png" alt="image-20230214193909823" style="zoom:50%;">
+
+<h3 id="指南好帮手-——-协议栈"><a href="#指南好帮手-——-协议栈" class="headerlink" title="指南好帮手 —— 协议栈"></a>指南好帮手 —— 协议栈</h3><p>DNS获取IP后，就可以把HTTP的传输工作交给操作系统中的协议栈</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302141944063.png" alt="image-20230214194437962" style="zoom:50%;">
+
+<p>应用程序调研socket库委托协议栈工作。协议栈的下面一半是用 IP 协议控制网络包收发操作，在互联网上传数据时，数据会被切分成一块块的网络包，而将网络包发送给对方的操作就是由 IP 负责的。</p>
+<p>此外 IP 中还包括 <code>ICMP</code> 协议和 <code>ARP</code> 协议。</p>
+<ul>
+<li><code>ICMP</code> 用于告知网络包传送过程中产生的错误以及各种控制信息。</li>
+<li><code>ARP</code> 用于根据 IP 地址查询相应的以太网 MAC 地址。</li>
+</ul>
+<p>IP 下面的网卡驱动程序负责控制网卡硬件，而最下面的网卡则负责完成实际的收发操作，也就是对网线中的信号执行发送和接收操作。</p>
+<h3 id="TCP可靠传输"><a href="#TCP可靠传输" class="headerlink" title="TCP可靠传输"></a>TCP可靠传输</h3><h4 id="TCP报文格式"><a href="#TCP报文格式" class="headerlink" title="TCP报文格式"></a>TCP报文格式</h4><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302141949785.png" alt="image-20230214194904704" style="zoom:50%;">
+
+<ul>
+<li><p>序号：解决乱序问题</p>
+</li>
+<li><p>确认序列：解决丢包问题</p>
+</li>
+<li><p><strong>状态位</strong>：例如 <code>SYN</code> 是发起一个连接，<code>ACK</code> 是回复，<code>RST</code> 是重新连接，<code>FIN</code> 是结束连接等。TCP 是面向连接的，因而双方要维护连接的状态，这些带状态位的包的发送，会引起双方的状态变更。</p>
+</li>
+<li><p>窗口大小：为了进行<strong>流量控制</strong>，声明一个窗口，标识自己当前的处理能力</p>
+</li>
+</ul>
+<h4 id="TCP建立连接"><a href="#TCP建立连接" class="headerlink" title="TCP建立连接"></a>TCP建立连接</h4><p>双方计算机里维护一个状态机，在连接建立的过程中，双方的状态变化如图：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302141953989.png" alt="image-20230214195310893" style="zoom:50%;">
+
+<ul>
+<li>一开始双方状态均为close</li>
+<li>服务器先监听某个端口，处于listen状态</li>
+<li>客户端主动发起连接，发送SYN包，处于syn_sent态</li>
+<li>服务器收到SYN包后，发送SYN+ACK包，表明收到了数据包，处于syn_rcvd态</li>
+<li>客户端收到服务器的ACK包后，发送ACK包到服务器，处于established态（因为它一发一收成功了）</li>
+<li>服务器收到ACK的ACK包后，处于established态（因为它一发一收成功了）</li>
+</ul>
+<p>所以三次握手目的是<strong>保证双方都有发送和接收的能力</strong>。</p>
+<p>TCP 的连接状态查看，在 Linux 可以通过 <code>netstat -napt</code> 命令查看。</p>
+<h4 id="TCP分割数据"><a href="#TCP分割数据" class="headerlink" title="TCP分割数据"></a>TCP分割数据</h4><p>如果 HTTP 请求消息比较长，超过了 <code>MSS</code> 的长度，这时 TCP 就需要把 HTTP 的数据以MSS为单元，拆解成一块块的数据发送，而不是一次性发送所有数据。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142002280.png" alt="MTU 与 MSS" style="zoom:50%;">
+
+<ul>
+<li><code>MTU</code>：一个网络包的最大长度，以太网中一般为 <code>1500</code> 字节。</li>
+<li><code>MSS</code>：除去 IP 和 TCP 头部之后，一个网络包所能容纳的 TCP 数据的最大长度。</li>
+</ul>
+<h3 id="IP远程定位"><a href="#IP远程定位" class="headerlink" title="IP远程定位"></a>IP远程定位</h3><h4 id="IP报文格式"><a href="#IP报文格式" class="headerlink" title="IP报文格式"></a>IP报文格式</h4><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142006409.png" alt="image-20230214200628334" style="zoom:50%;">
+
+<p>假设客户端有多个网卡，就会有多个 IP 地址，那 IP 头部的源地址应该选择哪个 IP 呢？</p>
+<p>需要根据<strong>路由表</strong>规则，来判断哪一个网卡作为源地址 IP。</p>
+<p>在 Linux 操作系统，我们可以使用 <code>route -n</code> 命令查看当前系统的路由表。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142011883.png" alt="路由表" style="zoom:50%;">
+
+<p>第三条目比较特殊，它目标地址和子网掩码都是 <code>0.0.0.0</code>，这表示<strong>默认网关</strong>，如果其他所有条目都无法匹配，就会自动匹配这一行。并且后续就把包发给路由器，<code>Gateway</code> 即是路由器的 IP 地址。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142013934.png" alt="image-20230214201355891" style="zoom:50%;">
+
+<h3 id="MAC两点传输"><a href="#MAC两点传输" class="headerlink" title="MAC两点传输"></a>MAC两点传输</h3><h4 id="MAC包头格式"><a href="#MAC包头格式" class="headerlink" title="MAC包头格式"></a>MAC包头格式</h4><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142015761.png" alt="MAC 包头格式" style="zoom: 67%;">
+
+<p>需要发送方和接收方的MAC地址，协议类型在TCP/IP通信里一般为：</p>
+<ul>
+<li>0800：IP</li>
+<li>0806：ARP</li>
+</ul>
+<p><strong>发送方</strong>的 MAC 地址获取就比较简单了，MAC 地址是在网卡生产时写入到 ROM 里的，只要将这个值读取出来写入到 MAC 头部就可以了。</p>
+<h4 id="ARP协议获取接收方MAC地址"><a href="#ARP协议获取接收方MAC地址" class="headerlink" title="ARP协议获取接收方MAC地址"></a>ARP协议获取接收方MAC地址</h4><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142019140.png" alt="ARP 广播" style="zoom:50%;">
+
+<p>操作系统会把本次查询结果放到一块叫做 <strong>ARP 缓存</strong>的内存空间留着以后用。在发包时：</p>
+<ul>
+<li>先查询 ARP 缓存，如果其中已经保存了对方的 MAC 地址，就不需要发送 ARP 查询，直接使用 ARP 缓存中的地址。</li>
+<li>而当 ARP 缓存中不存在对方 MAC 地址时，则发送 ARP 广播查询。</li>
+</ul>
+<p>在 Linux 系统中，我们可以使用 <code>arp -a</code> 命令来查看 ARP 缓存的内容。</p>
+<h3 id="出口—网卡"><a href="#出口—网卡" class="headerlink" title="出口—网卡"></a>出口—网卡</h3><p>我们需要将数字信息转化为电信号，才能在网线上传输。负责这一操作的正是网卡，控制网卡还需要网卡驱动程序。网卡驱动获取网络包之后，会将其<strong>复制</strong>到网卡内的缓存区中，接着会在其<strong>开头加上报头和起始帧分界符，在末尾加上用于检测错误的帧校验序列</strong>（FCS）。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142027022.png" alt="数据包" style="zoom:50%;">
+
+<h3 id="送别者—交换机"><a href="#送别者—交换机" class="headerlink" title="送别者—交换机"></a>送别者—交换机</h3><p>交换机的设计是将网络包<strong>原样</strong>转发到目的地。交换机工作在 MAC 层，也称为<strong>二层网络设备</strong>。交换机的端口不核对接收方 MAC 地址，而是直接接收所有的包并存放到缓冲区中。和网卡不同，<strong>交换机的端口不具有 MAC 地址</strong></p>
+<p>将包存入缓冲区后，接下来需要查询一下这个包的接收方 MAC 地址是否已经在 MAC 地址表中有记录了。</p>
+<p>交换机的 MAC 地址表主要包含两个信息：</p>
+<ul>
+<li>一个是设备的 MAC 地址，</li>
+<li>另一个是该设备连接在交换机的哪个端口上。</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142029736.jpeg" alt="交换机的 MAC 地址表" style="zoom:50%;">
+
+<p>地址表中找不到指定的 MAC 地址。这可能是因为具有该地址的设备还没有向交换机发送过包，或者这个设备一段时间没有工作导致地址被从地址表中删除了。这种情况下，交换机无法判断应该把包转发到哪个端口，只能将包转发到除了源端口之外的所有端口上，无论该设备连接在哪个端口上都能收到这个包。这样做不会产生什么问题，因为以太网的设计本来就是将包发送到整个网络的，然后<strong>只有相应的接收者才接收包，而其他设备则会忽略这个包</strong>。其实完全不用过于担心，因为发送了包之后目标设备会作出响应，只要返回了响应包，交换机就可以将它的地址写入 MAC 地址表，下次也就不需要把包发到所有端口了。</p>
+<p>此外，如果接收方 MAC 地址是一个<strong>广播地址</strong>，那么交换机会将包发送到除源端口之外的所有端口。</p>
+<p>以下两个属于广播地址：</p>
+<ul>
+<li>MAC 地址中的 <code>FF:FF:FF:FF:FF:FF</code></li>
+<li>IP 地址中的 <code>255.255.255.255</code></li>
+</ul>
+<h3 id="处境大门—路由器"><a href="#处境大门—路由器" class="headerlink" title="处境大门—路由器"></a>处境大门—路由器</h3><p>这一步转发的工作原理和交换机类似，也是通过查表判断包转发的目标。</p>
+<p>不过在具体的操作过程上，路由器和交换机是有区别的。</p>
+<ul>
+<li>因为<strong>路由器</strong>是基于 IP 设计的，俗称<strong>三层</strong>网络设备，路由器的各个端口都具有 MAC 地址和 IP 地址；</li>
+<li>而<strong>交换机</strong>是基于以太网设计的，俗称<strong>二层</strong>网络设备，交换机的端口不具有 MAC 地址。</li>
+</ul>
+<p>路由器的端口具有 MAC 地址，因此它就能够成为以太网的发送方和接收方；同时还具有 IP 地址，从这个意义上来说，它和计算机的网卡是一样的。</p>
+<p>当转发包时，首先路由器端口会接收发给自己的以太网包，然后<strong>路由表</strong>查询转发目标，再由相应的端口作为发送方将以太网包发送出去。</p>
+<p><strong>路由器包接收</strong></p>
+<ul>
+<li>进行错误校验</li>
+<li>如果没问题，检查MAC头部的接收方MAC地址，如果是发给自己的包就放到接受缓冲区，否则丢弃</li>
+</ul>
+<p><strong>查询路由表确定输出端口</strong></p>
+<p><strong>MAC 头部的作用就是将包送达路由器</strong>，其中的接收方 MAC 地址就是路由器端口的 MAC 地址。因此，当包到达路由器之后，MAC 头部的任务就完成了，于是 MAC 头部就会<strong>被丢弃</strong>。</p>
+<p>查询<strong>路由表</strong>判断转发目标：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302142039670.png" alt="路由器转发" style="zoom:50%;">
+
+<p><strong>路由器包发送</strong></p>
+<p>接下来就会进入包的<strong>发送操作</strong>。</p>
+<p>我们需要根据<strong>路由表的网关列</strong>判断对方的地址。</p>
+<ul>
+<li>如果网关是一个 IP 地址，则这个IP 地址就是我们要转发到的目标地址，<strong>还未抵达终点</strong>，还需继续需要路由器转发。</li>
+<li>如果网关为空，则 IP 头部中的接收方 IP 地址就是要转发到的目标地址，也是就终于找到 IP 包头里的目标地址了，说明<strong>已抵达终点</strong>。</li>
+</ul>
+<p>知道对方的 IP 地址之后，接下来需要通过 <code>ARP</code> 协议根据 IP 地址查询 MAC 地址，并将查询的结果作为接收方 MAC 地址。路由器也有 ARP 缓存，因此首先会在 ARP 缓存中查询，如果找不到则发送 ARP 查询请求。接下来，下一个路由器会将包转发给再下一个路由器，经过层层转发之后，网络包就到达了最终的目的地。</p>
+<h3 id="抵达服务器"><a href="#抵达服务器" class="headerlink" title="抵达服务器"></a>抵达服务器</h3><p>扒开 TCP 的头，里面有序列号，需要看一看这个序列包是不是我想要的，如果是就放入缓存中然后返回一个 ACK，如果不是就丢弃。TCP头部里面还有端口号， HTTP 的服务器正在监听这个端口号。于是，服务器自然就知道是 HTTP 进程想要这个包，于是就将包发给 HTTP 进程。服务器的 HTTP 进程看到，原来这个请求是要访问一个页面，于是就把这个网页封装在 HTTP 响应报文里。</p>
+<p>HTTP 响应报文也需要穿上 TCP、IP、MAC 头部，不过这次是源地址是服务器 IP 地址，目的地址是客户端 IP 地址。</p>
+<p>最后，客户端要离开了，向服务器发起了 TCP 四次挥手，至此双方的连接就断开了。</p>
+<h2 id="Linux系统是如何收发包的？"><a href="#Linux系统是如何收发包的？" class="headerlink" title="Linux系统是如何收发包的？"></a>Linux系统是如何收发包的？</h2><h3 id="Linux接收网络包的过程"><a href="#Linux接收网络包的过程" class="headerlink" title="Linux接收网络包的过程"></a>Linux接收网络包的过程</h3><p>当网卡接收到一个网络包后，会通过 DMA 技术，将网络包写入到指定的内存地址，也就是写入到 Ring Buffer ，这个是一个环形缓冲区，接着就会告诉操作系统这个网络包已经到达。</p>
+<p><strong>如何告诉操作系统这个网络包已到达？</strong></p>
+<ul>
+<li>触发中断，每当网卡收到一个网络包后，就触发一个中断告诉操作系统</li>
+<li>Linux 内核在 2.6 版本中引入了 <strong>NAPI 机制</strong>。它的核心概念就是<strong>不采用中断的方式读取数据</strong>，而是首先采用中断唤醒数据接收的服务程序，然后 <code>poll</code> 的方法来轮询数据。</li>
+</ul>
+<p>因此，当有网络包到达时，会通过 DMA 技术，将网络包写入到指定的内存地址，接着网卡向 CPU 发起硬件中断，当 CPU 收到硬件中断请求后，根据中断表，调用已经注册的中断处理函数。</p>
+<p>硬件中断处理函数会做如下的事情：</p>
+<ul>
+<li>需要先「暂时屏蔽中断」，表示已经知道内存中有数据了，告诉网卡下次再收到数据包直接写内存就可以了，不要再通知 CPU 了，这样可以提高效率，避免 CPU 不停的被中断。</li>
+<li>接着，发起「软中断」，然后恢复刚才屏蔽的中断。</li>
+</ul>
+<p>至此，硬件中断处理函数的工作就已经完成。</p>
+<p>硬件中断处理函数做的事情很少，主要耗时的工作都交给软中断处理函数了。</p>
+<p><strong>软中断如何处理？</strong></p>
+<p>内核中的 ksoftirqd 线程专门负责软中断的处理，当 ksoftirqd 内核线程收到软中断后，就会来轮询处理数据。</p>
+<p>ksoftirqd 线程会从 Ring Buffer 中获取一个数据帧，用 sk_buff 表示，从而可以作为一个网络包交给网络协议栈进行逐层处理。</p>
+<p><strong>网络协议栈做了哪些工作？</strong></p>
+<ul>
+<li><p>首先，会先进入到网络接口层，进行包校验，若有误则丢弃</p>
+</li>
+<li><p>到网络层后，取出IP包，根据目标IP地址判断是发到上层还是进行转发。确定发到本机后，从IP头中看上层协议类型是UDP还是TCP，然后去掉IP头，交给上层处理。</p>
+</li>
+<li><p>到传输层后，取出TCP头或UDP头，根据四元组「源 IP、源端口、目的 IP、目的端口」 作为标识，找出对应的 Socket，并把数据放到 Socket 的接收缓冲区。</p>
+</li>
+<li><p>最后，<strong>应用层程序</strong>调用 Socket 接口，将内核的 Socket 接收缓冲区的数据「拷贝」到应用层的缓冲区，然后唤醒用户进程。</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302152056012.png" alt="image-20230215205600896" style="zoom: 67%;">
+
+<h3 id="Linux-发送网络包的流程"><a href="#Linux-发送网络包的流程" class="headerlink" title="Linux 发送网络包的流程"></a>Linux 发送网络包的流程</h3><p>首先，应用程序会调用 Socket 发送数据包的接口，由于这个是系统调用，所以会从用户态陷入到内核态中的 Socket 层，内核会申请一个内核态的 sk_buff 内存，<strong>将用户待发送的数据拷贝到 sk_buff 内存，并将其加入到发送缓冲区</strong>。</p>
+<p>接下来，网络协议栈从 Socket 发送缓冲区中取出 sk_buff，并按照 TCP/IP 协议栈从上到下逐层处理。</p>
+<p>如果使用的是 TCP 传输协议发送数据，那么<strong>先拷贝一个新的 sk_buff 副本</strong> ，这是因为 sk_buff 后续在调用网络层，最后到达网卡发送完成的时候，这个 sk_buff 会被释放掉。</p>
+<p>而 TCP 协议是支持丢失重传的，在收到对方的 ACK 之前，这个 sk_buff 不能被删除。所以内核的做法就是每次调用网卡发送的时候，实际上传递出去的是 sk_buff 的一个拷贝，等收到 ACK 再真正删除。</p>
+<p>接着，对 sk_buff 填充 TCP 头。这里提一下，sk_buff 可以表示各个层的数据包，在应用层数据包叫 data，在 TCP 层我们称为 segment，在 IP 层我们叫 packet，在数据链路层称为 frame。</p>
+<p><strong>你可能会好奇，为什么全部数据包只用一个结构体来描述呢？</strong></p>
+<p>协议栈采用的是分层结构，上层向下层传递数据时需要增加包头，下层向上层数据时又需要去掉包头，如果每一层都用一个结构体，那在层之间传递数据的时候，就要发生多次拷贝，这将大大降低 CPU 效率。</p>
+<p>于是，为了在层级之间传递数据时，不发生拷贝，只用 sk_buff 一个结构体来描述所有的网络包，那它是如何做到的呢？是通过调整 sk_buff 中 <code>data</code> 的指针，比如：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302152105702.jpeg" alt="img" style="zoom: 67%;">
+
+<p>然后交给网络层，在网络层里会做这些工作：选取路由（确认下一跳的 IP）、填充 IP 头、对超过 MTU 大小的数据包进行分片。处理完这些工作后会交给网络接口层处理。</p>
+<p>网络接口层会通过 ARP 协议获得下一跳的 MAC 地址，然后对 sk_buff 填充帧头和帧尾，接着将 sk_buff 放到网卡的发送队列中。</p>
+<p>这一些工作准备好后，会触发「软中断」告诉网卡驱动程序，这里有新的网络包需要发送，驱动程序会从发送队列中读取 sk_buff，将这个 sk_buff 挂到 RingBuffer 中，接着将 sk_buff 数据映射到网卡可访问的内存 DMA 区域，最后触发真实的发送。</p>
+<p>当数据发送完成以后，其实工作并没有结束，因为内存还没有清理。当发送完成的时候，网卡设备会触发一个硬中断来释放内存，主要是释放 sk_buff 内存和清理 RingBuffer 内存。</p>
+<p>最后，当收到这个 TCP 报文的 ACK 应答时，传输层就会释放原始的 sk_buff 。</p>
+<h2 id="HTTP-常见面试题"><a href="#HTTP-常见面试题" class="headerlink" title="HTTP 常见面试题"></a>HTTP 常见面试题</h2><h3 id="HTTP基本概念"><a href="#HTTP基本概念" class="headerlink" title="HTTP基本概念"></a>HTTP基本概念</h3><h4 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h4><p>是超文本传输协议。使用计算机能够理解的语言确立了一种两台计算机之间交流通信（传输文字，图片，音频等）的规范，以及各种控制和错误处理方式。</p>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302202107847.png" alt=" 五大类 HTTP 状态码 " style="zoom:50%;">
+
+<ul>
+<li><p>3xx</p>
+<ul>
+<li>301：永久重定向</li>
+<li>302：暂时重定向</li>
+</ul>
+<p>301 和 302 都会在响应头里使用字段 <code>Location</code>，指明后续要跳转的 URL，浏览器会自动重定向新的 URL。</p>
+</li>
+<li><p>4xx</p>
+<ul>
+<li>400：请求报文错误</li>
+<li>403：服务器禁止访问资源</li>
+<li>404：请求的资源在服务器未找到</li>
+</ul>
+</li>
+<li><p>5xx</p>
+<ul>
+<li>500：服务器通用错误</li>
+<li>501：客户端请求的功能还不支持</li>
+<li>502：通常是服务器作为网关或代理时返回的错误码</li>
+<li>503：服务器当前很忙，暂时无法访问</li>
+</ul>
+</li>
+</ul>
+<h4 id="常见字段"><a href="#常见字段" class="headerlink" title="常见字段"></a>常见字段</h4><ul>
+<li><p>Host：指定服务器域名</p>
+</li>
+<li><p>Content-Length：表明本次返回的数据长度</p>
+<ul>
+<li>通过设置回车符、换行符作为HTTP header的边界</li>
+<li>通过Content-Length作为HTTP body的边界</li>
+</ul>
+</li>
+<li><p>Connection：<code>Keep-Alive</code>用于客户端要求服务器使用【HTTP长连接】机制，以便其他请求复用</p>
+</li>
+<li><p>Content-Type：本次数据的格式，<code>Content-Type: text/html; Charset=utf-8</code></p>
+</li>
+<li><p>Content-Encoding：说明数据的压缩方法（压缩格式），<code>Content-Encoding: gzip</code></p>
+</li>
+</ul>
+<h3 id="GET与POST"><a href="#GET与POST" class="headerlink" title="GET与POST"></a>GET与POST</h3><h4 id="GET与POST的区别"><a href="#GET与POST的区别" class="headerlink" title="GET与POST的区别"></a>GET与POST的区别</h4><ul>
+<li>GET：从服务器获取指定的资源</li>
+<li>POST：根据请求报文对指定的资源做出处理</li>
+</ul>
+<h4 id="安全和幂等"><a href="#安全和幂等" class="headerlink" title="安全和幂等"></a>安全和幂等</h4><ul>
+<li><p>安全：请求方法不会破坏服务器上的资源</p>
+</li>
+<li><p>幂等：多次执行相同的操作，结果都是相同的</p>
+</li>
+<li><p>GET方法是安全且幂等的，因此可以对GET请求的数据做缓存</p>
+</li>
+<li><p>POST方法是不安全且不幂等的，‘多次提交创建多个资源，且有可能会修改服务器上的资源’</p>
+</li>
+<li><p>HTTP传输的内容都是明文的，要避免被窃取，可以使用HTTPS协议</p>
+</li>
+</ul>
+<h3 id="HTTP缓存计术"><a href="#HTTP缓存计术" class="headerlink" title="HTTP缓存计术"></a>HTTP缓存计术</h3><h4 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h4><p>只要浏览器判断缓存没有过期，则直接使用浏览器的本地缓存，如下图就是使用了强制缓存：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302221956974.png" alt="img" style="zoom:50%;">
+
+<p>如何实现？</p>
+<p>根据HTTP响应头部字段实现的，它们都用来表示资源在客户端缓存的有效期：</p>
+<ul>
+<li>Cache-Control：相对时间</li>
+<li>Expires：绝对时间</li>
+</ul>
+<p>浏览器再次访问服务器中该资源时，会通过请求资源的时间与Cache-Control中设置的过期时间大小，来计算出该资源是否过期。服务器再次收到请求后，会再次更新Response头部的Cache-Control。</p>
+<h4 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h4><p>通过服务器告知客户端是否可以使用缓存的方式被称为协商缓存。返回的响应码是 <code>304</code></p>
+<p>如何实现？</p>
+<p>第一种，基于请求头部中的<code>If-Modified-Since</code>与响应头部中的<code>Last-Modified</code>字段实现：</p>
+<ul>
+<li>Last-Modified：响应资源的最后修改时间</li>
+<li>If-Modified-Since：当资源过期，发现响应头部有Last-Modified声明，则再次发起请求的时候带上Last-Modified时间，服务器收到请求后，发现有If-Modified-Since，则与被请求资源的最后修改时间进行比较，如果改过，则返回最新资源，HTTP 200 OK，否则返回HTTP 304。</li>
+</ul>
+<p>注意，<strong>协商缓存这两个字段都需要配合强制缓存中 Cache-Control 字段来使用，只有在未能命中强制缓存的时候，才能发起带有协商缓存字段的请求</strong>。</p>
+<p>当使用 ETag 字段实现的协商缓存的过程：</p>
+<ul>
+<li><p>当浏览器第一次请求访问服务器资源时，服务器会在返回这个资源的同时，在 Response 头部加上 ETag 唯一标识，这个唯一标识的值是根据当前请求的资源生成的；</p>
+</li>
+<li><p>当浏览器再次请求访问服务器中的该资源时，首先会先检查强制缓存是否过期：</p>
+<ul>
+<li>如果没有过期，则直接使用本地缓存；</li>
+<li>如果缓存过期了，会在 Request 头部加上 If-None-Match 字段，该字段的值就是 ETag 唯一标识；</li>
+</ul>
+</li>
+<li><p>服务器再次收到请求后，</p>
+<p>会根据请求中的 If-None-Match 值与当前请求的资源生成的唯一标识进行比较：</p>
+<ul>
+<li><strong>如果值相等，则返回 304 Not Modified，不会返回资源</strong>；</li>
+<li>如果不相等，则返回 200 状态码和返回资源，并在 Response 头部加上新的 ETag 唯一标识；</li>
+</ul>
+</li>
+<li><p>如果浏览器收到 304 的请求响应状态码，则会从本地缓存中加载资源，否则更新资源。</p>
+</li>
+</ul>
+<h3 id="HTTP特性"><a href="#HTTP特性" class="headerlink" title="HTTP特性"></a>HTTP特性</h3><ul>
+<li>简单</li>
+</ul>
+<p>报文格式就是简单的<code>header+body</code>的格式，简单且易于理解</p>
+<ul>
+<li>灵活和易于扩展</li>
+</ul>
+<p>HTTP协议里的各类请求方法、URI、状态码、头字段等各个组成要求都没有固定死，允许开发者自定义和扩充</p>
+<p>其下层也可以随意变化：</p>
+<p>如https就是在HTTP与TCP之间增加了SSL安全传输层</p>
+<p>HTTP3.0改用了UDP协议</p>
+<ul>
+<li>应用广泛和跨平台</li>
+</ul>
+<h4 id="HTTP-1-1的缺点？"><a href="#HTTP-1-1的缺点？" class="headerlink" title="HTTP/1.1的缺点？"></a>HTTP/1.1的缺点？</h4><ol>
+<li><strong>无状态双刃剑</strong></li>
+</ol>
+<p>好处：</p>
+<p>服务器不会去记忆HTTP的状态，所以不需要额外的资源来记录状态信息，可以有效减轻服务器的负担</p>
+<p>坏处：</p>
+<p>在完成有关联性的操作时会非常麻烦</p>
+<p><strong>如何解决无状态的问题？</strong></p>
+<p>使用cookie技术：在请求和响应报文中写入cookie信息来控制客户端的状态。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302281937439.png" style="zoom:50%;">
+
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302281937574.png" alt="image-20230228193730501" style="zoom:50%;">
+
+<p>２.　<strong>明文传输双刃剑</strong></p>
+<p>通信使用明文，可能会被窃听</p>
+<h4 id="HTTP的性能如何？"><a href="#HTTP的性能如何？" class="headerlink" title="HTTP的性能如何？"></a>HTTP的性能如何？</h4><ol>
+<li>长连接</li>
+</ol>
+<p>早期HTTP每发起一个请求都要新建一次TCP连接（三次握手），而且是串行请求，做了无谓的TCP连接和断开。因此，HTTP1.1提出了长连接的通信方式，也叫持久连接</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302281942927.png" alt="image-20230228194215885" style="zoom:50%;">
+
+<ol start="2">
+<li>管道网络传输</li>
+</ol>
+<p>即在同一个TCP连接里，客户端可以发起多个请求，减少整体响应时间。</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302281944646.png" alt="image-20230228194441595" style="zoom:50%;">
+
+<p>HTTP1.1管道解决了请求的队头堵塞，但没有解决响应的队头堵塞。</p>
+<ol start="3">
+<li>队头堵塞</li>
+</ol>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202302281948995.png" alt="image-20230228194829966" style="zoom:50%;">
+
+<h3 id="HTTP与HTTPS"><a href="#HTTP与HTTPS" class="headerlink" title="HTTP与HTTPS"></a>HTTP与HTTPS</h3><h4 id="两者的区别"><a href="#两者的区别" class="headerlink" title="两者的区别"></a>两者的区别</h4><ul>
+<li>HTTPS加入了SSL安全协议，使得报文可以加密传输</li>
+<li>HTTPS建立连接时，还需要SSL握手过程</li>
+<li>HTTP默认端口是80，HTTPS的默认端口是443</li>
+<li>需要向CA申请数字证书，来保证服务器的身份是可信的</li>
+</ul>
+<h4 id="HTTPS解决了HTTP的哪些问题？"><a href="#HTTPS解决了HTTP的哪些问题？" class="headerlink" title="HTTPS解决了HTTP的哪些问题？"></a>HTTPS解决了HTTP的哪些问题？</h4><p>HTTP存在：</p>
+<ul>
+<li>窃听风险</li>
+<li>篡改风险</li>
+<li>冒充风险</li>
+</ul>
+<p>HTTPS可以：</p>
+<ul>
+<li><strong>信息加密</strong>：使用混和加密的方式来保密</li>
+<li><strong>检验机制</strong>：使用摘要算法来实现完整性</li>
+<li><strong>身份证书</strong>：将服务器公钥放入到数字证书中，解决了冒充的风险</li>
+</ul>
+<ol>
+<li>混合加密</li>
+</ol>
+<p>HTTPS采用对称加密和非对称加密结合的“混合加密”。</p>
+<ul>
+<li>在通信建立前采用<strong>非对称加密</strong>的方式交换「会话秘钥」，后续就不再使用非对称加密。</li>
+<li>在通信过程中全部使用<strong>对称加密</strong>的「会话秘钥」的方式加密明文数据。</li>
+</ul>
+<p>采用「混合加密」的方式的原因：</p>
+<ul>
+<li><strong>对称加密</strong>只使用一个密钥，运算速度快，密钥必须保密，无法做到安全的密钥交换。</li>
+<li><strong>非对称加密</strong>使用两个密钥：公钥和私钥，公钥可以任意分发而私钥保密，解决了密钥交换问题但速度慢。</li>
+</ul>
+<ol start="2">
+<li>摘要算法+数字签名</li>
+</ol>
+<p>使用摘要算法计算出内容的哈希值（唯一）</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303061910202.png" alt="img" style="zoom:50%;">
+
+<p>缺点：只能保证内容不会被篡改，但不能保证<strong>内容+哈希</strong>不会被中间人替换</p>
+<p><strong>非对称加密算法</strong>：</p>
+<ul>
+<li>公钥加密，私钥解密：<strong>为了保证内容传输的安全</strong>，只有持有私钥的人才能解密出实际的内容</li>
+<li>私钥加密，公钥解密：<strong>为了保证消息不会被冒充</strong>，如果公钥可以解密，说明这个消息是持有私钥的人发的</li>
+</ul>
+<p>非对称加密的主要用途：<strong>通过「私钥加密，公钥解密」的方式，来确认消息的身份</strong>。数字签名算法用的就是这种方式，不过私钥加密的不是内容，而是内容的哈希值。</p>
+<p>私钥由服务器保管，然后服务器会向客户端颁发对应的公钥，如果客户端收到的信息，能被公钥解密，就说明该消息是由服务器发送的。</p>
+<ol start="3">
+<li>数字证书</li>
+</ol>
+<ul>
+<li>可以通过哈希算法来保证消息的完整性；</li>
+<li>可以通过数字签名来保证消息的来源可靠性（能确认消息是由持有私钥的一方发送的）；</li>
+</ul>
+<p><strong>还缺少身份验证的环节</strong>，万一公钥是被伪造的呢（公钥可能被替换成坏人的公钥）？</p>
+<p>把公钥注册到数字证书认证机构CA，他们会用自己的私钥对公钥做一个数字签名，最终将【个人信息，公钥，数字签名】打包一个数字证书。服务端用自己的私钥签名后，还会把数字证书给客户端。客户端会通过CA判断是否可信。</p>
+<h4 id="HTTPS是如何建立连接的？期间交互了什么？"><a href="#HTTPS是如何建立连接的？期间交互了什么？" class="headerlink" title="HTTPS是如何建立连接的？期间交互了什么？"></a>HTTPS是如何建立连接的？期间交互了什么？</h4><p>SSL/TLS协议基本流程:</p>
+<ul>
+<li>客户端向服务器索要并验证服务器的公钥</li>
+<li>双方协商产生会话密钥</li>
+<li>双方采用会话密钥进行加密通信</li>
+</ul>
+<p>TLS握手阶段涉及4次通信，若采用RSA密钥交换算法：</p>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303061957916.jpeg" alt="HTTPS 连接建立过程" style="zoom:50%;">
+
+<blockquote>
+<p>客户端校验数字证书的流程是怎样的？</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303062009195.png" alt="img" style="zoom:50%;">
+
+<p>为什么要使用证书链？</p>
+<p><strong>这是为了确保根证书的绝对安全性，将根证书隔离地越严格越好，不然根证书如果失守了，那么整个信任链都会有问题。</strong></p>
+<h4 id="HTTPS中的应用数据是如何保证完整性的？"><a href="#HTTPS中的应用数据是如何保证完整性的？" class="headerlink" title="HTTPS中的应用数据是如何保证完整性的？"></a>HTTPS中的应用数据是如何保证完整性的？</h4><p>TLS 在实现上分为<strong>握手协议</strong>和<strong>记录协议</strong>两层：</p>
+<ul>
+<li>握手协议：负责协商加密算法和生成对称密钥，后续用此密钥来保护应用程序数据（即 HTTP 数据）</li>
+<li>记录协议：TLS 记录协议负责保护应用程序数据并验证其完整性和来源，所以对 HTTP 数据加密是使用记录协议；</li>
+</ul>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202303062016659.png" alt="img" style="zoom:50%;">
+
+<ul>
+<li>分片</li>
+<li>压缩</li>
+<li>计算 MAC 值（消息验证码）</li>
+<li>加密</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：计网复习笔记</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/jobs/计算机网络/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%AE%A1%E7%BD%91/">#计网</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/jobs/%E5%8D%8E%E4%B8%BA%E6%8A%A5%E5%91%8A%E8%AE%B2%E7%A8%BF/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">华为开发者峰会报告讲稿</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/life-sharing/exersice/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">健身入门</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E9%94%AE%E5%85%A5%E7%BD%91%E5%9D%80%E5%88%B0%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA%EF%BC%8C%E6%9C%9F%E9%97%B4%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">从键入网址到网页显示，期间发生了什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url-%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.1.</span> <span class="nav-text">url 解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90HTTP%E6%B6%88%E6%81%AF"><span class="nav-number">1.1.2.</span> <span class="nav-text">生成HTTP消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E5%AE%9E%E5%9C%B0%E5%9D%80%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.</span> <span class="nav-text">真实地址查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%8D%97%E5%A5%BD%E5%B8%AE%E6%89%8B-%E2%80%94%E2%80%94-%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="nav-number">1.1.4.</span> <span class="nav-text">指南好帮手 —— 协议栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="nav-number">1.1.5.</span> <span class="nav-text">TCP可靠传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">TCP报文格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">TCP建立连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP%E5%88%86%E5%89%B2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.5.3.</span> <span class="nav-text">TCP分割数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E8%BF%9C%E7%A8%8B%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.1.6.</span> <span class="nav-text">IP远程定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">IP报文格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MAC%E4%B8%A4%E7%82%B9%E4%BC%A0%E8%BE%93"><span class="nav-number">1.1.7.</span> <span class="nav-text">MAC两点传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MAC%E5%8C%85%E5%A4%B4%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.7.1.</span> <span class="nav-text">MAC包头格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP%E5%8D%8F%E8%AE%AE%E8%8E%B7%E5%8F%96%E6%8E%A5%E6%94%B6%E6%96%B9MAC%E5%9C%B0%E5%9D%80"><span class="nav-number">1.1.7.2.</span> <span class="nav-text">ARP协议获取接收方MAC地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BA%E5%8F%A3%E2%80%94%E7%BD%91%E5%8D%A1"><span class="nav-number">1.1.8.</span> <span class="nav-text">出口—网卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%81%E5%88%AB%E8%80%85%E2%80%94%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="nav-number">1.1.9.</span> <span class="nav-text">送别者—交换机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E5%A2%83%E5%A4%A7%E9%97%A8%E2%80%94%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-number">1.1.10.</span> <span class="nav-text">处境大门—路由器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%B5%E8%BE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.1.11.</span> <span class="nav-text">抵达服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E6%94%B6%E5%8F%91%E5%8C%85%E7%9A%84%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">Linux系统是如何收发包的？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E6%8E%A5%E6%94%B6%E7%BD%91%E7%BB%9C%E5%8C%85%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">Linux接收网络包的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-%E5%8F%91%E9%80%81%E7%BD%91%E7%BB%9C%E5%8C%85%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">Linux 发送网络包的流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">HTTP 常见面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.1.</span> <span class="nav-text">HTTP基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%AD%97%E6%AE%B5"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">常见字段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET%E4%B8%8EPOST"><span class="nav-number">1.3.2.</span> <span class="nav-text">GET与POST</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GET%E4%B8%8EPOST%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">GET与POST的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%92%8C%E5%B9%82%E7%AD%89"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">安全和幂等</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E7%BC%93%E5%AD%98%E8%AE%A1%E6%9C%AF"><span class="nav-number">1.3.3.</span> <span class="nav-text">HTTP缓存计术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">强制缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">协商缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.4.</span> <span class="nav-text">HTTP特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-1-1%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">HTTP&#x2F;1.1的缺点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP%E7%9A%84%E6%80%A7%E8%83%BD%E5%A6%82%E4%BD%95%EF%BC%9F"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">HTTP的性能如何？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E4%B8%8EHTTPS"><span class="nav-number">1.3.5.</span> <span class="nav-text">HTTP与HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E8%80%85%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">两者的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS%E8%A7%A3%E5%86%B3%E4%BA%86HTTP%E7%9A%84%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">HTTPS解决了HTTP的哪些问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS%E6%98%AF%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E7%9A%84%EF%BC%9F%E6%9C%9F%E9%97%B4%E4%BA%A4%E4%BA%92%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.3.5.3.</span> <span class="nav-text">HTTPS是如何建立连接的？期间交互了什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E6%95%B0%E6%8D%AE%E6%98%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%AE%8C%E6%95%B4%E6%80%A7%E7%9A%84%EF%BC%9F"><span class="nav-number">1.3.5.4.</span> <span class="nav-text">HTTPS中的应用数据是如何保证完整性的？</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

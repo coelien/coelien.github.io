@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python cv">
+    <meta name="description" content="show sth I learned in Computer Science">
+    <meta name="author" content="sixwalter">
+    
+    <title>
+        
+            Pytorch Ligntning 轻量级框架浅析 |
+        
+        我的征途是星辰大海
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/pkq.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/pkq.png","favicon":"/images/pkq.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"山的那边是海"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Nobody's Website" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                我的征途是星辰大海
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Pytorch Ligntning 轻量级框架浅析</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/pkq.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">sixwalter</span>
+                        
+                            <span class="author-label">Lv6</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-08-05 11:14:26</span>
+        <span class="mobile">2023-08-05 11:14</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/kinetics%E9%A1%B9%E7%9B%AE/">kinetics项目</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E8%BD%BB%E9%87%8F%E7%BA%A7%E6%A1%86%E6%9E%B6/">轻量级框架</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/lightning/">lightning</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>7 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Pytorch-Ligntning-轻量级框架浅析"><a href="#Pytorch-Ligntning-轻量级框架浅析" class="headerlink" title="Pytorch Ligntning 轻量级框架浅析"></a>Pytorch Ligntning 轻量级框架浅析</h1><blockquote>
+<p>该文章为基于<a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/starter/introduction.html">官方文档<i class="fas fa-external-link-alt"></i></a>的学习总结</p>
+</blockquote>
+<h2 id="使用该框架的优点（why-not-using-it-）"><a href="#使用该框架的优点（why-not-using-it-）" class="headerlink" title="使用该框架的优点（why not using it?）"></a>使用该框架的优点（why not using it?）</h2><ul>
+<li>保持了全部的灵活性</li>
+<li>更可读，将工程代码和研究代码解耦</li>
+<li>更容易重现（reproduce）</li>
+<li>更易扩展，且不需要改变模型</li>
+</ul>
+<h2 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h2><h3 id="定义-LightningModule"><a href="#定义-LightningModule" class="headerlink" title="定义 LightningModule"></a>定义 LightningModule</h3><p><strong>SYSTEM VS MODEL</strong></p>
+<blockquote>
+<p>一个lightning 模块不仅仅只是model，更是一个<strong>系统</strong></p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/coelien/image-hosting/master/img/202206151727525.png" alt="img" style="zoom:50%;">
+
+<p>实际上lightning模块仅仅是一个<code>torch.nn.Module</code>模块，该模块将所有的<strong>研究代码集中到了一个文件当中</strong>，使它包含了：</p>
+<ul>
+<li>The Train loop</li>
+<li>The Validation loop</li>
+<li>The Test loop</li>
+<li>The Prediction loop</li>
+<li>The Model or system of Models</li>
+<li>The Optimizers and LR Schedulers</li>
+</ul>
+<p>通过Hooks特性，我们自定义<strong>训练的任何细节</strong>，详见：<a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/common/lightning_module.html#lightning-hooks">Hooks<i class="fas fa-external-link-alt"></i></a></p>
+<p><strong>FORWARD vs TRAINING_STEP</strong></p>
+<p>lighting推荐将训练和推理相分离</p>
+<ul>
+<li>使用<code>forward</code>进行推理或预测</li>
+<li>使用<code>training_step</code>进行训练</li>
+</ul>
+<h3 id="使用Lightning-Trainer来拟合数据"><a href="#使用Lightning-Trainer来拟合数据" class="headerlink" title="使用Lightning Trainer来拟合数据"></a>使用Lightning Trainer来拟合数据</h3><ul>
+<li><p>首先需要定义数据集：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_module = UCF101DataLoader()</span><br></pre></td></tr></table></figure></li>
+<li><p>初始化lightning模块和trainer，之后调用fit进行训练：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">classification_module = VideoClassificationLightningModule()</span><br><span class="line">trainer = pytorch_lightning.Trainer(gpus=[<span class="number">0</span>, <span class="number">1</span>], strategy=<span class="string">"ddp"</span>, max_epochs=<span class="number">30</span>,default_root_dir=<span class="string">"logs_ucf101"</span>, precision=<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">trainer.fit(classification_module, data_module)</span><br></pre></td></tr></table></figure></li>
+<li><p>trainer支持多种训练功能的自动化</p>
+<ul>
+<li>Epoch and batch iteration</li>
+<li><code>optimizer.step()</code>, <code>loss.backward()</code>, <code>optimizer.zero_grad()</code> calls</li>
+<li>Calling of <code>model.eval()</code>, enabling/disabling grads during evaluation</li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/common/checkpointing.html">Checkpoint Saving and Loading<i class="fas fa-external-link-alt"></i></a></li>
+<li>Tensorboard (see <a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/common/loggers.html">loggers<i class="fas fa-external-link-alt"></i></a> options)</li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/accelerators/gpu.html#multi-gpu-training">Multi-GPU<i class="fas fa-external-link-alt"></i></a> support</li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/accelerators/tpu.html">TPU<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/advanced/precision.html#amp">16-bit precision AMP<i class="fas fa-external-link-alt"></i></a> support</li>
+</ul>
+</li>
+</ul>
+<h2 id="基本特色"><a href="#基本特色" class="headerlink" title="基本特色"></a>基本特色</h2><h3 id="自动化优化"><a href="#自动化优化" class="headerlink" title="自动化优化"></a>自动化优化</h3><p>只要在<code>train_step（）</code>返回loss损失，lighting就会自动地帮我们反向传播，更新优化器等；对于GAN，强化学习这类涉及多个优化器的模型，我们也可以关闭自动优化自己控制：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">    self.automatic_optimization = <span class="literal">False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">training_step</span>(<span class="params">self, batch, batch_idx</span>):</span></span><br><span class="line">    <span class="comment"># access your optimizers with use_pl_optimizer=False. Default is True,</span></span><br><span class="line">    <span class="comment"># setting use_pl_optimizer=True will maintain plugin/precision support</span></span><br><span class="line">    opt_a, opt_b = self.optimizers(use_pl_optimizer=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    loss_a = self.generator(batch)</span><br><span class="line">    opt_a.zero_grad()</span><br><span class="line">    <span class="comment"># use `manual_backward()` instead of `loss.backward` to automate half precision, etc...</span></span><br><span class="line">    self.manual_backward(loss_a)</span><br><span class="line">    opt_a.step()</span><br><span class="line"></span><br><span class="line">    loss_b = self.discriminator(batch)</span><br><span class="line">    opt_b.zero_grad()</span><br><span class="line">    self.manual_backward(loss_b)</span><br><span class="line">    opt_b.step()</span><br></pre></td></tr></table></figure>
+
+<h3 id="预测和部署"><a href="#预测和部署" class="headerlink" title="预测和部署"></a>预测和部署</h3><p><strong>进行预测的三种方式</strong></p>
+<ul>
+<li><p>提取子模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ----------------------------------</span></span><br><span class="line"><span class="comment"># to use as embedding extractor</span></span><br><span class="line"><span class="comment"># ----------------------------------</span></span><br><span class="line">autoencoder = LitAutoEncoder.load_from_checkpoint(<span class="string">"path/to/checkpoint_file.ckpt"</span>)</span><br><span class="line">encoder_model = autoencoder.encoder</span><br><span class="line">encoder_model.<span class="built_in">eval</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------------</span></span><br><span class="line"><span class="comment"># to use as image generator</span></span><br><span class="line"><span class="comment"># ----------------------------------</span></span><br><span class="line">decoder_model = autoencoder.decoder</span><br><span class="line">decoder_model.<span class="built_in">eval</span>()</span><br></pre></td></tr></table></figure></li>
+<li><p>使用forward函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ----------------------------------</span></span><br><span class="line"><span class="comment"># using the AE to extract embeddings</span></span><br><span class="line"><span class="comment"># ----------------------------------</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LitAutoEncoder</span>(<span class="params">LightningModule</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.encoder = nn.Sequential(nn.Linear(<span class="number">28</span> * <span class="number">28</span>, <span class="number">64</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        embedding = self.encoder(x)</span><br><span class="line">        <span class="keyword">return</span> embedding</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">autoencoder = LitAutoEncoder()</span><br><span class="line">embedding = autoencoder(torch.rand(<span class="number">1</span>, <span class="number">28</span> * <span class="number">28</span>))</span><br></pre></td></tr></table></figure></li>
+<li><p>生产（production）:</p>
+<ul>
+<li>Onnx using <code>to_onnx()</code> method</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">autoencoder = LitAutoEncoder()</span><br><span class="line">input_sample = torch.randn((<span class="number">1</span>, <span class="number">28</span> * <span class="number">28</span>))</span><br><span class="line">autoencoder.to_onnx(file_path=<span class="string">"model.onnx"</span>, input_sample=input_sample, export_params=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>TorchScript using <code>to_torchscript()</code> method.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">autoencoder = LitAutoEncoder()</span><br><span class="line">autoencoder.to_torchscript(file_path=<span class="string">"model.pt"</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="多种加速方式（accelerators）"><a href="#多种加速方式（accelerators）" class="headerlink" title="多种加速方式（accelerators）"></a>多种加速方式（accelerators）</h3><ul>
+<li><p>CPU</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># train on CPU / 什么都不设置，默认在cpu上</span></span><br><span class="line">trainer = Trainer()</span><br><span class="line"><span class="comment"># train on 8 CPUs</span></span><br><span class="line">trainer = Trainer(accelerator=<span class="string">"cpu"</span>, devices=<span class="number">8</span>)</span><br><span class="line"><span class="comment"># train on 128 machines，8 devices per machine</span></span><br><span class="line">trainer = pl.Trainer(accelerator=<span class="string">"cpu"</span>, devices=<span class="number">8</span>, num_nodes=<span class="number">128</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>GPU</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># train on 1 GPU</span></span><br><span class="line">trainer = pl.Trainer(accelerator=<span class="string">"gpu"</span>, devices=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># train on multiple GPUs across nodes (32 GPUs here)</span></span><br><span class="line">trainer = pl.Trainer(accelerator=<span class="string">"gpu"</span>, devices=<span class="number">4</span>, num_nodes=<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># train on gpu 1, 3, 5 (3 GPUs total)</span></span><br><span class="line">trainer = pl.Trainer(accelerator=<span class="string">"gpu"</span>, devices=[<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Multi GPU with mixed precision</span></span><br><span class="line">trainer = pl.Trainer(accelerator=<span class="string">"gpu"</span>, devices=<span class="number">2</span>, precision=<span class="number">16</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>TPU</p>
+</li>
+<li><p>IPU</p>
+</li>
+</ul>
+<h3 id="模型checkpoint"><a href="#模型checkpoint" class="headerlink" title="模型checkpoint"></a>模型checkpoint</h3><p><strong>保存训练超参</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyLightningModule</span>(<span class="params">LightningModule</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, learning_rate, *args, **kwargs</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.save_hyperparameters()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># all init args were saved to the checkpoint</span></span><br><span class="line">checkpoint = torch.load(CKPT_PATH)</span><br><span class="line"><span class="built_in">print</span>(checkpoint[<span class="string">"hyper_parameters"</span>])</span><br><span class="line"><span class="comment"># {"learning_rate": the_value}</span></span><br></pre></td></tr></table></figure>
+
+<p>使用self.save_hyperparameters()会自动保存传入init的超参数到checkpoint，可以从字典里的”hyper_parameters”键中找到超参</p>
+<p><strong>恢复训练状态</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model = LitModel()</span><br><span class="line">trainer = Trainer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># automatically restores model, epoch, step, LR schedulers, apex, etc...</span></span><br><span class="line">trainer.fit(model, ckpt_path=<span class="string">"some/path/to/my_checkpoint.ckpt"</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>恢复模型权重</strong></p>
+<p>Lightning 会在每个epoch结束时自动保存模型，一旦训练完成就可以按照下面的方法加载checkpoint：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = LitModel.load_from_checkpoint(path_to_saved_checkpoint)</span><br></pre></td></tr></table></figure>
+
+<p>下面的是手动加载的方式，与上面的方式等价：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># load the ckpt</span></span><br><span class="line">ckpt = torch.load(<span class="string">"path/to/checkpoint.ckpt"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># equivalent to the above</span></span><br><span class="line">model = LitModel()</span><br><span class="line">model.load_state_dict(ckpt[<span class="string">"state_dict"</span>])</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h3><p>对于每一个loop（training，validation，test，predict）我们都可以实现3个hooks来自定义数据流向：</p>
+<ul>
+<li>x_step</li>
+<li>x_step_end(optional)</li>
+<li>x_epoch_end(optional)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">outs = []</span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> data:</span><br><span class="line">    out = training_step(batch)</span><br><span class="line">    out = training_step_end(out)</span><br><span class="line">    outs.append(out)</span><br><span class="line">training_epoch_end(outs)</span><br></pre></td></tr></table></figure>
+
+<p>在Lightning中与之等价的方式为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">training_step</span>(<span class="params">self, batch, batch_idx</span>):</span></span><br><span class="line">    prediction = ...</span><br><span class="line">    <span class="keyword">return</span> prediction</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">training_epoch_end</span>(<span class="params">self, outs</span>):</span></span><br><span class="line">    <span class="keyword">for</span> out <span class="keyword">in</span> outs:</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+
+<p>如果使用dp/dpp2分布式模式，意味着每个batch的数据分散到了多个GPU中，有时我们可能需要将其集合起来进行处理，在这种情况下，可以实现<code>training_step_end()</code>方法来将所有devices的output进行处理来得到结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">training_step</span>(<span class="params">self, batch, batch_idx</span>):</span></span><br><span class="line">    x, y = batch</span><br><span class="line">    y_hat = self.model(x)</span><br><span class="line">    loss = F.cross_entropy(y_hat, y)</span><br><span class="line">    pred = ...</span><br><span class="line">    <span class="keyword">return</span> {<span class="string">"loss"</span>: loss, <span class="string">"pred"</span>: pred}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">training_step_end</span>(<span class="params">self, batch_parts</span>):</span></span><br><span class="line">    <span class="comment"># predictions from each GPU</span></span><br><span class="line">    predictions = batch_parts[<span class="string">"pred"</span>]</span><br><span class="line">    <span class="comment"># losses from each GPU</span></span><br><span class="line">    losses = batch_parts[<span class="string">"loss"</span>]</span><br><span class="line"></span><br><span class="line">    gpu_0_prediction = predictions[<span class="number">0</span>]</span><br><span class="line">    gpu_1_prediction = predictions[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># do something with both outputs(average maybe)</span></span><br><span class="line">    <span class="keyword">return</span> (losses[<span class="number">0</span>] + losses[<span class="number">1</span>]) / <span class="number">2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">training_epoch_end</span>(<span class="params">self, training_step_outputs</span>):</span></span><br><span class="line">    <span class="keyword">for</span> out <span class="keyword">in</span> training_step_outputs:</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+
+<p>整个过程的流程（伪代码）如下，lightning将如下的细节为我们隐藏：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">outs = []</span><br><span class="line"><span class="keyword">for</span> batch_idx, train_batch <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_dataloader):</span><br><span class="line">    batches = split_batch(train_batch)</span><br><span class="line">    dp_outs = []</span><br><span class="line">    <span class="keyword">for</span> sub_batch <span class="keyword">in</span> batches:</span><br><span class="line">        <span class="comment"># 1</span></span><br><span class="line">        dp_out = training_step(sub_batch, batch_idx)</span><br><span class="line">        dp_outs.append(dp_out)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2</span></span><br><span class="line">    out = training_step_end(dp_outs)</span><br><span class="line">    outs.append(out)</span><br><span class="line"></span><br><span class="line"><span class="comment"># do something with the outputs for all batches</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line">training_epoch_end(outs)</span><br></pre></td></tr></table></figure>
+
+<h2 id="额外扩展"><a href="#额外扩展" class="headerlink" title="额外扩展"></a>额外扩展</h2><ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/extensions/datamodules.html#datamodules">LightningDataModule<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/extensions/callbacks.html#callbacks">Callbacks<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/extensions/logging.html#logging">Logging<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/index.html#accelerators">Accelerators<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/extensions/plugins.html#plugins">Plugins<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/extensions/loops.html#loop-customization">Loops<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><blockquote>
+<p>lightning提供很多可以用来调试的工具</p>
+</blockquote>
+<ul>
+<li><p>限制batches数量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use only 10 train batches and three val batches per epoch</span></span><br><span class="line">trainer = Trainer(limit_train_batches=<span class="number">10</span>, limit_val_batches=<span class="number">3</span>)</span><br><span class="line"><span class="comment"># use 20% of total train batches and 10% of total val batches per epoch</span></span><br><span class="line">trainer = Trainer(limit_train_batches=<span class="number">0.2</span>, limit_val_batches=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>每个epoch随机选择较少数量的的batch来进行训练</p>
+</li>
+<li><p>过拟合batches</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Automatically overfit the same batches to your model for a sanity test</span></span><br><span class="line"><span class="comment"># use only 10 train batches</span></span><br><span class="line">trainer = Trainer(overfit_batches=<span class="number">10</span>)</span><br><span class="line"><span class="comment"># use only 20% of total train batches</span></span><br><span class="line">trainer = Trainer(overfit_batches=<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>每个epoch固定选择较少数量的的batch来进行训练</p>
+</li>
+<li><p>快速开发运行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># unit test all the code - hits every line of your code once to see if you have bugs,</span></span><br><span class="line"><span class="comment"># instead of waiting hours to crash somewhere</span></span><br><span class="line">trainer = Trainer(fast_dev_run=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># unit test all the code - hits every line of your code with four batches</span></span><br><span class="line">trainer = Trainer(fast_dev_run=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+<p>对所有代码进行单元测试，看是否存在bug</p>
+</li>
+<li><p>验证检查间隔</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run validation every 25% of a training epoch</span></span><br><span class="line">trainer = Trainer(val_check_interval=<span class="number">0.25</span>)</span><br></pre></td></tr></table></figure>
+
+<p>每1/4个epoch进行一次validation</p>
+</li>
+<li><p>性能测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Profile your code to find speed/memory bottlenecks</span></span><br><span class="line">Trainer(profiler=<span class="string">"simple"</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="其他有用的特性"><a href="#其他有用的特性" class="headerlink" title="其他有用的特性"></a>其他有用的特性</h2><ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/common/early_stopping.html">Automatic early stopping<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/common/lightning_module.html#truncated-bptt-steps">Automatic truncated-back-propagation-through-time<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/advanced/training_tricks.html#batch-size-finder">Automatically scale your batch size<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/advanced/training_tricks.html#learning-rate-finder">Automatically find learning rate<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/common/checkpointing.html#checkpoint-loading">Load checkpoints directly from S3<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/clouds/cluster.html">Scale to massive compute clusters<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/guides/data.html">Use multiple dataloaders per train/val/test/predict loop<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch-lightning.readthedocs.io/en/stable/common/optimization.html#id4">Use multiple optimizers to do reinforcement learning or even GANs<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Pytorch Ligntning 轻量级框架浅析</li>
+        <li>Post author：sixwalter</li>
+        <li>Create time：2023-08-05 11:14:26</li>
+        <li>
+            Post link：https://coelien.github.io/2023/08/05/projects/kinetics project/Lightning/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%BD%BB%E9%87%8F%E7%BA%A7%E6%A1%86%E6%9E%B6/">#轻量级框架</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/lightning/">#lightning</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/08/05/projects/java%20project/%E4%BA%BA%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">vhr项目：学习记录1</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/08/05/projects/kinetics%20project/code_learning/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '71700a6b469f847c8352',
+                    clientSecret: '07981b96409ca9cc05e667f9a8a125a72c954b14',
+                    repo: 'hexo-site-comments',
+                    owner: 'coelien',
+                    admin: ['coelien'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">sixwalter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch-Ligntning-%E8%BD%BB%E9%87%8F%E7%BA%A7%E6%A1%86%E6%9E%B6%E6%B5%85%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">Pytorch Ligntning 轻量级框架浅析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%A5%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%88why-not-using-it-%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">使用该框架的优点（why not using it?）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">使用流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-LightningModule"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义 LightningModule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Lightning-Trainer%E6%9D%A5%E6%8B%9F%E5%90%88%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用Lightning Trainer来拟合数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%89%B9%E8%89%B2"><span class="nav-number">1.3.</span> <span class="nav-text">基本特色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.1.</span> <span class="nav-text">自动化优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E5%92%8C%E9%83%A8%E7%BD%B2"><span class="nav-number">1.3.2.</span> <span class="nav-text">预测和部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%A7%8D%E5%8A%A0%E9%80%9F%E6%96%B9%E5%BC%8F%EF%BC%88accelerators%EF%BC%89"><span class="nav-number">1.3.3.</span> <span class="nav-text">多种加速方式（accelerators）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8Bcheckpoint"><span class="nav-number">1.3.4.</span> <span class="nav-text">模型checkpoint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">1.3.5.</span> <span class="nav-text">数据流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E6%89%A9%E5%B1%95"><span class="nav-number">1.4.</span> <span class="nav-text">额外扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-number">1.5.</span> <span class="nav-text">调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%9C%89%E7%94%A8%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">1.6.</span> <span class="nav-text">其他有用的特性</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
